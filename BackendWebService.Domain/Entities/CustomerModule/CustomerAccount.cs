@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Domain;
 [Table("CustomerAccount")]
-public class CustomerAccount : BaseEntity
+public class CustomerAccount : BaseEntity, IEntity, ITimeModification   
 {
     [ForeignKey("CustomerId")]
     public int CustomerId { get; set; }
@@ -10,10 +11,6 @@ public class CustomerAccount : BaseEntity
     public string? Email { get; set; }
     [Required]
     public string PasswordHash { get; set; }
-    [Required, StringLength(100)]
-    public string SecurityStamp { get; set; } = Guid.NewGuid().ToString();
-    [Required, StringLength(100)]
-    public string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
     public bool IsSocialLogin { get; set; } = false;
     [StringLength(50)]
     public string? SocialProvider { get; set; }

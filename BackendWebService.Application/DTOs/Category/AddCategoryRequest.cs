@@ -1,13 +1,14 @@
-﻿using Application.DTOs.Common;
-using Application.Validators.Common;
+﻿using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
+using Domain;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.Category
+namespace Application.DTOs.Categories
 {
     /// <summary>
     /// Request model for adding a category.
     /// </summary>
-    public class AddCategoryRequest : BaseValidationModel<AddCategoryRequest>
+    public class AddCategoryRequest : BaseValidationModel<AddCategoryRequest>, ICreateMapper<Category>
     {
         /// <summary>
         /// Gets or sets the name of the category.

@@ -1,9 +1,14 @@
-﻿namespace Application.DTOs.Role
+﻿using Domain.Enums;
+using Domain;
+using BackendWebService.Application.Profiles;
+using System;
+
+namespace Application.DTOs.Roles
 {
     /// <summary>
     /// Represents a response containing information about a role.
     /// </summary>
-    public class RolesResponse
+    public class RolesResponse : ICreateMapper<Role>
     {
         /// <summary>
         /// Gets or sets the identifier of the role.

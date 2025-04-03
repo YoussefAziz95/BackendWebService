@@ -1,12 +1,12 @@
-﻿using Application.Contracts.Presistence.Organization;
-using Application.DTOs.SupplierDocument;
+﻿using Application.Contracts.Persistence.Organizations;
+using Application.DTOs.SupplierDocuments;
 using Application.Model.EAVEngine;
-
+using Domain;
 using Domain.Enums;
 using Persistence.Data;
 using System.Data;
 
-namespace Persistence.Repositories.Organiztations
+namespace Persistence.Repositories.Organizations
 {
     /// <summary>
     /// Repository for managing <see cref="Deal"/> entities.
@@ -16,8 +16,8 @@ namespace Persistence.Repositories.Organiztations
         private const string CASE = "WorkflowCase";
         private const string ACTION = "WorkflowAction";
         private const string WORKFLOW = "Workflow";
-        private const string VENDOR_DOCUMENT = "SupplierDocument";
-        private const string PREDOCUMENT = "PreDocument";
+        private const string VENDOR_DOCUMENT = "SupplierDocuments";
+        private const string PREDOCUMENT = "PreDocuments";
 
 
         private readonly ApplicationDbContext _context;
@@ -75,7 +75,7 @@ namespace Persistence.Repositories.Organiztations
             }
         }
 
-       
+
 
         public int UpdateObjectModel(TakeActionModel reviewObjectModel, bool finalAction)
         {

@@ -1,12 +1,10 @@
-﻿using Application.Contracts.Presistence.Product;
-using Application.Contracts.Presistence.WorkflowReviewRepositories;
-using Application.DTOs.Category;
-using Application.DTOs.Common;
-
+﻿using Application.Contracts.Persistence.Product;
+using Application.Contracts.Persistence.WorkflowReviewRepositories;
+using Application.DTOs.Categories;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Persistence.Repositories.Common;
-
 namespace Persistence.Repositories.Product
 {
     public class CategoryRepository : GenericRepository<Category>, ICategoryRepository, IGetObjectType

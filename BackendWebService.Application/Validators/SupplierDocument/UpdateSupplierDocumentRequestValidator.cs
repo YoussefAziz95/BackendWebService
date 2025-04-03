@@ -1,4 +1,4 @@
-﻿using Application.DTOs.SupplierDocument;
+﻿using Application.DTOs.SupplierDocuments;
 using FluentValidation;
 
 namespace Application.Validators.SupplierDocument

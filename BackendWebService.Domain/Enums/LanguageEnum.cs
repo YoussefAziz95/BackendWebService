@@ -1,9 +1,8 @@
-﻿namespace Domain.Enums
+﻿
+namespace Domain.Enums;
+public enum LanguageEnum
 {
-    public enum LanguageEnum
-    {
-        EN = 1, // US  
-        AR = 2, // Egyptian 
-        FK = 3
-    }
+    EN = 1, // US  
+    AR = 2, // Egyptian 
+    FK = 3
 }

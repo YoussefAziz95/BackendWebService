@@ -1,8 +1,10 @@
-﻿namespace Application.Contracts.Presistence.ActorRepositories
+﻿
+using System.Collections.Generic;
+
+namespace Application.Contracts.Persistence.ActorRepositories;
+
+public interface IActorRepositoryFactory<IAction>
 {
-    public interface IActorRepositoryFactory<IAction>
-    {
-        string GetActorType(int id);
-        List<IAction> getActions(int id);
-    }
+    string GetActorType(int id);
+    List<IAction> getActions(int id);
 }

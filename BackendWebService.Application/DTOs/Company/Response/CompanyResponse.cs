@@ -1,12 +1,14 @@
 ﻿using Application.DTOs.Common;
+using BackendWebService.Application.Profiles;
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.Company.Response
+namespace Application.DTOs.Companies.Response
 {
     /// <summary>
     /// Represents the response data for a company.
     /// </summary>
-    public class CompanyResponse
+    public class CompanyResponse: ICreateMapper<Company>
     {
         /// <summary>
         /// Gets or sets the unique identifier of the company.

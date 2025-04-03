@@ -1,4 +1,6 @@
-﻿using Application.Contracts.Presistence;
+﻿using Application.Contracts.Persistence;
+using Domain.Enums;
+using Microsoft.AspNetCore.Http;
 using Persistence.Data;
 
 namespace Persistence.Repositories.Common
@@ -10,18 +12,39 @@ namespace Persistence.Repositories.Common
     {
         private readonly ApplicationDbContext _context;
         private bool disposedValue;
+        public readonly IHttpContextAccessor _httpContextAccessor;
+        public AccessEnum Access = AccessEnum.Public;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UnitOfWork"/> class.
         /// </summary>
         /// <param name="context">The application database context.</param>
         /// <param name="httpContextAccessor">The HTTP context accessor.</param>
-        public UnitOfWork(ApplicationDbContext context)
+        public UnitOfWork(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
+            if (httpContextAccessor is not null && httpContextAccessor.HttpContext.User.Claims.Count() > 0)
+            {
+                if (int.TryParse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault()!.Value, out var Id))
+                {
+                    _context.userInfo.UserId = Id;
+                    _context.userInfo.OrganizationId = int.Parse(Contains(httpContextAccessor, "organizationId"));
+                    _context.userInfo.CompanyId = int.Parse(Contains(httpContextAccessor, "companyId"));
+                    _context.userInfo.SupplierId = int.Parse(Contains(httpContextAccessor, "supplierId"));
+                    _context.userInfo.RoleParentId = int.Parse(Contains(httpContextAccessor, "roleParentId"));
+                    _context.userInfo.SupplierAccountId = int.Parse(Contains(httpContextAccessor, "companyVendorId"));
+
+                    Access = AccessEnum.Private;
+                }
+            }
 
         }
-
+        private string Contains(IHttpContextAccessor httpContextAccessor, string search)
+        {
+            var flag = httpContextAccessor?.HttpContext?.Request?.Headers.ContainsKey(search) ?? false;
+            return flag ? httpContextAccessor.HttpContext.Request.Headers[search] : "0";
+        }
         /// <summary>
         /// Releases all resources used by the <see cref="UnitOfWork"/>.
         /// </summary>

@@ -1,10 +1,9 @@
 ﻿using Domain.Enums;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("TechnicianJob")]
-public class TechnicianJob : BaseEntity
+public class TechnicianJob : BaseEntity, IEntity, ITimeModification
 {
     [Key]
     public int Id { get; set; }

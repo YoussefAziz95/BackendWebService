@@ -3,9 +3,9 @@ using Application.DTOs.Common;
 using Application.Validators.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Base;
+using Api.Base;
 
-namespace Presentation.Controllers
+namespace Api.Controllers
 {
     /// <summary>
     /// Controller responsible for handling requests related to dropdown options.

@@ -1,14 +1,15 @@
-﻿using Application.DTOs.Common;
-using Application.DTOs.SupplierCategory;
+﻿using Application.DTOs.SupplierCategories;
 using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.Company.Request
+namespace Application.DTOs.Companies.Request
 {
     /// <summary>
     /// Represents a request model used to edit company details.
     /// </summary>
-    public class UpdateCompanyRequest : BaseValidationModel<UpdateCompanyRequest>
+    public class UpdateCompanyRequest : BaseValidationModel<UpdateCompanyRequest>, ICreateMapper<Company>
     {
         public int Id { get; set; }
         /// <summary>

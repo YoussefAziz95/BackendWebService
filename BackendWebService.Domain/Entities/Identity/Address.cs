@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("Address")]
-public class Address : BaseEntity
+public class Address : BaseEntity, IEntity, ITimeModification
 {
     [Required, MaxLength(255)]
     public string FullAddress { get; set; }

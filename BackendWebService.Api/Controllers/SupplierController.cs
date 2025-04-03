@@ -1,15 +1,15 @@
-﻿using Application.Contracts.Services;
+﻿using Api.Base;
+using Application.Contracts.Services;
 using Application.DTOs.Common;
-using Application.DTOs.Supplier.Request;
+using Application.DTOs.Suppliers.Request;
 using Application.Validators.Common;
+using Domain;
 using Domain.Constants;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Base;
 
-namespace Presentation.Controllers
+namespace Api.Controllers
 {
     /// <summary>
     /// Controller to manage suppliers.
@@ -134,9 +134,9 @@ namespace Presentation.Controllers
         [HttpPost("addSupplierToCompany")]
         [Authorize(PermissionConstants.VENDOR_CREATE)]
         [ModelValidator]
-        public async Task<IActionResult> AddSupplierToCompany( [FromBody] AddSupplierToCompany request)
+        public async Task<IActionResult> AddSupplierToCompany([FromBody] AddSupplierToCompany request)
         {
-            var result = await _supplierService.AddSupplierTOCompany( request);
+            var result = await _supplierService.AddSupplierTOCompany(request);
             return NewResult(result);
         }
     }

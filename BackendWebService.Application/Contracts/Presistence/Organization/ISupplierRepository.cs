@@ -1,9 +1,10 @@
 ﻿
-using Application.DTOs.Supplier.Responses;
+using Application.DTOs.Suppliers.Responses;
+using Domain;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-
-
-namespace Application.Contracts.Presistence.Organization
+namespace Application.Contracts.Persistence.Organizations
 {
 
     /// <summary>
@@ -12,7 +13,7 @@ namespace Application.Contracts.Presistence.Organization
     /// <typeparam name="TEntity">The type of the entity being managed.</typeparam>
     /// <typeparam name="TResponse">The type of the response for a single entity.</typeparam>
     /// <typeparam name="TResponses">The type of the response for multiple entities or paginated results.</typeparam>
-    public interface ISupplierRepository 
+    public interface ISupplierRepository
     {
         /// <summary>
         /// Adds a new entity to the repository.
@@ -52,7 +53,7 @@ namespace Application.Contracts.Presistence.Organization
 
         Supplier GetById(int id);
 
-         List<GetPaginatedSupplier> GetRegisteredSupplier();
+        List<GetPaginatedSupplier> GetRegisteredSupplier();
     }
 
 }

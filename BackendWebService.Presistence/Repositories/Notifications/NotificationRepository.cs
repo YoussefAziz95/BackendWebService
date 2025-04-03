@@ -1,5 +1,5 @@
-﻿using Application.Contracts.Presistence.Notifications;
-
+﻿using Application.Contracts.Persistence.Notifications;
+using Domain;
 using Persistence.Data;
 
 namespace Persistence.Repositories.Notifications
@@ -45,9 +45,9 @@ namespace Persistence.Repositories.Notifications
 
         public int AddDetailsAsync(string username, int notificationId)
         {
-           
+
             var result = -1;
-            
+
 
             using (var transaction = _context.Database.BeginTransaction())
             {

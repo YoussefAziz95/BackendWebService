@@ -5,10 +5,12 @@ using Application.Implementations;
 using Application.Validators.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Base;
+using Api.Base;
 using System.Net;
 
-namespace Presentation.Controllers
+using Domain.Enums;
+using Domain;
+namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [Authorize]
@@ -59,7 +61,7 @@ namespace Presentation.Controllers
             if(id == 0) return Ok();
             var result = _fileSystemService.DownloadFile(id);
 
-            if (result.StatusCode == HttpStatusCode.NotFound)
+            if (result.StatusCode == ApiResultStatusCode.NotFound)
                 return NewResult(result);
 
             return File(System.IO.File.OpenRead(result.Data!.FilePath!), result.Data!.MimeType!, result.Data!.FileName);

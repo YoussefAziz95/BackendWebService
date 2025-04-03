@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.Notification.Request
+namespace Application.DTOs.Notifications.Request
 {
     /// <summary>
     /// Represents the details of a notification to be included in the add request.

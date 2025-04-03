@@ -1,11 +1,12 @@
-﻿using Domain.Enums;
+﻿
+using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Domain;
 [Table("User")]
-public class User : IdentityUser<int>
+public class User : IdentityUser<int>, IEntity, ITimeModification
 {
     // Basic Info
     public string FirstName { get; set; }
@@ -15,7 +16,7 @@ public class User : IdentityUser<int>
     public string? NormalizedEmail { get; set; }
     public bool EmailConfirmed { get; set; } = false;
 
-    
+
     public string PhoneNumber { get; set; }
     public string? NormalizedPhoneNumber { get; set; }
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
@@ -30,7 +31,7 @@ public class User : IdentityUser<int>
     public bool HasOtp { get; set; } = false;
 
     // Audit Info
-    public string CreatedBy { get; set; }
+    public required string CreatedBy { get; set; }
     public string? UpdatedBy { get; set; }
     public string? DeletedBy { get; set; }
     public DateTime CreatedDate { get; set; }
@@ -44,6 +45,8 @@ public class User : IdentityUser<int>
     public Organization Organization { get; set; }
     public string Department { get; set; }
     public string Title { get; set; }
+
+    [ForeignKey("ActorId")]
     public int? ActorId { get; set; }
 
     // Authentication & Authorization
@@ -52,7 +55,4 @@ public class User : IdentityUser<int>
     public RoleEnum MainRole { get; set; }
     public ICollection<UserRole> UserRoles { get; set; }
 
-    // Delegation
-    public ICollection<User>? Delegations { get; set; }
-    public ICollection<User>? DelegationsTO { get; set; }
 }

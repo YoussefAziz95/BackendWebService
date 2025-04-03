@@ -4,9 +4,9 @@ using Application.Validators.Common;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Base;
+using Api.Base;
 
-namespace Presentation.Controllers
+namespace Api.Controllers
 {
     /// <summary>
     /// Controller to manage permissions.

@@ -1,9 +1,14 @@
-﻿namespace Application.DTOs.PreDocument
+﻿using BackendWebService.Application.Profiles;
+using System;
+
+using Domain.Enums;
+using Domain;
+namespace Application.DTOs.PreDocuments
 {
     /// <summary>
     /// Represents the response data for a pre document.
     /// </summary>
-    public class PreDocumentResponse
+    public class PreDocumentResponse : ICreateMapper<PreDocument>
     {
         /// <summary>
         /// Gets or sets the unique identifier of the pre document.

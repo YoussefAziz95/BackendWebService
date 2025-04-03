@@ -1,5 +1,5 @@
-﻿using Application.Contracts.Presistence;
-
+﻿using Application.Contracts.Persistence;
+using Domain;
 using Persistence.Data;
 
 namespace Persistence.Repositories
@@ -15,7 +15,7 @@ namespace Persistence.Repositories
 
         public void AddLog(Logging log)
         {
-            log.UserId = _context.userInfo is null? (int?)null : _context.userInfo.OrganizationId;
+            log.UserId = _context.userInfo is null ? (int?)null : _context.userInfo.OrganizationId;
             _context.Add(log);
             _context.SaveChanges();
         }

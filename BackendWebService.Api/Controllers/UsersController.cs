@@ -1,13 +1,13 @@
 ﻿using Application.Contracts.Services;
 using Application.DTOs.Common;
-using Application.DTOs.User;
+using Application.DTOs.Users;
 using Application.Validators.Common;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Base;
+using Api.Base;
 
-namespace Presentation.Controllers
+namespace Api.Controllers
 {
     /// <summary>
     /// Controller responsible for managing user-related operations.

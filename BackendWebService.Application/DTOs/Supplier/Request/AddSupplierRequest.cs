@@ -1,13 +1,15 @@
-﻿using Application.DTOs.Common;
-using Application.DTOs.SupplierCategory;
+﻿using Application.DTOs.SupplierCategories;
+using BackendWebService.Application.Profiles;
+using Domain;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.Supplier.Request
+namespace Application.DTOs.Suppliers.Request
 {
     /// <summary>
     /// Represents a request model for adding a supplier.
     /// </summary>
-    public class AddSupplierRequest
+    public class AddSupplierRequest : ICreateMapper<Supplier>, ICreateMapper<Organization>
     {
         /// <summary>
         /// Gets or sets the name of the supplier.

@@ -1,13 +1,13 @@
 ﻿using Application.Contracts.Services;
 using Application.DTOs.Common;
-using Application.DTOs.Role;
+using Application.DTOs.Roles;
 using Application.Validators.Common;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Base;
+using Api.Base;
 
-namespace Presentation.Controllers
+namespace Api.Controllers
 {
     /// <summary>
     /// Controller responsible for handling role-related actions.
@@ -21,7 +21,7 @@ namespace Presentation.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="RolesController"/> class.
         /// </summary>
-        /// <param name="roleService">Service to handle role operations.</param>
+        /// <param name="roleService">Services to handle role operations.</param>
         public RolesController(IApplicationRoleService roleService)
         {
             _roleService = roleService;

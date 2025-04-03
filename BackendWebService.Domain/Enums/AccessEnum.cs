@@ -1,8 +1,7 @@
-﻿namespace Domain.Enums
+﻿namespace Domain.Enums;
+public enum AccessEnum
 {
-    public enum AccessEnum
-    {
-        Public = 1,
-        Private = 2
-    }
+    Public = 1,
+    Private = 2
 }
+

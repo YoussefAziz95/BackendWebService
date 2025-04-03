@@ -1,10 +1,10 @@
-﻿using Domain.Enums;
+﻿
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("Member")]
-public class Member : BaseEntity
+public class Member : BaseEntity, IEntity, ITimeModification
 {
     [Key]
     public int Id { get; set; }  // Primary Key

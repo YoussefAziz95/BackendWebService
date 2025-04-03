@@ -1,9 +1,9 @@
-﻿using Domain.Enums;
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using Domain.Enums;
 [Table("Job")]
-public class Job : BaseEntity
+public class Job : BaseEntity, IEntity, ITimeModification
 {
     [Key]
     public int Id { get; set; }

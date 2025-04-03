@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Category;
+﻿using Application.DTOs.Categories;
 using FluentValidation;
 
 public class UpdateCategoryRequestValidator : AbstractValidator<UpdateCategoryRequest>
@@ -8,7 +8,7 @@ public class UpdateCategoryRequestValidator : AbstractValidator<UpdateCategoryRe
         // Validate that Name list should not be empty if provided
         RuleFor(x => x.Name)
             .NotEmpty()
-            .WithMessage("Category name cannot be empty.")  // Custom message for empty list
+            .WithMessage("Categories name cannot be empty.")  // Custom message for empty list
             .When(x => x.Name != null);
 
         // Apply validation for each item in the Name list
@@ -17,6 +17,6 @@ public class UpdateCategoryRequestValidator : AbstractValidator<UpdateCategoryRe
         RuleFor(x => x.ParentId)
             .GreaterThanOrEqualTo(0)
             .When(x => x.ParentId.HasValue)
-            .WithMessage("Parent ID must be a positive number or null.");
+            .WithMessage("ParentCategory ID must be a positive number or null.");
     }
 }

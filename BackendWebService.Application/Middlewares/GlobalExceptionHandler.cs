@@ -1,12 +1,15 @@
 ﻿using Application.DTOs.Common;
 using Application.Exceptions;
+using Domain.Enums;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
+using System;
+using System.Collections.Generic;
 using System.Text.Json;
+using System.Threading.Tasks;
 
-namespace Application.Middlewares
+namespace Application.Middleware
 {
     /// <summary>
     /// Middleware for handling global exceptions in the application.
@@ -34,33 +37,33 @@ namespace Application.Middlewares
                 {
                     case UnauthorizedAccessException e:
                         responseModel.Message = e.Message;
-                        responseModel.StatusCode = HttpStatusCode.Unauthorized;
-                        response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        responseModel.StatusCode = ApiResultStatusCode.UnAuthorized;
+                        response.StatusCode = (int)ApiResultStatusCode.UnAuthorized;
                         break;
 
                     case ValidationException e:
                         responseModel.Message = e.Message;
-                        responseModel.StatusCode = HttpStatusCode.UnprocessableEntity;
-                        response.StatusCode = (int)HttpStatusCode.UnprocessableEntity;
+                        responseModel.StatusCode = ApiResultStatusCode.UnprocessableEntity;
+                        response.StatusCode = (int)ApiResultStatusCode.UnprocessableEntity;
                         break;
 
                     case CustomValidationException e:
                         responseModel.Message = e.Message;
                         responseModel.Errors = e.Errors;
-                        responseModel.StatusCode = HttpStatusCode.UnprocessableEntity;
-                        response.StatusCode = (int)HttpStatusCode.UnprocessableEntity;
+                        responseModel.StatusCode = ApiResultStatusCode.UnprocessableEntity;
+                        response.StatusCode = (int)ApiResultStatusCode.UnprocessableEntity;
                         break;
 
                     case KeyNotFoundException e:
                         responseModel.Message = e.Message;
-                        responseModel.StatusCode = HttpStatusCode.NotFound;
-                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                        responseModel.StatusCode = ApiResultStatusCode.NotFound;
+                        response.StatusCode = (int)ApiResultStatusCode.NotFound;
                         break;
 
                     case DbUpdateException e:
                         responseModel.Message = e.Message;
-                        responseModel.StatusCode = HttpStatusCode.BadRequest;
-                        response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        responseModel.StatusCode = ApiResultStatusCode.BadRequest;
+                        response.StatusCode = (int)ApiResultStatusCode.BadRequest;
                         break;
 
                     case Exception e:
@@ -68,20 +71,20 @@ namespace Application.Middlewares
                         {
                             responseModel.Message += e.Message;
                             responseModel.Message += e.InnerException == null! ? "" : "\n" + e.InnerException.Message;
-                            responseModel.StatusCode = HttpStatusCode.BadRequest;
-                            response.StatusCode = (int)HttpStatusCode.BadRequest;
+                            responseModel.StatusCode = ApiResultStatusCode.BadRequest;
+                            response.StatusCode = (int)ApiResultStatusCode.BadRequest;
                         }
                         responseModel.Message = e.Message;
                         responseModel.Message += e.InnerException == null! ? "" : "\n" + e.InnerException.Message;
 
-                        responseModel.StatusCode = HttpStatusCode.InternalServerError;
-                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        responseModel.StatusCode = ApiResultStatusCode.InternalServerError;
+                        response.StatusCode = (int)ApiResultStatusCode.InternalServerError;
                         break;
 
                     default:
                         responseModel.Message = ex.Message;
-                        responseModel.StatusCode = HttpStatusCode.InternalServerError;
-                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        responseModel.StatusCode = ApiResultStatusCode.InternalServerError;
+                        response.StatusCode = (int)ApiResultStatusCode.InternalServerError;
                         break;
                 }
                 var result = JsonSerializer.Serialize(responseModel);
@@ -89,5 +92,7 @@ namespace Application.Middlewares
                 await response.WriteAsync(result);
             }
         }
+
+
     }
 }

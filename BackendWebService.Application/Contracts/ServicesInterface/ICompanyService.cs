@@ -1,8 +1,9 @@
 ﻿using Application.Contracts.DTOs;
 using Application.DTOs.Common;
-using Application.DTOs.Company.Request;
-using Application.DTOs.Company.Response;
-using Application.DTOs.Supplier.Responses;
+using Application.DTOs.Companies.Request;
+using Application.DTOs.Companies.Response;
+using Application.DTOs.Suppliers.Responses;
+using System.Threading.Tasks;
 
 namespace Application.Contracts.Services
 {
@@ -45,7 +46,7 @@ namespace Application.Contracts.Services
         /// </summary>
         /// <param name="request">The request containing pagination parameters.</param>
         /// <returns>The paginated response containing information about companies.</returns>
-        Task<IResponse<GetPaginatedCompany>> GetPaginated(GetPaginatedRequest request);
+        Task<PaginatedResponse<GetPaginatedCompany>> GetPaginated(GetPaginatedRequest request);
 
         /// <summary>
         /// Checks if a company ID exists.

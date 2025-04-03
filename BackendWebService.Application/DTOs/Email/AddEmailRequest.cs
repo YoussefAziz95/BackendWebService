@@ -1,9 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.DTOs.Email
 {
@@ -15,10 +11,10 @@ namespace Application.DTOs.Email
 
         public DateTime SentAt { get; set; }
 
-      
+
         public int SenderId { get; set; }
 
-       
+
 
     }
 }

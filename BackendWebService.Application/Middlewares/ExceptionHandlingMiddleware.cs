@@ -1,13 +1,15 @@
 ﻿using Application.Contracts.Services;
-using Application.DTOs.ExceptionLog;
+using Application.DTOs.ExceptionLogs;
 using Application.DTOs.Logging;
 using Domain.Enums;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Diagnostics;
 using System.Net;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
-namespace Application.Middlewares
+namespace Application.Middleware
 {
     public class ExceptionHandlingMiddleware : IMiddleware
     {

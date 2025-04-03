@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Application.DTOs.PreDocument;
+using Application.DTOs.PreDocuments;
 
 public class UpdatePreDocumentRequestValidator : AbstractValidator<UpdatePreDocumentRequest>
 {

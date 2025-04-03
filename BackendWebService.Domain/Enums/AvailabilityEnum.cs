@@ -1,11 +1,10 @@
-﻿namespace Domain.Enums
+﻿
+namespace Domain.Enums;
+public enum AvailabilityEnum
 {
-    public enum AvailabilityEnum
-    {
-        Available,
-        Unavailable,
-        OnLeave,
-        Busy,
-        Offline
-    }
+    Available,
+    Unavailable,
+    OnLeave,
+    Busy,
+    Offline
 }

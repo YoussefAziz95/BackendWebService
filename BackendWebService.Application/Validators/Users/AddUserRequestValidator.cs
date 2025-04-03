@@ -1,4 +1,4 @@
-﻿using Application.DTOs.User;
+﻿using Application.DTOs.Users;
 using FluentValidation;
 
 namespace Application.Validators.Users
@@ -41,8 +41,8 @@ namespace Application.Validators.Users
                 .NotEmpty()
                 .WithMessage("Password is required");
 
-            RuleFor(x => x.Roles)
-                .Must(arr => arr is not null && arr.Any())
+            RuleFor(x => x.MainRole)
+                .NotEmpty()
                 .WithMessage("Please Choose at least one role.");
         }
     }

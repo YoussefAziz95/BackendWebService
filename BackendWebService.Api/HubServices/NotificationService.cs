@@ -1,15 +1,14 @@
 ﻿using Application.Contracts.HubServices;
-using Application.Contracts.Presistence.Identities;
-using Application.Contracts.Presistence.Notifications;
+using Application.Contracts.Persistence.Identities;
+using Application.Contracts.Persistence.Notifications;
 using Application.Contracts.Proxy;
-using Application.DTOs.Notification;
-using Application.DTOs.Notification.Request;
-using Application.MappingProfiles;
+using Application.DTOs.Notifications;
+using Application.DTOs.Notifications.Request;
 using Application.Wrappers;
 using AutoMapper;
+using Domain;
 
-
-namespace Presentation.HubServices
+namespace Api.HubServices
 {
     public class NotificationService : ResponseHandler, INotificationService
     {
@@ -29,9 +28,8 @@ namespace Presentation.HubServices
 
         public async Task<bool> SendMessageAsync(AddNotificationRequest request)
         {
-            var addNotificationRequest = _mapper.Map<NotificationHubRequest>(request);
-            var notification = _mapper.Map<Notification>(request);
-          
+            var notification = _mapper.Map<AddNotificationRequest, Notification>(request);
+
             var result = await _notificationRepository.AddAsync(notification);
 
             string[] userNames = [];
@@ -39,7 +37,7 @@ namespace Presentation.HubServices
             {
                 userNames = IClientRepository._users.Where(u => u.UserId == request.NotifiedId).Select(u => u.Username).Distinct().ToArray();
             }
-            else if (request.NotifiedType == "Role")
+            else if (request.NotifiedType == "Roles")
             {
                 userNames = IClientRepository._users.Where(u => u.RoleId == request.NotifiedId).Select(u => u.Username).Distinct().ToArray();
             }
@@ -47,7 +45,7 @@ namespace Presentation.HubServices
             {
                 userNames = IClientRepository._users.Where(u => u.GroupId == request.NotifiedId).Select(u => u.Username).Distinct().ToArray();
             }
-            var response = _mapper.Map<NotificationHubResponse>(notification);
+            var response = _mapper.Map<Notification, NotificationHubResponse>(notification);
 
             await _notificationProxy.NotifyAsync(request.NotificationType, result, userNames, response);
 

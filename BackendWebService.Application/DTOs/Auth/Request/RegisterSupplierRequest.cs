@@ -1,15 +1,18 @@
 ﻿using Application.DTOs.Common;
-using Application.DTOs.SupplierCategory;
-using Application.DTOs.SupplierDocument;
+using Application.DTOs.SupplierCategories;
+using Application.DTOs.SupplierDocuments;
+using BackendWebService.Application.Profiles;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+using Domain.Enums;
+using Domain;
 namespace Application.DTOs.Auth.Request
 {
     /// <summary>
     /// Represents a request model for registering a supplier.
     /// </summary>
-    public class RegisterSupplierRequest
+    public class RegisterSupplierRequest: ICreateMapper<Supplier>, ICreateMapper<Organization>
     {
         /// <summary>
         /// Gets or sets the name of the supplier.

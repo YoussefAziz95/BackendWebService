@@ -1,8 +1,7 @@
-﻿namespace Domain.Enums
+﻿
+namespace Domain.Enums;
+public enum FilterEnum
 {
-    public enum FilterEnum
-    {
-        Zone,
-        Property
-    }
+    Zone,
+    Property
 }

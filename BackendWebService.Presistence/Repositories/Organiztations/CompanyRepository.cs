@@ -1,13 +1,11 @@
-﻿using Application.Contracts.Presistence.Organization;
-using Application.DTOs.Common;
-using Application.DTOs.Company.Response;
-using Application.DTOs.Supplier.Responses;
-
+﻿using Application.Contracts.Persistence.Organizations;
+using Application.DTOs.Companies.Response;
+using Application.DTOs.Suppliers.Responses;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 
-namespace Persistence.Repositories.Organiztations
+namespace Persistence.Repositories.Organizations
 {
     /// <summary>
     /// Repository for performing CRUD operations on supplier entities.

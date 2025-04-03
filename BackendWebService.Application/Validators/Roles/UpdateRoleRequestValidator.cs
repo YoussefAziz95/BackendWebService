@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Role;
+﻿using Application.DTOs.Roles;
 using FluentValidation;
 
 namespace Application.Validators.Roles
@@ -16,9 +16,9 @@ namespace Application.Validators.Roles
             RuleFor(x => x.Role)
                .NotNull()
                .NotEmpty()
-               .WithMessage("Role Name is Required.")
+               .WithMessage("Roles Name is Required.")
                .Length(3, 20)
-               .WithMessage("Role name must be between 3 and 20 character");
+               .WithMessage("Roles name must be between 3 and 20 character");
         }
     }
 }

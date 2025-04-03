@@ -1,4 +1,5 @@
 ﻿using Application.Validators.Common;
+using System.Collections.Generic;
 
 namespace Application.DTOs.Permission
 {

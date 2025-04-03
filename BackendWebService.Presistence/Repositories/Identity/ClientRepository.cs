@@ -1,5 +1,6 @@
-﻿using Application.Contracts.Presistence.Identities;
+﻿using Application.Contracts.Persistence.Identities;
 using Application.Model.Notifications;
+using Microsoft.AspNetCore.Http;
 using Persistence.Data;
 
 
@@ -10,13 +11,13 @@ namespace Persistence.Repositories.Identity
         private static ApplicationDbContext _context;
         public UserInfo _userInfo { get; set; }
 
-        public ClientRepository(ApplicationDbContext context)
+        public ClientRepository(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
-            if(_context is not null)
+            if (_context is not null)
             {
+                getUser(httpContextAccessor.HttpContext.User.Identity.Name);
                 IClientRepository._users = GetUsers().ToList();
-                IClientRepository._userInfo = getUser();
             }
         }
         public static ApplicationDbContext Context
@@ -32,7 +33,12 @@ namespace Persistence.Repositories.Identity
                 _context = value;
             }
         }
-        private  UserInfo getUser()
+        private void getUser(string? userName)
+        {
+            if (userName is not null)
+                _userInfo = GetUsers().FirstOrDefault(u => u.Username == userName);
+        }
+        public static UserInfo getUser(int id)
         {
             return GetUsers().FirstOrDefault(u => u.UserId == _context.userInfo.UserId);
         }

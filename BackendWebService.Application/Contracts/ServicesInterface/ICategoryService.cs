@@ -1,11 +1,13 @@
 ﻿using Application.Contracts.DTOs;
-using Application.DTOs.Category;
+using Application.DTOs.Categories;
 using Application.DTOs.Common;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Application.Contracts.Services
 {
     /// <summary>
-    /// Service interface for category-related operations.
+    /// Services interface for category-related operations.
     /// </summary>
     public interface ICategoryService
     {

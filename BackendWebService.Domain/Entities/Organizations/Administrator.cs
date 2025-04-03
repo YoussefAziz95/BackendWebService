@@ -1,12 +1,13 @@
-﻿using Domain.Enums;
+﻿
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using Domain.Enums;
+using Domain;
 [Table("Administrator")]
-public class Administrator : BaseEntity
+public class Administrator : BaseEntity, IEntity, ITimeModification
 {
     public int UserId { get; set; }
-    [ForeignKey("UserId")]
+    [ForeignKey("ActorId")]
     public virtual User User { get; set; }
 
     public int OrganizationId { get; set; }

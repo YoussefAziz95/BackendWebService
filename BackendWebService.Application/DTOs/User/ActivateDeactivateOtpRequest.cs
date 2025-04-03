@@ -1,11 +1,13 @@
 ﻿using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
+using Domain;
 
-namespace Application.DTOs.User
+namespace Application.DTOs.Users
 {
     /// <summary>
     /// Represents a request model for activating or deactivating OTP.
     /// </summary>
-    public class ActivateDeactivateOtpRequest : BaseValidationModel<ActivateDeactivateOtpRequest>
+    public class ActivateDeactivateOtpRequest : BaseValidationModel<ActivateDeactivateOtpRequest>, ICreateMapper<User>
     {
         /// <summary>
         /// Gets or sets the ID of the user.

@@ -1,8 +1,11 @@
 ﻿using Application.DTOs.Permission;
-using Application.DTOs.Role;
+using Application.DTOs.Roles;
+using Domain;
+using System.Collections.Generic;
+using System.Linq;
 
 
-namespace Application.Contracts.Presistence.Identities
+namespace Application.Contracts.Persistence.Identities
 {
     public interface IRoleRepository
     {

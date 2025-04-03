@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("PaymentMethod")]
-public class PaymentMethod : BaseEntity
+public class PaymentMethod : BaseEntity, IEntity, ITimeModification
 {
     [Required]
     public int UserId { get; set; }

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("Family")]
-public class Family : BaseEntity
+public class Family : BaseEntity, IEntity, ITimeModification
 {
     [Key]
     public int Id { get; set; }

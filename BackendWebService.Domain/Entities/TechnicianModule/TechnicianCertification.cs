@@ -1,8 +1,8 @@
 ﻿using Domain.Enums;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Domain;
 [Table("TechnicianCertification")]
 public class TechnicianCertification
 {
@@ -10,7 +10,7 @@ public class TechnicianCertification
     public int Id { get; set; }
 
     [ForeignKey("TechnicianId")]
-    public int TechnicianId { get; set; } 
+    public int TechnicianId { get; set; }
 
     [Required]
     [MaxLength(150)] // Certification name limit

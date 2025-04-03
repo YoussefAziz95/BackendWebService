@@ -1,11 +1,13 @@
 ﻿using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
+using Domain;
 
-namespace Application.DTOs.SupplierCategory
+namespace Application.DTOs.SupplierCategories
 {
     /// <summary>
     /// Represents a request to update a range of supplier categories.
     /// </summary>
-    public class UpdateRangeSupplierCategoryRequest : BaseValidationModel<UpdateRangeSupplierCategoryRequest>
+    public class UpdateRangeSupplierCategoryRequest : BaseValidationModel<UpdateRangeSupplierCategoryRequest>, ICreateMapper<SupplierCategory>
     {
         /// <summary>
         /// Gets or sets the unique identifier of the supplier category.

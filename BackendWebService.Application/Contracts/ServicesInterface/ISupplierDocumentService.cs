@@ -1,6 +1,8 @@
 ﻿using Application.Contracts.DTOs;
 using Application.DTOs.Common;
-using Application.DTOs.SupplierDocument;
+using Application.DTOs.SupplierDocuments;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Application.Contracts.Services
 {

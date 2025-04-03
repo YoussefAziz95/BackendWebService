@@ -1,7 +1,9 @@
-﻿using Application.DTOs.Category;
+﻿using Application.DTOs.Categories;
+using Domain;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-
-namespace Application.Contracts.Presistence.Product
+namespace Application.Contracts.Persistence.Product
 {
     public interface ICategoryRepository
     {

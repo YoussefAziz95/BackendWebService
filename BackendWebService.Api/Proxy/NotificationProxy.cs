@@ -1,11 +1,11 @@
-﻿using Application.Contracts.Presistence.Notifications;
+﻿using Application.Contracts.Persistence.Notifications;
 using Application.Contracts.Proxy;
-using Application.DTOs.Notification;
+using Application.DTOs.Notifications;
 using CrossCuttingConcerns.ConfigHub;
 
 using Microsoft.AspNetCore.SignalR;
 
-namespace Presentation.Proxy
+namespace Api.Proxy
 {
     public class NotificationProxy : INotificationProxy<NotificationHubResponse>
     {

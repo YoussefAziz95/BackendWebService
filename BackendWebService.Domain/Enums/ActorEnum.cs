@@ -1,9 +1,8 @@
-﻿namespace Domain.Enums
+﻿
+namespace Domain.Enums;
+public enum ActorEnum
 {
-    public enum ActorEnum
-    {
-        User = 1,
-        Role = 2,
-        Group = 3,
-    }
+    User = 1,
+    Role = 2,
+    Group = 3,
 }

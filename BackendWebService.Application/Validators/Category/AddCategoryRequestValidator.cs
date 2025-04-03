@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Category;
+﻿using Application.DTOs.Categories;
 using FluentValidation;
 
 public class AddCategoryRequestValidator : AbstractValidator<AddCategoryRequest>
@@ -7,7 +7,7 @@ public class AddCategoryRequestValidator : AbstractValidator<AddCategoryRequest>
     {
         RuleFor(x => x.Name)
      .NotEmpty()
-     .WithMessage("Category name cannot be empty.")  // Custom message for empty list
+     .WithMessage("Categories name cannot be empty.")  // Custom message for empty list
      .When(x => x.Name != null);
 
 

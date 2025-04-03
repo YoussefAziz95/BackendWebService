@@ -1,12 +1,11 @@
-﻿using Application.Contracts.Services;
+﻿using Api.Base;
+using Application.Contracts.Services;
 using Application.DTOs.Utility;
 using Application.Validators.Common;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Base;
-using System.Net;
-
-namespace Presentation.Controllers
+namespace Api.Controllers
 {
     /// <summary>
     /// Controller responsible for handling utility-related actions, such as file upload, deletion, and download.
@@ -21,7 +20,7 @@ namespace Presentation.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="UtilityController"/> class.
         /// </summary>
-        /// <param name="utilitService">Service to handle utility operations.</param>
+        /// <param name="utilitService">Services to handle utility operations.</param>
         public UtilityController(IUtilityService utilitService)
         {
             _utilitService = utilitService;
@@ -75,7 +74,7 @@ namespace Presentation.Controllers
         {
             var result = _utilitService.DownloadFile(fileName);
 
-            if (result.StatusCode == HttpStatusCode.NotFound)
+            if (result.StatusCode == ApiResultStatusCode.NotFound)
                 return NewResult(result);
 
             return File(System.IO.File.OpenRead(result.Data!.FilePath!), result.Data!.MimeType!, result.Data!.FileName);

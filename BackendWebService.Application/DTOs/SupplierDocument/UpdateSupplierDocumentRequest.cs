@@ -1,11 +1,14 @@
-﻿using Application.Validators.Common;
+﻿using Domain.Enums;
+using Domain;
+using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
 
-namespace Application.DTOs.SupplierDocument
+namespace Application.DTOs.SupplierDocuments
 {
     /// <summary>
     /// Represents a request model for updating a supplier document.
     /// </summary>
-    public class UpdateSupplierDocumentRequest : BaseValidationModel<UpdateSupplierDocumentRequest>
+    public class UpdateSupplierDocumentRequest : BaseValidationModel<UpdateSupplierDocumentRequest>, ICreateMapper<SupplierDocument>
     {
         public int Id { get; set; }
         /// <summary>

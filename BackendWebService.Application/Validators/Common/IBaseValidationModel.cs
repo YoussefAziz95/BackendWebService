@@ -1,4 +1,6 @@
-﻿namespace Application.Validators.Common
+﻿using System.Threading.Tasks;
+
+namespace Application.Validators.Common
 {
     /// <summary>
     /// Interface for base validation model.

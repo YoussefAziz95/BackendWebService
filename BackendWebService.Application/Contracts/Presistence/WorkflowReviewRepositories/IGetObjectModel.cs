@@ -1,6 +1,6 @@
 ﻿using Application.Model.EAVEngine;
 
-namespace Application.Contracts.Presistence.WorkflowReviewRepositories
+namespace Application.Contracts.Persistence.WorkflowReviewRepositories
 {
     public interface IGetObjectMode<TCase, TCycle>
     {

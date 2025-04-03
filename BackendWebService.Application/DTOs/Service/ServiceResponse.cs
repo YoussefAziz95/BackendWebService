@@ -1,14 +1,11 @@
-﻿using Application.DTOs.Common;
-using System;
-using System.Collections.Generic;
+﻿using BackendWebService.Application.Profiles;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Enums;
+using Domain;
 
-namespace Application.DTOs.Service
+namespace Application.DTOs.Services
 {
-    public class ServiceResponse
+    public class ServiceResponse : ICreateMapper<Service>
     {
         public int Id { get; set; }
         [Required]

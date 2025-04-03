@@ -1,4 +1,5 @@
-﻿using Application.DTOs.Notification.Request;
+﻿using Application.DTOs.Notifications.Request;
+using System.Threading.Tasks;
 
 namespace Application.Contracts.HubServices
 {

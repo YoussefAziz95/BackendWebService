@@ -1,7 +1,7 @@
 ﻿using Application.DTOs.Common;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.Supplier.Responses
+namespace Application.DTOs.Suppliers.Responses
 {
     /// <summary>
     /// Represents a response model for paginated supplier data.

@@ -1,9 +1,11 @@
-﻿using Domain.Enums;
+﻿
+using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Domain;
 [Table("Organization")]
-public class Organization : BaseEntity
+public class Organization : BaseEntity, IEntity, ITimeModification
 {
     [Required]
     public string Name { get; set; }

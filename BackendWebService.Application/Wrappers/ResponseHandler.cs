@@ -1,5 +1,7 @@
 ﻿using Application.Contracts.DTOs;
 using Application.DTOs.Common;
+using Domain.Enums;
+using System.Collections.Generic;
 
 namespace Application.Wrappers
 {
@@ -17,7 +19,7 @@ namespace Application.Wrappers
         {
             return new Response<T>()
             {
-                StatusCode = System.Net.HttpStatusCode.OK,
+                StatusCode = ApiResultStatusCode.Ok,
                 Succeeded = true,
                 Message = "Deleted Successfully"
             };
@@ -32,7 +34,7 @@ namespace Application.Wrappers
         {
             return new Response<T>()
             {
-                StatusCode = System.Net.HttpStatusCode.OK,
+                StatusCode = ApiResultStatusCode.Ok,
                 Succeeded = true,
                 Message = "EmailDto Verified Successfully"
             };
@@ -47,7 +49,7 @@ namespace Application.Wrappers
         {
             return new Response<T>()
             {
-                StatusCode = System.Net.HttpStatusCode.OK,
+                StatusCode = ApiResultStatusCode.Ok,
                 Succeeded = true,
                 Message = "EmailDto Sent Successfully"
             };
@@ -62,7 +64,7 @@ namespace Application.Wrappers
         {
             return new Response<T>()
             {
-                StatusCode = System.Net.HttpStatusCode.OK,
+                StatusCode = ApiResultStatusCode.Ok,
                 Succeeded = true,
                 Message = "Password Updated Successfully"
             };
@@ -79,7 +81,7 @@ namespace Application.Wrappers
             return new Response<T>()
             {
                 Data = entity,
-                StatusCode = System.Net.HttpStatusCode.OK,
+                StatusCode = ApiResultStatusCode.Ok,
                 Succeeded = true
             };
         }
@@ -95,7 +97,7 @@ namespace Application.Wrappers
             return new Response<T>()
             {
                 Message = message,
-                StatusCode = System.Net.HttpStatusCode.OK,
+                StatusCode = ApiResultStatusCode.Ok,
                 Succeeded = true
             };
         }
@@ -110,7 +112,7 @@ namespace Application.Wrappers
             return new Response<int>()
             {
                 Data = id,
-                StatusCode = System.Net.HttpStatusCode.OK,
+                StatusCode = ApiResultStatusCode.Ok,
                 Succeeded = true
             };
         }
@@ -126,7 +128,7 @@ namespace Application.Wrappers
             return new Response<T>()
             {
                 Data = entity,
-                StatusCode = System.Net.HttpStatusCode.OK,
+                StatusCode = ApiResultStatusCode.Ok,
                 Succeeded = true,
                 Message = "Uploaded Successfully"
             };
@@ -145,7 +147,7 @@ namespace Application.Wrappers
             {
                 Data = entity,
                 Message = message == null! ? "Updated Successfully" : message,
-                StatusCode = System.Net.HttpStatusCode.OK,
+                StatusCode = ApiResultStatusCode.Ok,
                 Succeeded = true
             };
         }
@@ -159,7 +161,7 @@ namespace Application.Wrappers
         {
             return new Response<T>()
             {
-                StatusCode = System.Net.HttpStatusCode.Unauthorized,
+                StatusCode = ApiResultStatusCode.UnAuthorized,
                 Succeeded = true,
                 Message = "UnAuthorized",
             };
@@ -175,7 +177,7 @@ namespace Application.Wrappers
         {
             return new Response<T>()
             {
-                StatusCode = System.Net.HttpStatusCode.BadRequest,
+                StatusCode = ApiResultStatusCode.BadRequest,
                 Succeeded = false,
                 Message = message == null! ? "Bad Request" : message
             };
@@ -191,7 +193,7 @@ namespace Application.Wrappers
         {
             return new Response<T>()
             {
-                StatusCode = System.Net.HttpStatusCode.BadRequest,
+                StatusCode = ApiResultStatusCode.BadRequest,
                 Succeeded = false,
                 Errors = errors
             };
@@ -207,7 +209,7 @@ namespace Application.Wrappers
         {
             return new Response<T>()
             {
-                StatusCode = System.Net.HttpStatusCode.NotFound,
+                StatusCode = ApiResultStatusCode.NotFound,
                 Succeeded = false,
                 Message = message == null! ? "Not Found" : message
             };
@@ -225,7 +227,7 @@ namespace Application.Wrappers
             return new Response<T>()
             {
                 Data = entity,
-                StatusCode = System.Net.HttpStatusCode.Created,
+                StatusCode = ApiResultStatusCode.Created,
                 Succeeded = true
             };
         }
@@ -240,7 +242,7 @@ namespace Application.Wrappers
             return new Response<int>()
             {
                 Data = id,
-                StatusCode = System.Net.HttpStatusCode.Created,
+                StatusCode = ApiResultStatusCode.Created,
                 Succeeded = true
             };
         }
@@ -255,7 +257,7 @@ namespace Application.Wrappers
         {
             return new Response<T>()
             {
-                StatusCode = System.Net.HttpStatusCode.FailedDependency,
+                StatusCode = ApiResultStatusCode.FailedDependency,
                 Succeeded = false,
                 Message = message == null! ? "Connot Delete Failed Dependency" : message
             };

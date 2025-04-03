@@ -1,13 +1,14 @@
-﻿using Application.DTOs.Common;
-using Application.Validators.Common;
+﻿using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
+using Domain;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.Category
+namespace Application.DTOs.Categories
 {
     /// <summary>
     /// Represents a request model for updating a category.
     /// </summary>
-    public class UpdateCategoryRequest : BaseValidationModel<UpdateCategoryRequest>
+    public class UpdateCategoryRequest : BaseValidationModel<UpdateCategoryRequest>, ICreateMapper<Category>
     {
         public int Id { get; set; }
         /// <summary>

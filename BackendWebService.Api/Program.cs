@@ -1,30 +1,36 @@
-using Application;
-using Application.Contracts.HubServices;
-using Application.Contracts.Proxy;
-using Application.DTOs.Notification;
-using Application.Middlewares;
+using Api;
+using Application.Middleware;
 using Application.Model.Jwt;
+using BackendWebServiceApplication.ServiceConfiguration;
+using BackendWebServiceInfrastructure.Persistence.ServiceConfiguration;
 using CrossCuttingConcerns;
 using CrossCuttingConcerns.ConfigHub;
-
-using Infrastructure;
+using Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
-using Persistence;
 using Persistence.Data;
-using Presentation;
-using Presentation.HubServices;
-using Presentation.Proxy;
-using System.Reflection;
+using System.Diagnostics;
 using System.Text;
-
 var builder = WebApplication.CreateBuilder(args);
 
+var configuration = builder.Configuration;
+
+Activity.DefaultIdFormat = ActivityIdFormat.W3C;
+
+builder.Services.Configure<IdentitySettings>(configuration.GetSection(nameof(IdentitySettings)));
+
+var identitySettings = configuration.GetSection(nameof(IdentitySettings)).Get<IdentitySettings>();
+
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+    options.SuppressMapClientErrors = true;
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
@@ -41,12 +47,11 @@ builder.Services.AddSwaggerGen(option =>
 });
 
 builder.Services.AddApplicationServices()
-                .AddInfrastructureServices()
-                .AddPresistenceServices()
+                .AddPersistenceServices(configuration, identitySettings)
                 .AddCrossCuttingConcernsServices();
 builder.Services.AddSignalR();
 
-builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
+builder.Services.Configure<IdentitySettings>(builder.Configuration.GetSection("IdentitySettings"));
 builder.Services.AddIdentity<User, Role>()
     .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -66,9 +71,9 @@ builder.Services.AddAuthentication(options =>
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
-            ValidIssuer = builder.Configuration["JwtOptions:Issuer"],
-            ValidAudience = builder.Configuration["JwtOptions:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtOptions:Key"]!)),
+            ValidIssuer = builder.Configuration["IdentitySettings:Issuer"],
+            ValidAudience = builder.Configuration["IdentitySettings:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["IdentitySettings:Key"]!)),
             ClockSkew = TimeSpan.Zero
         };
         //// Configure the Authority to the expected value for
@@ -113,11 +118,12 @@ builder.Services.AddCors(options =>
 
 });
 
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(options => // activate SignalR
+{
+    options.EnableDetailedErrors = true; // Send detailed errors to the frontend for debugging. Remove this when deploying.
+});
+//builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-builder.Services.AddTransient<INotificationService, NotificationService>();
-builder.Services.AddTransient<INotificationProxy<NotificationHubResponse>, NotificationProxy>();
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddDistributedMemoryCache();
 
@@ -128,6 +134,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
 
 var app = builder.Build();
 
@@ -163,8 +170,6 @@ app.UseHttpsRedirection();
 app.UseCors("_AllowAnyOriginPolicy");
 
 app.UseAuthentication();
-
-app.UseOtpVerificationMiddleware();
 
 app.UseRouting();
 

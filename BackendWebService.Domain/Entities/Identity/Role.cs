@@ -1,20 +1,24 @@
 ﻿
+using BackendWebService.Domain.Entities.User;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
+namespace Domain;
 [Table("Role")]
-public class Role : IdentityRole<int>
+public class Role : IdentityRole<int>, IEntity, ITimeModification
 {
-    public string CreatedBy { get; set; }
-    public string? UpdatedBy { get; set; }
-    public string? DeletedBy { get; set; }
+    public int Id { get; set; }
+    [AllowNull]
+    public int? OrganizationId { get; set; }
+    public bool IsActive { get; set; } = true;
+    public bool IsDeleted { get; set; } = false;
+    public bool IsSystem { get; set; } = false;
     public DateTime CreatedDate { get; set; }
+    public string? CreatedBy { get; set; }
     public DateTime? UpdateDate { get; set; }
-    public DateTime? DeletedDate { get; set; }
-    public bool IsActive { get; set; }
-    public bool IsDeleted { get; set; }
-    public bool IsSystem { get; set; }
+    public string? UpdatedBy { get; set; }
     public int? ParentId { get; set; }
-    public ICollection<UserRole> UserRoles { get; set; }
+    public required ICollection<RoleClaim> RoleClaim { get; set; }
 
 }

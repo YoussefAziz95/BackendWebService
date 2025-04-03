@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities.Zone
 {
-    public class Zone : BaseEntity
+    public class Zone : BaseEntity, IEntity, ITimeModification
     {
         [Required]
         [MaxLength(100)]

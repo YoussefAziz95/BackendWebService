@@ -1,11 +1,14 @@
 ﻿using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
+using Domain;
+using System.Collections.Generic;
 
-namespace Application.DTOs.User
+namespace Application.DTOs.Users
 {
     /// <summary>
     /// Represents a request model for adding a user to a company.
     /// </summary>
-    public class AddUserCompanyRequest : BaseValidationModel<AddUserCompanyRequest>
+    public class AddUserCompanyRequest : BaseValidationModel<AddUserCompanyRequest>, ICreateMapper<User>
     {
         /// <summary>
         /// Gets or sets the first name of the user.

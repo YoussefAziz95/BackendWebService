@@ -1,9 +1,14 @@
-﻿namespace Application.DTOs.User
+﻿using BackendWebService.Application.Profiles;
+using Domain;
+using System;
+using System.Collections.Generic;
+
+namespace Application.DTOs.Users
 {
     /// <summary>
     /// Represents a response model for user data.
     /// </summary>
-    public class UserResponse
+    public class UserResponse : ICreateMapper<User>
     {
         /// <summary>
         /// Gets or sets the unique identifier of the user.

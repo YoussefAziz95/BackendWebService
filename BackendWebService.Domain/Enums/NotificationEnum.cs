@@ -1,12 +1,11 @@
-﻿namespace Domain.Enums
+﻿
+
+enum NotificationEnum
 {
-    enum NotificationEnum
-    {
-        AccountCreated,
-        AccountDisabled,
-        NewJobAssigned,
-        JobReassigned,
-        JobCanceled,
-        ServiceDisabled
-    }
+    AccountCreated,
+    AccountDisabled,
+    NewJobAssigned,
+    JobReassigned,
+    JobCanceled,
+    ServiceDisabled
 }

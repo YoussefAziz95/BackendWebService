@@ -1,11 +1,14 @@
 ﻿using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
+using Domain;
+using System.Collections.Generic;
 
-namespace Application.DTOs.Role
+namespace Application.DTOs.Roles
 {
     /// <summary>
     /// Represents a request model for creating a role.
     /// </summary>
-    public class CreateRoleRequest : BaseValidationModel<CreateRoleRequest>
+    public class CreateRoleRequest : BaseValidationModel<CreateRoleRequest>, ICreateMapper<Role>
     {
         /// <summary>
         /// Gets or sets the name of the role.

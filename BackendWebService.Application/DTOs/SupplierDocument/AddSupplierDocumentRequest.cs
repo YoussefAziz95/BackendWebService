@@ -1,11 +1,14 @@
-﻿using Application.Validators.Common;
+﻿using Domain.Enums;
+using Domain;
+using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
 
-namespace Application.DTOs.SupplierDocument
+namespace Application.DTOs.SupplierDocuments
 {
     /// <summary>
     /// Request data transfer object for adding a supplier document.
     /// </summary>
-    public class AddSupplierDocumentRequest:BaseValidationModel<AddSupplierDocumentRequest>
+    public class AddSupplierDocumentRequest:BaseValidationModel<AddSupplierDocumentRequest>, ICreateMapper<SupplierDocument>
     {
 
         public int UserId { get; set; }

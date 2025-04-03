@@ -1,7 +1,7 @@
-﻿using Application.Contracts.Presistence.WorkflowReviewRepositories;
+﻿using Application.Contracts.Persistence.WorkflowReviewRepositories;
 using Application.Model.EAVEngine;
 using Persistence.Data;
-using Persistence.Repositories.Organiztations;
+using Persistence.Repositories.Organizations;
 
 namespace Persistence.Repositories.WorkflowReviewRepositories
 {
@@ -18,7 +18,7 @@ namespace Persistence.Repositories.WorkflowReviewRepositories
             _context = context;
             switch (ObjectType)
             {
-                case "PreDocument":
+                case "PreDocuments":
                     _getObjectType = new PreDocumentRepository(context);
                     break;
                 

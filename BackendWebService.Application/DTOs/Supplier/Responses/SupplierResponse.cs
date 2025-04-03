@@ -1,13 +1,16 @@
-﻿using Application.DTOs.Common;
-using Application.DTOs.SupplierCategory;
+﻿using Application.DTOs.SupplierCategories;
+using BackendWebService.Application.Profiles;
+using Domain;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.Supplier.Responses
+namespace Application.DTOs.Suppliers.Responses
 {
     /// <summary>
     /// Response data transfer object for a supplier.
     /// </summary>
-    public class SupplierResponse
+    public class SupplierResponse : ICreateMapper<Supplier>, ICreateMapper<Organization>
     {
         /// <summary>
         /// Gets or sets the ID of the supplier.

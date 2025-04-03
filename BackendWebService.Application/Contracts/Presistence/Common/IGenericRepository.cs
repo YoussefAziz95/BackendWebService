@@ -1,8 +1,12 @@
 ﻿using Application.DTOs.Common;
 using Microsoft.EntityFrameworkCore.Query;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
-namespace Application.Contracts.Presistence
+namespace Application.Contracts.Persistence
 {
     /// <summary>
     /// Generic repository interface for database operations.

@@ -1,9 +1,10 @@
-﻿using Domain.Enums;
+﻿
+using Domain;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
-
 [Table("Company")]
-public class Company : BaseEntity
+public class Company : BaseEntity, IEntity, ITimeModification
 {
     public int OrganizationId { get; set; }
     [ForeignKey("OrganizationId")]

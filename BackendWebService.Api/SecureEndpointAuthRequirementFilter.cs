@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace  Presentation
+namespace  Api
 {
     public class SecureEndpointAuthRequirementFilter : IOperationFilter
     {

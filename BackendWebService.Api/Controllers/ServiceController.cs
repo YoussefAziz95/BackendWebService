@@ -1,21 +1,21 @@
 ﻿using Application.Contracts.Services;
 using Application.DTOs.Common;
-using Application.DTOs.Service;
+using Application.DTOs.Services;
 using Application.Validators.Common;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Base;
+using Api.Base;
 
-namespace Presentation.Controllers
+namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ServiceController : AppControllerBase
     {
-        private readonly IServiceService _materialService;
+        private readonly IServiceImplementation _materialService;
 
-        public ServiceController(IServiceService materialService)
+        public ServiceController(IServiceImplementation materialService)
         {
             _materialService = materialService;
         }

@@ -1,13 +1,13 @@
 ﻿using Application.Contracts.HubServices;
-using Application.DTOs.Notification;
-using Application.DTOs.Notification.Request;
+using Application.DTOs.Notifications;
+using Application.DTOs.Notifications.Request;
 using CrossCuttingConcerns.ConfigHub;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Presentation.Base;
+using Api.Base;
 
-namespace Presentation.Controllers
+namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

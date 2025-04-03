@@ -1,4 +1,4 @@
-﻿namespace Application.DTOs.Organization.Response
+﻿namespace Application.DTOs.Organizations.Response
 {
     public class OrganizationResponse
     {

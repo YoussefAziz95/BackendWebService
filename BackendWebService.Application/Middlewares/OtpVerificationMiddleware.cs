@@ -1,8 +1,9 @@
 ﻿using Domain.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
-namespace Application.Middlewares
+namespace Application.Middleware
 {
     /// <summary>
     /// Middleware for verifying OTP (One-Time Password) authentication.

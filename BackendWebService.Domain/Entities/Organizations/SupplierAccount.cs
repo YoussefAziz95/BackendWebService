@@ -1,9 +1,10 @@
 ﻿
-using Domain.Enums;
+
 using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Domain;
 [Table("SupplierAccount")]
-public class SupplierAccount : BaseEntity
+public class SupplierAccount : BaseEntity, IEntity, ITimeModification
 {
     public int CompanyId { get; set; }
     public int SupplierId { get; set; }

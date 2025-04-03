@@ -1,9 +1,12 @@
-﻿namespace Application.DTOs.SupplierCategory
+﻿using BackendWebService.Application.Profiles;
+using Domain;
+
+namespace Application.DTOs.SupplierCategories
 {
     /// <summary>
     /// Represents a response model for supplier categories.
     /// </summary>
-    public class SupplierCategoryResponse
+    public class SupplierCategoryResponse : ICreateMapper<SupplierCategory>
     {
         /// <summary>
         /// Gets or sets the ID of the supplier category.

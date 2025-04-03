@@ -1,11 +1,11 @@
-﻿using Application.DTOs.SupplierDocument;
+﻿using Application.DTOs.SupplierDocuments;
 using FluentValidation;
 
 public class AddSupplierDocumentRequestValidator : AbstractValidator<AddSupplierDocumentRequest>
 {
     public AddSupplierDocumentRequestValidator()
     {
-        // UserId validation
+        // ActorId validation
         RuleFor(x => x.UserId)
             .GreaterThan(0)
             .WithMessage("Customer ID must be a positive integer.");
@@ -13,7 +13,7 @@ public class AddSupplierDocumentRequestValidator : AbstractValidator<AddSupplier
         // CompanyId validation
         RuleFor(x => x.CompanyId)
             .GreaterThan(0)
-            .WithMessage("Company ID must be a positive integer.");
+            .WithMessage("Companies ID must be a positive integer.");
 
         // FileId validation
         RuleFor(x => x.FileId)

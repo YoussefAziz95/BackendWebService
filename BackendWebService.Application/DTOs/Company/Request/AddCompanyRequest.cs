@@ -1,13 +1,14 @@
-﻿using Application.DTOs.Common;
-using Application.Validators.Common;
+﻿using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
+using Domain;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.Company.Request
+namespace Application.DTOs.Companies.Request
 {
     /// <summary>
     /// Represents a request model for adding a company.
     /// </summary>
-    public class AddCompanyRequest : BaseValidationModel<AddCompanyRequest>
+    public class AddCompanyRequest : BaseValidationModel<AddCompanyRequest>, ICreateMapper<Company>, ICreateMapper<Organization>
     {
         /// <summary>
         /// Gets or sets the name of the company.

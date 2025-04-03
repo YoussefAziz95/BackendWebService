@@ -1,9 +1,8 @@
-﻿using Application.Contracts.Presistence.Organization;
-
+﻿using Application.Contracts.Persistence.Organizations;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
-
-namespace Persistence.Repositories.Organiztations
+namespace Persistence.Repositories.Organizations
 {
     public abstract class OrganizationRepository<TEntity, TResponse, TResponses>
        : IOrganizationRepository<TEntity, TResponse, TResponses>

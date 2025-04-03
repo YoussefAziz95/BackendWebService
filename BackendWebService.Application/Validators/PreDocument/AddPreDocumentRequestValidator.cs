@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Application.DTOs.PreDocument;
+using Application.DTOs.PreDocuments;
 
 public class AddPreDocumentRequestValidator : AbstractValidator<AddPreDocumentRequest>
 {
@@ -17,7 +17,7 @@ public class AddPreDocumentRequestValidator : AbstractValidator<AddPreDocumentRe
             .GreaterThan(0)
             .WithMessage("FileLog Type ID must be a positive number.");
 
-        // Validate that UserId is required and greater than 0
+        // Validate that ActorId is required and greater than 0
         RuleFor(x => x.UserId)
             .GreaterThan(0)
             .WithMessage("Customer ID is required and must be a positive number.");

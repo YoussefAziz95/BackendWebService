@@ -1,6 +1,7 @@
-﻿
+﻿using Domain;
+using System.Linq;
 
-namespace Application.Contracts.Presistence.Identities
+namespace Application.Contracts.Persistence.Identities
 {
     public interface IUserRepository
     {

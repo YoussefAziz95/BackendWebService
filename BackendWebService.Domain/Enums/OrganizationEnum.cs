@@ -1,9 +1,8 @@
-﻿namespace Domain.Enums
+﻿
+namespace Domain.Enums;
+public enum OrganizationEnum
 {
-    public enum OrganizationEnum
-    {
-        Administrator = 1,
-        Company = 2,
-        Supplier = 3,
-    }
+    Administrator = 1,
+    Company = 2,
+    Supplier = 3,
 }

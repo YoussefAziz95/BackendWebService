@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("Notification")]
-public class Notification : BaseEntity
+public class Notification : BaseEntity, IEntity, ITimeModification
 {
     [Required]
     public string KeyMessageTitle { get; set; }

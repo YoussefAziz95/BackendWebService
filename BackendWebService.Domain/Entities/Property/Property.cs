@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("Property")]
-public class Property : BaseEntity
+public class Property : BaseEntity, IEntity, ITimeModification
 {
     public int UserId { get; set; }
-    [ForeignKey("UserId")]
+    [ForeignKey("ActorId")]
     public virtual User User { get; set; }
 
     [Required, MaxLength(100)]

@@ -1,12 +1,9 @@
-﻿
-
-using Domain.Enums;
-using System;
+﻿using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("Recipient")]
-public class TechnicianAssignment : BaseEntity
+public class TechnicianAssignment : BaseEntity, IEntity, ITimeModification
 {
     public int TechnicianId { get; set; }
     [ForeignKey("TechnicianId")]

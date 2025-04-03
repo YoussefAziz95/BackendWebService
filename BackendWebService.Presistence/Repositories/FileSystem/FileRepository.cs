@@ -1,11 +1,10 @@
-﻿using Application.Contracts.Presistence;
+﻿using Application.Contracts.Persistence;
 using Application.DTOs.Utility;
-using Application.MappingProfiles;
 using AutoMapper;
+using BackendWebService.Application.Profiles;
+using Domain;
 using Persistence.Data;
 using Persistence.Repositories.Common;
-
-
 namespace Persistence.Repositories.FileSystem
 {
     public class FileRepository : GenericRepository<FileLog>, IFileRepository
@@ -38,7 +37,7 @@ namespace Persistence.Repositories.FileSystem
         public FileResponse GetFile(int id)
         {
             var file = _dbSet.FirstOrDefault(x => x.Id == id);
-            var fileresponse = _mapper.Map<FileResponse>(file);
+            var fileresponse = _mapper.Map<FileLog, FileResponse>(file);
             return fileresponse;
 
         }

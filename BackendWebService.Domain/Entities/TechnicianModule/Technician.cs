@@ -1,8 +1,7 @@
 ﻿using Domain.Enums;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("Technician")]
 public class Technician
 {

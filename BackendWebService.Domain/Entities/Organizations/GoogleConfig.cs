@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("GoogleConfig")]
-public class GoogleConfig : BaseEntity
+public class GoogleConfig : BaseEntity, IEntity, ITimeModification
 {
     public int ConfigurationId { get; set; }
     [ForeignKey("ConfigurationId")]

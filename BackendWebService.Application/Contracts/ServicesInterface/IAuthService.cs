@@ -1,5 +1,5 @@
 ﻿using Application.DTOs.Common;
-using Application.DTOs.User;
+using Application.DTOs.Users;
 using System.Threading.Tasks;
 using Application.DTOs.Auth.Request;
 using Application.DTOs.Auth.Response;
@@ -8,7 +8,7 @@ using Application.Contracts.DTOs;
 namespace Application.Contracts.Services
 {
     /// <summary>
-    /// Service interface for authentication-related operations.
+    /// Services interface for authentication-related operations.
     /// </summary>
     public interface IAuthService
     {

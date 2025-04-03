@@ -1,11 +1,7 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Domain;
 using System.Threading.Tasks;
 
-namespace Application.Contracts.Presistence.Product
+namespace Application.Contracts.Persistence.Product
 {
     public interface IServiceRepository
     {

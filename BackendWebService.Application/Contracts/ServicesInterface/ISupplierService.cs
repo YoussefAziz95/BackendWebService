@@ -1,8 +1,9 @@
 ﻿using Application.Contracts.DTOs;
 using Application.DTOs.Auth.Request;
 using Application.DTOs.Common;
-using Application.DTOs.Supplier.Request;
-using Application.DTOs.Supplier.Responses;
+using Application.DTOs.Suppliers.Request;
+using Application.DTOs.Suppliers.Responses;
+using System.Threading.Tasks;
 
 namespace Application.Contracts.Services
 {
@@ -38,7 +39,7 @@ namespace Application.Contracts.Services
         /// </summary>
         /// <param name="request">The request containing pagination details.</param>
         /// <returns>A paginated response containing the list of suppliers.</returns>
-        Task<IResponse<GetPaginatedSupplier>> GetPaginated(GetPaginatedRequest request);
+        Task<PaginatedResponse<GetPaginatedSupplier>> GetPaginated(GetPaginatedRequest request);
 
         /// <summary>
         /// Checks if a supplier with the specified ID exists.
@@ -61,7 +62,7 @@ namespace Application.Contracts.Services
         /// <param name="id">The ID of the supplier to delete.</param>
         /// <returns>A response indicating the result of the delete operation.</returns>
         Task<IResponse<string>> DeleteAsync(int id);
-        Task<IResponse<GetPaginatedSupplier>> GetRegisterSuppliers(GetPaginatedRequest request);
+        Task<PaginatedResponse<GetPaginatedSupplier>> GetRegisterSuppliers(GetPaginatedRequest request);
         Task<IResponse<int>> AddSupplierTOCompany( AddSupplierToCompany request);
 
     }

@@ -1,9 +1,12 @@
-﻿namespace Application.DTOs.SupplierDocument
+﻿using BackendWebService.Application.Profiles;
+using Domain;
+
+namespace Application.DTOs.SupplierDocuments
 {
     /// <summary>
     /// Represents a supplier document retrieved for pagination.
     /// </summary>
-    public class SupplierDocumentsResponse
+    public class SupplierDocumentsResponse : ICreateMapper<SupplierDocument>
     {
         /// <summary>
         /// Gets or sets the unique identifier of the supplier document.

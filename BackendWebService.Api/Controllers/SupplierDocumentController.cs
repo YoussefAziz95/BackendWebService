@@ -1,13 +1,13 @@
 ﻿using Application.Contracts.Services;
 using Application.DTOs.Common;
-using Application.DTOs.SupplierDocument;
+using Application.DTOs.SupplierDocuments;
 using Application.Validators.Common;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Base;
+using Api.Base;
 
-namespace Presentation.Controllers
+namespace Api.Controllers
 {
     /// <summary>
     /// Controller responsible for handling supplier document-related actions.
@@ -21,7 +21,7 @@ namespace Presentation.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="SupplierDocumentController"/> class.
         /// </summary>
-        /// <param name="supplierdocumentService">Service to handle supplier document operations.</param>
+        /// <param name="supplierdocumentService">Services to handle supplier document operations.</param>
         public SupplierDocumentController(ISupplierDocumentService supplierdocumentService)
         {
             _supplierdocumentService = supplierdocumentService;

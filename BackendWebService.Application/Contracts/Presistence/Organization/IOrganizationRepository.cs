@@ -1,8 +1,6 @@
-﻿
-using Application.DTOs.Supplier.Responses;
+﻿using System.Linq;
 
-
-namespace Application.Contracts.Presistence.Organization
+namespace Application.Contracts.Persistence.Organizations
 {
 
     /// <summary>

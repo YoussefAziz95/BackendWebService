@@ -1,14 +1,9 @@
-﻿using Application.Contracts.Presistence.Product;
-using Application.Contracts.Presistence.WorkflowReviewRepositories;
-
+﻿using Application.Contracts.Persistence.Product;
+using Application.Contracts.Persistence.WorkflowReviewRepositories;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Persistence.Repositories.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Persistence.Repositories.Product
 {
@@ -31,7 +26,7 @@ namespace Persistence.Repositories.Product
                 {
                     Service material = GetById(updatedEntity.Id);
                     material.CategoryId = updatedEntity.CategoryId;
-                    material.Code= updatedEntity.Code;
+                    material.Code = updatedEntity.Code;
                     material.Name = updatedEntity.Name;
 
                     result = _context.SaveChanges();

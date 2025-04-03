@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.DTOs.Service.Responses
+namespace Application.DTOs.Services.Responses
 {
     public class GetPaginatedService
     {

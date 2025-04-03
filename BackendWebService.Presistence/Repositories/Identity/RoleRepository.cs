@@ -1,8 +1,8 @@
-﻿using Application.Contracts.Presistence.ActorRepositories;
-using Application.Contracts.Presistence.Identities;
+﻿using Application.Contracts.Persistence.ActorRepositories;
+using Application.Contracts.Persistence.Identities;
 using Application.DTOs.Permission;
-using Application.DTOs.Role;
-
+using Application.DTOs.Roles;
+using Domain;
 using Persistence.Data;
 using System.Data;
 

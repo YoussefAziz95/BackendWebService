@@ -1,13 +1,13 @@
 ﻿using Application.Contracts.Services;
 using Application.DTOs.Common;
-using Application.DTOs.PreDocument;
+using Application.DTOs.PreDocuments;
 using Application.Validators.Common;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Base;
+using Api.Base;
 
-namespace Presentation.Controllers
+namespace Api.Controllers
 {
     /// <summary>
     /// Controller responsible for handling pre document-related actions.
@@ -21,7 +21,7 @@ namespace Presentation.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="PreDocumentsController"/> class.
         /// </summary>
-        /// <param name="preDocumentService">Service to handle pre document operations.</param>
+        /// <param name="preDocumentService">Services to handle pre document operations.</param>
         public PreDocumentsController(IPreDocumentService preDocumentService)
         {
             _preDocumentService = preDocumentService;

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("FileLog")]
-public class FileLog : BaseEntity
+public class FileLog : BaseEntity, IEntity, ITimeModification   
 {
     public string FullName { get; set; }
     public string FullPath { get; set; }

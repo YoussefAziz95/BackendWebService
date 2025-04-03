@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.DTOs.Supplier.Request
+namespace Application.DTOs.Suppliers.Request
 {
     public class AddSupplierToCompany
     {

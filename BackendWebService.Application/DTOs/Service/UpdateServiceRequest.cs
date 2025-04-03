@@ -1,16 +1,12 @@
-﻿using Application.DTOs.Common;
-using Application.DTOs.Company;
-using Application.Validators.Common;
-using System;
-using System.Collections.Generic;
+﻿using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.DTOs.Service
+using Domain.Enums;
+using Domain;
+namespace Application.DTOs.Services
 {
-    public class UpdateServiceRequest : BaseValidationModel<UpdateServiceRequest>
+    public class UpdateServiceRequest : BaseValidationModel<UpdateServiceRequest>, ICreateMapper<Service>
     {
         public int Id { get; set; }
         [Required]

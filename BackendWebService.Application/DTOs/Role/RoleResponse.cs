@@ -1,12 +1,16 @@
 ﻿using Application.DTOs.Permission;
 using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
+using System.Collections.Generic;
 
-namespace Application.DTOs.Role
+using Domain.Enums;
+using Domain;
+namespace Application.DTOs.Roles
 {
     /// <summary>
     /// Represents a request model for updating a role.
     /// </summary>
-    public class RoleResponse : BaseValidationModel<UpdateRoleRequest>
+    public class RoleResponse : BaseValidationModel<UpdateRoleRequest>, ICreateMapper<Role>
     {
         /// <summary>
         /// Gets or sets the ID of the role.

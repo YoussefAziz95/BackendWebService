@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Domain.Enums;
+using System.Collections.Generic;
 
 namespace Application.Contracts.DTOs
 {
@@ -11,7 +12,7 @@ namespace Application.Contracts.DTOs
         /// <summary>
         /// Gets or sets the HTTP status code associated with the response.
         /// </summary>
-        HttpStatusCode StatusCode { get; set; }
+        ApiResultStatusCode StatusCode { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the operation succeeded.

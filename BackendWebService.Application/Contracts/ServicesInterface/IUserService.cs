@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.DTOs;
 using Application.DTOs.Common;
-using Application.DTOs.User;
+using Application.DTOs.Users;
 using System.Threading.Tasks;
 
 namespace Application.Contracts.Services

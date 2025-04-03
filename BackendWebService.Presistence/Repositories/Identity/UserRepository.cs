@@ -1,6 +1,6 @@
-﻿using Application.Contracts.Presistence.ActorRepositories;
-using Application.Contracts.Presistence.Identities;
-
+﻿using Application.Contracts.Persistence.ActorRepositories;
+using Application.Contracts.Persistence.Identities;
+using Domain;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
@@ -35,7 +35,7 @@ namespace Persistence.Repositories.Identity
         }
         public List<WAction> getActions(int userid)
         {
-            var actors = _context.Actors.Where(a => a.UserId == userid && a.ActorType == "Customer" && a.OwnerType == WORKFLOW_ACTION).ToList();
+            var actors = _context.Actors.Where(a => a.ActorId == userid && a.ActorType == "Customer" && a.OwnerType == WORKFLOW_ACTION).ToList();
             var workflowActions = new List<WAction>();
             actors.ForEach(actor =>
             {

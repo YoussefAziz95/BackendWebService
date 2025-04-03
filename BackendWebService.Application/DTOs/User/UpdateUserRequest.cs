@@ -1,6 +1,7 @@
 ﻿using Application.Validators.Common;
+using System.Collections.Generic;
 
-namespace Application.DTOs.User
+namespace Application.DTOs.Users
 {
     /// <summary>
     /// Represents a request model for updating a user.

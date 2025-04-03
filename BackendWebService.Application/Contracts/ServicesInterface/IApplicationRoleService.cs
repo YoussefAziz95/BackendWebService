@@ -1,11 +1,12 @@
 ﻿using Application.Contracts.DTOs;
 using Application.DTOs.Common;
-using Application.DTOs.Role;
+using Application.DTOs.Roles;
+using System.Threading.Tasks;
 
 namespace Application.Contracts.Services
 {
     /// <summary>
-    /// Service interface for managing application roles.
+    /// Services interface for managing application roles.
     /// </summary>
     public interface IApplicationRoleService
     {
@@ -28,7 +29,7 @@ namespace Application.Contracts.Services
         /// </summary>
         /// <param name="request">The request containing pagination details.</param>
         /// <returns>A task representing the asynchronous operation, returning the paginated response containing roles.</returns>
-        Task<IResponse<RolesResponse>> GetRolesPaginated(GetPaginatedRequest request);
+        Task<PaginatedResponse<RolesResponse>> GetRolesPaginated(GetPaginatedRequest request);
 
         /// <summary>
         /// Retrieves a role asynchronously by its identifier.

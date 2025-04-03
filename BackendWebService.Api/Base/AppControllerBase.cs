@@ -1,12 +1,7 @@
 ﻿using Application.Contracts.DTOs;
-using Application.Contracts.Services;
-using Application.DTOs.Common;
-using Application.Validators.Common;
-using Microsoft.AspNetCore.Authorization;
+using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-
-namespace Presentation.Base
+namespace Api.Base
 {
     /// <summary>
     /// Base controller for the application.
@@ -25,19 +20,19 @@ namespace Presentation.Base
         {
             switch (response.StatusCode)
             {
-                case HttpStatusCode.OK:
+                case ApiResultStatusCode.Ok:
                     return new OkObjectResult(response);
-                case HttpStatusCode.Created:
+                case ApiResultStatusCode.Created:
                     return new CreatedResult(string.Empty, response);
-                case HttpStatusCode.Unauthorized:
+                case ApiResultStatusCode.UnAuthorized:
                     return new UnauthorizedObjectResult(response);
-                case HttpStatusCode.BadRequest:
+                case ApiResultStatusCode.BadRequest:
                     return new BadRequestObjectResult(response);
-                case HttpStatusCode.NotFound:
+                case ApiResultStatusCode.NotFound:
                     return new NotFoundObjectResult(response);
-                case HttpStatusCode.Accepted:
+                case ApiResultStatusCode.Accepted:
                     return new AcceptedResult(string.Empty, response);
-                case HttpStatusCode.UnprocessableEntity:
+                case ApiResultStatusCode.UnprocessableEntity:
                     return new UnprocessableEntityObjectResult(response);
                 default:
                     return new BadRequestObjectResult(response);

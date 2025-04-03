@@ -1,4 +1,6 @@
-﻿namespace Application.DTOs.Logging
+﻿using System;
+
+namespace Application.DTOs.Logging
 {
     public class LoggingDto
     {

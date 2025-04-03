@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Presistence;
+﻿using Application.Contracts.Persistence;
 
 using System.ComponentModel.DataAnnotations;
 

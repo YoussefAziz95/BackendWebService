@@ -1,6 +1,7 @@
 ﻿using Application.Contracts.DTOs;
 using Application.DTOs.Common;
 using Application.DTOs.Utility;
+using System.Threading.Tasks;
 
 namespace Application.Contracts.Services
 {

@@ -1,11 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Domain;
 [Table("Recipient")]
-public class Recipient : BaseEntity
+public class Recipient : BaseEntity, IEntity, ITimeModification
 {
-    public int ReciverId { get; set; }
+    public int ReceiverId { get; set; }
     public int EmailId { get; set; }
+
+    [ForeignKey("ReceiverId")]
     public Actor Reciver { get; set; }
+
+    [ForeignKey("EmailId")]
     public EmailLog Email { get; set; }
 }
 

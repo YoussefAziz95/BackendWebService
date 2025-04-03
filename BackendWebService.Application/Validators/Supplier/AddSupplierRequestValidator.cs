@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Supplier.Request;
+﻿using Application.DTOs.Suppliers.Request;
 
 using FluentValidation;
 
@@ -9,9 +9,8 @@ public class AddSupplierRequestValidator : AbstractValidator<AddSupplierRequest>
         // Name validation
         RuleFor(x => x.Name)
             .NotEmpty()
-            .WithMessage("Supplier name is required.")
-            .Must(name => name != null && name.Any())
-            .WithMessage("Supplier name must contain at least one entry.");
+            .WithMessage("Suppliers name is required.")
+            .WithMessage("Suppliers name must contain at least one entry.");
 
 
         // Address validation

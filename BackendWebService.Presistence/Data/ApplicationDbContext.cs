@@ -1,5 +1,6 @@
 ﻿using Application.Model.Notifications;
-using Domain.Entities;
+using BackendWebService.SharedKernel.Extensions;
+using Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -34,19 +35,12 @@ namespace Persistence.Data
         public DbSet<SupplierDocument> SupplierDocuments { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
-        public DbSet<FileLog> File { get; set; }
         public DbSet<FileType> FileTypes { get; set; }
-        public DbSet<FileFieldValidator> FileFieldValidators { get; set; }
-        public DbSet<EmailLog> Emails { get; set; }
-        public DbSet<Recipient> Recipients { get; set; }
-        public DbSet<Attachment> Attachments { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
-        public DbSet<NotificationDetail> NotificationDetail { get; set; }
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Logging> Loggings { get; set; }
-        public DbSet<ExceptionLog> ExceptionLogs { get; set; }
         public DbSet<WAction> WActions { get; internal set; }
+        public DbSet<UserRefreshToken> UserRefreshTokens { get; internal set; }
 
         public override async ValueTask<EntityEntry<TEntity>> AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default)
         {
@@ -99,7 +93,37 @@ namespace Persistence.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            var entitiesAssembly = typeof(IEntity).Assembly;
+            modelBuilder.RegisterAllEntities<IEntity>(entitiesAssembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+        }
+
+        private void _cleanString()
+        {
+            var changedEntities = ChangeTracker.Entries()
+                .Where(x => x.State == EntityState.Added || x.State == EntityState.Modified);
+            foreach (var item in changedEntities)
+            {
+                if (item.Entity == null)
+                    continue;
+
+                var properties = item.Entity.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    .Where(p => p.CanRead && p.CanWrite && p.PropertyType == typeof(string));
+
+                foreach (var property in properties)
+                {
+                    var propName = property.Name;
+                    var val = (string)property.GetValue(item.Entity, null);
+
+                    if (val.HasValue())
+                    {
+                        var newVal = val.Fa2En().FixPersianChars();
+                        if (newVal == val)
+                            continue;
+                        property.SetValue(item.Entity, newVal, null);
+                    }
+                }
+            }
         }
 
         /// <summary>

@@ -1,15 +1,15 @@
-﻿using Application.Contracts.Services;
+﻿using Api.Base;
+using Application.Contracts.Services;
 using Application.DTOs.Common;
+using Application.DTOs.Companies.Request;
 using Application.Validators.Common;
+using Domain;
 using Domain.Constants;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Base;
-using Application.DTOs.Company.Request;
 
-namespace Presentation.Controllers
+namespace Api.Controllers
 {
     /// <summary>
     /// Controller responsible for handling company-related actions.
@@ -24,7 +24,7 @@ namespace Presentation.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="CompaniesController"/> class.
         /// </summary>
-        /// <param name="companyService">Service to handle company operations.</param>
+        /// <param name="companyService">Services to handle company operations.</param>
         /// <param name="userManager">Manager for handling user operations.</param>
         public CompaniesController(ICompanyService companyService, UserManager<User> userManager)
         {
@@ -70,7 +70,7 @@ namespace Presentation.Controllers
         [ModelValidator]
         public async Task<IActionResult> UpdateCompany([FromRoute] int id, [FromBody] UpdateCompanyRequest request)
         {
-            var result = await _companyService.UpdateAsync( request);
+            var result = await _companyService.UpdateAsync(request);
             return NewResult(result);
         }
 

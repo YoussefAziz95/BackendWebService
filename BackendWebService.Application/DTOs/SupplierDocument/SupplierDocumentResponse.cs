@@ -1,9 +1,13 @@
-﻿namespace Application.DTOs.SupplierDocument
+﻿using BackendWebService.Application.Profiles;
+using Domain;
+using System;
+
+namespace Application.DTOs.SupplierDocuments
 {
     /// <summary>
     /// Represents a response model for supplier documents.
     /// </summary>
-    public class SupplierDocumentResponse
+    public class SupplierDocumentResponse : ICreateMapper<SupplierDocument>
     {
         /// <summary>
         /// Gets or sets the ID of the supplier document.

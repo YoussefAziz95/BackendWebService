@@ -1,14 +1,12 @@
-﻿namespace Domain.Enums
+﻿
+namespace Domain.Enums;
+
+public enum PaymentEnum
 {
-
-    public enum PaymentEnum
-    {
-        Cash,
-        CreditCard,
-        DebitCard,
-        MobilePayment, // e.g., Apple Pay, Google Pay
-        OnlinePayment, // e.g., PayPal, Stripe
-        Crypto
-    }
-
+    Cash,
+    CreditCard,
+    DebitCard,
+    MobilePayment, // e.g., Apple Pay, Google Pay
+    OnlinePayment, // e.g., PayPal, Stripe
+    Crypto
 }

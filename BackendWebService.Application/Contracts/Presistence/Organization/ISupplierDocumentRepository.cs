@@ -1,7 +1,9 @@
-﻿using Application.DTOs.SupplierDocument;
+﻿using Application.DTOs.SupplierDocuments;
+using Domain;
+using System.Linq;
 
 
-namespace Application.Contracts.Presistence.Organization
+namespace Application.Contracts.Persistence.Organizations
 {
     public interface ISupplierDocumentRepository
     {

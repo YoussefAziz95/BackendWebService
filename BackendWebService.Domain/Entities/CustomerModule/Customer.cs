@@ -2,11 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Domain;
 [Table("Customer")]
-public class Customer : BaseEntity
+public class Customer : BaseEntity, IEntity, ITimeModification
 {
     public int UserId { get; set; }
-    [ForeignKey("UserId")]
+    [ForeignKey("ActorId")]
     public virtual User User { get; set; }
 
     [Required, Phone, MaxLength(20)]

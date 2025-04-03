@@ -17,11 +17,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.Persisten
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.Application", "BackendWebService.Application\BackendWebService.Application.csproj", "{864B15D5-E68A-4BE0-B7F2-413917CF3E45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.Infrastructure", "BackendWebService.Infrastructure\BackendWebService.Infrastructure.csproj", "{EAC5BEE7-2546-419F-B5AC-CBFDBD8D4879}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.Api", "BackendWebService.Api\BackendWebService.Api.csproj", "{129DB933-CDAF-4147-8F6E-0925F42F929A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.CrossCuttingConcerns", "BackendWebService.CrossCuttingConcerns\BackendWebService.CrossCuttingConcerns.csproj", "{EE1A6511-ED79-4902-88DE-01EFD73DAAFC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{25BBA354-AB65-4C6A-9B84-88D33311734A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.SharedKernal", "BackendWebService.SharedKernal\BackendWebService.SharedKernal.csproj", "{AEB1AD1B-A950-47F9-B78F-508E559303E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +43,6 @@ Global
 		{864B15D5-E68A-4BE0-B7F2-413917CF3E45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{864B15D5-E68A-4BE0-B7F2-413917CF3E45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{864B15D5-E68A-4BE0-B7F2-413917CF3E45}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EAC5BEE7-2546-419F-B5AC-CBFDBD8D4879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAC5BEE7-2546-419F-B5AC-CBFDBD8D4879}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAC5BEE7-2546-419F-B5AC-CBFDBD8D4879}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAC5BEE7-2546-419F-B5AC-CBFDBD8D4879}.Release|Any CPU.Build.0 = Release|Any CPU
 		{129DB933-CDAF-4147-8F6E-0925F42F929A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{129DB933-CDAF-4147-8F6E-0925F42F929A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{129DB933-CDAF-4147-8F6E-0925F42F929A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,6 +51,10 @@ Global
 		{EE1A6511-ED79-4902-88DE-01EFD73DAAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE1A6511-ED79-4902-88DE-01EFD73DAAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE1A6511-ED79-4902-88DE-01EFD73DAAFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEB1AD1B-A950-47F9-B78F-508E559303E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEB1AD1B-A950-47F9-B78F-508E559303E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEB1AD1B-A950-47F9-B78F-508E559303E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEB1AD1B-A950-47F9-B78F-508E559303E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,9 +66,10 @@ Global
 		{350B40EA-320A-411C-9577-E0BBC200E577} = {A2F5EC08-5334-4BBD-A3CD-37ADC88B46EB}
 		{95A49471-DEA9-4F70-863C-A9E8F2456774} = {A1C2875A-4BA9-433F-BE4A-5348487840E2}
 		{864B15D5-E68A-4BE0-B7F2-413917CF3E45} = {A2F5EC08-5334-4BBD-A3CD-37ADC88B46EB}
-		{EAC5BEE7-2546-419F-B5AC-CBFDBD8D4879} = {A1C2875A-4BA9-433F-BE4A-5348487840E2}
 		{129DB933-CDAF-4147-8F6E-0925F42F929A} = {414D9ABF-4DAB-4052-BEB2-1E164CEF3FFB}
 		{EE1A6511-ED79-4902-88DE-01EFD73DAAFC} = {414D9ABF-4DAB-4052-BEB2-1E164CEF3FFB}
+		{25BBA354-AB65-4C6A-9B84-88D33311734A} = {9E73C526-924D-4C2E-A1FD-4320B4F5D580}
+		{AEB1AD1B-A950-47F9-B78F-508E559303E2} = {25BBA354-AB65-4C6A-9B84-88D33311734A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DFEA2A16-3CC9-4203-9305-E1C90E53205F}

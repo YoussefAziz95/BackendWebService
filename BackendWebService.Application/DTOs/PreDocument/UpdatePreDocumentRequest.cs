@@ -1,11 +1,13 @@
 ﻿using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
+using Domain;
 
-namespace Application.DTOs.PreDocument
+namespace Application.DTOs.PreDocuments
 {
     /// <summary>
     /// Represents a request model used to update pre document details.
     /// </summary>
-    public class UpdatePreDocumentRequest : BaseValidationModel<UpdatePreDocumentRequest>
+    public class UpdatePreDocumentRequest : BaseValidationModel<UpdatePreDocumentRequest>, ICreateMapper<PreDocument>
     {
         /// <summary>
         /// Gets or sets the identifier of the pre document.

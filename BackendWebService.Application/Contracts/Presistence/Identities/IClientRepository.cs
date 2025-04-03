@@ -1,6 +1,7 @@
 ﻿using Application.Model.Notifications;
+using System.Collections.Generic;
 
-namespace Application.Contracts.Presistence.Identities
+namespace Application.Contracts.Persistence.Identities
 {
     public interface IClientRepository
     {

@@ -1,4 +1,4 @@
-﻿using Application.DTOs.SupplierCategory;
+﻿using Application.DTOs.SupplierCategories;
 using FluentValidation;
 
 namespace Application.Validators.CategoryName
@@ -16,12 +16,12 @@ namespace Application.Validators.CategoryName
             RuleFor(x => x.CategoryId)
                 .NotEmpty()
                 .GreaterThan(0)
-                .WithMessage("Invalid Category Id");
+                .WithMessage("Invalid Categories Id");
 
             RuleFor(x => x.SupplierId)
                 .NotEmpty()
                 .GreaterThan(0)
-                .WithMessage("Invalid Supplier Id");
+                .WithMessage("Invalid Suppliers Id");
         }
     }
 }

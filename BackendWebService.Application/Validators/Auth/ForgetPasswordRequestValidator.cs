@@ -1,14 +1,17 @@
 ﻿using Application.DTOs.Auth.Request;
-
+using BackendWebService.Application.Profiles;
+using Domain;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Application.Validators.Auth
 {
     /// <summary>
     /// Validator for ForgetPasswordRequest DTO.
     /// </summary>
-    public sealed class ForgetPasswordRequestValidator : AbstractValidator<ForgetPasswordRequest>
+    public sealed class ForgetPasswordRequestValidator : AbstractValidator<ForgetPasswordRequest>, ICreateMapper<User>
     {
         private readonly UserManager<User> _userManager;
 

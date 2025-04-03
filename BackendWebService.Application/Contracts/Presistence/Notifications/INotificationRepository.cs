@@ -1,6 +1,7 @@
-﻿
+﻿using Domain;
+using System.Threading.Tasks;
 
-namespace Application.Contracts.Presistence.Notifications
+namespace Application.Contracts.Persistence.Notifications
 {
     public interface INotificationRepository
     {

@@ -1,16 +1,10 @@
-﻿using Application.DTOs.Common;
-using Application.DTOs.Company;
-using Application.Validators.Common;
-using System;
-using System.Collections.Generic;
+﻿using Application.Validators.Common;
+using BackendWebService.Application.Profiles;
+using Domain;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.DTOs.Service
+namespace Application.DTOs.Services
 {
-    public  class AddServiceRequest : BaseValidationModel<AddServiceRequest>
+    public class AddServiceRequest : BaseValidationModel<AddServiceRequest>, ICreateMapper<Service>
     {
         [Required]
         public string Name { get; set; }

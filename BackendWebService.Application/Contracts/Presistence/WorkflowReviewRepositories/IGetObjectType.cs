@@ -1,4 +1,4 @@
-﻿namespace Application.Contracts.Presistence.WorkflowReviewRepositories
+﻿namespace Application.Contracts.Persistence.WorkflowReviewRepositories
 {
     public interface IGetObjectType
     {

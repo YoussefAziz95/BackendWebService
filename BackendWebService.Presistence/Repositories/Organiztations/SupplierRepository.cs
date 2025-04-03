@@ -1,15 +1,12 @@
-﻿using Application.Contracts.Presistence.Organization;
-using Application.Contracts.Presistence.WorkflowReviewRepositories;
-using Application.DTOs.Supplier.Responses;
-using Application.MappingProfiles;
-
-
+﻿using Application.Contracts.Persistence.Organizations;
+using Application.Contracts.Persistence.WorkflowReviewRepositories;
+using Application.DTOs.Suppliers.Responses;
+using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
-
-namespace Persistence.Repositories.Organiztations
+namespace Persistence.Repositories.Organizations
 {
     /// <summary>
     /// Repository for performing CRUD operations on supplier entities.
@@ -35,8 +32,8 @@ namespace Persistence.Repositories.Organiztations
         {
             SupplierAccount companySupplier = new SupplierAccount()
             {
-                OrganizationId = _context.Suppliers.Where( v=> v.Id == supplierId).Select(v=> v.OrganizationId).First(),
-                CompanyId = _context.userInfo.CompanyId??0,
+                OrganizationId = _context.Suppliers.Where(v => v.Id == supplierId).Select(v => v.OrganizationId).First(),
+                CompanyId = _context.userInfo.CompanyId ?? 0,
                 SupplierId = supplierId
             };
             using (var transaction = _context.Database.BeginTransaction())
@@ -68,12 +65,12 @@ namespace Persistence.Repositories.Organiztations
                     organization.Type = OrganizationEnum.Supplier;
                     var x = _context.Add(organization);
                     _context.SaveChanges();
-                   
 
-                  
+
+
                     _context.Update(organization);
                     _context.AddRange(organization.Name);
-                   
+
 
                     supplier.OrganizationId = organization.Id;
                     _context.Add(supplier);
@@ -119,7 +116,7 @@ namespace Persistence.Repositories.Organiztations
         public Supplier GetById(int id)
         {
             var supplier = GetSupplierById(id);
-           
+
             return supplier;
         }
         private Supplier GetSupplierById(int id)
@@ -151,10 +148,10 @@ namespace Persistence.Repositories.Organiztations
                              SupplierAccountId = cv.Id,
                              Email = o.Email,
                              TaxNo = o.TaxNo,
-                             Name =  o.Name,
-                             Country=o.Country,
-                             StreetAddress=o.StreetAddress,
-                             City=o.City,
+                             Name = o.Name,
+                             Country = o.Country,
+                             StreetAddress = o.StreetAddress,
+                             City = o.City,
                          };
 
             return result?.ToList() ?? new List<GetPaginatedSupplier>();
@@ -163,7 +160,7 @@ namespace Persistence.Repositories.Organiztations
         public int Update(Supplier entity)
         {
             Supplier supplier = GetById(entity.Id);
-            
+
             using (var transaction = _context.Database.BeginTransaction())
             {
                 try
@@ -172,14 +169,14 @@ namespace Persistence.Repositories.Organiztations
                     supplier.Organization.Email = entity.Organization.Email;
                     supplier.Organization.Phone = entity.Organization.Phone;
                     supplier.Organization.TaxNo = entity.Organization.TaxNo;
-                   
+
                     supplier.Organization.Country = entity.Organization.Country;
                     supplier.Organization.StreetAddress = entity.Organization.StreetAddress;
                     supplier.Organization.City = entity.Organization.City;
 
 
                     _context.Suppliers.Update(supplier);
-                    
+
                     _context.SaveChanges();
                     var existingCategories = _context.SupplierCategories
                          .Where(vc => vc.SupplierId == supplier.Id)
@@ -205,7 +202,7 @@ namespace Persistence.Repositories.Organiztations
                     _context.SupplierCategories.RemoveRange(categoriesToDelete);
 
                     _context.SaveChanges();
-                    transaction.Commit();  
+                    transaction.Commit();
                 }
                 catch (Exception ex)
                 {

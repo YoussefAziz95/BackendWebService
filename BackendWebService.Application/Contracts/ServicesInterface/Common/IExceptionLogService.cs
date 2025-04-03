@@ -1,5 +1,5 @@
-﻿using Application.DTOs.ExceptionLog;
-using Application.DTOs.SupplierCategory;
+﻿using Application.DTOs.ExceptionLogs;
+using Application.DTOs.SupplierCategories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

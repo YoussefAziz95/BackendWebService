@@ -1,6 +1,6 @@
 ﻿using Application.Validators.Common;
 
-namespace Application.DTOs.User
+namespace Application.DTOs.Users
 {
     /// <summary>
     /// Represents a request model for changing password.

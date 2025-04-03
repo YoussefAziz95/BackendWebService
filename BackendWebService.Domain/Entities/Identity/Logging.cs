@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("Logging")]
-public class Logging : BaseEntity
+public class Logging : BaseEntity, IEntity, ITimeModification
 {
     public int? UserId { get; set; }
     public string Message { get; set; }

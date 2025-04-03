@@ -1,7 +1,7 @@
-﻿using Application.Contracts.Presistence.WorkflowReviewRepositories;
+﻿using Application.Contracts.Persistence.WorkflowReviewRepositories;
 using Persistence.Data;
 
-namespace Persistence.Repositories.Organiztations
+namespace Persistence.Repositories.Organizations
 {
     public class PreDocumentRepository : IGetObjectType
     {

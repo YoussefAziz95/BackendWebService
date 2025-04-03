@@ -1,7 +1,8 @@
 ﻿using Application.DTOs.Common;
-
+using Domain;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace Application.Validators.Common
 {

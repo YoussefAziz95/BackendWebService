@@ -1,9 +1,10 @@
 ﻿
+
+using Domain;
 using Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
-
 [Table("WAction")]
-public class WAction : BaseEntity
+public class WAction : BaseEntity, IEntity, ITimeModification
 {
     public int Id { get; set; }
 

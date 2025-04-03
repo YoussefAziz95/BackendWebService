@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("NotificationDetail")]
-public class NotificationDetail : BaseEntity
+public class NotificationDetail : BaseEntity, IEntity, ITimeModification
 {
     public int NotificationId { get; set; }
     public string Channel { get; set; }

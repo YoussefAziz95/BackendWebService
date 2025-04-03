@@ -1,20 +1,20 @@
-﻿using Application.Contracts.Presistence.Identities;
+﻿using Application.Contracts.Persistence.Identities;
 using Application.Contracts.Services;
 using Application.DTOs.Auth.Request;
-using Application.DTOs.User;
-using Application.DTOs.Supplier.Request;
+using Application.DTOs.Users;
+using Application.DTOs.Suppliers.Request;
 using Application.Validators.Common;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Base;
+using Api.Base;
 
-namespace Presentation.Controllers
+namespace Api.Controllers
 {
     /// <summary>
     /// Controller responsible for handling authentication-related actions.
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/Admin")]
     [ApiController]
     [AllowAnonymous]
     public class AuthController : AppControllerBase
@@ -25,8 +25,8 @@ namespace Presentation.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthController"/> class.
         /// </summary>
-        /// <param name="authService">Service to handle authentication.</param>
-        /// <param name="supplierService">Service to handle supplier-related actions.</param>
+        /// <param name="authService">Services to handle authentication.</param>
+        /// <param name="supplierService">Services to handle supplier-related actions.</param>
         public AuthController(IAuthService authService,
             ISupplierService supplierService)
         {
@@ -43,10 +43,6 @@ namespace Presentation.Controllers
         public async Task<IActionResult> RegisterAsync([FromBody] AddUserRequest request)
         {
             var result = await _authService.RegisterAsync(request);
-
-            if (result.StatusCode != System.Net.HttpStatusCode.BadRequest)
-                SetRefreshTokenInCookie(result.Data!.RefreshToken!, result.Data.RefreshTokenExpiration);
-
             return NewResult(result);
         }
 
@@ -61,7 +57,6 @@ namespace Presentation.Controllers
         {
 
             var result = await _supplierService.AddUnregisteredAsync(request);
-
             return NewResult(result);
         }
 
@@ -74,18 +69,6 @@ namespace Presentation.Controllers
         public async Task<IActionResult> LoginAsync([FromBody] LoginRequest request)
         {
             var result = await _authService.LoginAsync(request);
-
-            if (result.StatusCode != System.Net.HttpStatusCode.Unauthorized && result.Data != null && !string.IsNullOrEmpty(result.Data.RefreshToken))
-            {
-                SetRefreshTokenInCookie(result.Data.RefreshToken, result.Data.RefreshTokenExpiration);
-                if (result.Data.HasOtp)
-                {
-                    if (result.Data.IsOtpVerfied) HttpContext.Session.SetString(AppConstants.UserOtpType, "true");
-                    else HttpContext.Session.SetString(AppConstants.UserOtpType, "false");
-                }
-            }
-            else HttpContext.Session.Remove(AppConstants.UserOtpType);
-
             return NewResult(result);
         }
 
@@ -98,17 +81,6 @@ namespace Presentation.Controllers
         public async Task<IActionResult> LoginAuthenticatorAsync([FromBody] LoginAuthenticatorRequest request)
         {
             var result = await _authService.LoginAuthenticatorAsync(request);
-
-            if (result.StatusCode != System.Net.HttpStatusCode.Unauthorized && result.Data != null && !string.IsNullOrEmpty(result.Data.RefreshToken))
-            {
-                SetRefreshTokenInCookie(result.Data.RefreshToken, result.Data.RefreshTokenExpiration);
-                if (result.Data.HasOtp)
-                {
-                    if (result.Data.IsOtpVerfied) HttpContext.Session.SetString(AppConstants.UserOtpType, "true");
-                    else HttpContext.Session.SetString(AppConstants.UserOtpType, "false");
-                }
-            }
-            else HttpContext.Session.Remove(AppConstants.UserOtpType);
             return NewResult(result);
         }
 
@@ -124,37 +96,6 @@ namespace Presentation.Controllers
             var result = await _authService.ConfirmOtp(request);
             if (result.Succeeded)
                 HttpContext.Session.SetString(AppConstants.UserOtpType, "true");
-            return NewResult(result);
-        }
-
-        /// <summary>
-        /// Refreshes the authentication token.
-        /// </summary>
-        /// <returns>A task that represents the asynchronous operation. The task result contains the IActionResult.</returns>
-        [HttpGet("refreshToken")]
-        public async Task<IActionResult> RefreshToken()
-        {
-            var refreshToken = Request.Cookies["refreshToken"];
-
-            var result = await _authService.RefreshTokenAsync(refreshToken!);
-
-            SetRefreshTokenInCookie(result.Data!.RefreshToken!, result.Data.RefreshTokenExpiration);
-
-            return NewResult(result);
-        }
-
-        /// <summary>
-        /// Revokes the authentication token.
-        /// </summary>
-        /// <param name="request">The token revocation details.</param>
-        /// <returns>A task that represents the asynchronous operation. The task result contains the IActionResult.</returns>
-        [HttpPost("revokeToken")]
-        public async Task<IActionResult> RevokeToken([FromBody] RevokeTokenRequest request)
-        {
-            var token = request.Token ?? Request.Cookies["refreshToken"];
-
-            var result = await _authService.RevokeTokenAsync(token!);
-
             return NewResult(result);
         }
 

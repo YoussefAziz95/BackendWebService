@@ -1,5 +1,5 @@
 ﻿using Application.DTOs.Auth.Request;
-
+using Domain;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 

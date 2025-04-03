@@ -1,10 +1,9 @@
-﻿namespace Domain.Enums
+﻿
+namespace Domain.Enums;
+public enum SizeEnum
 {
-    public enum SizeEnum
-    {
-        Small = 1,
-        Medium = 2,
-        Large = 3,
-        ExtraLarge = 4
-    }
+    Small = 1,
+    Medium = 2,
+    Large = 3,
+    ExtraLarge = 4
 }

@@ -1,6 +1,6 @@
 ﻿using Application.Validators.Common;
 
-namespace Application.DTOs.Role
+namespace Application.DTOs.Roles
 {
     /// <summary>
     /// Represents a request to add a role to a user.

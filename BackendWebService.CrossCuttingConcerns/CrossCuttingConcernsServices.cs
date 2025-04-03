@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Application.Contracts.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CrossCuttingConcerns
 {
@@ -19,6 +20,7 @@ namespace CrossCuttingConcerns
             {
                 options.EnableDetailedErrors = true; // Send detailed errors to the frontend for debugging. Remove this when deploying.
             });
+
             return services;
         }
     }

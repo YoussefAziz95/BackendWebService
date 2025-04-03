@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Domain;
 [Table("SupplierDocument")]
-public class SupplierDocument : BaseEntity
+public class SupplierDocument : BaseEntity, IEntity, ITimeModification
 {
     public int SupplierAccountId { get; set; }
     public int PreDocumentId { get; set; }

@@ -15,9 +15,9 @@ namespace Application.Validators.Auth
         {
             RuleFor(x => x.Name)
                 .NotEmpty()
-                .WithMessage("Supplier name is required.")
+                .WithMessage("Suppliers name is required.")
                 .Must(x => x != null && x.Any())
-                .WithMessage("Supplier name cannot be empty.");
+                .WithMessage("Suppliers name cannot be empty.");
 
             RuleFor(x => x.Country)
               .NotEmpty()

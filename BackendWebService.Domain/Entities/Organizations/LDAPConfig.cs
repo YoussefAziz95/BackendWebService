@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-
+namespace Domain;
 [Table("LDAPConfig")]
-public class LDAPConfig : BaseEntity
+public class LDAPConfig : BaseEntity, IEntity, ITimeModification
 {
     public int ConfigurationId { get; set; }
     public Configuration Configuration { get; set; }

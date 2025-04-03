@@ -1,12 +1,13 @@
-﻿using Application.DTOs.Common;
+﻿using BackendWebService.Application.Profiles;
+using Domain;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.Category
+namespace Application.DTOs.Categories
 {
     /// <summary>
     /// Represents a response model for a category.
     /// </summary>
-    public class CategoryResponse
+    public class CategoryResponse : ICreateMapper<Category>
     {
         /// <summary>
         /// Gets or sets the unique identifier of the category.
