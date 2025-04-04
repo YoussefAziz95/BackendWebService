@@ -1,10 +1,8 @@
-﻿using Application.DTOs.Notifications.Request;
-using System.Threading.Tasks;
+﻿using Application.DTOs.Notifications;
 
-namespace Application.Contracts.HubServices
+namespace Application.Contracts.HubServices;
+
+public interface INotificationService
 {
-    public interface INotificationService
-    {
-        Task<bool> SendMessageAsync(AddNotificationRequest request);
-    }
+    Task<bool> SendMessageAsync(AddNotificationRequest request);
 }

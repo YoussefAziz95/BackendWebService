@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Persistence;
+﻿using Application.Contracts.Persistences;
 using Application.DTOs.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;

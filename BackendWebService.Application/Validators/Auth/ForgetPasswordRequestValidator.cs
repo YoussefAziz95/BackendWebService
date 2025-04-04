@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Auth.Request;
+﻿using Application.DTOs.Auths;
 using BackendWebService.Application.Profiles;
 using Domain;
 using FluentValidation;

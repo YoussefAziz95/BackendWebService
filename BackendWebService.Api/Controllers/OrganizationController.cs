@@ -1,10 +1,6 @@
-﻿using Application.Contracts.Services;
-using Application.Implementations;
-using Domain.Constants;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using BackendWebService.Api.Base;
+using Application.Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
-using Api.Base;
 
 namespace Api.Controllers
 {
@@ -16,11 +12,10 @@ namespace Api.Controllers
         public OrganizationController(IOrganizationService organizationService)
         {
             _organizationService = organizationService;
-            
+
         }
 
         [HttpGet("{id}")]
-       
         public async Task<IActionResult> GetOrgName([FromRoute] int id)
         {
             var result = await _organizationService.OrganizationNameById(id);

@@ -1,4 +1,5 @@
-﻿using Application.Contracts.Persistence.WorkflowReviewRepositories;
+﻿
+using Application.Contracts.Persistences;
 using Persistence.Data;
 
 namespace Persistence.Repositories.Organizations

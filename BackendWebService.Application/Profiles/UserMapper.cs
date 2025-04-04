@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Persistence;
+﻿using Application.Contracts.Persistences;
 using Application.DTOs.Users;
 using Domain;
 using Microsoft.AspNetCore.Identity;

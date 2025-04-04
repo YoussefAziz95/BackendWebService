@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.DTOs;
-using Application.Contracts.Infrastructure;
-using Application.Contracts.Persistence;
-using Application.Contracts.Persistence.Organizations;
+using Application.Contracts.Infrastructures;
+using Application.Contracts.Persistences;
 using Application.Contracts.Services;
 using Application.DTOs.SupplierDocuments;
 using Application.Wrappers;
@@ -9,10 +8,6 @@ using AutoMapper;
 using Domain;
 using Domain.Constants;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Application.Implementations
 {

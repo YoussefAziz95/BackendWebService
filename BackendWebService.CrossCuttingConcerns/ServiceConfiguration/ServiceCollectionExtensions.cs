@@ -14,9 +14,6 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
-
-
-
     public static async Task ApplyMigrationsAsync(this WebApplication app)
     {
 

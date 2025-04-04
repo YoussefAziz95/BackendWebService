@@ -1,5 +1,5 @@
-﻿using Application.Contracts.Persistence.ActorRepositories;
-using Application.Contracts.Persistence.Identities;
+﻿using Application.Contracts.Persistences;
+using Application.Contracts.Persistences;
 using Application.DTOs.Permission;
 using Application.DTOs.Roles;
 using Domain;

@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.DTOs;
-using Application.Contracts.Persistence;
-using Application.Contracts.Persistence.Identities;
+using Application.Contracts.Persistences;
+using Application.Contracts.Persistences;
 using Application.Contracts.Services;
 using Application.DTOs.Common;
 using Application.DTOs.Users;

@@ -1,17 +1,15 @@
-﻿using Application.Contracts.Infrastructure;
+﻿using Application.Contracts.Infrastructures;
 using Application.Contracts.Services;
 using Application.Implementations.Common;
 using Application.Implementations;
 using Application.Middleware;
 using Application.Permissions;
 using Application.Utilities;
-using BackendWebService.Application.Profiles;
 using BackendWebService.Application.ServicesImplementation.Common;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using AutoMapper;
 
 namespace BackendWebServiceApplication.ServiceConfiguration;
 
@@ -20,7 +18,7 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddMediatR(Assembly.GetExecutingAssembly());
-        //services.AddAutoMapper(typeof(MappingProfile));
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         // Register AutoMapper with the current assembly
         //services.AddAutoMapper(typeof(MappingProfile));

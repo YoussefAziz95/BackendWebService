@@ -1,5 +1,4 @@
-﻿using Application.Contracts.Persistence.Product;
-using Application.Contracts.Persistence.WorkflowReviewRepositories;
+﻿using Application.Contracts.Persistences;
 using Application.DTOs.Categories;
 using Domain;
 using Microsoft.EntityFrameworkCore;

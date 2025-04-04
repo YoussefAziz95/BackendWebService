@@ -1,57 +1,55 @@
 ﻿using Application.Contracts.HubServices;
-using Application.Contracts.Persistence.Identities;
-using Application.Contracts.Persistence.Notifications;
+using Application.Contracts.Persistences;
+using Application.Contracts.Persistences;
 using Application.Contracts.Proxy;
 using Application.DTOs.Notifications;
-using Application.DTOs.Notifications.Request;
+using Application.DTOs.Notifications;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
 
-namespace Api.HubServices
+namespace BackendWebService.Api.HubServices;
+
+public class NotificationService : ResponseHandler, INotificationService
 {
-    public class NotificationService : ResponseHandler, INotificationService
+    private readonly INotificationProxy<NotificationHubResponse> _notificationProxy;
+    private readonly INotificationRepository _notificationRepository;
+    private readonly IMapper _mapper;
+
+    public NotificationService(INotificationProxy<NotificationHubResponse> notificationProxy,
+        IMapper mapper,
+        INotificationRepository notification)
     {
-        private readonly INotificationProxy<NotificationHubResponse> _notificationProxy;
-        private readonly INotificationRepository _notificationRepository;
-        private readonly IMapper _mapper;
+        _mapper = mapper;
+        _notificationRepository = notification;
+        _notificationProxy = notificationProxy;
+    }
 
-        public NotificationService(INotificationProxy<NotificationHubResponse> notificationProxy,
-            IMapper mapper,
-            INotificationRepository notification)
+    public async Task<bool> SendMessageAsync(AddNotificationRequest request)
+    {
+        var notification = _mapper.Map<AddNotificationRequest, Notification>(request);
+
+        var result = await _notificationRepository.AddAsync(notification);
+
+        string[] userNames = [];
+        if (request.NotifiedType == "Customer")
         {
-            _mapper = mapper;
-            _notificationRepository = notification;
-            _notificationProxy = notificationProxy;
+            userNames = IClientRepository._users.Where(u => u.UserId == request.NotifiedId).Select(u => u.Username).Distinct().ToArray();
         }
-
-
-        public async Task<bool> SendMessageAsync(AddNotificationRequest request)
+        else if (request.NotifiedType == "Roles")
         {
-            var notification = _mapper.Map<AddNotificationRequest, Notification>(request);
-
-            var result = await _notificationRepository.AddAsync(notification);
-
-            string[] userNames = [];
-            if (request.NotifiedType == "Customer")
-            {
-                userNames = IClientRepository._users.Where(u => u.UserId == request.NotifiedId).Select(u => u.Username).Distinct().ToArray();
-            }
-            else if (request.NotifiedType == "Roles")
-            {
-                userNames = IClientRepository._users.Where(u => u.RoleId == request.NotifiedId).Select(u => u.Username).Distinct().ToArray();
-            }
-            else if (request.NotifiedType == "Group")
-            {
-                userNames = IClientRepository._users.Where(u => u.GroupId == request.NotifiedId).Select(u => u.Username).Distinct().ToArray();
-            }
-            var response = _mapper.Map<Notification, NotificationHubResponse>(notification);
-
-            await _notificationProxy.NotifyAsync(request.NotificationType, result, userNames, response);
-
-            return result > 0;
-
+            userNames = IClientRepository._users.Where(u => u.RoleId == request.NotifiedId).Select(u => u.Username).Distinct().ToArray();
         }
+        else if (request.NotifiedType == "Group")
+        {
+            userNames = IClientRepository._users.Where(u => u.GroupId == request.NotifiedId).Select(u => u.Username).Distinct().ToArray();
+        }
+        var response = _mapper.Map<Notification, NotificationHubResponse>(notification);
+
+        await _notificationProxy.NotifyAsync(request.NotificationType, result, userNames, response);
+
+        return result > 0;
 
     }
+
 }

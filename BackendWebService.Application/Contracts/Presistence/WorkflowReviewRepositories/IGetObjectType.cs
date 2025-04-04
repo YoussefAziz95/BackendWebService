@@ -1,7 +1,6 @@
-﻿namespace Application.Contracts.Persistence.WorkflowReviewRepositories
+﻿namespace Application.Contracts.Persistences;
+
+public interface IGetObjectType
 {
-    public interface IGetObjectType
-    {
-        string GetObjectType(int id);
-    }
+    string GetObjectType(int id);
 }

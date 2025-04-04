@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Persistence.Organizations;
+﻿using Application.Contracts.Persistences;
 using Application.DTOs.SupplierDocuments;
 using Application.Model.EAVEngine;
 using Domain;

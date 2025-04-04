@@ -1,6 +1,6 @@
-﻿using Application.Contracts.Persistence.Organizations;
-using Application.DTOs.Companies.Response;
-using Application.DTOs.Suppliers.Responses;
+﻿using Application.Contracts.Persistences;
+using Application.DTOs.Companies;
+using Application.DTOs.Suppliers;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;

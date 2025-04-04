@@ -1,20 +1,14 @@
-﻿using System.Reflection;
+﻿namespace BackendWebService.Api;
 
-namespace BackendWebService.Api
+public static class Startup
 {
-    public static class Startup
+    public static IServiceCollection ConfigureGrpcPluginServices(this IServiceCollection services)
     {
-        public static IServiceCollection ConfigureGrpcPluginServices(this IServiceCollection services)
-        {
+        services.AddGrpc();
+        return services;
+    }
 
-
-            services.AddGrpc();
-            return services;
-        }
-
-        public static void ConfigureGrpcPipeline(this WebApplication app)
-        {
-
-        }
+    public static void ConfigureGrpcPipeline(this WebApplication app)
+    {
     }
 }

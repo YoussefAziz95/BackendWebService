@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Persistence;
+﻿using Application.Contracts.Persistences;
 using Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Persistence.Data;

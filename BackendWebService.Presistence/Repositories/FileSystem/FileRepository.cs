@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Persistence;
+﻿using Application.Contracts.Persistences;
 using Application.DTOs.Utility;
 using AutoMapper;
 using BackendWebService.Application.Profiles;

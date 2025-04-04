@@ -1,13 +1,11 @@
-﻿using Application.Contracts.Persistence;
-using Application.Contracts.Persistence.Identities;
-using Application.Contracts.Persistence.Notifications;
-using Application.Contracts.Persistence.Organizations;
-using Application.Contracts.Persistence.Product;
+﻿using Application.Contracts.Persistences;
 using Application.DTOs.Common;
 using Application.Implementations.Common;
 using Application.Model.Jwt;
-using BackendWebService.Application.Contracts;
+using BackendWebService.Application.Contracts.Persistence;
 using BackendWebService.Application.Identity.Jwt;
+using BackendWebService.Application.Persistence.Repositories;
+using BackendWebService.Contracts.Services;
 using BackendWebService.SharedKernel.Extensions;
 using Domain;
 using Domain.Enums;
@@ -43,6 +41,8 @@ public static class ServiceCollectionExtensions
             options
                 .UseSqlServer(configuration.GetConnectionString("SqlServer"));
         });
+        services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<ICompanyRepository, CompanyRepository>();
@@ -55,7 +55,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<IClientRepository, ClientRepository>();
         services.AddScoped<INotificationRepository, NotificationRepository>();
-        services.AddScoped<IJwtService, JwtService>();
         services.AddIdentity<User, Role>(options =>
         {
             options.Stores.ProtectPersonalData = false;

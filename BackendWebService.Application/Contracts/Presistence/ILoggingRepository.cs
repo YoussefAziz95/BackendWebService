@@ -1,9 +1,7 @@
 ﻿using Domain;
 
-namespace Application.Contracts.Persistence
+namespace Application.Contracts.Persistences;
+public interface ILoggingRepository
 {
-    public interface ILoggingRepository
-    {
-        void AddLog(Logging log);
-    }
+    void AddLog(Logging log);
 }

@@ -1,11 +1,10 @@
-﻿using Application.Contracts.HubServices;
+﻿using BackendWebService.Api.Base;
+using Application.Contracts.HubServices;
 using Application.DTOs.Notifications;
-using Application.DTOs.Notifications.Request;
-using CrossCuttingConcerns.ConfigHub;
+using CrossCuttingConcerns.ConfigHubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Api.Base;
 
 namespace Api.Controllers
 {

@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Suppliers.Request;
+﻿using Application.DTOs.Suppliers;
 using FluentValidation;
 
 namespace Application.Validators.Supplier

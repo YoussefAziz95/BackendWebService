@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Persistence.Notifications;
+﻿using Application.Contracts.Persistences;
 using Domain;
 using Persistence.Data;
 

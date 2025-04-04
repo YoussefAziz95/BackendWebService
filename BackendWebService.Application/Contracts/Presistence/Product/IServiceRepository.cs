@@ -1,11 +1,9 @@
 ﻿using Domain;
-using System.Threading.Tasks;
 
-namespace Application.Contracts.Persistence.Product
+namespace Application.Contracts.Persistences;
+
+public interface IServiceRepository
 {
-    public interface IServiceRepository
-    {
-        Task<int> UpdateService(Service updatedEntity);
-        Service GetById(int id);
-    }
+    Task<int> UpdateService(Service updatedEntity);
+    Service GetById(int id);
 }

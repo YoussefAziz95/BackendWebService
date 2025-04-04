@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Persistence.ActorRepositories;
+﻿using Application.Contracts.Persistences;
 
 using Persistence.Data;
 

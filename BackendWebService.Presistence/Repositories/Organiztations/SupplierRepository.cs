@@ -1,6 +1,5 @@
-﻿using Application.Contracts.Persistence.Organizations;
-using Application.Contracts.Persistence.WorkflowReviewRepositories;
-using Application.DTOs.Suppliers.Responses;
+﻿using Application.Contracts.Persistences;
+using Application.DTOs.Suppliers;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;

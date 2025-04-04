@@ -1,10 +1,10 @@
-using Api;
 using Application.Middleware;
 using Application.Model.Jwt;
+using BackendWebService.Api;
 using BackendWebServiceApplication.ServiceConfiguration;
 using BackendWebServiceInfrastructure.Persistence.ServiceConfiguration;
 using CrossCuttingConcerns;
-using CrossCuttingConcerns.ConfigHub;
+using CrossCuttingConcerns.ConfigHubs;
 using Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +13,7 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using Persistence.Data;
 using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,59 +52,6 @@ builder.Services.AddApplicationServices()
                 .AddCrossCuttingConcernsServices();
 builder.Services.AddSignalR();
 
-builder.Services.Configure<IdentitySettings>(builder.Configuration.GetSection("IdentitySettings"));
-builder.Services.AddIdentity<User, Role>()
-    .AddDefaultTokenProviders()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-    .AddJwtBearer(o =>
-    {
-        o.RequireHttpsMetadata = false;
-        o.SaveToken = false;
-        o.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidIssuer = builder.Configuration["IdentitySettings:Issuer"],
-            ValidAudience = builder.Configuration["IdentitySettings:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["IdentitySettings:Key"]!)),
-            ClockSkew = TimeSpan.Zero
-        };
-        //// Configure the Authority to the expected value for
-        //// the authentication provider. This ensures the token
-        //// is appropriately validated.
-        //o.Authority = "Authority URL"; // TODO: Update URL
-
-        // We have to hook the OnMessageReceived event in order to
-        // allow the JWT authentication handler to read the access
-        // token from the query string when a WebSocket or 
-        // Server-Sent Events request comes in.
-        o.Events = new JwtBearerEvents
-        {
-            OnMessageReceived = context =>
-            {
-                var accessToken = context.Request.Query["access_token"];
-
-                // If the request is for our hub...
-                var path = context.HttpContext.Request.Path;
-                if (!string.IsNullOrEmpty(accessToken) &&
-                    (path.StartsWithSegments("/NotificationHub")))
-                {
-                    // Read the token out of the query string
-                    context.Token = accessToken;
-                }
-                return Task.CompletedTask;
-            }
-        };
-    });
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("_AllowAnyOriginPolicy",
@@ -122,7 +70,7 @@ builder.Services.AddSignalR(options => // activate SignalR
 {
     options.EnableDetailedErrors = true; // Send detailed errors to the frontend for debugging. Remove this when deploying.
 });
-//builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 
 builder.Services.AddDistributedMemoryCache();

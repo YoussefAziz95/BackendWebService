@@ -1,19 +1,16 @@
 ﻿using Application.Contracts.DTOs;
-using Application.Contracts.Infrastructure;
-using Application.Contracts.Persistence;
-using Application.Contracts.Persistence.Organizations;
+using Application.Contracts.Infrastructures;
+using Application.Contracts.Persistences;
 using Application.Contracts.Services;
 using Application.DTOs.Common;
-using Application.DTOs.Companies.Request;
-using Application.DTOs.Companies.Response;
-using Application.DTOs.Suppliers.Responses;
+using Application.DTOs.Companies;
+using Application.DTOs.Companies;
+using Application.DTOs.Suppliers;
 using Application.DTOs.Users;
 using Application.Model.EmailDto;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
-using System;
-using System.Threading.Tasks;
 
 
 

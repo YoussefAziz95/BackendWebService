@@ -1,9 +1,9 @@
-﻿using Application.Contracts.Persistence.ActorRepositories;
+﻿using Application.Contracts.Persistences;
 
 using Persistence.Data;
 namespace Persistence.Repositories.Identity;
 
-public class ActorRepositoryFactory : IActorRepositoryFactory<WAction> 
+public class ActorRepositoryFactory : IActorRepositoryFactory<WAction>
 {
 
     // DbContext instance

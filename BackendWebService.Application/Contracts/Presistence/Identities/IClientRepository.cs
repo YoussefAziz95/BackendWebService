@@ -1,11 +1,9 @@
 ﻿using Application.Model.Notifications;
-using System.Collections.Generic;
 
-namespace Application.Contracts.Persistence.Identities
+namespace Application.Contracts.Persistences;
+
+public interface IClientRepository
 {
-    public interface IClientRepository
-    {
-        public static IList<UserInfo> _users { get; set; }
-        public static UserInfo _userInfo { get; set; }
-    }
+    public static IList<UserInfo> _users { get; set; }
+    public static UserInfo _userInfo { get; set; }
 }

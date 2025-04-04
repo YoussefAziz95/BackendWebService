@@ -1,13 +1,11 @@
 ﻿using Application.DTOs.Utility;
 using Domain;
 
+namespace Application.Contracts.Persistences;
 
-namespace Application.Contracts.Persistence
+public interface IFileRepository
 {
-    public interface IFileRepository
-    {
-        FileLog Upload(UploadRequest request, string fullPath);
-        FileResponse GetFile(int id);
+    FileLog Upload(UploadRequest request, string fullPath);
+    FileResponse GetFile(int id);
 
-    }
 }

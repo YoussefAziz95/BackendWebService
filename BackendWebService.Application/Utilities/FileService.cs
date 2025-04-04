@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Infrastructure;
+﻿using Application.Contracts.Infrastructures;
 using Domain.Constants;
 using Microsoft.AspNetCore.Http;
 

@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.DTOs;
-using Application.Contracts.Infrastructure;
-using Application.Contracts.Persistence;
+using Application.Contracts.Infrastructures;
+using Application.Contracts.Persistences;
 using Application.Contracts.Services;
 using Application.DTOs.Common;
 using Application.DTOs.Utility;

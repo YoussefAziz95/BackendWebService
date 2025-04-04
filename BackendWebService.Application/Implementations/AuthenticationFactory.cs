@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.Services;
-using Application.DTOs.Auth.Request;
+using Application.DTOs.Auths;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Application.Implementations

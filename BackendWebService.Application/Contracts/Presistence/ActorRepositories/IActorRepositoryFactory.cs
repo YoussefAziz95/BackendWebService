@@ -1,7 +1,4 @@
-﻿
-using System.Collections.Generic;
-
-namespace Application.Contracts.Persistence.ActorRepositories;
+﻿namespace Application.Contracts.Persistences;
 
 public interface IActorRepositoryFactory<IAction>
 {

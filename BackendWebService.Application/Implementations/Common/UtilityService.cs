@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Infrastructure;
+﻿using Application.Contracts.Infrastructures;
 using Application.Contracts.Services;
 using Application.DTOs.Common;
 using Application.DTOs.Utility;

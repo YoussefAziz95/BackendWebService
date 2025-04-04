@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Persistence;
+﻿using Application.Contracts.Persistences;
 using Application.Contracts.Services;
 using Application.DTOs.Logging;
 using AutoMapper;

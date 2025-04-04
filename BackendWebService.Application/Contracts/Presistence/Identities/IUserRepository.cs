@@ -1,11 +1,9 @@
 ﻿using Domain;
-using System.Linq;
 
-namespace Application.Contracts.Persistence.Identities
+namespace Application.Contracts.Persistences;
+
+public interface IUserRepository
 {
-    public interface IUserRepository
-    {
-        public IQueryable<User> getUsers();
-        User? getById(int id);
-    }
+    public IQueryable<User> getUsers();
+    User? getById(int id);
 }

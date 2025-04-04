@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.DTOs;
-using Application.Contracts.Persistence;
-using Application.Contracts.Persistence.Product;
+using Application.Contracts.Persistences;
 using Application.Contracts.Services;
 using Application.DTOs.Common;
 using Application.DTOs.Services;
@@ -9,8 +8,6 @@ using Application.Wrappers;
 using AutoMapper;
 using Domain;
 using Domain.Constants;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Application.Implementations
 {
@@ -29,7 +26,7 @@ namespace Application.Implementations
         public async Task<IResponse<int>> AddAsync(AddServiceRequest request)
         {
 
-            var matetial = _mapper.Map<AddServiceRequest,Service>(request);
+            var matetial = _mapper.Map<AddServiceRequest, Service>(request);
 
             await _unitOfWork.GenericRepository<Service>().AddAsync(matetial);
 
@@ -87,7 +84,7 @@ namespace Application.Implementations
 
         public async Task<IResponse<int>> UpdateAsync(UpdateServiceRequest request)
         {
-            var oldService = _mapper.Map<UpdateServiceRequest,Service>(request);
+            var oldService = _mapper.Map<UpdateServiceRequest, Service>(request);
 
             var result = await _materialRepository.UpdateService(oldService);
 

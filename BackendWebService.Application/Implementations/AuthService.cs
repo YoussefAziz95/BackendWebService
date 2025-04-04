@@ -1,10 +1,10 @@
 ﻿using Application.Contracts.DTOs;
-using Application.Contracts.Infrastructure;
-using Application.Contracts.Persistence;
-using Application.Contracts.Persistence.Identities;
+using Application.Contracts.Infrastructures;
+using Application.Contracts.Persistences;
+using Application.Contracts.Persistences;
 using Application.Contracts.Services;
-using Application.DTOs.Auth.Request;
-using Application.DTOs.Auth.Response;
+using Application.DTOs.Auths;
+using Application.DTOs.Auths.Response;
 using Application.DTOs.Common;
 using Application.DTOs.Users;
 using Application.Model.EmailDto;

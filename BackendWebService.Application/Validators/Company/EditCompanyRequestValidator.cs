@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Application.DTOs.Companies.Request;
+using Application.DTOs.Companies;
 
 namespace Application.Validators.Company
 {

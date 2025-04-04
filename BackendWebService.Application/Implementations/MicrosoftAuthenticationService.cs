@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.Services;
-using Application.DTOs.Auth.Request;
+using Application.DTOs.Auths;
 using Application.Model.Authentication;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;

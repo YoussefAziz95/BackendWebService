@@ -1,6 +1,4 @@
 ﻿using Domain;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace BackendWebService.Application.Contracts.Persistence;
 

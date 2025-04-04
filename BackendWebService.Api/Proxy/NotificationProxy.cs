@@ -1,35 +1,34 @@
-﻿using Application.Contracts.Persistence.Notifications;
+﻿using Application.Contracts.Persistences;
 using Application.Contracts.Proxy;
 using Application.DTOs.Notifications;
-using CrossCuttingConcerns.ConfigHub;
+using CrossCuttingConcerns.ConfigHubs;
 
 using Microsoft.AspNetCore.SignalR;
 
-namespace Api.Proxy
+namespace BackendWebService.Api.Proxy;
+
+public class NotificationProxy : INotificationProxy<NotificationHubResponse>
 {
-    public class NotificationProxy : INotificationProxy<NotificationHubResponse>
+    private readonly IHubContext<NotificationHub> _hubContext;
+    private readonly INotificationRepository _notificationRepository;
+
+    public NotificationProxy(IHubContext<NotificationHub> hubContext, INotificationRepository notificationRepository)
     {
-        private readonly IHubContext<NotificationHub> _hubContext;
-        private readonly INotificationRepository _notificationRepository;
+        _hubContext = hubContext;
+        _notificationRepository = notificationRepository;
+    }
+    public async Task NotifyAsync(string message, int notificationId, string[] NotifiedUserName, NotificationHubResponse response)
+    {
 
-        public NotificationProxy(IHubContext<NotificationHub> hubContext, INotificationRepository notificationRepository)
+        var connectionIds = NotificationHub.GetConnection(NotifiedUserName);
+        foreach (var connectionId in connectionIds)
         {
-            _hubContext = hubContext;
-            _notificationRepository = notificationRepository;
-        }
-        public async Task NotifyAsync(string message, int notificationId, string[] NotifiedUserName, NotificationHubResponse response)
-        {
-
-            var connectionIds = NotificationHub.GetConnection(NotifiedUserName);
-            foreach (var connectionId in connectionIds)
+            _notificationRepository.AddDetailsAsync(connectionId.Key, notificationId);
+            if (connectionId.Value is not null)
             {
-                _notificationRepository.AddDetailsAsync(connectionId.Key, notificationId);
-                if (connectionId.Value is not null)
-                {
-                    await _hubContext.Clients.Client(connectionId.Value).SendAsync(message, response);
-                }
+                await _hubContext.Clients.Client(connectionId.Value).SendAsync(message, response);
             }
         }
-
     }
+
 }

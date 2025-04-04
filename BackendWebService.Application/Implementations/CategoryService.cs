@@ -1,15 +1,11 @@
 ﻿using Application.Contracts.DTOs;
-using Application.Contracts.Persistence;
-using Application.Contracts.Persistence.Product;
+using Application.Contracts.Persistences;
 using Application.Contracts.Services;
 using Application.DTOs.Categories;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Application.Implementations
 {
