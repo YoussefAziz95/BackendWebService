@@ -7,7 +7,7 @@ namespace Domain;
 public class Customer : BaseEntity, IEntity, ITimeModification
 {
     public int UserId { get; set; }
-    [ForeignKey("ActorId")]
+    [ForeignKey("UserId")]
     public virtual User User { get; set; }
 
     [Required, Phone, MaxLength(20)]
@@ -15,4 +15,5 @@ public class Customer : BaseEntity, IEntity, ITimeModification
     public bool MFAEnabled { get; set; } = false;
     public RoleEnum Role { get; set; } = RoleEnum.Customer;  // Default role
     public StatusEnum Status { get; set; } = StatusEnum.Active;
+    public virtual ICollection<CustomerProperty> CustomerProperties { get; set; }
 }

@@ -5,9 +5,9 @@ using Application.Validators.Common;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using BackendWebService.Api.Base;
+using Api.Base;
 
-namespace BackendWebService.Api.Controllers;
+namespace Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

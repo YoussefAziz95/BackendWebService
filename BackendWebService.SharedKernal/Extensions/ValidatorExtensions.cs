@@ -1,9 +1,9 @@
-﻿using BackendWebService.SharedKernel.ValidationBase;
-using BackendWebService.SharedKernel.ValidationBase.Contracts;
+﻿using SharedKernel.ValidationBase;
+using SharedKernel.ValidationBase.Contracts;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BackendWebService.SharedKernel.Extensions
+namespace SharedKernel.Extensions
 {
     public static class ValidatorExtensions
     {

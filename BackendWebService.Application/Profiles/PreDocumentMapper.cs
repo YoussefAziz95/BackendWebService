@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.Persistences;
 using Domain;
-namespace BackendWebService.Application.Profiles
+namespace Application.Profiles
 {
     /// <summary>
     /// Static class containing methods to map pre document-related entities and DTOs.

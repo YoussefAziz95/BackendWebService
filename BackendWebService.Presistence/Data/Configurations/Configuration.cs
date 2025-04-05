@@ -1,18 +1,31 @@
-﻿using BackendWebService.Domain.Entities.User;
-using Domain;
+﻿using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
-namespace BackendWebService.Persistence.Data.Configurations;
+namespace Persistence.Data.Configurations;
 
 public sealed class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
 {
     public void Configure(EntityTypeBuilder<UserRole> builder)
     {
         builder.HasOne(ur => ur.User).WithMany(u => u.UserRoles).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(ur => ur.Role).WithMany().HasForeignKey(c => c.RoleId).OnDelete(DeleteBehavior.NoAction);
+    }
+}public sealed class UserTokenConfiguration : IEntityTypeConfiguration<UserToken>
+{
+    public void Configure(EntityTypeBuilder<UserToken> builder)
+    {
+        builder.HasOne(ur => ur.User).WithMany().HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.NoAction);
     }
 }
-
+public sealed class RoleClaimnConfiguration : IEntityTypeConfiguration<RoleClaim>
+{
+    public void Configure(EntityTypeBuilder<RoleClaim> builder)
+    {
+        builder.HasOne(ur => ur.Role).WithMany(u => u.RoleClaim).HasForeignKey(c => c.RoleId).OnDelete(DeleteBehavior.NoAction);
+    }
+}
 public sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {
     public void Configure(EntityTypeBuilder<Category> builder)
@@ -36,10 +49,13 @@ public sealed class EmailConfiguration : IEntityTypeConfiguration<EmailLog>
         builder.HasOne(e => e.Sender).WithMany().HasForeignKey(e => e.SenderId).OnDelete(DeleteBehavior.NoAction);
     }
 }
-public sealed class RoleClaimConfiguration : IEntityTypeConfiguration<RoleClaim>
+public sealed class CutomerProprtyConfiguration : IEntityTypeConfiguration<CustomerProperty>
 {
-    public void Configure(EntityTypeBuilder<RoleClaim> builder)
+    public void Configure(EntityTypeBuilder<CustomerProperty> builder)
     {
-        builder.HasOne(r => r.Role).WithMany(r => r.RoleClaim).HasForeignKey(c => c.RoleId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasKey(x => new { x.CustomerId, x.PropertyId });
+        builder.HasOne(x => x.Customer).WithMany(y=> y.CustomerProperties).HasForeignKey(u => u.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(x => x.Property).WithMany().HasForeignKey(g => g.PropertyId).OnDelete(DeleteBehavior.NoAction);
     }
 }
+

@@ -1,4 +1,4 @@
-﻿using BackendWebService.Api.Base;
+﻿using Api.Base;
 using Application.Contracts.Services;
 using Application.DTOs.Common;
 using Application.DTOs.Companies;
@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.DTOs.Companies;
 using Application.DTOs.Companies;
 
-namespace BackendWebService.Api.Controllers;
+namespace Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

@@ -1,8 +1,8 @@
 ﻿using Application.Contracts.Persistences;
 using Application.Model.Jwt;
-using BackendWebService.Application.Contracts.Persistence;
-using BackendWebService.Application.Models.Jwt;
-using BackendWebService.Contracts.Services;
+using Application.Contracts.Persistence;
+using Application.Models.Jwt;
+using Contracts.Services;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace BackendWebService.Application.Identity.Jwt;
+namespace Application.Identity.Jwt;
 
 public class JwtService : IJwtService
 {

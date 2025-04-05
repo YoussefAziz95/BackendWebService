@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 
 
-namespace BackendWebService.Application.Profiles
+namespace Application.Profiles
 {
     /// <summary>
     /// Static class containing methods to map group-related entities and DTOs.

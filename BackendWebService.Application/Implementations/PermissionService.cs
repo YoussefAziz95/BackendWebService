@@ -1,21 +1,15 @@
 ﻿using Application.Contracts.DTOs;
 using Application.Contracts.Persistences;
-using Application.Contracts.Persistences;
 using Application.Contracts.Services;
 using Application.DTOs.Permission;
 using Application.Wrappers;
-using BackendWebService.Domain.Entities.User;
 using Domain;
 using Domain.Constants;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Application.Implementations
 {
@@ -109,7 +103,7 @@ namespace Application.Implementations
                     Groups = rc.claims.Select(c => c.ClaimType?.Split('.')[0]).First(),
                     menu = rc.claims.Select(c => c.ClaimType?.Split('.')[1]).First(),
                     page = rc.claims.Select(c => c.ClaimType?.Split('.')[2]).First(),
-                    permission =  rc.claims.Select(c => c.ClaimType?.Split('.')[3]).First()
+                    permission = rc.claims.Select(c => c.ClaimType?.Split('.')[3]).First()
                 });
 
 

@@ -1,20 +1,20 @@
 ﻿using Application.Contracts.Persistences;
-using Application.Contracts.Persistences;
 using Domain;
 using Domain.Enums;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 
 
 namespace Persistence.Repositories.Identity
 {
-    public class UserRepository : IActorRepository<WAction>, IUserRepository
+    public class UserRepository : UserStore, IActorRepository<WAction>, IUserRepository
     {
         private readonly ApplicationDbContext _context;
         private const string WORKFLOW_ACTION = "WorkflowAction";
 
 
-        public UserRepository(ApplicationDbContext context)
+        public UserRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }

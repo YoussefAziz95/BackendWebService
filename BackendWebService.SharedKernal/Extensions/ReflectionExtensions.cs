@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Reflection;
 
-namespace BackendWebService.SharedKernel.Extensions;
+namespace SharedKernel.Extensions;
 
 public static class ReflectionHelper
 {

@@ -1,6 +1,6 @@
 using Application.Middleware;
 using Application.Model.Jwt;
-using BackendWebService.Api;
+using Api;
 using BackendWebServiceApplication.ServiceConfiguration;
 using BackendWebServiceInfrastructure.Persistence.ServiceConfiguration;
 using CrossCuttingConcerns;
@@ -89,21 +89,6 @@ var app = builder.Build();
 app.UseStaticFiles();
 
 
-//Seeding
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    try
-    {
-        var userManager = services.GetRequiredService<UserManager<User>>();
-        var dbcontext = services.GetRequiredService<ApplicationDbContext>();
-    }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while seeding the database.");
-    }
-}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

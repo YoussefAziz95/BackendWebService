@@ -1,5 +1,5 @@
 ﻿using Application.DTOs.Users;
-using BackendWebService.Application.Profiles;
+using Application.Profiles;
 using Domain;
 using System.Collections.Generic;
 

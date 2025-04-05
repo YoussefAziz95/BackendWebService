@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace BackendWebService.Application.Models.Jwt;
+namespace Application.Models.Jwt;
 
 public class AccessToken
 {

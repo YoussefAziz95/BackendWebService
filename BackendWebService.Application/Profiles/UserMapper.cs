@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BackendWebService.Application.Profiles
+namespace Application.Profiles
 {
     /// <summary>
     /// Provides mapping methods for user-related entities.

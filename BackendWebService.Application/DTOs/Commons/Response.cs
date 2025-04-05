@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.DTOs;
-using BackendWebService.SharedKernel.Extensions;
+using SharedKernel.Extensions;
 using Domain.Enums;
 using System.Collections.Generic;
 using System.Diagnostics;

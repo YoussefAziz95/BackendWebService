@@ -8,7 +8,7 @@ public class Recipient : BaseEntity, IEntity, ITimeModification
     public int ReceiverId { get; set; }
     public int EmailId { get; set; }
 
-    [ForeignKey("ReceiverId")]
+    [ForeignKey(nameof(Actor))]
     public Actor Reciver { get; set; }
 
     [ForeignKey("EmailId")]

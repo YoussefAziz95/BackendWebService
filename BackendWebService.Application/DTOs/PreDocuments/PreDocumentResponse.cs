@@ -1,4 +1,4 @@
-﻿using BackendWebService.Application.Profiles;
+﻿using Application.Profiles;
 using System;
 
 using Domain.Enums;

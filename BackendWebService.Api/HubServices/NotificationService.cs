@@ -8,7 +8,7 @@ using Application.Wrappers;
 using AutoMapper;
 using Domain;
 
-namespace BackendWebService.Api.HubServices;
+namespace Api.HubServices;
 
 public class NotificationService : ResponseHandler, INotificationService
 {

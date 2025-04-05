@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.DTOs;
 using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
-namespace BackendWebService.Api.Base;
+namespace Api.Base;
 
 [Route("api/[controller]")]
 [ApiController]

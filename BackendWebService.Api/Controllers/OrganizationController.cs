@@ -1,4 +1,4 @@
-﻿using BackendWebService.Api.Base;
+﻿using Api.Base;
 using Application.Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 

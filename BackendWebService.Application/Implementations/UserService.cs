@@ -6,7 +6,7 @@ using Application.DTOs.Common;
 using Application.DTOs.Users;
 using Application.Wrappers;
 using AutoMapper;
-using BackendWebService.Application.Profiles;
+using Application.Profiles;
 using Domain;
 using Domain.Constants;
 using Domain.Enums;

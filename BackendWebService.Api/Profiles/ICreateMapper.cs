@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace BackendWebService.Api.Profiles;
+namespace Api.Profiles;
 
 public interface ICreateMapper<TSource> : IMapper
 {

@@ -1,5 +1,5 @@
 ﻿using Application.DTOs.Auths;
-using BackendWebService.Application.Profiles;
+using Application.Profiles;
 using Domain;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;

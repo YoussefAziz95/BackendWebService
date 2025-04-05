@@ -1,11 +1,11 @@
-﻿using BackendWebService.Api.Base;
+﻿using Api.Base;
 using Application.Contracts.Services;
 using Application.DTOs.Common;
 using Application.Validators.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BackendWebService.Api.Controllers;
+namespace Api.Controllers;
 
 public class DropDownController : AppControllerBase
 {

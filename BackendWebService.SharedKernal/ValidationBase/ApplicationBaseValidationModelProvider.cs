@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BackendWebService.SharedKernel.ValidationBase;
+namespace SharedKernel.ValidationBase;
 
 public class ApplicationBaseValidationModelProvider<TApplicationModel> : AbstractValidator<TApplicationModel>
 {

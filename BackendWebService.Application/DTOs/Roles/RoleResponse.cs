@@ -1,6 +1,6 @@
 ﻿using Application.DTOs.Permission;
 using Application.Validators.Common;
-using BackendWebService.Application.Profiles;
+using Application.Profiles;
 using System.Collections.Generic;
 
 using Domain.Enums;

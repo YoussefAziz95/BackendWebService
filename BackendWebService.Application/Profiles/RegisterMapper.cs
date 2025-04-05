@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 
-namespace BackendWebService.Application.Profiles;
+namespace Application.Profiles;
 
 public class RegisterMapper : Profile
 {

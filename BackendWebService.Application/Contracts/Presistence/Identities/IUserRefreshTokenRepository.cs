@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace BackendWebService.Application.Contracts.Persistence;
+namespace Application.Contracts.Persistence;
 
 public interface IUserRefreshTokenRepository
 {

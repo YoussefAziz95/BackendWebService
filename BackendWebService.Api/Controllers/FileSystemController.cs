@@ -1,11 +1,11 @@
-﻿using BackendWebService.Api.Base;
+﻿using Api.Base;
 using Application.Contracts.Services;
 using Application.DTOs.Utility;
 using Application.Validators.Common;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-namespace BackendWebService.Api.Controllers;
+namespace Api.Controllers;
 
 [Route("api/[controller]")]
 [Authorize]

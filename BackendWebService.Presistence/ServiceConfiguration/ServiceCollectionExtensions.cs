@@ -1,12 +1,12 @@
 ﻿using Application.Contracts.Persistences;
 using Application.DTOs.Common;
-using Application.Implementations.Common;
+using Application.Manager;
 using Application.Model.Jwt;
-using BackendWebService.Application.Contracts.Persistence;
-using BackendWebService.Application.Identity.Jwt;
-using BackendWebService.Application.Persistence.Repositories;
-using BackendWebService.Contracts.Services;
-using BackendWebService.SharedKernel.Extensions;
+using Application.Contracts.Persistence;
+using Application.Identity.Jwt;
+using Application.Persistence.Repositories;
+using Contracts.Services;
+using SharedKernel.Extensions;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -25,6 +25,7 @@ using Persistence.Repositories.Identity;
 using Persistence.Repositories.Notifications;
 using Persistence.Repositories.Organizations;
 using Persistence.Repositories.Product;
+using Persistence.Store;
 using System.Security.Claims;
 using System.Text;
 
@@ -39,7 +40,7 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<ApplicationDbContext>(options =>
         {
             options
-                .UseSqlServer(configuration.GetConnectionString("SqlServer"));
+                .UseSqlServer(DbConnection.DefaultConnection);
         });
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
@@ -75,7 +76,18 @@ public static class ServiceCollectionExtensions
             //options.Stores.ProtectPersonalData = true;
 
 
-        });
+        }).AddUserStore<AppUserStore>()
+                .AddRoleStore<RoleStore>().
+                //.AddUserValidator<AppUserValidator>().
+                //AddRoleValidator<AppRoleValidator>().
+                AddUserManager<AppUserManager>().
+                AddRoleManager<AppRoleManager>().
+                AddErrorDescriber<AppErrorDescriber>()
+                //.AddClaimsPrincipalFactory<AppUserClaimsPrincipleFactory>()
+                .AddDefaultTokenProviders().
+                AddSignInManager<AppSignInManager>()
+                .AddDefaultTokenProviders()
+                .AddPasswordlessLoginTotpTokenProvider();
 
 
         //For [ProtectPersonalData] Attribute In Identity
@@ -85,6 +97,7 @@ public static class ServiceCollectionExtensions
         //services.AddScoped<ILookupProtector, LookupProtector>();
 
         //services.AddScoped<IPersonalDataProtector, PersonalDataProtector>();
+
 
 
 

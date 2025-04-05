@@ -1,4 +1,4 @@
-﻿namespace BackendWebService.Api;
+﻿namespace Api;
 
 public static class Startup
 {

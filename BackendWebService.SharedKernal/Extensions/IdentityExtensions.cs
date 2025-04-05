@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using Microsoft.AspNetCore.Identity;
 
-namespace BackendWebService.SharedKernel.Extensions;
+namespace SharedKernel.Extensions;
 
 public static class IdentityExtensions
 {

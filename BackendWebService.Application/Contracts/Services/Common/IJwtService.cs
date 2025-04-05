@@ -1,9 +1,9 @@
-﻿using BackendWebService.Application.Models.Jwt;
+﻿using Application.Models.Jwt;
 using Domain;
 using System.Security.Claims;
 
 
-namespace BackendWebService.Contracts.Services;
+namespace Contracts.Services;
 
 public interface IJwtService
 {

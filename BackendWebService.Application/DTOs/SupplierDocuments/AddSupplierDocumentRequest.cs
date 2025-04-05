@@ -1,7 +1,7 @@
 ﻿using Domain.Enums;
 using Domain;
 using Application.Validators.Common;
-using BackendWebService.Application.Profiles;
+using Application.Profiles;
 
 namespace Application.DTOs.SupplierDocuments
 {

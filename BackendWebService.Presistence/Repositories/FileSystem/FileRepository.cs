@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.Persistences;
 using Application.DTOs.Utility;
 using AutoMapper;
-using BackendWebService.Application.Profiles;
+using Application.Profiles;
 using Domain;
 using Persistence.Data;
 using Persistence.Repositories.Common;

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace BackendWebService.SharedKernel.ValidationBase.Contracts;
+namespace SharedKernel.ValidationBase.Contracts;
 
 public interface IValidatableModel<TApplicationModel> where TApplicationModel : class
 {

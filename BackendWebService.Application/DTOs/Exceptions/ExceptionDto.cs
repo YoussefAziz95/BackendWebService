@@ -1,5 +1,5 @@
 ﻿using Application.DTOs.Common;
-using BackendWebService.Application.Profiles;
+using Application.Profiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;

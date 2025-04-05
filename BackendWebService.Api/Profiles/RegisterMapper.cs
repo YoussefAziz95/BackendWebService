@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System.Reflection;
 
-namespace BackendWebService.Api.Profiles;
+namespace Api.Profiles;
 
 public class RegisterMapper : Profile
 {

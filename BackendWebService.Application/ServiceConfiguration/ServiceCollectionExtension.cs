@@ -5,7 +5,7 @@ using Application.Implementations;
 using Application.Middleware;
 using Application.Permissions;
 using Application.Utilities;
-using BackendWebService.Application.ServicesImplementation.Common;
+using Application.ServicesImplementation.Common;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;

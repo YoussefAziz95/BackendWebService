@@ -1,9 +1,9 @@
-﻿using BackendWebService.Application.Contracts.Persistence;
+﻿using Application.Contracts.Persistence;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 
-namespace BackendWebService.Application.Persistence.Repositories;
+namespace Application.Persistence.Repositories;
 
 internal class UserRefreshTokenRepository : IUserRefreshTokenRepository
 {

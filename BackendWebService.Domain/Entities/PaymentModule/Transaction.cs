@@ -14,6 +14,7 @@ public class Transaction : BaseEntity, IEntity, ITimeModification
     [MaxLength(50)]
     public TransactionEnum Type { get; set; }
     [Required]
+    [Column(TypeName = "decimal(18,2)")]
     [Range(0.01, double.MaxValue)]
     public decimal Amount { get; set; }
     [Required]

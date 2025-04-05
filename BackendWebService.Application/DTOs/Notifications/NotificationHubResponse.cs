@@ -1,4 +1,4 @@
-﻿using BackendWebService.Application.Profiles;
+﻿using Application.Profiles;
 using Domain;
 using System;
 using System.ComponentModel.DataAnnotations;

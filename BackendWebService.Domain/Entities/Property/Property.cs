@@ -4,9 +4,9 @@ namespace Domain;
 [Table("Property")]
 public class Property : BaseEntity, IEntity, ITimeModification
 {
-    public int UserId { get; set; }
-    [ForeignKey("ActorId")]
-    public virtual User User { get; set; }
+    public int OwnerId { get; set; }
+    [ForeignKey("OwnerId")]
+    public virtual Actor Owner { get; set; }
 
     [Required, MaxLength(100)]
     public string Name { get; set; }

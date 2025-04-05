@@ -1,4 +1,4 @@
-﻿namespace BackendWebService.SharedKernel.Extensions;
+﻿namespace SharedKernel.Extensions;
 
 public static class StringExtensions
 {

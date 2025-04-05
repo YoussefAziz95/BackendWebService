@@ -2,7 +2,7 @@
 using Domain;
 using System.IO;
 
-namespace BackendWebService.Application.Profiles
+namespace Application.Profiles
 {
     public class FileMapper
     {

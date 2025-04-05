@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BackendWebService.Application.Models.Jwt;
+namespace Application.Models.Jwt;
 
 public class TokenRequest
 {

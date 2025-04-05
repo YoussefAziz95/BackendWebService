@@ -5,7 +5,7 @@ using CrossCuttingConcerns.ConfigHubs;
 
 using Microsoft.AspNetCore.SignalR;
 
-namespace BackendWebService.Api.Proxy;
+namespace Api.Proxy;
 
 public class NotificationProxy : INotificationProxy<NotificationHubResponse>
 {

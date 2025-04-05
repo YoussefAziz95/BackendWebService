@@ -1,5 +1,5 @@
 ﻿using Application.DTOs.SupplierCategories;
-using BackendWebService.Application.Profiles;
+using Application.Profiles;
 using Domain;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

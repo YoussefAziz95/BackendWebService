@@ -1,5 +1,5 @@
 ﻿using Application.Validators.Common;
-using BackendWebService.Application.Profiles;
+using Application.Profiles;
 using System.ComponentModel.DataAnnotations;
 
 using Domain.Enums;

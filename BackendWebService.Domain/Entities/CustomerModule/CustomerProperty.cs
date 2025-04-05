@@ -9,6 +9,7 @@ public class CustomerProperty : BaseEntity, IEntity, ITimeModification
 
     [ForeignKey("CustomerId")]
     public int CustomerId { get; set; }
+    public virtual Customer Customer { get; set; }
 
     public int PropertyId { get; set; }
     [ForeignKey("PropertyId")]
