@@ -1,73 +1,123 @@
-﻿using Application.Contracts.Services;
-using Application.DTOs.Common;
-using Application.DTOs.Roles;
-using Application.Validators.Common;
-using Domain.Constants;
+﻿using BackendWebService.Application.Contracts.Manager;
+using BackendWebService.Application.DTOs.Roles;
+using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Api.Base;
+using System.Security.Claims;
 
-namespace Api.Controllers;
+namespace BackendWebService.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class RolesController : AppControllerBase
+[Authorize]
+public class RoleController : ControllerBase
 {
-    private readonly IApplicationRoleService _roleService;
+    private readonly IAppRoleManager _roleManager;
 
-    public RolesController(IApplicationRoleService roleService)
+    public RoleController(IAppRoleManager roleManager)
     {
-        _roleService = roleService;
+        _roleManager = roleManager;
     }
 
-    [HttpGet]
-    [Authorize(PermissionConstants.ROLE_VIEW)]
-    public async Task<IActionResult> GetAll([FromQuery] GetPaginatedRequest request)
+    [HttpPost("create")]
+    public async Task<IActionResult> Create([FromBody] Role role)
     {
-        var result = await _roleService.GetRolesPaginated(request);
-        return Ok(result);
+        var result = await _roleManager.CreateAsync(role);
+        if (result.Succeeded)
+            return Ok(role);
+
+        return BadRequest(result.Errors);
     }
 
-    [HttpPost("addRoleToUser")]
-    [Authorize(PermissionConstants.ROLE_CREATE)]
-    [ModelValidator]
-    public async Task<IActionResult> AddRoleAsync([FromBody] AddRoleToUserRequest request)
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> Delete(string id)
     {
-        var result = await _roleService.AddRoleToUserAsync(request);
-        return NewResult(result);
+        var role = await _roleManager.FindByIdAsync(id);
+        if (role == null)
+            return NotFound();
+
+        var result = await _roleManager.DeleteAsync(role);
+        if (result.Succeeded)
+            return Ok();
+
+        return BadRequest(result.Errors);
     }
 
-    [HttpPost("addRole")]
-    [Authorize(PermissionConstants.ROLE_CREATE)]
-    [ModelValidator]
-    public async Task<IActionResult> AddRole([FromBody] CreateRoleRequest request)
+    [HttpGet("find-by-id/{id}")]
+    public async Task<IActionResult> FindById(string id)
     {
-        var result = await _roleService.AddRoleAsync(request);
-        return NewResult(result);
+        var role = await _roleManager.FindByIdAsync(id);
+        if (role == null)
+            return NotFound();
+
+        return Ok(role);
     }
 
-    [HttpGet("{id}")]
-    [Authorize(PermissionConstants.ROLE_GET)]
-    public async Task<IActionResult> GetRole([FromRoute] int id)
+    [HttpGet("find-by-name/{name}")]
+    public async Task<IActionResult> FindByName(string name)
     {
-        var result = await _roleService.GetRoleAsync(id);
-        return NewResult(result);
+        var role = await _roleManager.FindByNameAsync(name);
+        if (role == null)
+            return NotFound();
+
+        return Ok(role);
     }
 
-    [HttpDelete("{id}")]
-    [Authorize(PermissionConstants.ROLE_DELETE)]
-    public async Task<IActionResult> DeleteRole([FromRoute] int id)
+    [HttpPost("add-claim")]
+    public async Task<IActionResult> AddClaim([FromBody] RoleClaimRequest request)
     {
-        var result = await _roleService.DeleteRoleAsync(id);
-        return NewResult(result);
+        var role = await _roleManager.FindByIdAsync(request.RoleId);
+        if (role == null)
+            return NotFound();
+
+        var result = await _roleManager.AddClaimAsync(role, new Claim(request.ClaimType, request.ClaimValue));
+        if (result.Succeeded)
+            return Ok();
+
+        return BadRequest(result.Errors);
     }
 
-    [HttpPut("{id}")]
-    [Authorize(PermissionConstants.ROLE_EDIT)]
-    [ModelValidator]
-    public async Task<IActionResult> UpdateRole(int id, [FromBody] UpdateRoleRequest request)
+    [HttpPost("remove-claim")]
+    public async Task<IActionResult> RemoveClaim([FromBody] RoleClaimRequest request)
     {
-        var result = await _roleService.UpdateRoleAsync(id, request);
-        return NewResult(result);
+        var role = await _roleManager.FindByIdAsync(request.RoleId);
+        if (role == null)
+            return NotFound();
+
+        var result = await _roleManager.RemoveClaimAsync(role, new Claim(request.ClaimType, request.ClaimValue));
+        if (result.Succeeded)
+            return Ok();
+
+        return BadRequest(result.Errors);
+    }
+
+    [HttpGet("get-claims/{id}")]
+    public async Task<IActionResult> GetClaims(string id)
+    {
+        var role = await _roleManager.FindByIdAsync(id);
+        if (role == null)
+            return NotFound();
+
+        var claims = await _roleManager.GetClaimsAsync(role);
+        return Ok(claims);
+    }
+
+    [HttpPut("update")]
+    public async Task<IActionResult> Update([FromBody] Role role)
+    {
+        var result = await _roleManager.UpdateAsync(role);
+        if (result.Succeeded)
+            return Ok();
+
+        return BadRequest(result.Errors);
+    }
+
+    [HttpGet("exists/{name}")]
+    public async Task<IActionResult> RoleExists(string name)
+    {
+        var exists = await _roleManager.RoleExistsAsync(name);
+        return Ok(new { exists });
     }
 }
+
+

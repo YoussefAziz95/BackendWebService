@@ -6,7 +6,7 @@ namespace Application.Contracts.Services;
 
 public interface IUserService
 {
-    Task<IResponse<int>> AddAsync(AddUserRequest request);
+    Task<IResponse<int>> AddAsync(CreateUserWithPasswordRequest request);
     IResponse<UserResponse> Get(int id);
     Task<IResponse<int>> UpdateAsync(int id, UpdateUserRequest request);
     Task<IResponse<string>> DeleteAsync(int id);

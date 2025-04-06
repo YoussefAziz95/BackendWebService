@@ -11,6 +11,7 @@ public class User : IdentityUser<int>, IEntity, ITimeModification
     // Basic Info
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public string UserName { get; set; }
     public string Email { get; set; }
     [Key]
     public string? NormalizedEmail { get; set; }

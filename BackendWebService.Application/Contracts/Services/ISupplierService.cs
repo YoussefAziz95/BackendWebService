@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.DTOs;
-using Application.DTOs.Auths;
+using Application.DTOs.SignIn;
 using Application.DTOs.Common;
 using Application.DTOs.Suppliers;
 using Application.DTOs.Suppliers;

@@ -6,12 +6,12 @@ namespace Application.Validators.Users
     /// <summary>
     /// Validator for adding user requests.
     /// </summary>
-    public sealed class AddUserRequestValidator : AbstractValidator<AddUserRequest>
+    public sealed class CreateUserWithPasswordRequestValidator : AbstractValidator<CreateUserWithPasswordRequest>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AddUserRequestValidator"/> class.
+        /// Initializes a new instance of the <see cref="CreateUserWithPasswordRequestValidator"/> class.
         /// </summary>
-        public AddUserRequestValidator()
+        public CreateUserWithPasswordRequestValidator()
         {
             RuleFor(x => x.FirstName)
                 .NotEmpty()
@@ -25,11 +25,11 @@ namespace Application.Validators.Users
                 .Length(3, 20)
                 .WithMessage("Last Name length must be between 3 and 50 characters");
 
-            RuleFor(x => x.Username)
+            RuleFor(x => x.UserName)
                 .NotEmpty()
-                .WithMessage("Username is required")
+                .WithMessage("UserName is required")
                 .Length(3, 20)
-                .WithMessage("Username length must be between 3 and 50 characters");
+                .WithMessage("UserName length must be between 3 and 50 characters");
 
             RuleFor(x => x.Email)
                 .NotEmpty()

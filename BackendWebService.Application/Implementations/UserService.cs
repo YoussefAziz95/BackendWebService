@@ -37,17 +37,17 @@ namespace Application.Implementations
         }
 
         /// <inheritdoc/>
-        public async Task<IResponse<int>> AddAsync(AddUserRequest request)
+        public async Task<IResponse<int>> AddAsync(CreateUserWithPasswordRequest request)
         {
             if (!await UniqueEmail(request.Email))
                 return BadRequest<int>("EmailDto Address is already Registered.");
 
-            if (!await UniqueUsername(request.Username))
-                return BadRequest<int>("Username is already used.");
+            if (!await UniqueUsername(request.UserName))
+                return BadRequest<int>("UserName is already used.");
 
             var companyId = IClientRepository._userInfo.CompanyId;
 
-            var user = _mapper.Map<AddUserRequest, User>(request);
+            var user = _mapper.Map<CreateUserWithPasswordRequest, User>(request);
             user.OrganizationId = (int)IClientRepository._userInfo.CompanyId;
             user.Title = request.Title is null ? " " : request.Title;
             user.Department = request.Department is null ? string.Empty : request.Department;

@@ -1,9 +1,10 @@
 ﻿using Application.Validators.Common;
 
-namespace Application.DTOs.Auths;
+namespace Application.DTOs.SignIn;
 
 public class LoginRequest : BaseValidationModel<LoginRequest>
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public string UserName { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
+    public bool RememberMe { get; set; } = false;
 }

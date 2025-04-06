@@ -1,0 +1,96 @@
+﻿using Application.DTOs.Users;
+using Domain;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+
+namespace BackendWebService.Application.Contracts.Manager
+{
+    public interface IAppUserManager
+    {
+
+        public Task<IdentityResult> AccessFailedAsync(User user);
+        public Task<IdentityResult> AddClaimAsync(User user, Claim claim);
+        public Task<IdentityResult> AddClaimsAsync(User user, IEnumerable<Claim> claims);
+        public Task<IdentityResult> AddLoginAsync(User user, UserLoginInfo login);
+        public Task<IdentityResult> AddPasswordAsync(User user, string password);
+        public Task<IdentityResult> AddToRoleAsync(User user, string role);
+        public Task<IdentityResult> AddToRolesAsync(User user, IEnumerable<string> roles);
+        public Task<IdentityResult> ChangeEmailAsync(User user, string newEmail, string token);
+        public Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword);
+        public Task<IdentityResult> ChangePhoneNumberAsync(User user, string phoneNumber, string token);
+        public Task<bool> CheckPasswordAsync(User user, string password);
+        public Task<IdentityResult> ConfirmEmailAsync(User user, string token);
+        public Task<int> CountRecoveryCodesAsync(User user);
+        public Task<IdentityResult> CreateAsync(User user);
+        public Task<IdentityResult> CreateAsync(CreateUserWithPasswordRequest request);
+        public Task<byte[]> CreateSecurityTokenAsync(User user);
+        public Task<IdentityResult> DeleteAsync(User user);
+        public Task<User?> FindByEmailAsync(string email);
+        public Task<User?> FindByIdAsync(string userId);
+        public Task<User?> FindByLoginAsync(string loginProvider, string providerKey);
+        public Task<User?> FindByNameAsync(string userName);
+        public Task<string> GenerateChangeEmailTokenAsync(User user, string newEmail);
+        public Task<string> GenerateChangePhoneNumberTokenAsync(User user, string phoneNumber);
+        public Task<string> GenerateConcurrencyStampAsync(User user);
+        public Task<string> GenerateEmailConfirmationTokenAsync(User user);
+        public string GenerateNewAuthenticatorKey();
+        public Task<IEnumerable<string>?> GenerateNewTwoFactorRecoveryCodesAsync(User user, int number);
+        public Task<string> GeneratePasswordResetTokenAsync(User user);
+        public Task<string> GenerateTwoFactorTokenAsync(User user, string tokenProvider);
+        public Task<string> GenerateUserTokenAsync(User user, string tokenProvider, string purpose);
+        public Task<int> GetAccessFailedCountAsync(User user);
+        public Task<string?> GetAuthenticationTokenAsync(User user, string loginProvider, string tokenName);
+        public Task<string?> GetAuthenticatorKeyAsync(User user);
+        public Task<IList<Claim>> GetClaimsAsync(User user);
+        public Task<string?> GetEmailAsync(User user);
+        public Task<bool> GetLockoutEnabledAsync(User user);
+        public Task<DateTimeOffset?> GetLockoutEndDateAsync(User user);
+        public Task<IList<UserLoginInfo>> GetLoginsAsync(User user);
+        public Task<string?> GetPhoneNumberAsync(User user);
+        public Task<IList<string>> GetRolesAsync(User user);
+        public Task<string> GetSecurityStampAsync(User user);
+        public Task<bool> GetTwoFactorEnabledAsync(User user);
+        public Task<User?> GetUserAsync(ClaimsPrincipal principal);
+        public string? GetUserId(ClaimsPrincipal principal);
+        public Task<string> GetUserIdAsync(User user);
+        public string? GetUserName(ClaimsPrincipal principal);
+        public Task<string?> GetUserNameAsync(User user);
+        public Task<IList<User>> GetUsersForClaimAsync(Claim claim);
+        public Task<IList<User>> GetUsersInRoleAsync(string roleName);
+        public Task<IList<string>> GetValidTwoFactorProvidersAsync(User user);
+        public Task<bool> HasPasswordAsync(User user);
+        public Task<bool> IsEmailConfirmedAsync(User user);
+        public Task<bool> IsInRoleAsync(User user, string role);
+        public Task<bool> IsLockedOutAsync(User user);
+        public Task<bool> IsPhoneNumberConfirmedAsync(User user);
+        public string? NormalizeEmail(string? email);
+        public string? NormalizeName(string? name);
+        public Task<IdentityResult> RedeemTwoFactorRecoveryCodeAsync(User user, string code);
+        public void RegisterTokenProvider(string providerName, IUserTwoFactorTokenProvider<User> provider);
+        public Task<IdentityResult> RemoveAuthenticationTokenAsync(User user, string loginProvider, string tokenName);
+        public Task<IdentityResult> RemoveClaimAsync(User user, Claim claim);
+        public Task<IdentityResult> RemoveClaimsAsync(User user, IEnumerable<Claim> claims);
+        public Task<IdentityResult> RemoveFromRoleAsync(User user, string role);
+        public Task<IdentityResult> RemoveFromRolesAsync(User user, IEnumerable<string> roles);
+        public Task<IdentityResult> RemoveLoginAsync(User user, string loginProvider, string providerKey);
+        public Task<IdentityResult> RemovePasswordAsync(User user);
+        public Task<IdentityResult> ReplaceClaimAsync(User user, Claim claim, Claim newClaim);
+        public Task<IdentityResult> ResetAccessFailedCountAsync(User user);
+        public Task<IdentityResult> ResetAuthenticatorKeyAsync(User user);
+        public Task<IdentityResult> ResetPasswordAsync(User user, string token, string newPassword);
+        public Task<IdentityResult> SetAuthenticationTokenAsync(User user, string loginProvider, string tokenName, string? tokenValue);
+        public Task<IdentityResult> SetEmailAsync(User user, string? email);
+        public Task<IdentityResult> SetLockoutEnabledAsync(User user, bool enabled);
+        public Task<IdentityResult> SetLockoutEndDateAsync(User user, DateTimeOffset? lockoutEnd);
+        public Task<IdentityResult> SetPhoneNumberAsync(User user, string? phoneNumber);
+        public Task<IdentityResult> SetTwoFactorEnabledAsync(User user, bool enabled);
+        public Task<IdentityResult> SetUserNameAsync(User user, string? userName);
+        public Task<IdentityResult> UpdateAsync(User user);
+        public Task UpdateNormalizedEmailAsync(User user);
+        public Task UpdateNormalizedUserNameAsync(User user);
+        public Task<IdentityResult> UpdateSecurityStampAsync(User user);
+        public Task<bool> VerifyChangePhoneNumberTokenAsync(User user, string token, string phoneNumber);
+        public Task<bool> VerifyTwoFactorTokenAsync(User user, string tokenProvider, string token);
+        public Task<bool> VerifyUserTokenAsync(User user, string tokenProvider, string purpose, string token);
+    }
+}

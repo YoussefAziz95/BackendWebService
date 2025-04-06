@@ -10,6 +10,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using BackendWebService.Application.Contracts.Manager;
+using Application.Manager;
 
 namespace BackendWebServiceApplication.ServiceConfiguration;
 
@@ -36,11 +38,11 @@ public static class ServiceCollectionExtension
         services.AddSingleton<AuthenticationFactory>();
 
         // Add scoped services
-        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IAppSignInManager, AppSignInManager>();
         services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
         services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IApplicationRoleService, ApplicationRoleService>();
+        services.AddScoped<IAppRoleManager, AppRoleManager>();
         services.AddScoped<IUtilityService, UtilityService>();
         services.AddScoped<IPermissionService, PermissionService>();
         services.AddScoped<ICompanyService, CompanyService>();

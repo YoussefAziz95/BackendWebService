@@ -1,20 +1,9 @@
 ﻿using Application.Validators.Common;
 
-namespace Application.DTOs.Users
-{
-    /// <summary>
-    /// Represents a request model for changing password.
-    /// </summary>
-    public class ChangePasswordRequest : BaseValidationModel<ChangePasswordRequest>
-    {
-        /// <summary>
-        /// Gets or sets the old password.
-        /// </summary>
-        public required string OldPassword { get; set; }
+namespace Application.DTOs.Users;
 
-        /// <summary>
-        /// Gets or sets the new password.
-        /// </summary>
-        public required string NewPassword { get; set; }
-    }
+public class ChangePasswordRequest : BaseValidationModel<ChangePasswordRequest>
+{
+    public required string OldPassword { get; set; }
+    public required string NewPassword { get; set; }
 }

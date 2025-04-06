@@ -51,8 +51,8 @@ namespace Application.Implementations
             company.Organization = _mapper.Map<Organization>(request);
             company.Id = _companyRepository.Add(company);
 
-            var user = _mapper.Map<AddUserCompanyRequest>(company);
-            user = _mapper.Map<AddUserCompanyRequest>(request);
+            var user = _mapper.Map<CreateUserCompanyRequest>(company);
+            user = _mapper.Map<CreateUserCompanyRequest>(request);
 
             //var UserResponse = await _applicationUserService.AddUserCompanyAsync(user);
             //if (!UserResponse.Succeeded)
