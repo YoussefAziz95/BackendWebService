@@ -75,7 +75,7 @@ public class PropertiesController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Property updated successfully",
-            Data = new PropertyResponse(property.Id, property.User.Id,  property.Name, property.FullAddress, property.CreatedAt, property.UpdatedAt)
+            Data = new PropertyResponse(property.Id, property.UserId,  property.Name, property.FullAddress, property.CreatedAt, property.UpdatedAt)
         };
         return NewResult(response);
     }
@@ -88,7 +88,7 @@ public class PropertiesController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Propertys found",
-            Data = properties.Select(property => new PropertyResponse(property.Id, property.User.Id, property.Name, property.FullAddress, property.CreatedAt, property.UpdatedAt)).ToList(),
+            Data = properties.Select(property => new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress, property.CreatedAt, property.UpdatedAt)).ToList(),
             TotalCount = properties.Count()
         };
         return NewResult(response);
