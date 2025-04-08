@@ -11,7 +11,7 @@ public interface IGenericRepository<T>
                 Expression<Func<T, bool>> filter = null!,
                 Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null!,
                 Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null!,
-                bool disabledTracking = true, bool isActive = true, bool isDeleted = false, bool hasCompany = true);
+                bool disabledTracking = true, bool isActive = true, bool isDeleted = false);
     Task<T?> GetAsync(Expression<Func<T, bool>> filter = null!,
                    Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null!,
                    bool disableTracking = true, bool isActive = true, bool isDeleted = false);

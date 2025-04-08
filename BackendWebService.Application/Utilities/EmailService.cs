@@ -15,7 +15,7 @@ namespace Application.Utilities
     /// <summary>
     /// Services for sending emails using SMTP.
     /// </summary>
-    public sealed class EmailService : IResponseHandler, IEmailService
+    public sealed class EmailService : ResponseHandler, IEmailService
     {
         private readonly IUnitOfWork _unitOfWork;
 

@@ -1,6 +1,8 @@
 ﻿using Application.Contracts.Persistences;
+using Application.Model.Notifications;
 using Domain.Enums;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Storage;
 using Persistence.Data;
 
 namespace Persistence.Repositories.Common
@@ -11,6 +13,7 @@ namespace Persistence.Repositories.Common
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly ApplicationDbContext _context;
+        private IDbContextTransaction? _transaction;
         private bool disposedValue;
         public readonly IHttpContextAccessor _httpContextAccessor;
         public AccessEnum Access = AccessEnum.Public;
@@ -26,24 +29,19 @@ namespace Persistence.Repositories.Common
             _httpContextAccessor = httpContextAccessor;
             if (httpContextAccessor is not null && httpContextAccessor.HttpContext.User.Claims.Count() > 0)
             {
-                if (int.TryParse(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault()!.Value, out var Id))
+                if (httpContextAccessor.HttpContext?.User?.Claims.Any(c => c.Type == "name")??false)
                 {
-                    _context.userInfo.UserId = Id;
-                    _context.userInfo.OrganizationId = int.Parse(Contains(httpContextAccessor, "organizationId"));
-                    _context.userInfo.CompanyId = int.Parse(Contains(httpContextAccessor, "companyId"));
-                    _context.userInfo.SupplierId = int.Parse(Contains(httpContextAccessor, "supplierId"));
-                    _context.userInfo.RoleParentId = int.Parse(Contains(httpContextAccessor, "roleParentId"));
-                    _context.userInfo.SupplierAccountId = int.Parse(Contains(httpContextAccessor, "companyVendorId"));
+                    var username = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
+                    var user = _context.Users.FirstOrDefault(u => u.UserName == username);
+
+                    _context.userInfo.UserId = user.Id;
+                    _context.userInfo.OrganizationId = user.OrganizationId ?? 0;
+                    _context.userInfo.RoleParentId = (int)user.MainRole;
 
                     Access = AccessEnum.Private;
                 }
             }
 
-        }
-        private string Contains(IHttpContextAccessor httpContextAccessor, string search)
-        {
-            var flag = httpContextAccessor?.HttpContext?.Request?.Headers.ContainsKey(search) ?? false;
-            return flag ? httpContextAccessor.HttpContext.Request.Headers[search] : "0";
         }
         /// <summary>
         /// Releases all resources used by the <see cref="UnitOfWork"/>.
@@ -100,6 +98,45 @@ namespace Persistence.Repositories.Common
         public async Task<int> SaveAsync()
         {
             return await _context.SaveChangesAsync();
+        }
+        public async Task BeginTransactionAsync()
+        {
+            if (_transaction != null) return; // Already started
+            _transaction = await _context.Database.BeginTransactionAsync();
+        }
+
+        public async Task CommitAsync()
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+                if (_transaction != null)
+                {
+                    await _transaction.CommitAsync();
+                    await _transaction.DisposeAsync();
+                    _transaction = null;
+                }
+            }
+            catch
+            {
+                await RollbackAsync();
+                throw;
+            }
+        }
+
+        public async Task RollbackAsync()
+        {
+            if (_transaction != null)
+            {
+                await _transaction.RollbackAsync();
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
+        }
+
+        public UserInfo GetUserInfo()
+        {
+            return _context.userInfo;
         }
     }
 }

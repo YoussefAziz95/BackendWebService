@@ -8,7 +8,7 @@ namespace Application.Wrappers
     /// <summary>
     /// Class for handling responses and generating response objects.
     /// </summary>
-    public interface IResponseHandler
+    public class ResponseHandler
     {
         /// <summary>
         /// Generates a response indicating successful deletion.

@@ -84,33 +84,31 @@ namespace Persistence.Repositories.Common
             if (disableTracking) query = query.AsNoTracking();
             if (filter is not null) query = query.Where(filter);
             if (include is not null) query = include(query);
-            foreach (PropertyInfo pInfo in _propertyInfos)
-            {
-                if (pInfo.Name == "IsDeleted")
-                    query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(isDeleted)).AsQueryable();
-                if (pInfo.Name == "IsActive")
-                    query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(isActive)).AsQueryable();
-            }
+            //foreach (PropertyInfo pInfo in _propertyInfos)
+            //{
+            //    if (pInfo.Name == "IsDeleted")
+            //        query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(isDeleted)).AsQueryable();
+            //    if (pInfo.Name == "IsActive")
+            //        query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(isActive)).AsQueryable();
+            //}
             return query.FirstOrDefault()!;
 
 
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null!, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null!, Func<IQueryable<T>, Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<T, object>> include = null!, bool disabledTracking = true, bool isActive = true, bool isDeleted = false, bool hasCompany = true)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null!, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null!, Func<IQueryable<T>, Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<T, object>> include = null!, bool disabledTracking = true, bool isActive = true, bool isDeleted = false)
         {
             IQueryable<T> query = _dbSet;
             if (disabledTracking) query = query.AsNoTracking();
             if (filter is not null) query = query.Where(filter);
             if (include is not null) query = include(query);
-            foreach (PropertyInfo pInfo in _propertyInfos)
-            {
-                if (pInfo.Name == "IsDeleted")
-                    query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(isDeleted)).AsQueryable();
-                if (pInfo.Name == "IsActive")
-                    query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(isActive)).AsQueryable();
-                if (pInfo.Name == "OrganizationId" && hasCompany)
-                    query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(_context.userInfo.OrganizationId)).AsQueryable();
-            }
+            //foreach (PropertyInfo pInfo in _propertyInfos)
+            //{
+            //    if (pInfo.Name == "IsDeleted")
+            //        query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(isDeleted)).AsQueryable();
+            //    if (pInfo.Name == "IsActive")
+            //        query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(isActive)).AsQueryable();
+            //}
             if (orderBy is not null)
                 return orderBy(query).ToList();
             else
@@ -125,13 +123,13 @@ namespace Persistence.Repositories.Common
             if (disableTracking) query = query.AsNoTracking();
             if (filter is not null) query = query.Where(filter);
             if (include is not null) query = include(query);
-            foreach (PropertyInfo pInfo in _propertyInfos)
-            {
-                if (pInfo.Name == "IsDeleted")
-                    query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(false)).AsQueryable();
-                if (pInfo.Name == "IsActive")
-                    query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(true)).AsQueryable();
-            }
+            //foreach (PropertyInfo pInfo in _propertyInfos)
+            //{
+            //    if (pInfo.Name == "IsDeleted")
+            //        query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(false)).AsQueryable();
+            //    if (pInfo.Name == "IsActive")
+            //        query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(true)).AsQueryable();
+            //}
             return await query.FirstOrDefaultAsync()!;
         }
 

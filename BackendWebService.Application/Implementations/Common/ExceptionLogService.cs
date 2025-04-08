@@ -8,7 +8,7 @@ using Domain;
 
 namespace Application.Implementations.Common;
 
-public class ExceptionLogService : IResponseHandler, IExceptionLogService
+public class ExceptionLogService : ResponseHandler, IExceptionLogService
 {
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;

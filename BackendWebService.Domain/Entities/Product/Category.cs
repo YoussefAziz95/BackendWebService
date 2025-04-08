@@ -14,5 +14,4 @@ public class Category : BaseEntity, IEntity, ITimeModification
     [ForeignKey("ParentId")]
     public virtual Category? ParentCategory { get; set; }
     public List<Category>? SubCategories { get; set; }
-    public List<SupplierCategory> supplierCategories { get; set; }
 }

@@ -621,46 +621,6 @@ namespace BackendWebService.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Property",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OwnerId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    AddressId = table.Column<int>(type: "int", nullable: false),
-                    Latitude = table.Column<double>(type: "float", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Property", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Property_Actor_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "Actor",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Property_Address_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Address",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Service",
                 columns: table => new
                 {
@@ -1085,6 +1045,40 @@ namespace BackendWebService.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Property",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FullAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Latitude = table.Column<double>(type: "float", nullable: false),
+                    Longitude = table.Column<double>(type: "float", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Property", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Property_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserClaim",
                 columns: table => new
                 {
@@ -1348,52 +1342,6 @@ namespace BackendWebService.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerProperty",
-                columns: table => new
-                {
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    PropertyId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    AddressId = table.Column<int>(type: "int", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    State = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    PostalCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerProperty", x => new { x.CustomerId, x.PropertyId });
-                    table.ForeignKey(
-                        name: "FK_CustomerProperty_Address_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Address",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CustomerProperty_Customer_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customer",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_CustomerProperty_Property_PropertyId",
-                        column: x => x.PropertyId,
-                        principalTable: "Property",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Member",
                 columns: table => new
                 {
@@ -1503,6 +1451,52 @@ namespace BackendWebService.Persistence.Migrations
                         principalTable: "EmailLog",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomerProperty",
+                columns: table => new
+                {
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    State = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerProperty", x => new { x.CustomerId, x.PropertyId });
+                    table.ForeignKey(
+                        name: "FK_CustomerProperty_Address_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Address",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerProperty_Customer_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customer",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CustomerProperty_Property_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Property",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1639,14 +1633,9 @@ namespace BackendWebService.Persistence.Migrations
                 column: "NotificationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Property_AddressId",
+                name: "IX_Property_UserId",
                 table: "Property",
-                column: "AddressId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Property_OwnerId",
-                table: "Property",
-                column: "OwnerId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Recipient_Actor",
@@ -1888,6 +1877,9 @@ namespace BackendWebService.Persistence.Migrations
                 name: "Notification");
 
             migrationBuilder.DropTable(
+                name: "Actor");
+
+            migrationBuilder.DropTable(
                 name: "EmailLog");
 
             migrationBuilder.DropTable(
@@ -1913,9 +1905,6 @@ namespace BackendWebService.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "FileType");
-
-            migrationBuilder.DropTable(
-                name: "Actor");
 
             migrationBuilder.DropTable(
                 name: "Users");

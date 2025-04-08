@@ -15,7 +15,7 @@ public class AppSignInManager : SignInManager<User>, IAppSignInManager
     }
 
   
-    //public async Task<SignInResult> SignIn(User user, string password, bool lockoutOnFailure)
+    //public async Task<SignInResult> Auths(User user, string password, bool lockoutOnFailure)
     //{
     //    PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
     //    if(user.PasswordHash == null)

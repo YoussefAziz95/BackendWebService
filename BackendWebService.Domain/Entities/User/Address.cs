@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 [Table("Address")]
 public class Address : BaseEntity, IEntity, ITimeModification
 {
+
     [Required, MaxLength(255)]
     public string FullAddress { get; set; }
     [Required, MaxLength(100)]

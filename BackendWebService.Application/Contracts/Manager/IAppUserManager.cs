@@ -21,7 +21,7 @@ namespace BackendWebService.Application.Contracts.Manager
         public Task<bool> CheckPasswordAsync(User user, string password);
         public Task<IdentityResult> ConfirmEmailAsync(User user, string token);
         public Task<int> CountRecoveryCodesAsync(User user);
-        public Task<IdentityResult> CreateAsync(User user);
+        public Task<IdentityResult> CreateAsync(User user, string password);
         public Task<IdentityResult> CreateAsync(CreateUserWithPasswordRequest request);
         public Task<byte[]> CreateSecurityTokenAsync(User user);
         public Task<IdentityResult> DeleteAsync(User user);

@@ -12,8 +12,8 @@ using Persistence.Data;
 namespace BackendWebService.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250408012135_initialMigration")]
-    partial class initialMigration
+    [Migration("20250408065235_SD_MasterDataForeign")]
+    partial class SD_MasterDataForeign
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1516,9 +1516,6 @@ namespace BackendWebService.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("datetimeoffset");
 
@@ -1530,6 +1527,10 @@ namespace BackendWebService.Persistence.Migrations
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("FullAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
@@ -1554,9 +1555,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
@@ -1566,11 +1564,12 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Property");
                 });
@@ -3061,21 +3060,13 @@ namespace BackendWebService.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Property", b =>
                 {
-                    b.HasOne("Address", "Address")
+                    b.HasOne("Domain.User", "User")
                         .WithMany()
-                        .HasForeignKey("AddressId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Actor", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-
-                    b.Navigation("Owner");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Recipient", b =>
@@ -3152,7 +3143,7 @@ namespace BackendWebService.Persistence.Migrations
             modelBuilder.Entity("Domain.SupplierCategory", b =>
                 {
                     b.HasOne("Domain.Category", "Category")
-                        .WithMany("supplierCategories")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -3307,8 +3298,6 @@ namespace BackendWebService.Persistence.Migrations
             modelBuilder.Entity("Domain.Category", b =>
                 {
                     b.Navigation("SubCategories");
-
-                    b.Navigation("supplierCategories");
                 });
 
             modelBuilder.Entity("Domain.Customer", b =>

@@ -1,4 +1,4 @@
-﻿using Application.DTOs.SignIn;
+﻿using BackendWebService.Application.DTOs;
 using FluentValidation;
 
 namespace Application.Validators.Auth

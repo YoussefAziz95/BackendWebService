@@ -1,64 +1,90 @@
-﻿using Application.Contracts.Services;
+﻿using Api.Base;
+using Application.Contracts.Persistences;
 using Application.DTOs.Common;
-using Application.DTOs.Services;
-using Application.Validators.Common;
-using Domain.Constants;
+using BackendWebService.Application.DTOs;
+using Domain;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Api.Base;
 
 namespace Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[AllowAnonymous]
 public class ServiceController : AppControllerBase
 {
-    private readonly IServiceImplementation _materialService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ServiceController(IServiceImplementation materialService)
+    public ServiceController(IUnitOfWork unitOfWork)
     {
-        _materialService = materialService;
+        _unitOfWork = unitOfWork;
     }
 
     [HttpPost]
-    [Authorize(PermissionConstants.MATERIAL_CREATE)]
-    [ModelValidator]
     public async Task<IActionResult> AddService([FromBody] AddServiceRequest request)
     {
-        var result = await _materialService.AddAsync(request);
-        return NewResult(result);
+        var service = new Service
+        {
+            Name = request.Name,
+            Code = request.Code,
+            CategoryId = request.CategoryId
+
+        };
+        _unitOfWork.GenericRepository<Service>().Add(service);
+        var result = _unitOfWork.Save();
+        return Ok(result);
     }
 
     [HttpGet("{id}")]
-    [Authorize(PermissionConstants.MATERIAL_GET)]
     public async Task<IActionResult> GetService([FromRoute] int id)
     {
-        var result = await _materialService.GetAsync(id);
-        return NewResult(result);
-    }
-
-    [HttpDelete("{id}")]
-    [Authorize(PermissionConstants.MATERIAL_DELETE)]
-    public async Task<IActionResult> DeleteService([FromRoute] int id)
-    {
-        var result = await _materialService.DeleteAsync(id);
+        _unitOfWork.GenericRepository<Service>().Exists(Service => Service.Id == id);
+        var service = await _unitOfWork.GenericRepository<Service>().GetByIdAsync(id);
+        if (service == null)
+            return NotFound("Service not found");
+        var result = new Response<ServiceResponse>()
+        {
+            StatusCode = ApiResultStatusCode.Success,
+            Message = "Service found",
+            Data = new ServiceResponse(service.Id, service.Name, service.Code, service.CategoryId)
+        };
         return NewResult(result);
     }
 
     [HttpPut]
-    [Authorize(PermissionConstants.MATERIAL_EDIT)]
-    [ModelValidator]
-    public async Task<IActionResult> UpdateService( [FromBody] UpdateServiceRequest request)
+    public async Task<IActionResult> UpdateService([FromBody] UpdateServiceRequest request)
     {
-        var result = await _materialService.UpdateAsync( request);
-        return NewResult(result);
+        var service = await _unitOfWork.GenericRepository<Service>().GetByIdAsync(request.Id);
+        if (service == null)
+            return NotFound("Service not found");
+        service.Name = request.Name;
+        service.Code = request.Code;
+        service.CategoryId = request.CategoryId;
+        _unitOfWork.GenericRepository<Service>().Update(service);
+        var result = _unitOfWork.Save();
+        if (result == 0)
+            return BadRequest("Failed to update service");
+        var response = new Response<ServiceResponse>()
+        {
+            StatusCode = ApiResultStatusCode.Success,
+            Message = "Service updated successfully",
+            Data = new ServiceResponse(service.Id, service.Name, service.Code, service.CategoryId)
+        };
+        return NewResult(response);
     }
 
     [HttpPost("GetAll")]
-    [Authorize(PermissionConstants.MATERIAL_VIEW)]
-    public async Task<IActionResult> GetAll([FromBody] GetPaginatedRequest request)
+    public async Task<IActionResult> GetAll()
     {
-        var result = await _materialService.GetPaginated(request);
-        return Ok(result);
+        var services = _unitOfWork.GenericRepository<Service>().GetAll();
+        var response = new PaginatedResponse<ServiceResponse>()
+        {
+            StatusCode = ApiResultStatusCode.Success,
+            Message = "Services found",
+            Data = services.Select(service => new ServiceResponse(service.Id, service.Name, service.Code, service.CategoryId)).ToList(),
+            TotalCount = services.Count()
+        };
+        return NewResult(response);
     }
 }

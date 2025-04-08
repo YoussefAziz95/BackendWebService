@@ -5,16 +5,14 @@ namespace Domain;
 [Table("Property")]
 public class Property : BaseEntity, IEntity, ITimeModification
 {
-    public int OwnerId { get; set; }
-    [ForeignKey("OwnerId")]
-    public virtual Actor Owner { get; set; }
+    public int UserId { get; set; }
+    [ForeignKey("UserId")]
+    public virtual User User { get; set; }
 
     [Required, MaxLength(100)]
     public string Name { get; set; }
 
-    public int AddressId { get; set; }
-    [ForeignKey("AddressId")]
-    public virtual Address Address { get; set; } 
+    public string FullAddress { get; set; } 
 
     [Required, Range(-90, 90)]
     public double Latitude { get; set; }
