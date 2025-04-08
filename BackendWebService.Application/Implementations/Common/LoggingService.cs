@@ -1,8 +1,7 @@
 ﻿using Application.Contracts.Persistences;
 using Application.Contracts.Services;
-using Application.DTOs.Logging;
+using Application.DTOs.Loggings;
 using AutoMapper;
-using Domain;
 
 namespace Application.Implementations.Common
 {

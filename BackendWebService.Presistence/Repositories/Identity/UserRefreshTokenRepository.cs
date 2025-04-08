@@ -13,7 +13,7 @@ internal class UserRefreshTokenRepository : IUserRefreshTokenRepository
         _context = dbContext;
     }
 
-    public async Task<int> CreateToken(int userId)
+    public async Task<Guid> CreateToken(int userId)
     {
         var token = new UserRefreshToken { IsValid = true, UserId = userId };
         await _context.AddAsync(token);
@@ -32,7 +32,7 @@ internal class UserRefreshTokenRepository : IUserRefreshTokenRepository
         var userId = await _context.UserRefreshTokens.AsNoTracking().Where(c => c.Id.Equals(tokenId))
             .Select(c => c.UserId).FirstOrDefaultAsync();
         var user = await _context.Users.AsNoTracking().Where(c => c.Id.Equals(userId))
-            .Include(c => c.UserRoles).ThenInclude(c => c.Role).FirstOrDefaultAsync();
+            .Include(c => c.UserRoles).FirstOrDefaultAsync();
         return user;
     }
 

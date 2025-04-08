@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Persistences;
-using Application.Contracts.Persistences;
-using Application.DTOs.Permission;
 using Application.DTOs.Roles;
 using Domain;
 using Persistence.Data;

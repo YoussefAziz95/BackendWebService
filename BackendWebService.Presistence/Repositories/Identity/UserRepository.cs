@@ -21,7 +21,7 @@ namespace Persistence.Repositories.Identity
 
         public IQueryable<User> getUsers()
         {
-            return _context.Users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role).Where(c => c.OrganizationId == _context.userInfo.OrganizationId); ;
+            return _context.Users.Include(ur => ur.UserRoles).Where(c => c.OrganizationId == _context.userInfo.OrganizationId); ;
         }
 
         public User? getById(int id)
@@ -29,7 +29,7 @@ namespace Persistence.Repositories.Identity
             var users = _context.Users.AsQueryable();
             if (_context.userInfo.OrganizationId > 0)
             {
-                users = users.Where(c => c.Id == id && c.OrganizationId == _context.userInfo.OrganizationId).Include(u => u.UserRoles).ThenInclude(ur => ur.Role);
+                users = users.Where(c => c.Id == id && c.OrganizationId == _context.userInfo.OrganizationId).Include(ur => ur.UserRoles);
             }
             return users.FirstOrDefault();
         }

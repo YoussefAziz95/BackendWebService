@@ -7,6 +7,8 @@ public class NotificationDetail : BaseEntity, IEntity, ITimeModification
     public string Channel { get; set; }
     public int UserId { get; set; }
     public bool IsRead { get; set; }
+
+    public DateTime ExpiryDate { get; set; }
     public Notification Notification { get; set; }
 }
 

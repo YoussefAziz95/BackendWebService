@@ -7,6 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\CategoriesController.cs" />
+    <Compile Remove="Controllers\CompaniesController.cs" />
+    <Compile Remove="Controllers\DropDownController.cs" />
+    <Compile Remove="Controllers\FileSystemController.cs" />
+    <Compile Remove="Controllers\NotificationController.cs" />
+    <Compile Remove="Controllers\OrganizationController.cs" />
+    <Compile Remove="Controllers\PermissionsController.cs" />
+    <Compile Remove="Controllers\PreDocumentsController.cs" />
+    <Compile Remove="Controllers\RolesController.cs" />
+    <Compile Remove="Controllers\ServiceController.cs" />
+    <Compile Remove="Controllers\SupplierController.cs" />
+    <Compile Remove="Controllers\SupplierDocumentController.cs" />
+    <Compile Remove="Controllers\UsersController.cs" />
+    <Compile Remove="Controllers\UtilityController.cs" />
+    <Compile Remove="HubServices\NotificationService.cs" />
+    <Compile Remove="Proxy\NotificationProxy.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.70.0" />
     <PackageReference Include="Grpc.Net.Client" Version="2.70.0" />
     <PackageReference Include="Grpc.Reflection" Version="2.70.0" />
@@ -30,6 +49,11 @@
     <ProjectReference Include="..\BackendWebService.Domain\BackendWebService.Domain.csproj" />
     <ProjectReference Include="..\BackendWebService.Presistence\BackendWebService.Persistence.csproj" />
     <ProjectReference Include="..\BackendWebService.SharedKernal\BackendWebService.SharedKernal.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="HubServices\" />
+    <Folder Include="Proxy\" />
   </ItemGroup>
 
 </Project>

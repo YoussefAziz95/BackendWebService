@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Application.Profiles;
 
-namespace Application.DTOs.Logging
+using System;
+
+namespace Application.DTOs.Loggings
 {
-    public class LoggingDto
+    public class LoggingDto : ICreateMapper<Logging>
     {
         public string Message { get; set; }
         public string LogType { get; set; }

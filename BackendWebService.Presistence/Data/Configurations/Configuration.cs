@@ -1,31 +1,78 @@
-﻿using Domain;
+﻿
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Reflection.Emit;
 
 namespace Persistence.Data.Configurations;
 
+
+public sealed class RefreshTokenConfig : IEntityTypeConfiguration<UserRefreshToken>
+{
+    public void Configure(EntityTypeBuilder<UserRefreshToken> builder)
+    {
+        builder.HasOne(c => c.User).WithMany(c => c.UserRefreshTokens).HasForeignKey(c => c.UserId);
+
+        builder.ToTable("UserRefreshToken");
+    }
+}
+public sealed class RoleClaimConfiguration : IEntityTypeConfiguration<RoleClaim>
+{
+    public void Configure(EntityTypeBuilder<RoleClaim> builder)
+    {
+        builder.ToTable("RoleClaim");
+        builder.HasOne(u => u.Role).WithMany(u => u.Claims).HasForeignKey(u => u.RoleId).OnDelete(DeleteBehavior.Cascade);
+
+    }
+}
+public sealed class UserClaimConfiguration : IEntityTypeConfiguration<UserClaim>
+{
+    public void Configure(EntityTypeBuilder<UserClaim> builder)
+    {
+        builder.HasOne(u => u.User).WithMany(u => u.Claims).HasForeignKey(u => u.UserId);
+        builder.ToTable("UserClaim");
+    }
+}
+public sealed class UserConfiguration : IEntityTypeConfiguration<User>
+{
+    public void Configure(EntityTypeBuilder<User> builder)
+    {
+        builder.ToTable("Users").Property(p => p.Id).HasColumnName("Id");
+    }
+}
+public sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
+{
+    public void Configure(EntityTypeBuilder<Role> builder)
+    {
+        builder.ToTable("Role");
+    }
+}
 public sealed class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
 {
     public void Configure(EntityTypeBuilder<UserRole> builder)
     {
-        builder.HasOne(ur => ur.User).WithMany(u => u.UserRoles).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.NoAction);
-        builder.HasOne(ur => ur.Role).WithMany().HasForeignKey(c => c.RoleId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(u => u.User).WithMany(u => u.UserRoles).HasForeignKey(u => u.UserId);
+        builder.HasOne(u => u.Role).WithMany(u => u.Users).HasForeignKey(u => u.RoleId);
+        builder.ToTable("UserRole");
     }
-}public sealed class UserTokenConfiguration : IEntityTypeConfiguration<UserToken>
+}
+public sealed class UserLoginConfiguration : IEntityTypeConfiguration<UserLogin>
+{
+    public void Configure(EntityTypeBuilder<UserLogin> builder)
+    {
+        builder.HasOne(u => u.User).WithMany(u => u.Logins).HasForeignKey(u => u.UserId);
+        builder.ToTable("UserLogin");
+    }
+}
+public sealed class UserTokenConfiguration : IEntityTypeConfiguration<UserToken>
 {
     public void Configure(EntityTypeBuilder<UserToken> builder)
     {
-        builder.HasOne(ur => ur.User).WithMany().HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(u => u.User).WithMany(u => u.Tokens).HasForeignKey(u => u.UserId);
+        builder.ToTable("UserToken");
     }
 }
-public sealed class RoleClaimnConfiguration : IEntityTypeConfiguration<RoleClaim>
-{
-    public void Configure(EntityTypeBuilder<RoleClaim> builder)
-    {
-        builder.HasOne(ur => ur.Role).WithMany(u => u.RoleClaim).HasForeignKey(c => c.RoleId).OnDelete(DeleteBehavior.NoAction);
-    }
-}
+
 public sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {
     public void Configure(EntityTypeBuilder<Category> builder)

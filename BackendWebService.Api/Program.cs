@@ -15,6 +15,8 @@ using Persistence.Data;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
+using Presistence.Data.Seeds;
+using Application.Manager;
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
@@ -88,7 +90,22 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 
-
+using(var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var roleManager = services.GetRequiredService<AppRoleManager>();
+        var userManager = services.GetRequiredService<AppUserManager>();
+        var dbcontext = services.GetRequiredService<ApplicationDbContext>();
+        await SeedingMaster.SeedAsync(roleManager , userManager, dbcontext);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -114,18 +131,18 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseEndpoints(endpoints =>
-{
-    try
-    {
-        var x = endpoints.MapHub<NotificationHub>("/NotificationHub");
-        endpoints.MapControllers();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex);
-    }
-});
+//app.UseEndpoints(endpoints =>
+//{
+//    try
+//    {
+//        var x = endpoints.MapHub<NotificationHub>("/NotificationHub");
+//        endpoints.MapControllers();
+//    }
+//    catch (Exception ex)
+//    {
+//        Console.WriteLine(ex);
+//    }
+//});
 
 
 app.Run();

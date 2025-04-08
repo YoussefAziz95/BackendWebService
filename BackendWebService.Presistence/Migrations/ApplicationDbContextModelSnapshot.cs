@@ -22,6 +22,68 @@ namespace BackendWebService.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullAddress")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsSystem")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Address");
+                });
+
             modelBuilder.Entity("Administrator", b =>
                 {
                     b.Property<int>("Id")
@@ -40,16 +102,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int>("OrganizationId")
@@ -99,16 +161,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -156,16 +218,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -189,68 +251,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.ToTable("Actor");
                 });
 
-            modelBuilder.Entity("Domain.Address", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FullAddress")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsSystem")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Address");
-                });
-
             modelBuilder.Entity("Domain.Attachment", b =>
                 {
                     b.Property<int>("Id")
@@ -262,7 +262,7 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EmailId")
@@ -274,13 +274,13 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<int>("FileId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -314,16 +314,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -366,16 +366,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -403,16 +403,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<bool>("MFAEnabled")
@@ -481,16 +481,16 @@ namespace BackendWebService.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsSocialLogin")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -556,7 +556,7 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedAt")
@@ -572,10 +572,10 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -622,16 +622,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -671,19 +671,19 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -721,19 +721,19 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ExceptionCode")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("KeyExceptionMessage")
@@ -771,19 +771,19 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -819,19 +819,19 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("FileTypeId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -862,7 +862,7 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Extention")
@@ -880,13 +880,13 @@ namespace BackendWebService.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -920,20 +920,20 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Extentions")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -976,16 +976,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -1002,50 +1002,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.HasIndex("ConfigurationId");
 
                     b.ToTable("GoogleConfig");
-                });
-
-            modelBuilder.Entity("Domain.Group", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("ActorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsSystem")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Group");
                 });
 
             modelBuilder.Entity("Domain.LDAPConfig", b =>
@@ -1066,20 +1022,20 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DC")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -1102,71 +1058,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.ToTable("LDAPConfig");
                 });
 
-            modelBuilder.Entity("Domain.Logging", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsSystem")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LogType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SourceClass")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SourceLayer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SourceLineNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Suggestion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Logging");
-                });
-
             modelBuilder.Entity("Domain.Member", b =>
                 {
                     b.Property<int>("Id")
@@ -1181,7 +1072,7 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CustomerId")
@@ -1194,10 +1085,10 @@ namespace BackendWebService.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -1243,20 +1134,20 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Instance")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -1290,19 +1181,19 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("KeyMessageBody")
@@ -1373,19 +1264,22 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int>("NotificationId")
@@ -1429,7 +1323,7 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -1446,13 +1340,13 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -1507,22 +1401,22 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ExpiryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsVerified")
@@ -1569,16 +1463,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("FileTypeId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("IsLocal")
@@ -1590,7 +1484,7 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<bool?>("IsRequired")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -1628,19 +1522,19 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<double>("Latitude")
@@ -1692,16 +1586,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -1741,19 +1635,19 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EmailId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -1792,16 +1686,20 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -1831,7 +1729,7 @@ namespace BackendWebService.Persistence.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Role", (string)null);
                 });
 
             modelBuilder.Entity("Domain.RoleClaim", b =>
@@ -1848,38 +1746,17 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsSystem")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("OrganizationId")
-                        .HasColumnType("int");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RoleClaim", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Service", b =>
@@ -1900,16 +1777,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -1946,16 +1823,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int>("OrganizationId")
@@ -1998,19 +1875,19 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -2048,16 +1925,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -2098,22 +1975,22 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("FileId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -2200,17 +2077,17 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
                         .HasMaxLength(50)
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -2253,16 +2130,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int>("JobId")
@@ -2310,16 +2187,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int>("JobId")
@@ -2363,20 +2240,20 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Currency")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("Notes")
@@ -2426,14 +2303,12 @@ namespace BackendWebService.Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ActorId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -2441,20 +2316,12 @@ namespace BackendWebService.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DeletedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Department")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -2469,19 +2336,17 @@ namespace BackendWebService.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("HasOtp")
+                    b.Property<string>("GeneratedCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDefaultPassword")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
@@ -2501,9 +2366,6 @@ namespace BackendWebService.Persistence.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("NormalizedPhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -2521,15 +2383,10 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PhoneNumberInternational")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -2542,6 +2399,7 @@ namespace BackendWebService.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -2555,9 +2413,7 @@ namespace BackendWebService.Persistence.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("OrganizationId");
-
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Domain.UserClaim", b =>
@@ -2574,33 +2430,17 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Claims")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -2609,57 +2449,7 @@ namespace BackendWebService.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.UserGroup", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ActorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("FamilyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsSystem")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "GroupId");
-
-                    b.HasIndex("FamilyId");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("UserGroup");
+                    b.ToTable("UserClaim", (string)null);
                 });
 
             modelBuilder.Entity("Domain.UserLogin", b =>
@@ -2670,22 +2460,16 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("ProviderKey")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("LoggedOn")
@@ -2697,12 +2481,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -2710,7 +2488,7 @@ namespace BackendWebService.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogin", (string)null);
                 });
 
             modelBuilder.Entity("Domain.UserRole", b =>
@@ -2725,7 +2503,7 @@ namespace BackendWebService.Persistence.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRole", (string)null);
                 });
 
             modelBuilder.Entity("Domain.UserToken", b =>
@@ -2739,41 +2517,63 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Claims")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("GeneratedTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoleId")
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("UserToken", (string)null);
+                });
+
+            modelBuilder.Entity("Group", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ActorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsSystem")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
@@ -2782,14 +2582,9 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("Group");
                 });
 
             modelBuilder.Entity("Job", b =>
@@ -2809,7 +2604,7 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CustomerId")
@@ -2820,13 +2615,13 @@ namespace BackendWebService.Persistence.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<int?>("OrganizationId")
@@ -2852,7 +2647,7 @@ namespace BackendWebService.Persistence.Migrations
                     b.ToTable("Job");
                 });
 
-            modelBuilder.Entity("UserRefreshToken", b =>
+            modelBuilder.Entity("Logging", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2863,23 +2658,45 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsValid")
-                        .HasColumnType("bit");
+                    b.Property<string>("LogType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
+
+                    b.Property<string>("SourceClass")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SourceLayer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SourceLineNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Suggestion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -2892,7 +2709,79 @@ namespace BackendWebService.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserRefreshTokens");
+                    b.ToTable("Logging");
+                });
+
+            modelBuilder.Entity("UserGroup", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ActorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("FamilyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsSystem")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "GroupId");
+
+                    b.HasIndex("FamilyId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("UserGroup");
+                });
+
+            modelBuilder.Entity("UserRefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsValid")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRefreshToken", (string)null);
                 });
 
             modelBuilder.Entity("WAction", b =>
@@ -2912,19 +2801,19 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSystem")
+                    b.Property<bool?>("IsSystem")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -2983,7 +2872,7 @@ namespace BackendWebService.Persistence.Migrations
 
             modelBuilder.Entity("Company", b =>
                 {
-                    b.HasOne("Domain.Address", "Address")
+                    b.HasOne("Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
 
@@ -3048,7 +2937,7 @@ namespace BackendWebService.Persistence.Migrations
 
             modelBuilder.Entity("Domain.CustomerProperty", b =>
                 {
-                    b.HasOne("Domain.Address", "Address")
+                    b.HasOne("Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -3169,7 +3058,7 @@ namespace BackendWebService.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Property", b =>
                 {
-                    b.HasOne("Domain.Address", "Address")
+                    b.HasOne("Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -3208,9 +3097,9 @@ namespace BackendWebService.Persistence.Migrations
             modelBuilder.Entity("Domain.RoleClaim", b =>
                 {
                     b.HasOne("Domain.Role", "Role")
-                        .WithMany("RoleClaim")
+                        .WithMany("Claims")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Role");
@@ -3317,99 +3206,65 @@ namespace BackendWebService.Persistence.Migrations
                     b.Navigation("Technician");
                 });
 
-            modelBuilder.Entity("Domain.User", b =>
-                {
-                    b.HasOne("Domain.Organization", "Organization")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId");
-
-                    b.OwnsMany("Otp", "Otps", b1 =>
-                        {
-                            b1.Property<int>("UserId")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
-
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
-
-                            b1.Property<string>("Code")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<DateTime>("CreatedOn")
-                                .HasColumnType("datetime2");
-
-                            b1.Property<DateTime>("ExpiresOn")
-                                .HasColumnType("datetime2");
-
-                            b1.Property<bool>("IsUsed")
-                                .HasColumnType("bit");
-
-                            b1.HasKey("UserId", "Id");
-
-                            b1.ToTable("Otp");
-
-                            b1.WithOwner()
-                                .HasForeignKey("UserId");
-                        });
-
-                    b.OwnsMany("RefreshToken", "RefreshTokens", b1 =>
-                        {
-                            b1.Property<int>("UserId")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
-
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
-
-                            b1.Property<DateTime>("CreatedOn")
-                                .HasColumnType("datetime2");
-
-                            b1.Property<DateTime>("ExpiresOn")
-                                .HasColumnType("datetime2");
-
-                            b1.Property<DateTime?>("RevokedOn")
-                                .HasColumnType("datetime2");
-
-                            b1.Property<string>("Token")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("UserId", "Id");
-
-                            b1.ToTable("RefreshToken");
-
-                            b1.WithOwner()
-                                .HasForeignKey("UserId");
-                        });
-
-                    b.Navigation("Organization");
-
-                    b.Navigation("Otps");
-
-                    b.Navigation("RefreshTokens");
-                });
-
             modelBuilder.Entity("Domain.UserClaim", b =>
                 {
-                    b.HasOne("Domain.User", null)
-                        .WithMany()
+                    b.HasOne("Domain.User", "User")
+                        .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.UserGroup", b =>
+            modelBuilder.Entity("Domain.UserLogin", b =>
+                {
+                    b.HasOne("Domain.User", "User")
+                        .WithMany("Logins")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.UserRole", b =>
+                {
+                    b.HasOne("Domain.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.UserToken", b =>
+                {
+                    b.HasOne("Domain.User", "User")
+                        .WithMany("Tokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UserGroup", b =>
                 {
                     b.HasOne("Domain.Family", null)
                         .WithMany("UserGroups")
                         .HasForeignKey("FamilyId");
 
-                    b.HasOne("Domain.Group", "Group")
+                    b.HasOne("Group", "Group")
                         .WithMany("UserGroups")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -3426,49 +3281,13 @@ namespace BackendWebService.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.UserLogin", b =>
+            modelBuilder.Entity("UserRefreshToken", b =>
                 {
-                    b.HasOne("Domain.User", null)
-                        .WithMany()
+                    b.HasOne("Domain.User", "User")
+                        .WithMany("UserRefreshTokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.UserRole", b =>
-                {
-                    b.HasOne("Domain.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Domain.User", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.UserToken", b =>
-                {
-                    b.HasOne("Domain.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Role");
 
                     b.Navigation("User");
                 });
@@ -3504,14 +3323,11 @@ namespace BackendWebService.Persistence.Migrations
                     b.Navigation("UserGroups");
                 });
 
-            modelBuilder.Entity("Domain.Group", b =>
-                {
-                    b.Navigation("UserGroups");
-                });
-
             modelBuilder.Entity("Domain.Role", b =>
                 {
-                    b.Navigation("RoleClaim");
+                    b.Navigation("Claims");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Domain.Supplier", b =>
@@ -3526,7 +3342,20 @@ namespace BackendWebService.Persistence.Migrations
 
             modelBuilder.Entity("Domain.User", b =>
                 {
+                    b.Navigation("Claims");
+
+                    b.Navigation("Logins");
+
+                    b.Navigation("Tokens");
+
+                    b.Navigation("UserRefreshTokens");
+
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Group", b =>
+                {
+                    b.Navigation("UserGroups");
                 });
 #pragma warning restore 612, 618
         }

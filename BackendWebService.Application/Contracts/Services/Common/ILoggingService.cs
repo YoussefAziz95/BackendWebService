@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Logging;
+﻿using Application.DTOs.Loggings;
 
 namespace Application.Contracts.Services;
 

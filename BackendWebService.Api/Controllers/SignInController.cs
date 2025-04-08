@@ -1,7 +1,9 @@
 ﻿using Application.DTOs.SignIn;
 using BackendWebService.Application.Contracts.Manager;
-using BackendWebService.Application.DTOs.SignIn;
+using Contracts.Services;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackendWebService.Controllers;
@@ -11,82 +13,52 @@ namespace BackendWebService.Controllers;
 [AllowAnonymous]
 public class SignInController : ControllerBase
 {
-    private readonly IAppSignInManager _signInManager;
     private readonly IAppUserManager _userManager;
+    private readonly IJwtService _jwtService;
 
-    public SignInController(IAppSignInManager signInManager, IAppUserManager userManager)
+    public SignInController( IAppUserManager userManager, IJwtService jwtService)
     {
-        _signInManager = signInManager;
         _userManager = userManager;
+        _jwtService = jwtService;
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        var user = await _userManager.FindByNameAsync(request.UserName);
-        if (user == null)
-            return Unauthorized("Invalid username or password");
+        var user = await _userManager.FindByEmailAsync(request.Email.Trim().ToLower());
 
-        var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true);
-        if (result.Succeeded)
-            return Ok("Login successful");
-        if (result.IsLockedOut)
-            return Forbid("User account is locked");
-        if (result.RequiresTwoFactor)
-            return Unauthorized("2FA required");
+        if (user == null )
+            return Unauthorized("Invalid email or password");
 
-        return Unauthorized("Invalid login attempt");
+        if (!user.EmailConfirmed)
+            return Forbid("Email not confirmed");
+
+        var result = await _userManager.CheckPasswordAsync(user, request.Password);
+
+
+        if (!result)
+            return Unauthorized("Two-factor authentication required");
+
+
+        var roles = await _userManager.GetRolesAsync(user);
+       
+        var accessToken = await _jwtService.GenerateAsync(user);
+        var response = new LoginResponse(
+            Id: user.Id,
+            FullName: $"{user.FirstName} {user.LastName}",
+            Email: user.Email!,
+            Token: accessToken.access_token,
+            TokenExpiry: DateTime.UtcNow.AddMinutes(30),
+            MainRole: user.MainRole,
+            Department: user.Department,
+            Title: user.Title,
+            IsActive: user.IsActive??true
+        // Token = await GenerateJwtToken(user) // optional
+        );
+
+        return Ok(response);
     }
 
-    [HttpPost("logout")]
-    [Authorize]
-    public async Task<IActionResult> Logout()
-    {
-        await _signInManager.SignOutAsync();
-        return Ok("Signed out successfully");
-    }
 
-    [HttpPost("2fa/code")]
-    public async Task<IActionResult> TwoFactorCode([FromBody] TwoFactorRequest request)
-    {
-        var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(request.Code, request.RememberMe, request.RememberClient);
-        if (result.Succeeded)
-            return Ok("2FA login successful");
 
-        return Unauthorized("Invalid 2FA code");
-    }
-
-    [HttpPost("2fa/recovery")]
-    public async Task<IActionResult> Recovery([FromBody] RecoveryCodeRequest request)
-    {
-        var result = await _signInManager.TwoFactorRecoveryCodeSignInAsync(request.RecoveryCode);
-        if (result.Succeeded)
-            return Ok("Recovery login successful");
-
-        return Unauthorized("Invalid recovery code");
-    }
-
-    [HttpGet("is-signed-in")]
-    public IActionResult IsSignedIn()
-    {
-        bool signedIn = _signInManager.IsSignedIn(User);
-        return Ok(new { signedIn });
-    }
-
-    [HttpGet("external-providers")]
-    public async Task<IActionResult> GetExternalProviders()
-    {
-        var schemes = await _signInManager.GetExternalAuthenticationSchemesAsync();
-        return Ok(schemes.Select(x => x.Name));
-    }
-
-    [HttpPost("external-login")]
-    public async Task<IActionResult> ExternalLogin([FromBody] ExternalLoginRequest request)
-    {
-        var result = await _signInManager.ExternalLoginSignInAsync(request.Provider, request.ProviderKey, true);
-        if (result.Succeeded)
-            return Ok("External login successful");
-
-        return Unauthorized("External login failed");
-    }
 }

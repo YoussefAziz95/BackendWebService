@@ -1,17 +1,18 @@
 ﻿using Application.Contracts.Infrastructures;
 using Application.Contracts.Services;
+using Application.Identity.Jwt;
 using Application.Implementations.Common;
-using Application.Implementations;
+using Application.Manager;
 using Application.Middleware;
 using Application.Permissions;
-using Application.Utilities;
 using Application.ServicesImplementation.Common;
+using Application.Utilities;
+using BackendWebService.Application.Contracts.Manager;
+using Contracts.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using BackendWebService.Application.Contracts.Manager;
-using Application.Manager;
 
 namespace BackendWebServiceApplication.ServiceConfiguration;
 
@@ -35,25 +36,26 @@ public static class ServiceCollectionExtension
 
         // Add singleton services
         services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-        services.AddSingleton<AuthenticationFactory>();
+        //services.AddSingleton<AuthenticationFactory>();
 
         // Add scoped services
         services.AddScoped<IAppSignInManager, AppSignInManager>();
-        services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
-        services.AddScoped<IJwtProvider, JwtProvider>();
-        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAppUserManager, AppUserManager>();
         services.AddScoped<IAppRoleManager, AppRoleManager>();
-        services.AddScoped<IUtilityService, UtilityService>();
-        services.AddScoped<IPermissionService, PermissionService>();
-        services.AddScoped<ICompanyService, CompanyService>();
+        services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+        services.AddScoped<IJwtService, JwtService>();
+        //services.AddScoped<IUserService, UserService>();
+        //services.AddScoped<IUtilityService, UtilityService>();
+        //services.AddScoped<IPermissionService, PermissionService>();
+        //services.AddScoped<ICompanyService, CompanyService>();
 
-        services.AddScoped<ISupplierDocumentService, SupplierDocumentService>();
-        services.AddScoped<ICategoryService, CategoryService>();
-        services.AddScoped<IPreDocumentService, PreDocumentService>();
-        services.AddScoped<ISupplierService, SupplierService>();
-        services.AddScoped<IDropdownService, DropdownService>();
-        services.AddScoped<IFileSystemService, FileSystemService>();
-        services.AddScoped<IServiceImplementation, ServiceImplementation>();
+        //services.AddScoped<ISupplierDocumentService, SupplierDocumentService>();
+        //services.AddScoped<ICategoryService, CategoryService>();
+        //services.AddScoped<IPreDocumentService, PreDocumentService>();
+        //services.AddScoped<ISupplierService, SupplierService>();
+        //services.AddScoped<IDropdownService, DropdownService>();
+        //services.AddScoped<IFileSystemService, FileSystemService>();
+        //services.AddScoped<IServiceImplementation, ServiceImplementation>();
         services.AddScoped<IExceptionLogService, ExceptionLogService>();
 
         services.AddScoped<ILoggingService, LoggingService>();
@@ -61,7 +63,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IFileService, FileService>();
         services.AddTransient<ExceptionHandlingMiddleware>();
 
-        services.AddScoped<IOrganizationService, OrganizationService>();
+        //services.AddScoped<IOrganizationService, OrganizationService>();
 
         return services;
     }

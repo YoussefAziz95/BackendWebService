@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿
 
 namespace Application.Contracts.Persistences;
 public interface ILoggingRepository

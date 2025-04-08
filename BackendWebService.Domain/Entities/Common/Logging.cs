@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-namespace Domain;
+
 [Table("Logging")]
 public class Logging : BaseEntity, IEntity, ITimeModification
 {

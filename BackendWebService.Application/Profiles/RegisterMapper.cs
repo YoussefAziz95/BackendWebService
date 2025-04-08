@@ -14,19 +14,21 @@ public class RegisterMapper : Profile
 
     private void ApplyMappingProfiles(Assembly assembly)
     {
-        var types = assembly.GetExportedTypes().Where(t => t.GetInterfaces().Any(i =>
-                i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ICreateMapper<>)))
+        var interfaceType = typeof(ICreateMapper<>);
+
+        var types = assembly.GetExportedTypes()
+            .Where(t => t.GetInterfaces()
+                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == interfaceType))
             .ToList();
 
         foreach (var type in types)
         {
-            var model = Activator.CreateInstance(type);
+            var implementedInterface = type.GetInterfaces()
+                .First(i => i.IsGenericType && i.GetGenericTypeDefinition() == interfaceType);
 
-            var methodInfo = type.GetMethod("Map") //get the map method directly by the class
-                             ?? type.GetInterface("ICreateMapper`1").GetMethod("Map"); //if null get the interface implementation
-
-            if (model != null)
-                methodInfo?.Invoke(model, new object[] { this });
+            var entityType = implementedInterface.GetGenericArguments()[0];
+            CreateMap(type, entityType);
+            CreateMap(entityType, type);
         }
     }
 }

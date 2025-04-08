@@ -1,13 +1,11 @@
 ﻿using Application.Contracts.Services;
 using Application.DTOs.ExceptionLogs;
-using Application.DTOs.Logging;
+using Application.DTOs.Loggings;
 using Domain.Enums;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Diagnostics;
 using System.Net;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Application.Middleware
 {

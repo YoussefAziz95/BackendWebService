@@ -7,6 +7,142 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Contracts\HubServices\**" />
+    <Compile Remove="Contracts\Presistence\Organization\**" />
+    <Compile Remove="Contracts\Presistence\Product\**" />
+    <Compile Remove="Contracts\Presistence\WorkflowReviewRepositories\**" />
+    <Compile Remove="Contracts\Presistence\Workflows\**" />
+    <Compile Remove="Contracts\Services\**" />
+    <Compile Remove="DTOs\Categories\**" />
+    <Compile Remove="DTOs\Companies\**" />
+    <Compile Remove="DTOs\Emails\**" />
+    <Compile Remove="DTOs\Exceptions\**" />
+    <Compile Remove="DTOs\FileTypes\**" />
+    <Compile Remove="DTOs\Groups\**" />
+    <Compile Remove="DTOs\Loggings\**" />
+    <Compile Remove="DTOs\Notifications\**" />
+    <Compile Remove="DTOs\Organizations\**" />
+    <Compile Remove="DTOs\Permissions\**" />
+    <Compile Remove="DTOs\PreDocuments\**" />
+    <Compile Remove="DTOs\Services\**" />
+    <Compile Remove="DTOs\SupplierCategories\**" />
+    <Compile Remove="DTOs\SupplierDocuments\**" />
+    <Compile Remove="DTOs\Suppliers\**" />
+    <Compile Remove="DTOs\UserGroups\**" />
+    <Compile Remove="DTOs\Utilities\**" />
+    <Compile Remove="Implementations\**" />
+    <Compile Remove="Validators\Category\**" />
+    <Compile Remove="Validators\Common\**" />
+    <Compile Remove="Validators\Company\**" />
+    <Compile Remove="Validators\Permission\**" />
+    <Compile Remove="Validators\PreDocument\**" />
+    <Compile Remove="Validators\Roles\**" />
+    <Compile Remove="Validators\Service\**" />
+    <Compile Remove="Validators\SupplierCategory\**" />
+    <Compile Remove="Validators\SupplierDocument\**" />
+    <Compile Remove="Validators\Supplier\**" />
+    <Compile Remove="Validators\Users\**" />
+    <Compile Remove="Validators\Utility\**" />
+    <EmbeddedResource Remove="Contracts\HubServices\**" />
+    <EmbeddedResource Remove="Contracts\Presistence\Organization\**" />
+    <EmbeddedResource Remove="Contracts\Presistence\Product\**" />
+    <EmbeddedResource Remove="Contracts\Presistence\WorkflowReviewRepositories\**" />
+    <EmbeddedResource Remove="Contracts\Presistence\Workflows\**" />
+    <EmbeddedResource Remove="Contracts\Services\**" />
+    <EmbeddedResource Remove="DTOs\Categories\**" />
+    <EmbeddedResource Remove="DTOs\Companies\**" />
+    <EmbeddedResource Remove="DTOs\Emails\**" />
+    <EmbeddedResource Remove="DTOs\Exceptions\**" />
+    <EmbeddedResource Remove="DTOs\FileTypes\**" />
+    <EmbeddedResource Remove="DTOs\Groups\**" />
+    <EmbeddedResource Remove="DTOs\Loggings\**" />
+    <EmbeddedResource Remove="DTOs\Notifications\**" />
+    <EmbeddedResource Remove="DTOs\Organizations\**" />
+    <EmbeddedResource Remove="DTOs\Permissions\**" />
+    <EmbeddedResource Remove="DTOs\PreDocuments\**" />
+    <EmbeddedResource Remove="DTOs\Services\**" />
+    <EmbeddedResource Remove="DTOs\SupplierCategories\**" />
+    <EmbeddedResource Remove="DTOs\SupplierDocuments\**" />
+    <EmbeddedResource Remove="DTOs\Suppliers\**" />
+    <EmbeddedResource Remove="DTOs\UserGroups\**" />
+    <EmbeddedResource Remove="DTOs\Utilities\**" />
+    <EmbeddedResource Remove="Implementations\**" />
+    <EmbeddedResource Remove="Validators\Category\**" />
+    <EmbeddedResource Remove="Validators\Common\**" />
+    <EmbeddedResource Remove="Validators\Company\**" />
+    <EmbeddedResource Remove="Validators\Permission\**" />
+    <EmbeddedResource Remove="Validators\PreDocument\**" />
+    <EmbeddedResource Remove="Validators\Roles\**" />
+    <EmbeddedResource Remove="Validators\Service\**" />
+    <EmbeddedResource Remove="Validators\SupplierCategory\**" />
+    <EmbeddedResource Remove="Validators\SupplierDocument\**" />
+    <EmbeddedResource Remove="Validators\Supplier\**" />
+    <EmbeddedResource Remove="Validators\Users\**" />
+    <EmbeddedResource Remove="Validators\Utility\**" />
+    <None Remove="Contracts\HubServices\**" />
+    <None Remove="Contracts\Presistence\Organization\**" />
+    <None Remove="Contracts\Presistence\Product\**" />
+    <None Remove="Contracts\Presistence\WorkflowReviewRepositories\**" />
+    <None Remove="Contracts\Presistence\Workflows\**" />
+    <None Remove="Contracts\Services\**" />
+    <None Remove="DTOs\Categories\**" />
+    <None Remove="DTOs\Companies\**" />
+    <None Remove="DTOs\Emails\**" />
+    <None Remove="DTOs\Exceptions\**" />
+    <None Remove="DTOs\FileTypes\**" />
+    <None Remove="DTOs\Groups\**" />
+    <None Remove="DTOs\Loggings\**" />
+    <None Remove="DTOs\Notifications\**" />
+    <None Remove="DTOs\Organizations\**" />
+    <None Remove="DTOs\Permissions\**" />
+    <None Remove="DTOs\PreDocuments\**" />
+    <None Remove="DTOs\Services\**" />
+    <None Remove="DTOs\SupplierCategories\**" />
+    <None Remove="DTOs\SupplierDocuments\**" />
+    <None Remove="DTOs\Suppliers\**" />
+    <None Remove="DTOs\UserGroups\**" />
+    <None Remove="DTOs\Utilities\**" />
+    <None Remove="Implementations\**" />
+    <None Remove="Validators\Category\**" />
+    <None Remove="Validators\Common\**" />
+    <None Remove="Validators\Company\**" />
+    <None Remove="Validators\Permission\**" />
+    <None Remove="Validators\PreDocument\**" />
+    <None Remove="Validators\Roles\**" />
+    <None Remove="Validators\Service\**" />
+    <None Remove="Validators\SupplierCategory\**" />
+    <None Remove="Validators\SupplierDocument\**" />
+    <None Remove="Validators\Supplier\**" />
+    <None Remove="Validators\Users\**" />
+    <None Remove="Validators\Utility\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Contracts\Proxy\INotificationProxy.cs" />
+    <Compile Remove="Profiles\GroupMapper.cs" />
+    <Compile Remove="Profiles\PreDocumentMapper.cs" />
+    <Compile Remove="Profiles\UserMapper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Contracts\Services\Common\IDropdownService.cs" />
+    <Compile Include="Contracts\Services\Common\IExceptionLogService.cs" />
+    <Compile Include="Contracts\Services\Common\IFileSystemService.cs" />
+    <Compile Include="Contracts\Services\Common\IJwtService.cs" />
+    <Compile Include="Contracts\Services\Common\ILoggingService.cs" />
+    <Compile Include="Contracts\Services\Common\IUtilityService.cs" />
+    <Compile Include="DTOs\Exceptions\ExceptionDto.cs" />
+    <Compile Include="DTOs\Loggings\LoggingDto.cs" />
+    <Compile Include="DTOs\Utilities\DeleteRequest.cs" />
+    <Compile Include="DTOs\Utilities\FileResponse.cs" />
+    <Compile Include="DTOs\Utilities\UploadRequest.cs" />
+    <Compile Include="Implementations\Common\ExceptionLogService.cs" />
+    <Compile Include="Implementations\Common\JwtService.cs" />
+    <Compile Include="Implementations\Common\LoggingService.cs" />
+    <Compile Include="Implementations\Common\ValidateCommandBehavior.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Azure.Core" Version="1.44.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
     <PackageReference Include="Google.Apis.Auth" Version="1.66.0" />
@@ -20,12 +156,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Presistence\Workflows\" />
+    <ProjectReference Include="..\BackendWebService.Domain\BackendWebService.Domain.csproj" />
+    <ProjectReference Include="..\BackendWebService.SharedKernal\BackendWebService.SharedKernal.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BackendWebService.Domain\BackendWebService.Domain.csproj" />
-    <ProjectReference Include="..\BackendWebService.SharedKernal\BackendWebService.SharedKernal.csproj" />
+    <Folder Include="Contracts\Proxy\" />
   </ItemGroup>
 
 </Project>

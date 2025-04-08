@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Services;
-using Application.DTOs.Auths;
 using Application.DTOs.SignIn;
 using Application.Model.Authentication;
 using Google.Apis.Auth;

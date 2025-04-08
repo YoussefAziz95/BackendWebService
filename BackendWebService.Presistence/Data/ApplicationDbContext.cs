@@ -151,7 +151,7 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
                     Suggestion = null,
                     LogType = "EntityAction",
                     Timestamp = DateTime.UtcNow,
-                    SourceLayer = entry.Entity.GetType().Namespace,
+                    SourceLayer = entry.Entity.GetType().Namespace?? "",
                     SourceClass = entry.Entity.GetType().Name,
                     SourceLineNumber = 0
                 };

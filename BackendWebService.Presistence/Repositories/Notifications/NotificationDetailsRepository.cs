@@ -17,26 +17,15 @@ namespace Persistence.Repositories.Notifications
             {
                 try
                 {
-                    //fullEntity. = DateTime.UtcNow.AddDays(30);
+                    fullEntity.ExpiryDate = DateTime.UtcNow.AddDays(30);
 
-                    //_context.Add(fullEntity);
-                    //_context.SaveChanges();
+                    _context.Add(fullEntity);
+                    _context.SaveChanges();
 
-                    //fullEntity.MessageBody.ForEach(n => n.Key = n.Key + fullEntity.Id);
-                    //fullEntity.MessageTitle.ForEach(n => n.Key = n.Key + fullEntity.Id);
+                    result = _context.SaveChanges();
 
-                    //fullEntity.KeyMessageBody = fullEntity.MessageBody.FirstOrDefault().Key;
-                    //fullEntity.KeyMessageTitle = fullEntity.MessageTitle.FirstOrDefault().Key;
-
-                    //_context.Update(fullEntity);
-
-                    //_context.AddRange(fullEntity.MessageBody);
-                    //_context.AddRange(fullEntity.MessageTitle);
-
-                    //result = _context.SaveChanges();
-
-                    //// Commit the transaction
-                    //transaction.Commit();
+                    // Commit the transaction
+                    transaction.Commit();
 
                 }
                 catch (Exception ex)

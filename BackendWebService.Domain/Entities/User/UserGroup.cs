@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Domain;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain;
 [Table("UserGroup")]
 public class UserGroup : BaseEntity, IEntity, ITimeModification
 {

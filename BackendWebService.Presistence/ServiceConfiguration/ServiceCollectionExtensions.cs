@@ -1,12 +1,10 @@
-﻿using Application.Contracts.Persistences;
+﻿using Application.Contracts.Persistence;
+using Application.Contracts.Persistences;
 using Application.DTOs.Common;
 using Application.Manager;
 using Application.Model.Jwt;
-using Application.Contracts.Persistence;
-using Application.Identity.Jwt;
 using Application.Persistence.Repositories;
 using Contracts.Services;
-using SharedKernel.Extensions;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -23,9 +21,8 @@ using Persistence.Repositories.Common;
 using Persistence.Repositories.FileSystem;
 using Persistence.Repositories.Identity;
 using Persistence.Repositories.Notifications;
-using Persistence.Repositories.Organizations;
-using Persistence.Repositories.Product;
 using Persistence.Store;
+using SharedKernel.Extensions;
 using System.Security.Claims;
 using System.Text;
 
@@ -42,18 +39,17 @@ public static class ServiceCollectionExtensions
             options
                 .UseSqlServer(DbConnection.DefaultConnection);
         });
-        services.AddScoped<IJwtService, JwtService>();
+        //services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
-        services.AddScoped<ICompanyRepository, CompanyRepository>();
-        services.AddScoped<ISupplierRepository, SupplierRepository>();
-        services.AddScoped<ICategoryRepository, CategoryRepository>();
-        services.AddScoped<ISupplierDocumentRepository, SupplierDocumentRepository>();
+        //services.AddScoped<ICompanyRepository, CompanyRepository>();
+        //services.AddScoped<ISupplierRepository, SupplierRepository>();
+        //services.AddScoped<ICategoryRepository, CategoryRepository>();
+        //services.AddScoped<ISupplierDocumentRepository, SupplierDocumentRepository>();
         services.AddScoped<IFileRepository, FileRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ILoggingRepository, LoggingRepository>();
-        services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<IClientRepository, ClientRepository>();
         services.AddScoped<INotificationRepository, NotificationRepository>();
         services.AddIdentity<User, Role>(options =>
@@ -109,6 +105,7 @@ public static class ServiceCollectionExtensions
 
         }).AddJwtBearer(options =>
         {
+            IdentitySettings identitySettings = new IdentitySettings();
             var secretkey = Encoding.UTF8.GetBytes(identitySettings.SecretKey);
             var encryptionkey = Encoding.UTF8.GetBytes(identitySettings.Encryptkey);
 

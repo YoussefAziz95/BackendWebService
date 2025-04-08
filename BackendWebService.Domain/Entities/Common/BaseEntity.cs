@@ -37,13 +37,13 @@ public interface IEntity
 {
     public int Id { get; set; }
     public int? OrganizationId { get; set; }
-    public bool IsActive { get; set; }
-    public bool IsDeleted { get; set; }
-    public bool IsSystem { get; set; }
+    public bool? IsActive { get; set; }
+    public bool? IsDeleted { get; set; }
+    public bool? IsSystem { get; set; }
 }
 public interface ITimeModification
 {
-    DateTime CreatedDate { get; set; }
+    DateTime? CreatedDate { get; set; }
     string? CreatedBy { get; set; }
     DateTime? UpdateDate { get; set; }
     string? UpdatedBy { get; set; }
@@ -53,10 +53,10 @@ public abstract class BaseEntity : BaseEntity<int>, IEntity, ITimeModification
     public int Id { get; set; }
     [AllowNull]
     public int? OrganizationId { get; set; }
-    public bool IsActive { get; set; } = true;
-    public bool IsDeleted { get; set; } = false;
-    public bool IsSystem { get; set; } = false;
-    public DateTime CreatedDate { get; set; }
+    public bool? IsActive { get; set; } = true;
+    public bool? IsDeleted { get; set; } = false;
+    public bool? IsSystem { get; set; } = false;
+    public DateTime? CreatedDate { get; set; } = DateTime.UtcNow;
     public string? CreatedBy { get; set; }
     public DateTime? UpdateDate { get; set; }
     public string? UpdatedBy { get; set; }
