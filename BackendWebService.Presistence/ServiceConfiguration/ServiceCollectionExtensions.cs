@@ -34,10 +34,11 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+        string connectionString = configuration.GetConnectionString("DefaultConnection");
         services.AddDbContext<ApplicationDbContext>(options =>
         {
             options
-                .UseSqlServer(DbConnection.DefaultConnection);
+                .UseSqlServer(connectionString);
         });
         //services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
