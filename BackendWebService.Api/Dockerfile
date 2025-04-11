@@ -7,6 +7,7 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
+
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
@@ -21,8 +22,6 @@ RUN dotnet restore "./BackendWebService.Api/BackendWebService.Api.csproj"
 COPY . .
 WORKDIR "/src/BackendWebService.Api"
 RUN dotnet build "./BackendWebService.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
-# Install dotnet-ef in build stage
-RUN dotnet tool install --global dotnet-ef --version 8.0.0
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
@@ -33,6 +32,4 @@ RUN dotnet publish "./BackendWebService.Api.csproj" -c $BUILD_CONFIGURATION -o /
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY --from=build /root/.dotnet/tools /root/.dotnet/tools
-ENV PATH="$PATH:/root/.dotnet/tools"
 ENTRYPOINT ["dotnet", "BackendWebService.Api.dll"]
