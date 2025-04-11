@@ -16,9 +16,9 @@ COPY ./init.sql /init.sql
 
 CMD /bin/bash -c "\
   sleep 30 && \
-  until sqlcmd -S db -U sa -P '${SQL_SA_PASSWORD}' -Q 'SELECT 1' > /dev/null 2>&1; do \
+  until sqlcmd -S db,1433 -U sa -P '${SQL_SA_PASSWORD}' -Q 'SELECT 1' > /dev/null 2>&1; do \
     echo 'Waiting for SQL Server...' && sleep 5; \
   done && \
   echo 'Running init.sql' && \
-  sqlcmd -S db -U sa -P '${SQL_SA_PASSWORD}' -i /init.sql \
+  sqlcmd -S db,1433 -U sa -P '${SQL_SA_PASSWORD}' -i /init.sql \
 "
