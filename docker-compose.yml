@@ -1,14 +1,14 @@
 
 services:
   db:
-    image: mcr.microsoft.com/mssql/server:2017-latest
+    image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=${SQL_SA_PASSWORD}
     volumes:
-      - ./data-2017:/var/opt/mssql/data
-      - ./log-2017:/var/opt/mssql/log
-      - ./backup-2017:/var/opt/mssql/backup
+      - ./data-2022:/var/opt/mssql/data
+      - ./log-2022:/var/opt/mssql/log
+      - ./backup-2022:/var/opt/mssql/backup
       - ./init.sql:/usr/config/init.sql
     command: >
       /bin/bash -c "
