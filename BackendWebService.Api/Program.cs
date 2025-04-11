@@ -17,6 +17,7 @@ using System.Reflection;
 using System.Text;
 using Presistence.Data.Seeds;
 using Application.Manager;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
@@ -87,6 +88,13 @@ builder.Services.AddSession(options =>
 
 
 var app = builder.Build();
+
+// Apply migrations at startup
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.Migrate(); // Applies pending migrations
+}
 
 app.UseStaticFiles();
 
