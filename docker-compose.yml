@@ -14,6 +14,7 @@ services:
       /bin/bash -c "
         /opt/mssql/bin/sqlservr & 
         sleep 30s && 
+        until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P '${SQL_SA_PASSWORD}' -Q 'SELECT 1'; do sleep 5; done && 
         /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P '${SQL_SA_PASSWORD}' -i /usr/config/init.sql && 
         wait
       "
@@ -45,12 +46,6 @@ services:
     ports:
       - "8080:8080"
     restart: unless-stopped
-    command: >
-      /bin/bash -c "
-        sleep 10s &&
-        dotnet ef database update --project BackendWebService.Presistence/BackendWebService.Presistence.csproj --context ApplicationDbContext &&
-        dotnet BackendWebService.Api.dll
-      "
     networks:
       - app-network
 

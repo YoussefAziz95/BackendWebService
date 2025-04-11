@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /db-data/.system
 /log-2017
+/data-protection-keys
