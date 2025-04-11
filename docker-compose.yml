@@ -5,9 +5,9 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=${SQL_SA_PASSWORD}
     volumes:
-      - ./data-2022:/var/opt/mssql/data
-      - ./log-2022:/var/opt/mssql/log
-      - ./backup-2022:/var/opt/mssql/backup
+      - ./DataBase/data-2022:/var/opt/mssql/data
+      - ./DataBase/log-2022:/var/opt/mssql/log
+      - ./DataBase/backup-2022:/var/opt/mssql/backup
     restart: unless-stopped
     mem_limit: 4g
     mem_reservation: 2g
@@ -24,7 +24,7 @@ services:
   init-db:
     image: mcr.microsoft.com/mssql-tools
     volumes:
-      - ./init.sql:/init.sql
+      - ./DataBase/init.sql:/init.sql
     environment:
       - SQL_SA_PASSWORD=${SQL_SA_PASSWORD}
     entrypoint: ["/bin/bash", "-c", "
@@ -47,7 +47,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=db;Database=Sal7ly;User Id=sa;Password=${SQL_SA_PASSWORD};Encrypt=false
     volumes:
-      - ./data-protection-keys:/home/app/.aspnet/DataProtection-Keys
+      - ./DataBase/data-protection-keys:/home/app/.aspnet/DataProtection-Keys
     depends_on:
       init-db:
         condition: service_completed_successfully
