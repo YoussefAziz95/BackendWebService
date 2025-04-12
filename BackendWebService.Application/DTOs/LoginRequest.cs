@@ -1,7 +1,7 @@
 ﻿using Domain.Enums;
 namespace BackendWebService.Application.DTOs;
 
-public record LoginRequest(string Email, string Password);
+public record LoginRequest(string PhoneNumber, string Password);
 public record CreateUserWithPasswordRequest(string FirstName, string LastName, string Email, string Password, string? PhoneNumber, RoleEnum MainRole, string? Department, string? Title);
 public record LoginAuthenticatorRequest(string ClientId, string AccessToken);
 public record ExternalLoginRequest(string Provider, string ProviderKey);

@@ -3,7 +3,6 @@ using Application.Contracts.Persistences;
 using Application.DTOs.Common;
 using BackendWebService.Application.DTOs;
 using Domain;
-using Domain.Constants;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +11,7 @@ namespace Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[AllowAnonymous]
 public class CategoriesController : AppControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -35,7 +35,6 @@ public class CategoriesController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(PermissionConstants.CATEGORY_GET)]
     public async Task<IActionResult> GetCategory([FromRoute] int id)
     {
         var category = await _unitOfWork.GenericRepository<Category>().GetByIdAsync(id);

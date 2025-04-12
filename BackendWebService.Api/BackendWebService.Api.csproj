@@ -11,7 +11,6 @@
   <ItemGroup>
     <Compile Remove="Controllers\CompaniesController.cs" />
     <Compile Remove="Controllers\DropDownController.cs" />
-    <Compile Remove="Controllers\FileSystemController.cs" />
     <Compile Remove="Controllers\NotificationController.cs" />
     <Compile Remove="Controllers\OrganizationController.cs" />
     <Compile Remove="Controllers\PermissionsController.cs" />

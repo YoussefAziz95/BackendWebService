@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Utility;
+﻿using BackendWebService.Application.DTOs;
 using Domain;
 
 namespace Application.Contracts.Persistences;

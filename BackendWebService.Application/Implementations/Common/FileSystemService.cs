@@ -3,9 +3,9 @@ using Application.Contracts.Infrastructures;
 using Application.Contracts.Persistences;
 using Application.Contracts.Services;
 using Application.DTOs.Common;
-using Application.DTOs.Utility;
 using Application.Model.File;
 using Application.Wrappers;
+using BackendWebService.Application.DTOs;
 using Domain.Constants;
 
 namespace Application.Implementations.Common
@@ -50,7 +50,7 @@ namespace Application.Implementations.Common
         }
         public async Task<IResponse<int>> UploadFile(UploadRequest request, string folderName)
         {
-            var fileName = await _fileHandler.Upload(request.File, $"{AppConstants.TempUploadPath + "\\" + folderName + "\\" + folderName + "_" + request.Id + "_" + request.CreatedDate}");
+            var fileName = await _fileHandler.Upload(request.File, $"{AppConstants.TempUploadPath + "\\" + folderName }");
 
             var result = _fileRepository.Upload(request, fileName);
             return Uploaded(entity: result.Id);

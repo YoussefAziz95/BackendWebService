@@ -7,7 +7,8 @@ public record AddPropertyRequest(
     string Name,
     string FullAddress,
     double Latitude,
-    double Longitude
+    double Longitude,
+    int? fileId = null
 );
 
 public record UpdatePropertyRequest(
@@ -16,7 +17,8 @@ public record UpdatePropertyRequest(
     string Name,
     string FullAddress,
     double Latitude,
-    double Longitude
+    double Longitude,
+    int? fileId = null
 );
 
 public record PropertyResponse(
@@ -24,6 +26,7 @@ public record PropertyResponse(
     int OwnerId,
     string Name,
     string FullAddress,
+    int? fileId,
     DateTimeOffset CreatedAt,
     DateTimeOffset? UpdatedAt
 );

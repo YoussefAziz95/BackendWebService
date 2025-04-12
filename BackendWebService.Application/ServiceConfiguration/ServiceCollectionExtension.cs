@@ -44,6 +44,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IAppRoleManager, AppRoleManager>();
         services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
         services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<IFileSystemService, FileSystemService>();
         //services.AddScoped<IUserService, UserService>();
         //services.AddScoped<IUtilityService, UtilityService>();
         //services.AddScoped<IPermissionService, PermissionService>();
@@ -54,7 +55,6 @@ public static class ServiceCollectionExtension
         //services.AddScoped<IPreDocumentService, PreDocumentService>();
         //services.AddScoped<ISupplierService, SupplierService>();
         //services.AddScoped<IDropdownService, DropdownService>();
-        //services.AddScoped<IFileSystemService, FileSystemService>();
         //services.AddScoped<IServiceImplementation, ServiceImplementation>();
         services.AddScoped<IExceptionLogService, ExceptionLogService>();
 

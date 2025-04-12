@@ -1,6 +1,5 @@
 ﻿using Api.Base;
 using Application.Contracts.Persistences;
-using Application.DTOs.Addresses;
 using Application.DTOs.Common;
 using BackendWebService.Application.DTOs;
 using Domain;
@@ -25,15 +24,16 @@ public class PropertiesController : AppControllerBase
     [HttpPost]
     public async Task<IActionResult> AddProperty([FromBody] AddPropertyRequest request)
     {
-        var service = new Property
+        var property = new Property
         {
             Name = request.Name,
             Latitude = request.Latitude,
             Longitude = request.Longitude,
             FullAddress = request.FullAddress,
-            UserId = request.OwnerId
+            UserId = request.OwnerId,
+            FileId = request.fileId
         };
-        _unitOfWork.GenericRepository<Property>().Add(service);
+        _unitOfWork.GenericRepository<Property>().Add(property);
         var result = _unitOfWork.Save();
         return Ok(result);
     }
@@ -49,7 +49,7 @@ public class PropertiesController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Property found",
-            Data = new PropertyResponse(property.Id, property.User.Id,  property.Name, property.FullAddress, property.CreatedAt, property.UpdatedAt )
+            Data = new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress,property.FileId, property.CreatedAt, property.UpdatedAt)
         };
         return NewResult(result);
     }
@@ -69,13 +69,13 @@ public class PropertiesController : AppControllerBase
         _unitOfWork.GenericRepository<Property>().Update(property);
         var result = _unitOfWork.Save();
         if (result == 0)
-            return BadRequest("Failed to update property"); 
-   
+            return BadRequest("Failed to update property");
+
         var response = new Response<PropertyResponse>()
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Property updated successfully",
-            Data = new PropertyResponse(property.Id, property.UserId,  property.Name, property.FullAddress, property.CreatedAt, property.UpdatedAt)
+            Data = new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress, property.FileId, property.CreatedAt, property.UpdatedAt)
         };
         return NewResult(response);
     }
@@ -88,7 +88,7 @@ public class PropertiesController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Propertys found",
-            Data = properties.Select(property => new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress, property.CreatedAt, property.UpdatedAt)).ToList(),
+            Data = properties.Select(property => new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress, property.FileId, property.CreatedAt, property.UpdatedAt)).ToList(),
             TotalCount = properties.Count()
         };
         return NewResult(response);

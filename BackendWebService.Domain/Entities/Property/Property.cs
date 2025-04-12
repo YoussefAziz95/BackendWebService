@@ -12,7 +12,11 @@ public class Property : BaseEntity, IEntity, ITimeModification
     [Required, MaxLength(100)]
     public string Name { get; set; }
 
-    public string FullAddress { get; set; } 
+    public string FullAddress { get; set; }
+
+    public int? FileId { get; set; }
+    [ForeignKey("FileId")]
+    public virtual FileLog? File { get; set; }
 
     [Required, Range(-90, 90)]
     public double Latitude { get; set; }

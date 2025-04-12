@@ -1,13 +1,12 @@
 ﻿using Api.Base;
 using Application.DTOs.Common;
 using BackendWebService.Application.Contracts.Manager;
+using BackendWebService.Application.DTOs;
 using Contracts.Services;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using BackendWebService.Application.DTOs;
 
 namespace BackendWebService.Controllers;
 
@@ -19,7 +18,7 @@ public class SignInController : AppControllerBase
     private readonly IAppUserManager _userManager;
     private readonly IJwtService _jwtService;
 
-    public SignInController( IAppUserManager userManager, IJwtService jwtService)
+    public SignInController(IAppUserManager userManager, IJwtService jwtService)
     {
         _userManager = userManager;
         _jwtService = jwtService;
@@ -28,13 +27,13 @@ public class SignInController : AppControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        var user = await _userManager.FindByEmailAsync(request.Email.Trim().ToLower());
+        var user = await _userManager.FindByEmailAsync(request.PhoneNumber.Trim());
 
         if (user == null)
             return Unauthorized("Invalid email or password");
 
         if (!user.EmailConfirmed)
-            return Forbid("Email not confirmed");
+            return Forbid("PhoneNumber not confirmed");
 
         var result = await _userManager.CheckPasswordAsync(user, request.Password);
 
@@ -64,7 +63,7 @@ public class SignInController : AppControllerBase
 
         };
 
-        
+
         return NewResult(response);
     }
     [HttpPost("signup")]

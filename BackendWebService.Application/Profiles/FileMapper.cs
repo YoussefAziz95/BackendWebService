@@ -1,6 +1,5 @@
-﻿using Application.DTOs.Utility;
+﻿using BackendWebService.Application.DTOs;
 using Domain;
-using System.IO;
 
 namespace Application.Profiles
 {
