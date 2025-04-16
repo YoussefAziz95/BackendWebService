@@ -7,7 +7,7 @@ using Application.Middleware;
 using Application.Permissions;
 using Application.ServicesImplementation.Common;
 using Application.Utilities;
-using BackendWebService.Application.Contracts.Manager;
+using Application.Contracts.Manager;
 using Contracts.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -54,7 +54,7 @@ public static class ServiceCollectionExtension
         //services.AddScoped<ICategoryService, CategoryService>();
         //services.AddScoped<IPreDocumentService, PreDocumentService>();
         //services.AddScoped<ISupplierService, SupplierService>();
-        //services.AddScoped<IDropdownService, DropdownService>();
+        services.AddScoped<IDropdownService, DropdownService>();
         //services.AddScoped<IServiceImplementation, ServiceImplementation>();
         services.AddScoped<IExceptionLogService, ExceptionLogService>();
 

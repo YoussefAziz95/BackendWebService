@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.DTOs;
 using Application.DTOs.Common;
-using BackendWebService.Application.DTOs;
+using Application.DTOs;
 
 namespace Application.Contracts.Services;
 

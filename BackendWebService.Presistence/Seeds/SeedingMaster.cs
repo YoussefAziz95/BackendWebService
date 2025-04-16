@@ -1,5 +1,5 @@
 ﻿using Application.Manager;
-using BackendWebService.Persistence.Seeds;
+using Persistence.Seeds;
 using Persistence.Data;
 
 namespace Presistence.Data.Seeds;

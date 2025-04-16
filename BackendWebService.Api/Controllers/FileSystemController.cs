@@ -1,6 +1,6 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
-using BackendWebService.Application.DTOs;
+using Application.DTOs;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

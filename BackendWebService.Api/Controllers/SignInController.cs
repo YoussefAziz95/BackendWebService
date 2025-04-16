@@ -1,14 +1,14 @@
 ﻿using Api.Base;
 using Application.DTOs.Common;
-using BackendWebService.Application.Contracts.Manager;
-using BackendWebService.Application.DTOs;
+using Application.Contracts.Manager;
+using Application.DTOs;
 using Contracts.Services;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BackendWebService.Controllers;
+namespace Controllers;
 
 [Route("api/")]
 [ApiController]
@@ -69,6 +69,11 @@ public class SignInController : AppControllerBase
     [HttpPost("signup")]
     public async Task<IActionResult> SignUp([FromBody] CreateUserWithPasswordRequest request)
     {
+        if (!Enum.TryParse<RoleEnum>(request.MainRole, out var mainRole))
+        {
+            return BadRequest("Invalid role specified");
+        }
+
         var user = new User
         {
             UserName = request.Email.Trim().ToLower(),
@@ -76,7 +81,7 @@ public class SignInController : AppControllerBase
             FirstName = request.FirstName,
             LastName = request.LastName,
             PhoneNumber = request.PhoneNumber,
-            MainRole = request.MainRole,
+            MainRole = mainRole,
             Department = request.Department,
             Title = request.Title
         };

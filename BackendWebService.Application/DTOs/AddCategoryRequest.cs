@@ -1,4 +1,4 @@
-﻿namespace BackendWebService.Application.DTOs;
+﻿namespace Application.DTOs;
 
 public record AddCategoryRequest(string Name, int? ParentId);
 public record CategoryResponse(int? Id, string Name, int? ParentId, bool? IsActive);

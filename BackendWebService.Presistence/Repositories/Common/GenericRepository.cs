@@ -32,6 +32,7 @@ namespace Persistence.Repositories.Common
             _dbSet = _context.Set<T>();
             var type = typeof(T);
             _propertyInfos = typeof(T).GetProperties();
+            _propertyId = type.GetProperty("Id", BindingFlags.Public | BindingFlags.Instance);
             _OrganizationIdProperty = type.GetProperty("OrganizationId");
 
         }
@@ -249,37 +250,7 @@ namespace Persistence.Repositories.Common
             return _context.Database.ExecuteSqlRaw(query, args);
         }
         
-        public Dictionary<int,string> GetDropdownOptionsList(List<T> entities, string[] columnNames)
-        {
-            List<PropertyInfo> properties = new List<PropertyInfo>();
-            var entityType = typeof(T);
-            var idProperty = entityType.GetProperty("Id");
-            foreach (string columnName in columnNames)
-            {
-                var columnProperty = entityType.GetProperty(columnName);
-                if (columnProperty is null)
-                {
-                    throw new ArgumentException($"GenericRepository.GetDropdownOptions() : Column '{columnName}' not found in type '{typeof(T).Name}'.");
-                }
-                properties.Add(columnProperty);
-            }
-            var columnValues = entities
-            .Select(e => new
-            {
-                Key = idProperty is null ? 0 : (int)idProperty.GetValue(e)!,
-                Value = properties.Select(p => p.GetValue(e)?.ToString() ?? string.Empty).First()
-            }).ToDictionary(x => x.Key, x => x.Value);
-            return columnValues;
-        }
-        public DropDownResponse GetDropdownOptions(List<T> entities, string[] columnNames)
-        {
-            var response = new DropDownResponse() { items = GetDropdownOptionsList(entities, columnNames) };
-            return response;
-        }
-        public DropDownResponse GetDropdownOptions(string[] columnNames)
-        {
-            return GetDropdownOptions(_dbSet.Where(x => x.GetType().GetProperty(_OrganizationIdProperty.Name)!.GetValue(x)!.Equals(_context.userInfo.OrganizationId)).ToList(), columnNames);
-        }
+       
 
 
         public bool ExistsNoTracking(Expression<Func<T, bool>> filter = null!)
@@ -287,5 +258,28 @@ namespace Persistence.Repositories.Common
             return _dbSet.AsNoTracking().Any(filter);
         }
 
+        public Dictionary<int, string> GetDropdownOptionsList(string[] columnNames)
+        {
+
+            List<PropertyInfo> properties = new List<PropertyInfo>();
+            var entityType = typeof(T);
+            var idProperty = _propertyId;
+            foreach (string columnName in columnNames)
+            {
+                var columnProperty = entityType.GetProperty(columnName);
+                if (columnProperty is null)
+                {
+                    throw new ArgumentException($"GenericRepository.GetDropdownOptions() : Column '{columnName}' not found in type '{typeof(IEntity).Name}'.");
+                }
+                properties.Add(columnProperty);
+            }
+            var columnValues = _dbSet.ToList()
+            .Select(e => new
+            {
+                Key = idProperty is null ? 0 : (int)idProperty.GetValue(e)!,
+                Value = properties.Select(p => p.GetValue(e)?.ToString() ?? string.Empty).First()
+            }).ToDictionary(x => x.Key, x => x.Value);
+            return columnValues;
+        }
     }
 }

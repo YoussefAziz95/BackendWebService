@@ -10,17 +10,20 @@ namespace Application.Implementations.Common;
 
 public class ExceptionLogService : ResponseHandler, IExceptionLogService
 {
-    private readonly IMapper _mapper;
+    
     private readonly IUnitOfWork _unitOfWork;
 
-    public ExceptionLogService(IMapper mapper, IUnitOfWork unitOfWork)
+    public ExceptionLogService( IUnitOfWork unitOfWork)
     {
-        _mapper = mapper;
         _unitOfWork = unitOfWork;
     }
     public void Add(ExceptionDto request)
     {
-        var exception = _mapper.Map<ExceptionLog>(request); ;
+        var exception = new ExceptionLog()
+        {
+            ExceptionCode = request.ExceptionCode,
+            KeyExceptionMessage = request.KeyExceptionMessage,
+        };
         _unitOfWork.GenericRepository<ExceptionLog>().AddAsync(exception);
         _unitOfWork.SaveAsync();
     }

@@ -2,8 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Enums;
-[Table("Job")]
-public class Job : BaseEntity, IEntity, ITimeModification
+[Table("CustomerRequest")]
+public class CustomerRequest : BaseEntity, IEntity, ITimeModification
 {
     [Key]
     public int Id { get; set; }

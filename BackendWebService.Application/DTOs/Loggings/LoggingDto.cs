@@ -4,7 +4,7 @@ using System;
 
 namespace Application.DTOs.Loggings
 {
-    public class LoggingDto : ICreateMapper<Logging>
+    public class LoggingDto 
     {
         public string Message { get; set; }
         public string LogType { get; set; }

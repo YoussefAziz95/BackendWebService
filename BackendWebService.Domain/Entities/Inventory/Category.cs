@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 namespace Domain;
+
 [Table("Category")]
 public class Category : BaseEntity, IEntity, ITimeModification
 {
@@ -10,7 +10,7 @@ public class Category : BaseEntity, IEntity, ITimeModification
     public string Name { get; set; }
     [AllowNull]
     public int? ParentId { get; set; }
-    
+
     [ForeignKey("ParentId")]
     public virtual Category? ParentCategory { get; set; }
     public List<Category>? SubCategories { get; set; }

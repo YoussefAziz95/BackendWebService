@@ -1,4 +1,4 @@
-﻿using BackendWebService.Application.Contracts.Manager;
+﻿using Application.Contracts.Manager;
 using Domain;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;

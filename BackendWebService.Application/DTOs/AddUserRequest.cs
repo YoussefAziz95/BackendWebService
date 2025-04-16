@@ -1,10 +1,9 @@
-﻿using Application.Profiles;
-using Domain.Enums;
+﻿using Domain.Enums;
 using Domain;
 
-namespace Application.DTOs.Users;
+namespace Application.DTOs;
 
-public record UserDTO(
+public record AddUserRequest(
     string FirstName,
     string LastName,
     string UserName,
@@ -13,7 +12,8 @@ public record UserDTO(
     string? Department,
     string? Title,
     string MainRole
-) : ICreateMapper<User>;
+);
+
 
 public record CreateUserCompanyRequest(
     string FirstName,
@@ -27,25 +27,14 @@ public record CreateUserCompanyRequest(
     bool IsDefaultPassword,
     int? OrganizationId,
     string MainRole = nameof(RoleEnum.Technician)
-) : ICreateMapper<User>;
+);
+
 
 public record ChangePasswordRequest(string OldPassword, string NewPassword);
 
-public record ActivateDeactivateOtpRequest(int Id, bool HasOtp) : ICreateMapper<User>;
+public record ActivateDeactivateOtpRequest(int Id, bool HasOtp);
 
-public record CreateUserWithPasswordRequest(
-    string FirstName,
-    string LastName,
-    string UserName,
-    string Email,
-    string Password,
-    string PhoneNumber,
-    string? Department,
-    string? Title,
-    string MainRole
-) : ICreateMapper<User>;
 
-public record RoleAssignRequest(int UserId, string Role);
 
 public record UpdateUserRequest(
     string? FirstName,
@@ -72,4 +61,4 @@ public record UserResponse(
     DateTime? UpdateDate,
     int? CompanyId,
     string MainRole
-) : ICreateMapper<User>;
+);

@@ -1,9 +1,9 @@
-﻿using Application.DTOs.Users;
+﻿using Application.DTOs;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-namespace BackendWebService.Application.Contracts.Manager
+namespace Application.Contracts.Manager
 {
     public interface IAppUserManager
     {

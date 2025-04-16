@@ -5,7 +5,7 @@ using Application.Contracts.Services;
 using Application.DTOs.Common;
 using Application.Model.File;
 using Application.Wrappers;
-using BackendWebService.Application.DTOs;
+using Application.DTOs;
 using Domain.Constants;
 
 namespace Application.Implementations.Common

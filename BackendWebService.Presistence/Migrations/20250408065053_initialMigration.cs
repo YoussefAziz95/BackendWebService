@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BackendWebService.Persistence.Migrations
+namespace Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class initialMigration : Migration

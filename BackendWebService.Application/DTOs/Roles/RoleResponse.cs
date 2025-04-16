@@ -2,7 +2,7 @@
 using Domain;
 namespace Application.DTOs.Roles;
 
-public class RoleResponse : ICreateMapper<Role>
+public class RoleResponse 
 {
     public int RoleId { get; set; }
     public string Name { get; set; }
@@ -21,7 +21,7 @@ public class ClaimResponse
     public string Value { get; set; }
 }
 
-public class CreateRoleRequest : ICreateMapper<Role>
+public class CreateRoleRequest 
 {
     public string Name { get; set; }
     public List<string> Claims { get; set; }
@@ -32,7 +32,7 @@ public class AddRoleToUserRequest
     public int UserId { get; set; }
     public required string Role { get; set; }
 }
-public class RolesResponse : ICreateMapper<Role>
+public class RolesResponse 
 {
     public int Id { get; set; }
     public required string Name { get; set; }
@@ -41,7 +41,7 @@ public class RolesResponse : ICreateMapper<Role>
     public DateTime? UpdateDate { get; set; }
 }
 
-public class UpdateRoleRequest : ICreateMapper<Role>
+public class UpdateRoleRequest 
 {
     public int Id { get; set; }
     public string Role { get; set; }

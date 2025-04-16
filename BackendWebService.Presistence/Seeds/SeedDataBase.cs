@@ -7,7 +7,7 @@ using Persistence.Data;
 using System.Data;
 
 
-namespace BackendWebService.Persistence.Seeds;
+namespace Persistence.Seeds;
 
 
 public static class SeedDataBase 

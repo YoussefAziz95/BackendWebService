@@ -1,7 +1,7 @@
 ﻿using Api.Base;
 using Application.Contracts.Persistences;
 using Application.DTOs.Common;
-using BackendWebService.Application.DTOs;
+using Application.DTOs;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -28,9 +28,15 @@ public class ServiceController : AppControllerBase
         {
             Name = request.Name,
             Code = request.Code,
-            CategoryId = request.CategoryId
-
         };
+
+        Category category;
+        if (!_unitOfWork.GenericRepository<Category>().Exists(c=>c.Name == request.CategoryName))
+            category = new Category() { Name = request.CategoryName };
+        else
+            category = _unitOfWork.GenericRepository<Category>().Get(c => c.Name == request.CategoryName);
+        service.Category = category;
+
         _unitOfWork.GenericRepository<Service>().Add(service);
         var result = _unitOfWork.Save();
         return Ok(result);
@@ -60,7 +66,6 @@ public class ServiceController : AppControllerBase
             return NotFound("Service not found");
         service.Name = request.Name;
         service.Code = request.Code;
-        service.CategoryId = request.CategoryId;
         _unitOfWork.GenericRepository<Service>().Update(service);
         var result = _unitOfWork.Save();
         if (result == 0)

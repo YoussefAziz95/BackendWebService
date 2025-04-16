@@ -1,12 +1,14 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
 using Application.DTOs.Common;
-using Application.Validators.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
+[Route("api/[controller]")]
+[ApiController]
+[AllowAnonymous]
 public class DropDownController : AppControllerBase
 {
     private readonly IDropdownService _dropdownService;
@@ -17,8 +19,6 @@ public class DropDownController : AppControllerBase
     }
 
     [HttpPost("List")]
-    [Authorize]
-    [ModelValidator]
     public async Task<IActionResult> List([FromBody] DropDownRequest request)
     {
         // Call the service to retrieve dropdown options

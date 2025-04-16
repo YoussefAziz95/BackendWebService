@@ -1,6 +1,6 @@
 ﻿using Application.DTOs.Addresses;
 
-namespace BackendWebService.Application.DTOs;
+namespace Application.DTOs;
 
 public record AddPropertyRequest(
     int OwnerId,

@@ -7,6 +7,7 @@ using System.Reflection.Emit;
 namespace Persistence.Data.Configurations;
 
 
+
 public sealed class RefreshTokenConfig : IEntityTypeConfiguration<UserRefreshToken>
 {
     public void Configure(EntityTypeBuilder<UserRefreshToken> builder)
@@ -105,4 +106,11 @@ public sealed class CutomerProprtyConfiguration : IEntityTypeConfiguration<Custo
         builder.HasOne(x => x.Property).WithMany().HasForeignKey(g => g.PropertyId).OnDelete(DeleteBehavior.NoAction);
     }
 }
-
+public sealed class CategoryConfig : IEntityTypeConfiguration<Category>
+{
+    public void Configure(EntityTypeBuilder<Category> builder)
+    {
+        builder.HasIndex(c => c.Name);
+       
+    }
+}

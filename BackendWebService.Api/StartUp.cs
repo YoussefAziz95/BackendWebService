@@ -10,5 +10,6 @@ public static class Startup
 
     public static void ConfigureGrpcPipeline(this WebApplication app)
     {
+
     }
 }

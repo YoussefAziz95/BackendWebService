@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace BackendWebService.Application.DTOs;
+namespace Application.DTOs;
 
 public record UploadRequest(IFormFile? File);
 public record FileResponse(string FullName, string FullPath, string Name, string Extention);

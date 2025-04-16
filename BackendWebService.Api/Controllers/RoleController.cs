@@ -1,11 +1,11 @@
-﻿using BackendWebService.Application.Contracts.Manager;
-using BackendWebService.Application.DTOs.Roles;
+﻿using Application.DTOs.Roles;
+using Application.Contracts.Manager;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace BackendWebService.Controllers;
+namespace Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

@@ -1,81 +1,82 @@
 ﻿using Application.Contracts.DTOs;
 using Application.Contracts.Persistences;
-using Application.Contracts.Persistences;
 using Application.Contracts.Services;
 using Application.DTOs.Common;
 using Application.Model.Notifications;
 using Application.Wrappers;
 using Domain;
-using Domain.Enums;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+
 namespace Application.Implementations.Common
 {
-    /// <summary>
-    /// Services implementation for managing dropdown options.
-    /// </summary>
     public class DropdownService : ResponseHandler, IDropdownService
     {
-        private readonly IUnitOfWork _unitOfwork;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly UserInfo _userInfo;
 
         public DropdownService(IUnitOfWork unitOfWork)
         {
-            _unitOfwork = unitOfWork;
+            _unitOfWork = unitOfWork;
             _userInfo = IClientRepository._userInfo;
         }
-        /// <inheritdoc/>
+
         public async Task<IResponse<DropDownResponse>> GetDropdownOptions(string tableName, string[] columnNames)
         {
             try
             {
-                string[] langs = ["en", "ar"];
+                DropDownResponse response;
+
                 switch (tableName.ToLower())
                 {
-                    case "company":
-                        var c = _unitOfwork.GenericRepository<Organization>().GetAll(x => x.OrganizationId == _userInfo.OrganizationId && _userInfo.CompanyId != null).ToList();
-                        return Success(_unitOfwork.GenericRepository<Organization>().GetDropdownOptions(c, columnNames));
-                    case "supplier":
-                        var v = _unitOfwork.GenericRepository<Organization>().GetAll(x => x.OrganizationId == _userInfo.OrganizationId && _userInfo.CompanyId != null && _userInfo.SupplierId != null).ToList();
-                        return Success(_unitOfwork.GenericRepository<Organization>().GetDropdownOptions(v, columnNames));
-                    case "offersupplier":
-                        var tv = _unitOfwork.GenericRepository<Organization>().GetAll(x => x.Type == OrganizationEnum.Supplier).ToList();
-                        return Success(_unitOfwork.GenericRepository<Organization>().GetDropdownOptions(tv, columnNames));
                     case "category":
-                        return Success(_unitOfwork.GenericRepository<Category>().GetDropdownOptions(columnNames));
-                    case "organization":
-                        var ten = _unitOfwork.GenericRepository<Organization>().GetAll(t => t.IsActive == true && t.IsDeleted == false).ToList();
-                        return Success(_unitOfwork.GenericRepository<Organization>().GetDropdownOptions(ten, columnNames));
+                        var categories = _unitOfWork.GenericRepository<Category>().GetDropdownOptionsList(columnNames);
+                        response = new DropDownResponse { items = categories };
+                        return Success(response);
+
+                    case "part":
+                        var parts = _unitOfWork.GenericRepository<Part>().GetDropdownOptionsList(columnNames);
+                        response = new DropDownResponse { items = parts };
+                        return Success(response);
+
+                    case "product":
+                        var products = _unitOfWork.GenericRepository<Product>().GetDropdownOptionsList(columnNames);
+                        response = new DropDownResponse { items = products };
+                        return Success(response);
+
+                    case "property":
+                        var properties = _unitOfWork.GenericRepository<Property>().GetDropdownOptionsList(columnNames);
+                        response = new DropDownResponse { items = properties };
+                        return Success(response);
 
                     case "role":
-                        var name = Enum.GetName(typeof(RoleEnum), _userInfo.RoleId);
-                        var r = _unitOfwork.GenericRepository<Role>().GetAll(x => x.ParentId == _userInfo.RoleId).ToList();
-                        return Success(_unitOfwork.GenericRepository<Role>().GetDropdownOptions(r, columnNames));
-                    case "roleuser":
-                        var ru = _unitOfwork.GenericRepository<Role>().GetAll(x => x.ParentId == _userInfo.RoleParentId).ToList();
-                        return Success(_unitOfwork.GenericRepository<Role>().GetDropdownOptions(ru, columnNames));
-                    case "user":
-                    case "workflowuser":
-                        var u = _unitOfwork.GenericRepository<User>().GetAll(x => x.OrganizationId == _userInfo.OrganizationId).ToList();
-                        return Success(_unitOfwork.GenericRepository<User>().GetDropdownOptions(u, columnNames));
-                    case "group":
-                        return Success(_unitOfwork.GenericRepository<Group>().GetDropdownOptions(columnNames));
-                    case "filetypes":
-                        return Success(_unitOfwork.GenericRepository<FileType>().GetDropdownOptions(columnNames));
-                    case "materials":
-                        return Success(_unitOfwork.GenericRepository<Service>().GetDropdownOptions(columnNames));
-                    case "predocument":
-                        return Success(_unitOfwork.GenericRepository<PreDocument>().GetDropdownOptions(columnNames));
-                    case "actortype":
-                        return Success(GetDropDownOptionsDummy(langs, Enum.GetNames(typeof(ActorEnum))));
-                    case "actiontype":
-                        return Success(GetDropDownOptionsDummy(langs, Enum.GetNames(typeof(ActionEnum))));
-                    case "predocumentowner":
-                        return Success(new DropDownResponse(["Offer", "Suppliers"]));
-                    case "currency":
-                        return Success(GetDropDownOptionsDummy(langs, Enum.GetNames(typeof(CurrencyEnum))));
+                        var roles = _unitOfWork.GenericRepository<Role>().GetDropdownOptionsList(columnNames);
+                        response = new DropDownResponse { items = roles };
+                        return Success(response);
 
+                    case "service":
+                        var services = _unitOfWork.GenericRepository<Service>().GetDropdownOptionsList(columnNames);
+                        response = new DropDownResponse { items = services };
+                        return Success(response);
+
+                    case "supplier":
+                        var suppliers = _unitOfWork.GenericRepository<Supplier>().GetDropdownOptionsList(columnNames);
+                        response = new DropDownResponse { items = suppliers };
+                        return Success(response);
+
+                    case "supplierdocument":
+                        var supplierDocs = _unitOfWork.GenericRepository<SupplierDocument>().GetDropdownOptionsList(columnNames);
+                        response = new DropDownResponse { items = supplierDocs };
+                        return Success(response);
+
+                    case "user":
+                        var users = _unitOfWork.GenericRepository<User>().GetDropdownOptionsList(columnNames);
+                        response = new DropDownResponse { items = users };
+                        return Success(response);
+
+                    case "zone":
+                        var zones = _unitOfWork.GenericRepository<Zone>().GetDropdownOptionsList(columnNames);
+                        response = new DropDownResponse { items = zones };
+                        return Success(response);
 
                     default:
                         throw new ArgumentException($"DropdownService.GetDropdownOptions() : Table '{tableName}' not found.");
@@ -86,14 +87,7 @@ namespace Application.Implementations.Common
                 throw ex;
             }
         }
-        public static DropDownResponse GetDropDownOptionsDummy(string[] langs, string[] options)
-        {
-            var dropDownOptions = new DropDownResponse();
-            for (int i = 0; i < options.Length; i++)
-            {
-                dropDownOptions.items.Add(i, options[i]);
-            }
-            return dropDownOptions;
-        }
+
+
     }
 }

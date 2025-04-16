@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BackendWebService.Application.Contracts.Manager
+namespace Application.Contracts.Manager
 {
     public interface IAppRoleManager
     {

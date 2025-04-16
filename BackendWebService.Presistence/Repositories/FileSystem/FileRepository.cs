@@ -4,18 +4,14 @@ using Application.Profiles;
 using Domain;
 using Persistence.Data;
 using Persistence.Repositories.Common;
-using BackendWebService.Application.DTOs;
+using Application.DTOs;
 namespace Persistence.Repositories.FileSystem
 {
     public class FileRepository : GenericRepository<FileLog>, IFileRepository
     {
-
-        private readonly IMapper _mapper;
-
-        public FileRepository(ApplicationDbContext context, IMapper mapper) : base(context)
+        public FileRepository(ApplicationDbContext context) : base(context)
         {
 
-            _mapper = mapper;
         }
         public FileLog Upload(UploadRequest request, string fullPath)
         {

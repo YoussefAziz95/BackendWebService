@@ -9,7 +9,7 @@ using Persistence.Data;
 
 #nullable disable
 
-namespace BackendWebService.Persistence.Migrations
+namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250408065220_SD_MasterData")]

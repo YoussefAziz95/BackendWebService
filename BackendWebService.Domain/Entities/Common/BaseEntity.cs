@@ -35,7 +35,6 @@ public abstract class BaseEntity<TKey> : IEntity<TKey>
 }
 public interface IEntity
 {
-    public int Id { get; set; }
     public int? OrganizationId { get; set; }
     public bool? IsActive { get; set; }
     public bool? IsDeleted { get; set; }
@@ -50,7 +49,6 @@ public interface ITimeModification
 }
 public abstract class BaseEntity : BaseEntity<int>, IEntity, ITimeModification
 {
-    public int Id { get; set; }
     [AllowNull]
     public int? OrganizationId { get; set; }
     public bool? IsActive { get; set; } = true;

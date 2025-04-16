@@ -1,20 +1,18 @@
-﻿using Application.DTOs.Users;
-using BackendWebService.Application.Contracts.Manager;
-using BackendWebService.Application.DTOs.Users;
-using Domain;
+﻿using Application.Contracts.Manager;
+using Application.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BackendWebService.Controllers;
+namespace Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 [Authorize]
-public class UsersController : ControllerBase
+public class UserController : ControllerBase
 {
     private readonly IAppUserManager _appUserManager;
 
-    public UsersController(IAppUserManager appUserManager)
+    public UserController(IAppUserManager appUserManager)
     {
         _appUserManager = appUserManager;
     }
@@ -29,16 +27,6 @@ public class UsersController : ControllerBase
         return Ok(user);
     }
 
-    [HttpPost("create")]
-    [AllowAnonymous]
-    public async Task<IActionResult> Create([FromBody] User user)
-    {
-        var result = await _appUserManager.CreateAsync(user);
-        if (result.Succeeded)
-            return Ok(user);
-
-        return BadRequest(result.Errors);
-    }
 
     [HttpPost("create-with-password")]
     [AllowAnonymous]

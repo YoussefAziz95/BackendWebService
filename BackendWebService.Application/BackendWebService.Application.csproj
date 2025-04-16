@@ -127,6 +127,7 @@
     <Compile Include="Contracts\Services\Common\IUtilityService.cs" />
     <Compile Include="DTOs\Exceptions\ExceptionDto.cs" />
     <Compile Include="DTOs\Loggings\LoggingDto.cs" />
+    <Compile Include="Implementations\Common\DropdownService.cs" />
     <Compile Include="Implementations\Common\ExceptionLogService.cs" />
     <Compile Include="Implementations\Common\FileSystemService.cs" />
     <Compile Include="Implementations\Common\JwtService.cs" />
@@ -156,9 +157,6 @@
     <Folder Include="Contracts\Proxy\" />
     <Folder Include="DTOs\Auths\" />
     <Folder Include="DTOs\Categories\" />
-    <Folder Include="DTOs\Properties\" />
-    <Folder Include="DTOs\Services\" />
-    <Folder Include="DTOs\Utilities\" />
     <Folder Include="Validators\Company\" />
   </ItemGroup>
 

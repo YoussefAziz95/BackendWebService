@@ -12,6 +12,7 @@ public interface IGenericRepository<T>
                 Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null!,
                 Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null!,
                 bool disabledTracking = true, bool isActive = true, bool isDeleted = false);
+    Dictionary<int, string> GetDropdownOptionsList(string[] columnNames);
     Task<T?> GetAsync(Expression<Func<T, bool>> filter = null!,
                    Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null!,
                    bool disableTracking = true, bool isActive = true, bool isDeleted = false);
@@ -36,7 +37,5 @@ public interface IGenericRepository<T>
     Task<T?> GetByIdAsync(int id);
     public bool Exists(Expression<Func<T, bool>> filter = null!);
     public int ExecuteSql(string query, params object[] args);
-    DropDownResponse GetDropdownOptions(string[] columnName);
-    DropDownResponse GetDropdownOptions(List<T> entities, string[] columnNames);
     bool ExistsNoTracking(Expression<Func<T, bool>> filter = null!);
 }

@@ -1,12 +1,10 @@
-﻿
+﻿using Domain;
 
-using Domain;
-
-public class UserRefreshToken: BaseEntity<Guid>
+public class UserRefreshToken : BaseEntity<Guid>
 {
     public UserRefreshToken()
     {
-        CreatedAt=DateTime.Now;
+        CreatedAt = DateTime.Now;
     }
 
     public int UserId { get; set; }

@@ -1,7 +1,7 @@
 ﻿using Api.Base;
 using Application.Contracts.Persistences;
 using Application.DTOs.Common;
-using BackendWebService.Application.DTOs;
+using Application.DTOs;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -12,11 +12,11 @@ namespace Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [AllowAnonymous]
-public class PropertiesController : AppControllerBase
+public class PropertyController : AppControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public PropertiesController(IUnitOfWork unitOfWork)
+    public PropertyController(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }

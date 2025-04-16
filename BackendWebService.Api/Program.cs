@@ -18,6 +18,7 @@ using System.Text;
 using Presistence.Data.Seeds;
 using Application.Manager;
 using Microsoft.EntityFrameworkCore;
+using Api.Profiles;
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
@@ -73,8 +74,8 @@ builder.Services.AddSignalR(options => // activate SignalR
 {
     options.EnableDetailedErrors = true; // Send detailed errors to the frontend for debugging. Remove this when deploying.
 });
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+builder.Services.AddAutoMapper(typeof(RegisterMapper).Assembly);
 
 builder.Services.AddDistributedMemoryCache();
 

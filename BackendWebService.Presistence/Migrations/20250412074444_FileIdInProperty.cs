@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace BackendWebService.Persistence.Migrations
+namespace Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class FileIdInProperty : Migration
