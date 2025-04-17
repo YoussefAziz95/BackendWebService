@@ -79,6 +79,22 @@ public class PropertyController : AppControllerBase
         };
         return NewResult(response);
     }
+    [HttpDelete("SoftDelete/{id}")]
+    public async Task<IActionResult> SoftDelete([FromRoute]int id)
+    {
+        int result;
+        await _unitOfWork.BeginTransactionAsync();
+        if (!_unitOfWork.GenericRepository<Property>().ExistsNoTracking())
+            return NotFound("Property not found");
+        else
+        {
+            var property = _unitOfWork.GenericRepository<Property>().Get(p=> p.Id == id);
+            _unitOfWork.GenericRepository<Property>().SoftDelete(property);
+            result = _unitOfWork.Save();
+        }
+        return result > 0 ? BadRequest(result) : Ok(result);
+
+    }
 
     [HttpPost("GetAll")]
     public async Task<IActionResult> GetAll()

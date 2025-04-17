@@ -125,4 +125,12 @@ public class JwtService : IJwtService
         var result = await _claimsPrincipal.CreateAsync(user);
         return result.Claims;
     }
+    public async Task<AccessToken> RefreshTokenAsync(string token, string refreshToken)
+    {
+        // Try parsing refreshToken ID (assuming it's an int like in your original implementation)
+        if (!int.TryParse(refreshToken, out var refreshTokenId))
+            return null;
+
+        return await RefreshToken(refreshTokenId);
+    }
 }
