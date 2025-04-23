@@ -13,6 +13,8 @@ public class AppControllerBase : ControllerBase
         {
             case ApiResultStatusCode.Ok:
                 return new OkObjectResult(response);
+            case ApiResultStatusCode.Success:
+                return new ObjectResult(response);
             case ApiResultStatusCode.Created:
                 return new CreatedResult(string.Empty, response);
             case ApiResultStatusCode.UnAuthorized:

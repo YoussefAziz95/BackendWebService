@@ -1,6 +1,7 @@
 ﻿using Api.Base;
 using Application.Contracts.Manager;
 using Application.Contracts.Persistences;
+using Application.Contracts.Services;
 using Application.DTOs;
 using Application.DTOs.Common;
 using Application.Models.Jwt;
@@ -15,26 +16,28 @@ namespace Controllers;
 [Route("api/")]
 [ApiController]
 [AllowAnonymous]
-public class SignInController : AppControllerBase
+public class AuthorizationController : AppControllerBase
 {
     private readonly IAppUserManager _userManager;
     private readonly IJwtService _jwtService;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IOtpService _otpService;
 
-    public SignInController(IAppUserManager userManager, IJwtService jwtService, IUnitOfWork unitOfWork)
+    public AuthorizationController(IAppUserManager userManager, IJwtService jwtService, IUnitOfWork unitOfWork, IOtpService otpService)
     {
         _userManager = userManager;
         _jwtService = jwtService;
         _unitOfWork = unitOfWork;
+        _otpService = otpService;
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        var user = await _userManager.FindByEmailAsync(request.PhoneNumber.Trim());
+        var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
 
         if (user == null)
-            return Unauthorized("Invalid email or password");
+            return Unauthorized("Invalid phone number or password");
 
         if (!user.EmailConfirmed)
             return Forbid("PhoneNumber not confirmed");
@@ -56,7 +59,7 @@ public class SignInController : AppControllerBase
             Data = new LoginResponse(
                 Id: user.Id,
                 FullName: $"{user.FirstName} {user.LastName}",
-                Email: user.Email!,
+                PhoneNumner: user.PhoneNumber!,
                 Token: accessToken.access_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
                 MainRole: user.MainRole,
@@ -102,7 +105,7 @@ public class SignInController : AppControllerBase
             Data = new LoginResponse(
                 Id: user.Id,
                 FullName: $"{user.FirstName} {user.LastName}",
-                Email: user.Email!,
+                PhoneNumner: user.PhoneNumber!,
                 Token: accessToken.access_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
                 MainRole: user.MainRole,
@@ -140,7 +143,7 @@ public class SignInController : AppControllerBase
               Data = new LoginResponse(
                 Id: user.Id,
                 FullName: $"{user.FirstName} {user.LastName}",
-                Email: user.Email!,
+                PhoneNumner: user.PhoneNumber!,
                 Token: result.access_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
                 MainRole: user.MainRole,
@@ -154,7 +157,7 @@ public class SignInController : AppControllerBase
     [HttpPost("reset-password")]
     public async Task<IActionResult> ResetPasswordRequest([FromBody] ResetPasswordRequest request)
     {
-        var user = await _userManager.FindByEmailAsync(request.Email);
+        var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
         if (user == null) return BadRequest("User not found.");
 
         var token = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -165,21 +168,65 @@ public class SignInController : AppControllerBase
     [HttpPost("reset-password/confirm")]
     public async Task<IActionResult> ConfirmResetPassword([FromBody] ConfirmResetPasswordRequest request)
     {
-        var user = await _userManager.FindByEmailAsync(request.Email);
+        var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
         if (user == null) return BadRequest("Invalid request.");
 
         var result = await _userManager.ResetPasswordAsync(user, request.Token, request.NewPassword);
         return result.Succeeded ? Ok("Password reset successfully.") : BadRequest(result.Errors);
     }
 
-    [HttpPost("verify-email")]
-    public async Task<IActionResult> VerifyEmail([FromBody] VerifyEmailRequest request)
+  
+    [HttpPost("confirm-phone-number")]
+    public async Task<IActionResult> ConfirmPhoneNumber([FromBody] ConfirmPhoneNumberRequest request)
     {
-        var user = await _userManager.FindByEmailAsync(request.Email);
+        var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
         if (user == null) return BadRequest("Invalid request.");
 
-        var result = await _userManager.ConfirmEmailAsync(user, request.Token);
-        return result.Succeeded ? Ok("Email verified.") : BadRequest(result.Errors);
+        var result = await _otpService.VerifyAsync(user,request.Code);
+        if (!result)
+            return BadRequest("Invalid token");
+        var response = await _userManager.ConfirmPhoneNumberAsync(user);
+        return response.Succeeded ? Ok(response) : BadRequest(response.Errors);
+    }
+    [HttpPost("otp/send")]
+    public async Task<IActionResult> SendOtp([FromBody] PhoneNumberRequest request)
+    {
+        var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
+        if (user == null) return BadRequest("User not found.");
+
+        // Generate OTP and store it with expiration time
+        var otp = _otpService.SendOTP(user);
+
+        // Simulate sending OTP (SMS/email/etc.)
+        Console.WriteLine($"OTP for {user.PhoneNumber}: {otp.Result}");
+
+        return Ok("OTP sent successfully. : " + otp.Result);
+    }
+
+    [HttpPost("otp/verify")]
+    public async Task<IActionResult> VerifyOtp([FromBody] OtpLoginRequest request)
+    {
+        var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
+        if (user == null) return BadRequest("User not found.");
+
+
+        if (!await _otpService.VerifyAsync(user, request.Code))
+        {
+            return BadRequest("Invalid OTP.");
+        }
+
+        // Remove OTP after successful verification
+        await _userManager.RemoveAuthenticationTokenAsync(user, "RFA", "OTP");
+        await _userManager.RemoveAuthenticationTokenAsync(user, "RFA", "OTP_TIME");
+
+        // Issue short-lived access token (e.g., 10 minutes)
+        var accessToken = await _jwtService.GenerateAsync(user);
+
+        return Ok(new
+        {
+            Token = accessToken.access_token,
+            ExpiresAt = DateTime.UtcNow.AddMinutes(10)
+        });
     }
 
     //[HttpPost("mfa/enable")]

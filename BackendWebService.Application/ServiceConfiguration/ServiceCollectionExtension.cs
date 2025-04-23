@@ -44,6 +44,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IAppRoleManager, AppRoleManager>();
         services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
         services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<IOtpService, OtpService>();
         services.AddScoped<IFileSystemService, FileSystemService>();
         //services.AddScoped<IUserService, UserService>();
         //services.AddScoped<IUtilityService, UtilityService>();

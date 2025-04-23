@@ -124,6 +124,7 @@
     <Compile Include="Contracts\Services\Common\IFileSystemService.cs" />
     <Compile Include="Contracts\Services\Common\IJwtService.cs" />
     <Compile Include="Contracts\Services\Common\ILoggingService.cs" />
+    <Compile Include="Contracts\Services\Common\IOtpService.cs" />
     <Compile Include="Contracts\Services\Common\IUtilityService.cs" />
     <Compile Include="DTOs\Exceptions\ExceptionDto.cs" />
     <Compile Include="DTOs\Loggings\LoggingDto.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Implementations\Common\FileSystemService.cs" />
     <Compile Include="Implementations\Common\JwtService.cs" />
     <Compile Include="Implementations\Common\LoggingService.cs" />
+    <Compile Include="Implementations\Common\OtpService.cs" />
     <Compile Include="Implementations\Common\ValidateCommandBehavior.cs" />
   </ItemGroup>
 

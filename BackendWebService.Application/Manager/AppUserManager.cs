@@ -3,6 +3,7 @@ using Application.DTOs;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -36,4 +37,17 @@ public class AppUserManager : UserManager<User>, IAppUserManager
         return CreateAsync(user, request.Password);
     }
 
+    public Task<User?> FindByPhoneNumberAsync(string phoneNumber)
+    {
+        return Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
+    }
+
+    public async Task<IdentityResult> ConfirmPhoneNumberAsync(User user)
+    {
+        user.EmailConfirmed = true;
+        user.PhoneNumberConfirmed = true;
+        return await UpdateAsync(user);
+    }
+
+ 
 }

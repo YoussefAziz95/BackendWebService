@@ -20,11 +20,13 @@ namespace Application.Contracts.Manager
         public Task<IdentityResult> ChangePhoneNumberAsync(User user, string phoneNumber, string token);
         public Task<bool> CheckPasswordAsync(User user, string password);
         public Task<IdentityResult> ConfirmEmailAsync(User user, string token);
+        public Task<IdentityResult> ConfirmPhoneNumberAsync(User user);
         public Task<int> CountRecoveryCodesAsync(User user);
         public Task<IdentityResult> CreateAsync(User user, string password);
         public Task<IdentityResult> CreateAsync(CreateUserWithPasswordRequest request);
         public Task<byte[]> CreateSecurityTokenAsync(User user);
         public Task<IdentityResult> DeleteAsync(User user);
+        public Task<User?> FindByPhoneNumberAsync(string phoneNumber);
         public Task<User?> FindByEmailAsync(string email);
         public Task<User?> FindByIdAsync(string userId);
         public Task<User?> FindByLoginAsync(string loginProvider, string providerKey);
