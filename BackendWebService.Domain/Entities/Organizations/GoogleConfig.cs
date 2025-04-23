@@ -5,7 +5,7 @@ public class GoogleConfig : BaseEntity, IEntity, ITimeModification
 {
     public int ConfigurationId { get; set; }
     [ForeignKey("ConfigurationId")]
-    public Configuration Configuration { get; set; }
+    public AppConfiguration Configuration { get; set; }
     public string ClientId { get; set; }
     public string ClientSecret { get; set; }
 }

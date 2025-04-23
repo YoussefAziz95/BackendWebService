@@ -4,7 +4,6 @@ using Application.DTOs.Common;
 using Application.Manager;
 using Application.Model.Jwt;
 using Application.Persistence.Repositories;
-using Contracts.Services;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -30,7 +29,7 @@ namespace BackendWebServiceInfrastructure.Persistence.ServiceConfiguration;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration, IdentitySettings identitySettings)
+    public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -95,7 +94,7 @@ public static class ServiceCollectionExtensions
 
         //services.AddScoped<IPersonalDataProtector, PersonalDataProtector>();
 
-
+        var identitySettings = configuration.GetSection(nameof(IdentitySettings)).Get<IdentitySettings>();
 
 
         services.AddAuthentication(options =>
@@ -106,107 +105,77 @@ public static class ServiceCollectionExtensions
 
         }).AddJwtBearer(options =>
         {
-            IdentitySettings identitySettings = new IdentitySettings();
-            var secretkey = Encoding.UTF8.GetBytes(identitySettings.SecretKey);
-            var encryptionkey = Encoding.UTF8.GetBytes(identitySettings.Encryptkey);
 
-            var validationParameters = new TokenValidationParameters
+            var secretKey = Encoding.UTF8.GetBytes(identitySettings.SecretKey);
+            var encryptionKey = Encoding.UTF8.GetBytes(identitySettings.Encryptkey);
+
+            options.RequireHttpsMetadata = false;
+            options.SaveToken = true;
+
+            options.TokenValidationParameters = new TokenValidationParameters
             {
-                ClockSkew = TimeSpan.Zero, // default: 5 min
+                ClockSkew = TimeSpan.Zero,
                 RequireSignedTokens = true,
 
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(secretkey),
+                IssuerSigningKey = new SymmetricSecurityKey(secretKey),
 
                 RequireExpirationTime = true,
                 ValidateLifetime = true,
 
-                ValidateAudience = true, //default : false
+                ValidateAudience = true,
                 ValidAudience = identitySettings.Audience,
 
-                ValidateIssuer = true, //default : false
+                ValidateIssuer = true,
                 ValidIssuer = identitySettings.Issuer,
 
-                TokenDecryptionKey = new SymmetricSecurityKey(encryptionkey),
-
+                TokenDecryptionKey = new SymmetricSecurityKey(encryptionKey)
             };
 
-            options.RequireHttpsMetadata = false;
-            options.SaveToken = true;
-            options.TokenValidationParameters = validationParameters;
             options.Events = new JwtBearerEvents
             {
                 OnAuthenticationFailed = context =>
                 {
-                    //var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(JwtBearerEvents));
-                    //logger.LogError("Authentication failed.", context.Exception);
-
+                    // Optionally log errors here
                     return Task.CompletedTask;
                 },
+
                 OnTokenValidated = async context =>
                 {
                     var signInManager = context.HttpContext.RequestServices.GetRequiredService<AppSignInManager>();
-
                     var claimsIdentity = context.Principal.Identity as ClaimsIdentity;
-                    if (claimsIdentity.Claims?.Any() != true)
+
+                    if (claimsIdentity?.Claims?.Any() != true)
                         context.Fail("This token has no claims.");
 
-                    var securityStamp =
-                        claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);
+                    var securityStamp = claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);
                     if (!securityStamp.HasValue())
-                        context.Fail("This token has no secuirty stamp");
-
-                    //Find user and token from database and perform your custom validation
-                    var userId = claimsIdentity.GetUserId<int>();
-                    // var user = await userRepository.GetByIdAsync(context.HttpContext.RequestAborted, userId);
-
-                    //if (user.SecurityStamp != Guid.Parse(securityStamp))
-                    //    context.Fail("Token secuirty stamp is not valid.");
+                        context.Fail("This token has no security stamp.");
 
                     var validatedUser = await signInManager.ValidateSecurityStampAsync(context.Principal);
                     if (validatedUser == null)
-                        context.Fail("Token secuirty stamp is not valid.");
-
+                        context.Fail("Token security stamp is not valid.");
                 },
+
                 OnChallenge = async context =>
                 {
-                    //var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(JwtBearerEvents));
-                    //logger.LogError("OnChallenge error", context.Error, context.ErrorDescription);
-                    if (context.AuthenticateFailure is SecurityTokenExpiredException)
+                    context.HandleResponse();
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+
+                    var message = context.AuthenticateFailure switch
                     {
-                        context.HandleResponse();
+                        SecurityTokenExpiredException => "Token is expired. Please refresh.",
+                        _ when context.AuthenticateFailure != null => "Token is not valid.",
+                        _ => "Invalid access token. Please login."
+                    };
 
-                        var response = new Response(false,
-                            ApiResultStatusCode.UnAuthorized, "Token is expired. refresh your token");
-                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                        await context.Response.WriteAsJsonAsync(response);
-                    }
-
-                    else if (context.AuthenticateFailure != null)
-                    {
-                        context.HandleResponse();
-
-                        var response = new Response(false,
-                            ApiResultStatusCode.UnAuthorized, "Token is Not Valid");
-                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                        await context.Response.WriteAsJsonAsync(response);
-
-                    }
-
-                    else
-                    {
-                        context.HandleResponse();
-
-                        context.Response.StatusCode = (int)StatusCodes.Status401Unauthorized;
-                        await context.Response.WriteAsJsonAsync(new Response(false, ApiResultStatusCode.UnAuthorized, "Invalid access token. Please login"));
-                    }
-
+                    await context.Response.WriteAsJsonAsync(new Response(false, ApiResultStatusCode.UnAuthorized, message));
                 },
+
                 OnForbidden = async context =>
                 {
-                    context.Response.StatusCode = (int)StatusCodes.Status403Forbidden;
-                    await context.Response.WriteAsJsonAsync(new Response(false,
-                         ApiResultStatusCode.Forbidden, ApiResultStatusCode.Forbidden.ToDisplay()));
+                    context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    await context.Response.WriteAsJsonAsync(new Response(false, ApiResultStatusCode.Forbidden, ApiResultStatusCode.Forbidden.ToDisplay()));
                 }
             };
         });

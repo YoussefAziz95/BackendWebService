@@ -4,17 +4,10 @@ using Api;
 using BackendWebServiceApplication.ServiceConfiguration;
 using BackendWebServiceInfrastructure.Persistence.ServiceConfiguration;
 using CrossCuttingConcerns;
-using CrossCuttingConcerns.ConfigHubs;
-using Domain;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using Persistence.Data;
 using System.Diagnostics;
-using System.Reflection;
-using System.Text;
 using Presistence.Data.Seeds;
 using Application.Manager;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +18,7 @@ var configuration = builder.Configuration;
 
 Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
-builder.Services.Configure<IdentitySettings>(configuration.GetSection(nameof(IdentitySettings)));
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 var identitySettings = configuration.GetSection(nameof(IdentitySettings)).Get<IdentitySettings>();
 
@@ -52,7 +45,7 @@ builder.Services.AddSwaggerGen(option =>
 });
 
 builder.Services.AddApplicationServices()
-                .AddPersistenceServices(configuration, identitySettings)
+                .AddPersistenceServices(configuration)
                 .AddCrossCuttingConcernsServices();
 builder.Services.AddSignalR();
 

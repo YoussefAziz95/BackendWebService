@@ -40,13 +40,13 @@ public class AuthorizationController : AppControllerBase
             return Unauthorized("Invalid phone number or password");
 
         if (!user.EmailConfirmed)
-            return Forbid("PhoneNumber not confirmed");
+            return Forbid("Email not confirmed");
 
         var result = await _userManager.CheckPasswordAsync(user, request.Password);
 
 
         if (!result)
-            return Unauthorized("Two-factor authentication required");
+            return Unauthorized("Invalid phone number or password");
 
 
         var roles = await _userManager.GetRolesAsync(user);

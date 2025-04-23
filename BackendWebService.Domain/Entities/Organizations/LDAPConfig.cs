@@ -4,7 +4,7 @@ namespace Domain;
 public class LDAPConfig : BaseEntity, IEntity, ITimeModification
 {
     public int ConfigurationId { get; set; }
-    public Configuration Configuration { get; set; }
+    public AppConfiguration Configuration { get; set; }
     public string ServerAddress { get; set; }
     public string CN { get; set; }
     public string DC { get; set; }
