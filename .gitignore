@@ -366,3 +366,4 @@ FodyWeavers.xsd
 /log-2017
 /DataBase/
 /web-data/
+/BackendWebService.Api/appsettings.json
