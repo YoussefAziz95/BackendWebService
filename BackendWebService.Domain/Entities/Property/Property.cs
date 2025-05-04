@@ -13,10 +13,14 @@ public class Property : BaseEntity, IEntity, ITimeModification
     public string Name { get; set; }
 
     public string FullAddress { get; set; }
+    
+    public int? ZoneId { get; set; }    
+    public string ContactNumber { get; set; }
+    public int? BuildingNumber { get; set; }
+    public int? FloorNumber { get; set; }
+    public int? ApartmentNumber { get; set; }
+    public int? StreetNumber { get; set; }
 
-    public int? FileId { get; set; }
-    [ForeignKey("FileId")]
-    public virtual FileLog? File { get; set; }
 
     [Required, Range(-90, 90)]
     public double Latitude { get; set; }
@@ -26,4 +30,7 @@ public class Property : BaseEntity, IEntity, ITimeModification
     public DateTimeOffset? UpdatedAt { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
     public bool IsDeleted { get; set; } = false;
+
+    [ForeignKey("ZoneId")]
+    public Zone? Zone { get; set; }
 }

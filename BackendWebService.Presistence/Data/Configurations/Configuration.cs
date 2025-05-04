@@ -1,8 +1,6 @@
-﻿
-using Domain;
+﻿using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Reflection.Emit;
 
 namespace Persistence.Data.Configurations;
 
@@ -102,15 +100,26 @@ public sealed class CutomerProprtyConfiguration : IEntityTypeConfiguration<Custo
     public void Configure(EntityTypeBuilder<CustomerProperty> builder)
     {
         builder.HasKey(x => new { x.CustomerId, x.PropertyId });
-        builder.HasOne(x => x.Customer).WithMany(y=> y.CustomerProperties).HasForeignKey(u => u.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(x => x.Customer).WithMany(y => y.CustomerProperties).HasForeignKey(u => u.CustomerId).OnDelete(DeleteBehavior.NoAction);
         builder.HasOne(x => x.Property).WithMany().HasForeignKey(g => g.PropertyId).OnDelete(DeleteBehavior.NoAction);
     }
 }
+
+public sealed class ZoneConfig : IEntityTypeConfiguration<Zone>
+{
+    public void Configure(EntityTypeBuilder<Zone> builder)
+    {
+        builder.HasIndex(c => c.Name);
+
+    }
+}
+
+
 public sealed class CategoryConfig : IEntityTypeConfiguration<Category>
 {
     public void Configure(EntityTypeBuilder<Category> builder)
     {
         builder.HasIndex(c => c.Name);
-       
+
     }
 }

@@ -1,11 +1,12 @@
 ﻿using Api.Base;
 using Application.Contracts.Persistences;
-using Application.DTOs.Common;
 using Application.DTOs;
+using Application.DTOs.Common;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers;
 
@@ -30,9 +31,21 @@ public class PropertyController : AppControllerBase
             Latitude = request.Latitude,
             Longitude = request.Longitude,
             FullAddress = request.FullAddress,
-            UserId = request.OwnerId,
-            FileId = request.fileId
+            UserId = request.UserId,
+            ContactNumber = request.ContactNumber,
+            BuildingNumber = request.BuildingNumber,
+            FloorNumber = request.FloorNumber,
+            ApartmentNumber = request.ApartmentNumber,
+            StreetNumber = request.StreetNumber,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = null,
         };
+        Zone zone;
+        if (!_unitOfWork.GenericRepository<Zone>().Exists(c => c.Name == request.Name))
+            zone = new Zone() { Name = request.ZoneName };
+        else
+            zone = _unitOfWork.GenericRepository<Zone>().Get(c => c.Name == request.Name);
+        property.Zone = zone;
         _unitOfWork.GenericRepository<Property>().Add(property);
         var result = _unitOfWork.Save();
         return Ok(result);
@@ -42,14 +55,17 @@ public class PropertyController : AppControllerBase
     public async Task<IActionResult> GetProperty([FromRoute] int id)
     {
         _unitOfWork.GenericRepository<Property>().Exists(Property => Property.Id == id);
-        var property = await _unitOfWork.GenericRepository<Property>().GetByIdAsync(id);
+        var property = _unitOfWork.GenericRepository<Property>().Get(p => p.Id == id,
+            include: p => p.Include(z => z.Zone));
         if (property == null)
             return NotFound("Property not found");
         var result = new Response<PropertyResponse>()
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Property found",
-            Data = new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress,property.FileId, property.CreatedAt, property.UpdatedAt)
+            Data = new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress,
+            property.Zone?.Name ?? null, property.ContactNumber, property.BuildingNumber, property.FloorNumber, property.ApartmentNumber, property.StreetNumber,
+            property.CreatedAt, property.UpdatedAt)
         };
         return NewResult(result);
     }
@@ -57,12 +73,27 @@ public class PropertyController : AppControllerBase
     [HttpPut]
     public async Task<IActionResult> UpdateProperty([FromBody] UpdatePropertyRequest request)
     {
-        var property = await _unitOfWork.GenericRepository<Property>().GetByIdAsync(request.Id);
-        if (property == null)
+        var property = _unitOfWork.GenericRepository<Property>().Get(p => p.Id == request.Id,
+            include: p => p.Include(z => z.Zone));
+        var zone = _unitOfWork.GenericRepository<Zone>().Get(c => c.Name == request.ZoneName);
+        if (property is null)
             return NotFound("Property not found");
+        if (zone is null)
+            return NotFound("Zone not found");
+        if (zone.Name != property.Zone.Name)
+        {
+            property.Zone = zone;
+        }
         property.Name = request.Name;
         property.Latitude = request.Latitude;
         property.Longitude = request.Longitude;
+        property.ContactNumber = request.ContactNumber;
+        property.FullAddress = request.FullAddress;
+        property.UserId = request.UserId;
+        property.ApartmentNumber = request.ApartmentNumber;
+        property.BuildingNumber = request.BuildingNumber;
+        property.FloorNumber = request.FloorNumber;
+        property.StreetNumber = request.StreetNumber;
         property.UpdatedAt = DateTime.UtcNow;
         property.DeletedAt = null;
         property.IsDeleted = false;
@@ -75,12 +106,14 @@ public class PropertyController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Property updated successfully",
-            Data = new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress, property.FileId, property.CreatedAt, property.UpdatedAt)
+            Data = new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress,
+            property.Zone?.Name ?? null, property.ContactNumber, property.BuildingNumber, property.FloorNumber, property.ApartmentNumber, property.StreetNumber,
+            property.CreatedAt, property.UpdatedAt)
         };
         return NewResult(response);
     }
     [HttpDelete("SoftDelete/{id}")]
-    public async Task<IActionResult> SoftDelete([FromRoute]int id)
+    public async Task<IActionResult> SoftDelete([FromRoute] int id)
     {
         int result;
         await _unitOfWork.BeginTransactionAsync();
@@ -88,7 +121,7 @@ public class PropertyController : AppControllerBase
             return NotFound("Property not found");
         else
         {
-            var property = _unitOfWork.GenericRepository<Property>().Get(p=> p.Id == id);
+            var property = _unitOfWork.GenericRepository<Property>().Get(p => p.Id == id);
             _unitOfWork.GenericRepository<Property>().SoftDelete(property);
             result = _unitOfWork.Save();
         }
@@ -96,15 +129,17 @@ public class PropertyController : AppControllerBase
 
     }
 
-    [HttpPost("GetAll")]
+    [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll()
     {
-        var properties = _unitOfWork.GenericRepository<Property>().GetAll();
+        var properties = _unitOfWork.GenericRepository<Property>().GetAll(include: p => p.Include(z => z.Zone));
         var response = new PaginatedResponse<PropertyResponse>()
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Propertys found",
-            Data = properties.Select(property => new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress, property.FileId, property.CreatedAt, property.UpdatedAt)).ToList(),
+            Data = properties.Select(property => new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress,
+            property.Zone?.Name ?? null, property.ContactNumber, property.BuildingNumber, property.FloorNumber, property.ApartmentNumber, property.StreetNumber,
+            property.CreatedAt, property.UpdatedAt)).ToList(),
             TotalCount = properties.Count()
         };
         return NewResult(response);

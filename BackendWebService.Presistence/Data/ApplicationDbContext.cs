@@ -163,7 +163,22 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
             }
         }
     }
-
+    private void log( string logMessage)
+    {
+        var log = new Logging
+        {
+            UserId = 0,
+            Message = logMessage,
+            Suggestion = null,
+            LogType = "EntityAction",
+            Timestamp = DateTime.UtcNow,
+            SourceLayer = "Presistence.Data",
+            SourceClass = "ApplicationDbContext",
+            SourceLineNumber = 0
+        };
+        if (userInfo is not null)
+            log.UserId = userInfo.UserId;
+    }
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
     {
         LogEntityChanges();
@@ -206,11 +221,17 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
         PropertyInfo[] PropertyInfos = entity.GetType().GetProperties();
         foreach (PropertyInfo pInfo in PropertyInfos)
         {
-            if (pInfo.Name == "UpdateDate" && pInfo.CanWrite) pInfo.SetValue(entity, DateTime.UtcNow);
-            if (pInfo.Name == "UpdatedBy" && pInfo.CanWrite) pInfo.SetValue(entity, userId);
-
-            if (pInfo.Name == "IsDeleted" && pInfo.GetValue(entity)!.Equals(true) && pInfo.CanWrite)
-                setDeletedValue(entity, userId);
+            try
+            {
+                if (pInfo.Name == "UpdateDate" && pInfo.CanWrite) pInfo.SetValue(entity, DateTime.UtcNow);
+                if (pInfo.Name == "UpdatedBy" && pInfo.CanWrite) pInfo.SetValue(entity, userId);
+                else if (pInfo.Name == "IsDeleted" && (pInfo.GetValue(entity)?.Equals(true)??false) && pInfo.CanWrite)
+                    setDeletedValue(entity, userId);
+            }
+            catch (Exception e)
+            {
+                log($"Error setting {pInfo.Name} value: {e.Message}");
+            }            
         }
     }
 

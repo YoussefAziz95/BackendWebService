@@ -39,8 +39,8 @@ public class AuthorizationController : AppControllerBase
         if (user == null)
             return Unauthorized("Invalid phone number or password");
 
-        if (!user.EmailConfirmed)
-            return Forbid("Email not confirmed");
+        if (!user.PhoneNumberConfirmed)
+            return Forbid("Phone Number not confirmed");
 
         var result = await _userManager.CheckPasswordAsync(user, request.Password);
 
@@ -197,7 +197,7 @@ public class AuthorizationController : AppControllerBase
         // Generate OTP and store it with expiration time
         var otp = _otpService.SendOTP(user);
 
-        // Simulate sending OTP (SMS/email/etc.)
+        // Simulate sending OTP (SMS/etc.)
         Console.WriteLine($"OTP for {user.PhoneNumber}: {otp.Result}");
 
         return Ok("OTP sent successfully. : " + otp.Result);
