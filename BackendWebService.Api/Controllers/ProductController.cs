@@ -53,6 +53,7 @@ public class ProductController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Product found",
+            Succeeded = true,
             Data = new ProductResponse(product.Id, product.Number, product.Name, product.Description, product.Image, product.Code, product.PartNumber, product.Manufacturer, product.CategoryId, product.IsActive)
         };
 
@@ -82,6 +83,7 @@ public class ProductController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Product updated successfully",
+            Succeeded = true,
             Data = new ProductResponse(product.Id, product.Number, product.Name, product.Description, product.Image, product.Code, product.PartNumber, product.Manufacturer, product.CategoryId, product.IsActive)
         };
 
@@ -99,6 +101,7 @@ public class ProductController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Products found",
+            Succeeded = true,
             Data = products.Select(p =>
                 new ProductResponse(p.Id, p.Number, p.Name, p.Description, p.Image, p.Code, p.PartNumber, p.Manufacturer, p.CategoryId, p.IsActive)).ToList()
         };

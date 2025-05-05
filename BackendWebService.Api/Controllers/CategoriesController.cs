@@ -44,6 +44,7 @@ public class CategoriesController : AppControllerBase
         {
             Data = new CategoryResponse(category.Id, category.Name, category.ParentId, category.IsActive),
             StatusCode = ApiResultStatusCode.Success,
+            Succeeded = true,
             Message = "Category found"
         };
         return NewResult(result);
@@ -65,6 +66,7 @@ public class CategoriesController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Category updated successfully",
+            Succeeded = true,
             Data = new CategoryResponse(category.Id, category.Name, category.ParentId, category.IsActive)
         };
         return NewResult(response);
@@ -81,6 +83,7 @@ public class CategoriesController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Categories found",
+            Succeeded = true,
             Data = categories.Select(c => new CategoryResponse(c.Id, c.Name, c.ParentId, c.IsActive)).ToList()
         };
         return NewResult(result);

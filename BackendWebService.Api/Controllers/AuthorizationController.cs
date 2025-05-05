@@ -56,6 +56,7 @@ public class AuthorizationController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Login successful",
+            Succeeded = true,
             Data = new LoginResponse(
                 Id: user.Id,
                 FullName: $"{user.FirstName} {user.LastName}",
@@ -102,6 +103,7 @@ public class AuthorizationController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Sign up successful",
+            Succeeded = true,
             Data = new LoginResponse(
                 Id: user.Id,
                 FullName: $"{user.FirstName} {user.LastName}",
@@ -126,7 +128,7 @@ public class AuthorizationController : AppControllerBase
     [HttpPost("refresh-token")]
     public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
     {
-        var result = await _jwtService.RefreshTokenAsync(request.Token, request.RefreshToken);
+        var result = await _jwtService.RefreshTokenAsync(request.Token);
         if (result == null)
             return Unauthorized("Invalid refresh token");
 
@@ -140,7 +142,8 @@ public class AuthorizationController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Token refreshed",
-              Data = new LoginResponse(
+            Succeeded = true,
+            Data = new LoginResponse(
                 Id: user.Id,
                 FullName: $"{user.FirstName} {user.LastName}",
                 PhoneNumner: user.PhoneNumber!,
@@ -204,7 +207,7 @@ public class AuthorizationController : AppControllerBase
     }
 
     [HttpPost("otp/verify")]
-    public async Task<IActionResult> VerifyOtp([FromBody] OtpLoginRequest request)
+    public async Task<IActionResult> VerifyOtp([FromBody] OtpVerify request)
     {
         var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
         if (user == null) return BadRequest("User not found.");
@@ -228,31 +231,4 @@ public class AuthorizationController : AppControllerBase
             ExpiresAt = DateTime.UtcNow.AddMinutes(10)
         });
     }
-
-    //[HttpPost("mfa/enable")]
-    //public async Task<IActionResult> EnableMfa([FromBody] MfaRequest request)
-    //{
-    //    var user = await _userManager.FindByEmailAsync(request.Email);
-    //    var result = await _userManager.SetTwoFactorEnabledAsync(user, true);
-    //    return result.Succeeded ? Ok("MFA enabled.") : BadRequest(result.Errors);
-    //}
-
-    //[HttpPost("mfa/verify")]
-    //public async Task<IActionResult> VerifyMfa([FromBody] MfaVerifyRequest request)
-    //{
-    //    var user = await _userManager.FindByEmailAsync(request.Email);
-    //    var result = await _userManager.VerifyTwoFactorTokenAsync(user, "Email", request.Code);
-    //    return result ? Ok("MFA verified.") : BadRequest("Invalid code.");
-    //}
-
-    //[HttpPost("mfa/disable")]
-    //public async Task<IActionResult> DisableMfa([FromBody] MfaRequest request)
-    //{
-    //    var user = await _userManager.FindByEmailAsync(request.Email);
-    //    var result = await _userManager.SetTwoFactorEnabledAsync(user, false);
-    //    return result.Succeeded ? Ok("MFA disabled.") : BadRequest(result.Errors);
-    //}
-
-
-
 }

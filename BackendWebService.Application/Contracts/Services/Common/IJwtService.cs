@@ -11,5 +11,5 @@ public interface IJwtService
     Task<ClaimsPrincipal> GetPrincipalFromExpiredToken(string token);
     Task<AccessToken> GenerateByPhoneNumberAsync(string phoneNumber);
     Task<AccessToken> RefreshToken(int refreshTokenId);
-    Task<AccessToken> RefreshTokenAsync(string token, string refreshToken);
+    Task<AccessToken> RefreshTokenAsync(string token);
 }

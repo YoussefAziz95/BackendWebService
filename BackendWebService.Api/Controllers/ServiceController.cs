@@ -53,6 +53,7 @@ public class ServiceController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Service found",
+            Succeeded = true,
             Data = new ServiceResponse(service.Id, service.Name, service.Code, service.CategoryId)
         };
         return NewResult(result);
@@ -73,6 +74,7 @@ public class ServiceController : AppControllerBase
         var response = new Response<ServiceResponse>()
         {
             StatusCode = ApiResultStatusCode.Success,
+            Succeeded = true,
             Message = "Service updated successfully",
             Data = new ServiceResponse(service.Id, service.Name, service.Code, service.CategoryId)
         };
@@ -86,6 +88,7 @@ public class ServiceController : AppControllerBase
         var response = new PaginatedResponse<ServiceResponse>()
         {
             StatusCode = ApiResultStatusCode.Success,
+            Succeeded = true,
             Message = "Services found",
             Data = services.Select(service => new ServiceResponse(service.Id, service.Name, service.Code, service.CategoryId)).ToList(),
             TotalCount = services.Count()

@@ -48,6 +48,7 @@ public class ZoneController : AppControllerBase
         {
             Data = new ZoneResponse(zone.Id, zone.Name, zone.Description, zone.ParentZoneId, zone.IsActive),
             StatusCode = ApiResultStatusCode.Success,
+            Succeeded = true,
             Message = "Zone found"
         };
 
@@ -71,6 +72,7 @@ public class ZoneController : AppControllerBase
         var response = new Response<ZoneResponse>()
         {
             StatusCode = ApiResultStatusCode.Success,
+            Succeeded = true,
             Message = "Zone updated successfully",
             Data = new ZoneResponse(zone.Id, zone.Name, zone.Description, zone.ParentZoneId, zone.IsActive)
         };
@@ -88,6 +90,7 @@ public class ZoneController : AppControllerBase
         var result = new Response<List<ZoneResponse>>()
         {
             StatusCode = ApiResultStatusCode.Success,
+            Succeeded = true,
             Message = "Zones found",
             Data = zones.Select(z =>
                 new ZoneResponse(z.Id, z.Name, z.Description, z.ParentZoneId, z.IsActive)).ToList()

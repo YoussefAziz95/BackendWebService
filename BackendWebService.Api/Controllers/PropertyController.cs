@@ -63,6 +63,7 @@ public class PropertyController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Property found",
+            Succeeded = true,
             Data = new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress,
             property.Zone?.Name ?? null, property.ContactNumber, property.BuildingNumber, property.FloorNumber, property.ApartmentNumber, property.StreetNumber,
             property.CreatedAt, property.UpdatedAt)
@@ -106,6 +107,7 @@ public class PropertyController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Property updated successfully",
+            Succeeded = true,
             Data = new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress,
             property.Zone?.Name ?? null, property.ContactNumber, property.BuildingNumber, property.FloorNumber, property.ApartmentNumber, property.StreetNumber,
             property.CreatedAt, property.UpdatedAt)
@@ -137,6 +139,7 @@ public class PropertyController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Propertys found",
+            Succeeded = true,
             Data = properties.Select(property => new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress,
             property.Zone?.Name ?? null, property.ContactNumber, property.BuildingNumber, property.FloorNumber, property.ApartmentNumber, property.StreetNumber,
             property.CreatedAt, property.UpdatedAt)).ToList(),

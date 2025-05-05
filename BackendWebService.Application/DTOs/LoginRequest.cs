@@ -9,7 +9,7 @@ public record RecoveryCodeRequest(string RecoveryCode);
 public record TwoFactorRequest(string Code, bool RememberMe = false, bool RememberClient = false);
 public record LoginResponse(int Id, string FullName, string PhoneNumner, string Token, DateTime TokenExpiry, RoleEnum MainRole, string? Department, string? Title, bool IsActive);
 public record RoleAssignRequest(int UserId, string Role);
-public record RefreshTokenRequest(string Token, string RefreshToken);
+public record RefreshTokenRequest(string Token);
 public record ResetPasswordRequest(string PhoneNumber);
 public record ConfirmResetPasswordRequest(string PhoneNumber, string Token, string NewPassword);
 public record VerifyEmailRequest(string PhoneNumber, string Token);
@@ -17,5 +17,5 @@ public record ConfirmPhoneNumberRequest(string PhoneNumber, string Code);
 public record MfaRequest(string PhoneNumber);
 public record MfaVerifyRequest(string PhoneNumber, string Code);
 public record PhoneNumberRequest(string PhoneNumber);
-public record OtpLoginRequest(string PhoneNumber, string Code);
+public record OtpVerify(string PhoneNumber, string Code);
     

@@ -52,6 +52,7 @@ public class PartController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Part found",
+            Succeeded = true,
             Data = new PartResponse(part.Id, part.Name, part.Description, part.Code, part.Image, part.PartNumber, part.Manufacturer, part.ProductId, part.IsActive)
         };
 
@@ -80,6 +81,7 @@ public class PartController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Part updated successfully",
+            Succeeded = true,
             Data = new PartResponse(part.Id, part.Name, part.Description, part.Code, part.Image, part.PartNumber, part.Manufacturer, part.ProductId, part.IsActive)
         };
 
@@ -97,6 +99,7 @@ public class PartController : AppControllerBase
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Parts found",
+            Succeeded = true,
             Data = parts.Select(part =>
                 new PartResponse(part.Id, part.Name, part.Description, part.Code, part.Image, part.PartNumber, part.Manufacturer, part.ProductId, part.IsActive)).ToList()
         };
