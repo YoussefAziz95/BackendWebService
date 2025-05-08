@@ -62,3 +62,10 @@ public record UserResponse(
     int? CompanyId,
     string MainRole
 );
+public record UserPagesResponse(
+    int Id,
+    string? Groups,
+    string? Menu,
+    string? Page,
+    string? Permission
+);

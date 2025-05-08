@@ -21,6 +21,7 @@ using Persistence.Repositories.FileSystem;
 using Persistence.Repositories.Identity;
 using Persistence.Repositories.Notifications;
 using Persistence.Store;
+using Presistence.Repositories.Common;
 using SharedKernel.Extensions;
 using System.Security.Claims;
 using System.Text;
@@ -41,6 +42,7 @@ public static class ServiceCollectionExtensions
         });
         //services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
+        services.AddScoped<ISP_Call, SP_Call>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
         //services.AddScoped<ICompanyRepository, CompanyRepository>();

@@ -7,8 +7,10 @@ using Application.DTOs.Common;
 using Application.Models.Jwt;
 using Contracts.Services;
 using Domain;
+using Domain.Constants;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controllers;
@@ -230,5 +232,11 @@ public class AuthorizationController : AppControllerBase
             Token = accessToken.access_token,
             ExpiresAt = DateTime.UtcNow.AddMinutes(10)
         });
+    }
+    [HttpGet("GetUserPages/{id}")]
+    public async Task<IActionResult> GetUserPages(int id)
+    {
+        var result = await _userManager.GetUserPages(id);
+        return Ok(result);
     }
 }
