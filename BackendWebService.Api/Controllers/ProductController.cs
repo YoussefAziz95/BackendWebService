@@ -29,7 +29,7 @@ public class ProductController : AppControllerBase
             Number = request.Number,
             Name = request.Name,
             Description = request.Description,
-            Image = request.Image,
+            FileId = request.FileId,
             Code = request.Code,
             PartNumber = request.PartNumber,
             Manufacturer = request.Manufacturer,
@@ -54,7 +54,7 @@ public class ProductController : AppControllerBase
             StatusCode = ApiResultStatusCode.Success,
             Message = "Product found",
             Succeeded = true,
-            Data = new ProductResponse(product.Id, product.Number, product.Name, product.Description, product.Image, product.Code, product.PartNumber, product.Manufacturer, product.CategoryId, product.IsActive)
+            Data = new ProductResponse(product.Id, product.Number, product.Name, product.Description, product.FileId, product.Code, product.PartNumber, product.Manufacturer, product.CategoryId, product.IsActive)
         };
 
         return NewResult(response);
@@ -70,7 +70,7 @@ public class ProductController : AppControllerBase
         product.Number = request.Number;
         product.Name = request.Name;
         product.Description = request.Description;
-        product.Image = request.Image;
+        product.FileId = request.FileId;
         product.Code = request.Code;
         product.PartNumber = request.PartNumber;
         product.Manufacturer = request.Manufacturer;
@@ -84,7 +84,7 @@ public class ProductController : AppControllerBase
             StatusCode = ApiResultStatusCode.Success,
             Message = "Product updated successfully",
             Succeeded = true,
-            Data = new ProductResponse(product.Id, product.Number, product.Name, product.Description, product.Image, product.Code, product.PartNumber, product.Manufacturer, product.CategoryId, product.IsActive)
+            Data = new ProductResponse(product.Id, product.Number, product.Name, product.Description, product.FileId, product.Code, product.PartNumber, product.Manufacturer, product.CategoryId, product.IsActive)
         };
 
         return NewResult(response);
@@ -103,7 +103,7 @@ public class ProductController : AppControllerBase
             Message = "Products found",
             Succeeded = true,
             Data = products.Select(p =>
-                new ProductResponse(p.Id, p.Number, p.Name, p.Description, p.Image, p.Code, p.PartNumber, p.Manufacturer, p.CategoryId, p.IsActive)).ToList()
+                new ProductResponse(p.Id, p.Number, p.Name, p.Description, p.FileId, p.Code, p.PartNumber, p.Manufacturer, p.CategoryId, p.IsActive)).ToList()
         };
 
         return NewResult(result);
