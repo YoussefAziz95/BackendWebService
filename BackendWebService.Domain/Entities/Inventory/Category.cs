@@ -12,8 +12,7 @@ public class Category : BaseEntity, IEntity, ITimeModification
     public int? ParentId { get; set; }
     [Required]
     public int FileId { get; set; }
-    [ForeignKey("FileId")]
-    public FileLog File { get; set; }
+    public string File { get; set; }
 
     [ForeignKey("ParentId")]
     public virtual Category? ParentCategory { get; set; }

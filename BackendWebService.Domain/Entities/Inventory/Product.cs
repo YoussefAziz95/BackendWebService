@@ -20,8 +20,7 @@ public class Product : BaseEntity, IEntity, ITimeModification
 
     [Required]
     public int FileId { get; set; }
-    [ForeignKey("FileId")]
-    public FileLog File { get; set; }
+    public string File { get; set; }
 
 }
 
