@@ -6,6 +6,7 @@ using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers;
 
@@ -42,7 +43,7 @@ public class CategoriesController : AppControllerBase
             return NotFound("Category not found");
         var result = new Response<CategoryResponse>()
         {
-            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, category.IsActive),
+            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, category.FileId, category.IsActive),
             StatusCode = ApiResultStatusCode.Success,
             Succeeded = true,
             Message = "Category found"
@@ -67,7 +68,7 @@ public class CategoriesController : AppControllerBase
             StatusCode = ApiResultStatusCode.Success,
             Message = "Category updated successfully",
             Succeeded = true,
-            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, category.IsActive)
+            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, category.FileId, category.IsActive)
         };
         return NewResult(response);
     }
@@ -84,9 +85,25 @@ public class CategoriesController : AppControllerBase
             StatusCode = ApiResultStatusCode.Success,
             Message = "Categories found",
             Succeeded = true,
-            Data = categories.Select(c => new CategoryResponse(c.Id, c.Name, c.ParentId, c.IsActive)).ToList()
+            Data = categories.Select(c => new CategoryResponse(c.Id, c.Name, c.ParentId, c.FileId, c.IsActive)).ToList()
         };
         return NewResult(result);
     }
-
+    [HttpGet("GetByParentId/{id}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetByParentId([FromRoute] int id)
+    {
+        var categories = _unitOfWork.GenericRepository<Category>().GetAll(c => true, include: c => c.Include(s => s.SubCategories));
+        if (categories == null)
+            return NotFound("Categories not found");
+        var hasChildCategories = categories.Select(category => (c: category, hasChild: category.SubCategories is not null));
+        var result = new Response<List<CategoryHasChildResponse>>()
+        {
+            StatusCode = ApiResultStatusCode.Success,
+            Message = "Categories found",
+            Succeeded = true,
+            Data = hasChildCategories.Select(c => new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, c.c.FileId,c.hasChild, c.c.IsActive)).ToList()
+        };
+        return NewResult(result);
+    }
 }

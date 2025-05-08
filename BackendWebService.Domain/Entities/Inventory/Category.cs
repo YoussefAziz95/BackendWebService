@@ -10,6 +10,10 @@ public class Category : BaseEntity, IEntity, ITimeModification
     public string Name { get; set; }
     [AllowNull]
     public int? ParentId { get; set; }
+    [Required]
+    public int FileId { get; set; }
+    [ForeignKey("FileId")]
+    public FileLog File { get; set; }
 
     [ForeignKey("ParentId")]
     public virtual Category? ParentCategory { get; set; }
