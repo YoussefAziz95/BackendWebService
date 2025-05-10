@@ -1,10 +1,12 @@
-﻿namespace Application.DTOs;
+﻿using Application.DTOs.Common;
+
+namespace Application.DTOs;
 
 public record AddProductRequest(
     string Number,
     string Name,
     string Description,
-    int FileId,
+    int? FileId,
     string Code,
     string PartNumber,
     string Manufacturer,
@@ -16,7 +18,7 @@ public record ProductResponse(
     string Number,
     string Name,
     string Description,
-    int FileId,
+    DownloadResponse? File,
     string Code,
     string PartNumber,
     string Manufacturer,
@@ -29,7 +31,7 @@ public record UpdateProductRequest(
     string Number,
     string Name,
     string Description,
-    int FileId,
+    int? FileId,
     string Code,
     string PartNumber,
     string Manufacturer,

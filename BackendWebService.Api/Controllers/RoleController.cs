@@ -38,7 +38,7 @@ public class RoleController : ControllerBase
 
         var result = await _roleManager.DeleteAsync(role);
         if (result.Succeeded)
-            return Ok();
+            return Ok(role.Id);
 
         return BadRequest(result.Errors);
     }

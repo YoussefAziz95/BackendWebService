@@ -1,13 +1,12 @@
 ﻿using Api.Base;
 using Application.Contracts.Persistences;
-using Application.DTOs.Common;
 using Application.DTOs;
+using Application.DTOs.Common;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers;
@@ -107,7 +106,7 @@ public class CustomerController : AppControllerBase
     public async Task<IActionResult> GetCustomer([FromRoute] int id)
     {
         var customer = _unitOfWork.GenericRepository<Customer>()
-            .Get( c=> c.Id == id, include: c=> c.Include(u=> u.User));
+            .Get(c => c.Id == id, include: c => c.Include(u => u.User));
         if (customer == null)
         {
             return NotFound(new Response<object>
@@ -162,18 +161,6 @@ public class CustomerController : AppControllerBase
         customer.User.Email = request.Email;
         customer.User.UserName = request.Email; // Keep UserName in sync with Email
         customer.User.PhoneNumber = request.PhoneNumber;
-
-        var identityResult = await _userManager.UpdateAsync(customer.User);
-        if (!identityResult.Succeeded)
-        {
-            var errors = string.Join(", ", identityResult.Errors.Select(e => e.Description));
-            return BadRequest(new Response<object>
-            {
-                StatusCode = ApiResultStatusCode.BadRequest,
-                Message = $"Failed to update user: {errors}",
-                Succeeded = false
-            });
-        }
 
         // Update Customer
         customer.PhoneNumber = request.PhoneNumber;
@@ -254,5 +241,5 @@ public class CustomerController : AppControllerBase
 
         return NewResult(response);
     }
-   
+
 }

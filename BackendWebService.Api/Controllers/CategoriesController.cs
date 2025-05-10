@@ -1,7 +1,8 @@
 ﻿using Api.Base;
 using Application.Contracts.Persistences;
-using Application.DTOs.Common;
+using Application.Contracts.Services;
 using Application.DTOs;
+using Application.DTOs.Common;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -16,10 +17,13 @@ namespace Api.Controllers;
 public class CategoriesController : AppControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IFileSystemService _fileSystemService;
 
-    public CategoriesController(IUnitOfWork unitOfWork)
+    public CategoriesController(IUnitOfWork unitOfWork,
+        IFileSystemService fileSystemService)
     {
         _unitOfWork = unitOfWork;
+        _fileSystemService = fileSystemService;
     }
 
     [HttpPost]
@@ -30,20 +34,27 @@ public class CategoriesController : AppControllerBase
             Name = request.Name,
             ParentId = request.ParentId
         };
+        if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
+            return NotFound("Product not found");
+        category.File = _unitOfWork.GenericRepository<FileLog>().GetById(request.FileId);
+        category.Image = category.File.FullPath;
+        category.FileId = request.FileId;
         _unitOfWork.GenericRepository<Category>().Add(category);
         var result = _unitOfWork.Save();
-        return Ok(result);
+        return Ok(category.Id);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCategory([FromRoute] int id)
     {
-        var category = await _unitOfWork.GenericRepository<Category>().GetByIdAsync(id);
+        var category = _unitOfWork.GenericRepository<Category>().Get(c => c.Id == id, include: f => f.Include(l => l.File));
         if (category == null)
             return NotFound("Category not found");
+        if (category.File == null)
+            return NotFound("File not found");
         var result = new Response<CategoryResponse>()
         {
-            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, category.FileId, category.IsActive),
+            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, _fileSystemService.DownloadFileResponse(category.FileId), category.IsActive),
             StatusCode = ApiResultStatusCode.Success,
             Succeeded = true,
             Message = "Category found"
@@ -59,6 +70,17 @@ public class CategoriesController : AppControllerBase
             return NotFound("Category not found");
         category.Name = request.Name;
         category.ParentId = request.ParentId;
+        if (category.FileId is not null && category.FileId != request.FileId)
+        {
+            if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
+                _fileSystemService.DeleteFileById(category.FileId??0);
+        }
+        if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
+            return NotFound("File not found");
+        category.File = _unitOfWork.GenericRepository<FileLog>().GetById(request.FileId);
+        category.Image = category.File.FullPath;
+        category.FileId = request.FileId;
+
         _unitOfWork.GenericRepository<Category>().Update(category);
         var result = _unitOfWork.Save();
         if (result == null)
@@ -68,13 +90,12 @@ public class CategoriesController : AppControllerBase
             StatusCode = ApiResultStatusCode.Success,
             Message = "Category updated successfully",
             Succeeded = true,
-            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, category.FileId, category.IsActive)
+            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, _fileSystemService.DownloadFileResponse(category.FileId), category.IsActive)
         };
         return NewResult(response);
     }
 
     [HttpGet("GetAll")]
-    [AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
         var categories = _unitOfWork.GenericRepository<Category>().GetAll();
@@ -85,15 +106,16 @@ public class CategoriesController : AppControllerBase
             StatusCode = ApiResultStatusCode.Success,
             Message = "Categories found",
             Succeeded = true,
-            Data = categories.Select(c => new CategoryResponse(c.Id, c.Name, c.ParentId, c.FileId, c.IsActive)).ToList()
+            Data = categories.Select(c => new CategoryResponse(c.Id, c.Name, c.ParentId, _fileSystemService.DownloadFileResponse(c.FileId), c.IsActive)).ToList()
         };
         return NewResult(result);
     }
-    [HttpGet("GetByParentId/{id}")]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetByParentId([FromRoute] int id)
+
+    [HttpGet("GetByParentId/{id?}")]
+    public async Task<IActionResult> GetByParentId([FromRoute] int? id = null)
     {
-        var categories = _unitOfWork.GenericRepository<Category>().GetAll(c => true, include: c => c.Include(s => s.SubCategories));
+
+        var categories = _unitOfWork.GenericRepository<Category>().GetAll(c => c.ParentId == id, include: c => c.Include(s => s.SubCategories));
         if (categories == null)
             return NotFound("Categories not found");
         var hasChildCategories = categories.Select(category => (c: category, hasChild: category.SubCategories is not null));
@@ -102,7 +124,7 @@ public class CategoriesController : AppControllerBase
             StatusCode = ApiResultStatusCode.Success,
             Message = "Categories found",
             Succeeded = true,
-            Data = hasChildCategories.Select(c => new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, c.c.FileId,c.hasChild, c.c.IsActive)).ToList()
+            Data = hasChildCategories.Select(c => new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, _fileSystemService.DownloadFileResponse(c.c.FileId), c.hasChild, c.c.IsActive)).ToList()
         };
         return NewResult(result);
     }

@@ -5,85 +5,136 @@ using Application.DTOs.Common;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Persistence.Migrations;
 
 namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [AllowAnonymous]
-    public class CustomerCategoryController : AppControllerBase
+    public class CustomerServiceController : AppControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly UserManager<User> _userManager;
 
-        public CustomerCategoryController(IUnitOfWork unitOfWork, UserManager<User> userManager)
+        public CustomerServiceController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _userManager = userManager;
         }
-
-        // 1. Add a Booking Request
-        [HttpPost("book")]
-        public async Task<IActionResult> AddCustomerRequest([FromBody] BookingRequest request)
+        [HttpGet("{id}")]
+        public IActionResult GetCustomerService([FromRoute] int id)
         {
-            // Validate the request
-            if (request == null || request.CustomerId <= 0 || request.CategoryId <= 0 || string.IsNullOrWhiteSpace(request.Description))
+            var customerService = _unitOfWork.GenericRepository<CustomerService>().Get(c => c.Id == id, 
+                include: c=> c.Include(s=> s.Service).Include(c => c.Customer)
+                );
+            if (customerService == null)
             {
-                return BadRequest(new Response<object>
+                return NotFound(new Response<object>
                 {
-                    StatusCode = ApiResultStatusCode.BadRequest,
-                    Message = "Invalid request data",
+                    StatusCode = ApiResultStatusCode.NotFound,
+                    Message = "Customer service not found",
                     Succeeded = false
                 });
             }
 
-            // Create CustomerCategoryRequest
-            var customerRequest = new CustomerCategory
+            var response = new Response<BookingResponse>
             {
-                CustomerId = request.CustomerId,
-                CategoryId = request.CategoryId,
-                Description = request.Description,
-                Status = StatusEnum.Pending, // Default status
-                RequestedDate = DateTime.UtcNow,
-                AssignedTechnicianId = null,
-                ScheduledDate = null,
-                CompletedDate = null
+                Data = new BookingResponse(
+                    customerService.Id,
+                    customerService.AssignedTechnicianId,
+                    customerService.CustomerId,
+                    customerService.Service.Name,
+                    customerService.Service.Code,
+                    customerService.Description,
+                    customerService.Status.ToString(),
+                    customerService.RequestedDate
+                ),
+                StatusCode = ApiResultStatusCode.Success,
+                Message = "Customer service found",
+                Succeeded = true
             };
 
-            _unitOfWork.GenericRepository<CustomerCategory>().Add(customerRequest);
-            var saveResult = await _unitOfWork.SaveAsync();
+            return NewResult(response);
+        }
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var customerServices = _unitOfWork.GenericRepository<CustomerService>().GetAll();
+            if (customerServices == null || !customerServices.Any())
+            {
+                return NotFound(new Response<object>
+                {
+                    StatusCode = ApiResultStatusCode.NotFound,
+                    Message = "No customer services found",
+                    Succeeded = false
+                });
+            }
 
+            var response = new Response<List<AllBookingResponse>>
+            {
+                Data = customerServices.Select(c => new AllBookingResponse(
+                    c.Id,
+                    c.AssignedTechnicianId,
+                    c.CustomerId,
+                    c.ServiceId,
+                    c.Description,
+                    c.Status.ToString(), // Convert StatusEnum to string  
+                    c.RequestedDate
+                )).ToList(),
+                StatusCode = ApiResultStatusCode.Success,
+                Message = "Customer services retrieved successfully",
+                Succeeded = true
+            };
+
+            return NewResult(response);
+        }
+        // 1. Add a Booking Request
+        [HttpPost("book")]
+        public async Task<IActionResult> AddCustomerService([FromBody] BookingRequest request)
+        {
+            if (!_unitOfWork.GenericRepository<Customer>().ExistsNoTracking(c => c.Id == request.CustomerId))
+            {
+                return NotFound(new Response<object>
+                {
+                    StatusCode = ApiResultStatusCode.NotFound,
+                    Message = "Customer not found",
+                    Succeeded = false
+                });
+            }
+            if (!_unitOfWork.GenericRepository<Service>().ExistsNoTracking(s => s.Id == request.ServiceId))
+            {
+                return NotFound(new Response<object>
+                {
+                    StatusCode = ApiResultStatusCode.NotFound,
+                    Message = "Service not found",
+                    Succeeded = false
+                });
+            }
+            var customerService = new CustomerService
+            {
+                CustomerId = request.CustomerId,
+                ServiceId = request.ServiceId,
+                Description = request.Description,
+                Status = StatusEnum.Pending, // Set initial status to Pending
+                RequestedDate = DateTime.UtcNow // Set the requested date to now
+            };
+            _unitOfWork.GenericRepository<CustomerService>().Add(customerService);
+            var saveResult = await _unitOfWork.SaveAsync();
             if (saveResult <= 0)
             {
                 return BadRequest(new Response<object>
                 {
                     StatusCode = ApiResultStatusCode.BadRequest,
-                    Message = "Failed to create customer request",
+                    Message = "Failed to add customer service request",
                     Succeeded = false
                 });
             }
-
-            var response = new Response<BookingResponse>(
-                true,
-                ApiResultStatusCode.Success,
-                new BookingResponse(
-                    customerRequest.Id,
-                    customerRequest.CustomerId,
-                    customerRequest.Description,
-                    customerRequest.Status,
-                    customerRequest.RequestedDate
-                ),
-                "Customer request created successfully"
-            );
-
-            return NewResult(response);
+            return Ok(customerService.Id);
         }
 
         // 2. Schedule the Booking
-        [HttpPut("schedule-booking/{id}")]
+        [HttpPut("schedule-booking")]
         public async Task<IActionResult> ScheduleBooking([FromBody] ScheduleBookingRequest request)
         {
             // Validate the request
@@ -97,7 +148,7 @@ namespace Api.Controllers
                 });
             }
 
-            var customerRequest = await _unitOfWork.GenericRepository<CustomerCategory>().GetByIdAsync(request.Id);
+            var customerRequest = await _unitOfWork.GenericRepository<CustomerService>().GetByIdAsync(request.Id);
             if (customerRequest == null)
             {
                 return NotFound(new Response<object>
@@ -112,7 +163,7 @@ namespace Api.Controllers
             customerRequest.ScheduledDate = request.ScheduledDate;
             customerRequest.Status = StatusEnum.InProgress; // Update status to InProgress
 
-            _unitOfWork.GenericRepository<CustomerCategory>().Update(customerRequest);
+            _unitOfWork.GenericRepository<CustomerService>().Update(customerRequest);
             var saveResult = await _unitOfWork.SaveAsync();
 
             if (saveResult <= 0)
@@ -149,7 +200,7 @@ namespace Api.Controllers
             }
 
             // Retrieve the existing customer request
-            var customerRequest = await _unitOfWork.GenericRepository<CustomerCategory>().GetByIdAsync(id);
+            var customerRequest = await _unitOfWork.GenericRepository<CustomerService>().GetByIdAsync(id);
             if (customerRequest == null)
             {
                 return NotFound(new Response<object>
@@ -169,7 +220,7 @@ namespace Api.Controllers
                 customerRequest.Status = StatusEnum.InProgress; // Update status to InProgress if assigning
             }
 
-            _unitOfWork.GenericRepository<CustomerCategory>().Update(customerRequest);
+            _unitOfWork.GenericRepository<CustomerService>().Update(customerRequest);
             var saveResult = await _unitOfWork.SaveAsync();
 
             if (saveResult <= 0)
@@ -194,7 +245,7 @@ namespace Api.Controllers
         public async Task<IActionResult> CompleteBooking(int id)
         {
             // Retrieve the existing customer request
-            var customerRequest = await _unitOfWork.GenericRepository<CustomerCategory>().GetByIdAsync(id);
+            var customerRequest = await _unitOfWork.GenericRepository<CustomerService>().GetByIdAsync(id);
             if (customerRequest == null)
             {
                 return NotFound(new Response<object>
@@ -209,7 +260,7 @@ namespace Api.Controllers
             customerRequest.Status = StatusEnum.Completed; // Update status to Completed
             customerRequest.CompletedDate = DateTime.UtcNow; // Set the completed date
 
-            _unitOfWork.GenericRepository<CustomerCategory>().Update(customerRequest);
+            _unitOfWork.GenericRepository<CustomerService>().Update(customerRequest);
             var saveResult = await _unitOfWork.SaveAsync();
 
             if (saveResult <= 0)
