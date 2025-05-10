@@ -1,15 +1,22 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain;
 using Domain.Enums;
-[Table("CustomerRequest")]
-public class CustomerRequest : BaseEntity, IEntity, ITimeModification
+[Table("CustomerService")]
+public class CustomerService : BaseEntity, IEntity, ITimeModification
 {
-    [Key]
-    public int Id { get; set; }
     [Required]
     public int CustomerId { get; set; } // FK to Customer
+    [ForeignKey("CustomerId")]
+    public virtual Customer Customer { get; set; }
+    [Required]
+    public int ServiceId { get; set; }
+    [ForeignKey("ServiceId")]
+    
     public int? AssignedTechnicianId { get; set; } // Nullable, assigned later
+    public virtual Service? Service { get; set; } // FK to Category
+
     [Required]
     public StatusEnum Status { get; set; } // Enum: Pending, InProgress, Completed, etc.
     [Required, MaxLength(500)]

@@ -7,6 +7,7 @@ using Application.Model.File;
 using Application.Wrappers;
 using Application.DTOs;
 using Domain.Constants;
+using Domain;
 
 namespace Application.Implementations.Common
 {
@@ -26,15 +27,36 @@ namespace Application.Implementations.Common
 
             return Deleted<string>();
         }
+        public IResponse<string> DeleteFileById(int? id)
+        {
+            if (id == null)
+                return NotFound<string>();
+            var file = _fileRepository.GetFile(id??0);
+            if (file == null)
+                return NotFound<string>();
+            _fileRepository.Delete(file);
+            _fileHandler.Delete(file.FullPath);
 
+            return Deleted<string>();
+        }
+        public FileLog? GetFileById(int? id)
+        {
+            if (id == null)
+                return null;
+            var file = _fileRepository.GetFile(id ?? 0);
+            return file;
+        }
         public IResponse<DownloadResponse> DownloadFile(int id)
         {
             var response = DownloadFileResponse(id);
             return response is not null ? Success(response) : NotFound<DownloadResponse>();
         }
-        public DownloadResponse DownloadFileResponse(int id)
+        public DownloadResponse? DownloadFileResponse(int? id)
         {
-            var fileResponse = _fileRepository.GetFile(id);
+
+            if (id == null)
+                return null;
+            var fileResponse = _fileRepository.GetFileResponse(id??0);
             var path = _fileHandler.DownloadFile(fileResponse.FullPath);
             if (path == null)
                 return null;

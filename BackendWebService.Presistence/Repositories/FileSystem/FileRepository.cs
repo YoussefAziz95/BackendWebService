@@ -30,7 +30,7 @@ namespace Persistence.Repositories.FileSystem
 
         }
 
-        public FileResponse GetFile(int id)
+        public FileResponse GetFileResponse(int id)
         {
             var file = _dbSet.FirstOrDefault(x => x.Id == id);
             var fileresponse = new FileResponse(file.FullName, file.FullPath, file.Name, file.Extention);
@@ -38,7 +38,17 @@ namespace Persistence.Repositories.FileSystem
 
         }
 
+        public FileLog GetFile(int id)
+        {
+            var file = _dbSet.FirstOrDefault(x => x.Id == id);
+            return file;
 
+        }
+        public void Delete(FileLog file)
+        {
+            _dbSet.Remove(file);
+            _context.SaveChanges();
+        }
 
     }
 }
