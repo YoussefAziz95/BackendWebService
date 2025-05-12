@@ -6,6 +6,7 @@ namespace Application.Contracts.Persistences;
 public interface IFileRepository
 {
     FileLog Upload(UploadRequest request, string fullPath);
-    FileResponse GetFile(int id);
-
+    FileResponse GetFileResponse(int id);
+    FileLog GetFile(int id);
+    void Delete(FileLog file);
 }

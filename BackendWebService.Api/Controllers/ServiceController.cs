@@ -32,14 +32,15 @@ public class ServiceController : AppControllerBase
 
         Category category;
         if (!_unitOfWork.GenericRepository<Category>().Exists(c=>c.Name == request.CategoryName))
-            category = new Category() { Name = request.CategoryName };
-        else
-            category = _unitOfWork.GenericRepository<Category>().Get(c => c.Name == request.CategoryName);
-        service.Category = category;
+            return BadRequest("Category not found");
+
+        category = _unitOfWork.GenericRepository<Category>().Get(c => c.Name == request.CategoryName);
+        service.CategoryId = category.Id;
 
         _unitOfWork.GenericRepository<Service>().Add(service);
+
         var result = _unitOfWork.Save();
-        return Ok(result);
+        return Ok(service.Id);
     }
 
     [HttpGet("{id}")]

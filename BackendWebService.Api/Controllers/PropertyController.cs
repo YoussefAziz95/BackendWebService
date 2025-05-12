@@ -48,7 +48,7 @@ public class PropertyController : AppControllerBase
         property.Zone = zone;
         _unitOfWork.GenericRepository<Property>().Add(property);
         var result = _unitOfWork.Save();
-        return Ok(result);
+        return Ok(property.Id);
     }
 
     [HttpGet("{id}")]

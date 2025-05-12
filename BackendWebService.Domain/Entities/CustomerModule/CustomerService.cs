@@ -3,19 +3,19 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Domain;
 using Domain.Enums;
-[Table("CustomerCategory")]
-public class CustomerCategory : BaseEntity, IEntity, ITimeModification
+[Table("CustomerService")]
+public class CustomerService : BaseEntity, IEntity, ITimeModification
 {
     [Required]
     public int CustomerId { get; set; } // FK to Customer
     [ForeignKey("CustomerId")]
     public virtual Customer Customer { get; set; }
     [Required]
-    public int CategoryId { get; set; }
-    [ForeignKey("CategoryId")]
+    public int ServiceId { get; set; }
+    [ForeignKey("ServiceId")]
     
     public int? AssignedTechnicianId { get; set; } // Nullable, assigned later
-    public virtual Category? Category { get; set; } // FK to Category
+    public virtual Service? Service { get; set; } // FK to Category
 
     [Required]
     public StatusEnum Status { get; set; } // Enum: Pending, InProgress, Completed, etc.

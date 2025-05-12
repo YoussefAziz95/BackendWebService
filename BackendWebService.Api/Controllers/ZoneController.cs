@@ -34,7 +34,7 @@ public class ZoneController : AppControllerBase
         _unitOfWork.GenericRepository<Zone>().Add(zone);
         var result = _unitOfWork.Save();
 
-        return Ok(result);
+        return Ok(zone.Id);
     }
 
     [HttpGet("{id}")]
