@@ -27,7 +27,7 @@ public class DropDownController : AppControllerBase
         // Return the result
         return NewResult(result);
     }
-    [HttpGet("get-next-interval/")]
+    [HttpGet("get-time-slots/")]
     public IActionResult GetNextInterval()
     {
         var now = DateTime.Now;
