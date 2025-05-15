@@ -76,7 +76,7 @@ namespace Application.Implementations.Common
                         var zones = _unitOfWork.GenericRepository<Zone>().GetDropdownOptionsList(columnNames);
                         response = new DropDownResponse { items = zones };
                         return Success(response);
-
+                    
                     default:
                         throw new ArgumentException($"DropdownService.GetDropdownOptions() : Table '{tableName}' not found.");
                 }

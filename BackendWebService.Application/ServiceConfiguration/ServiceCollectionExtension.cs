@@ -61,7 +61,7 @@ public static class ServiceCollectionExtension
 
         services.AddScoped<ILoggingService, LoggingService>();
         services.AddScoped<IEmailService, EmailService>();
-        services.AddScoped<IFileService, FileService>();
+        services.AddScoped<IFileHandler, FileHandler>();
         services.AddTransient<ExceptionHandlingMiddleware>();
 
         //services.AddScoped<IOrganizationService, OrganizationService>();

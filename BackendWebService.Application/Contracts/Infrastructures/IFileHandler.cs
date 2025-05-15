@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 
 namespace Application.Contracts.Infrastructures;
-public interface IFileService
+public interface IFileHandler
 {
     Task<string> Upload(IFormFile file, string uploadDir);
     void Delete(string path);

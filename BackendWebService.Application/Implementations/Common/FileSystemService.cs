@@ -13,69 +13,43 @@ namespace Application.Implementations.Common
 {
     public class FileSystemService : ResponseHandler, IFileSystemService
     {
-        private readonly IFileService _fileHandler;
+        private readonly IFileHandler _fileService;
         private readonly IFileRepository _fileRepository;
 
-        public FileSystemService(IFileService fileHandler, IFileRepository fileRepository)
+        public FileSystemService(IFileHandler fileHandler, IFileRepository fileRepository)
         {
-            _fileHandler = fileHandler;
+            _fileService = fileHandler;
             _fileRepository = fileRepository;
         }
-        public IResponse<string> DeleteFile(DeleteRequest request)
-        {
-            _fileHandler.Delete(request.FileName);
 
-            return Deleted<string>();
+        public void DeleteFile(string folderName)
+        {
+            _fileService.Delete(folderName);
+            _fileRepository.Delete(folderName);
         }
-        public IResponse<string> DeleteFileById(int? id)
-        {
-            if (id == null)
-                return NotFound<string>();
-            var file = _fileRepository.GetFile(id??0);
-            if (file == null)
-                return NotFound<string>();
-            _fileRepository.Delete(file);
-            _fileHandler.Delete(file.FullPath);
 
-            return Deleted<string>();
-        }
-        public FileLog? GetFileById(int? id)
+        public FileResponse? DownloadFileResponse(string folderName)
         {
-            if (id == null)
-                return null;
-            var file = _fileRepository.GetFile(id ?? 0);
-            return file;
-        }
-        public IResponse<DownloadResponse> DownloadFile(int id)
-        {
-            var response = DownloadFileResponse(id);
-            return response is not null ? Success(response) : NotFound<DownloadResponse>();
-        }
-        public DownloadResponse? DownloadFileResponse(int? id)
-        {
-
-            if (id == null)
-                return null;
-            var fileResponse = _fileRepository.GetFileResponse(id??0);
-            var path = _fileHandler.DownloadFile(fileResponse.FullPath);
-            if (path == null)
-                return null;
-
-            var response = new DownloadResponse()
-            {
-                FileName = fileResponse.FullName,
-                FilePath = path,
-                MimeType = MimeTypes.GetContentType(fileResponse.FullName)
-            };
-
+            //var fileString = _fileService.GetFile(folderName);
+            var response = _fileRepository.GetFileResponse(folderName);
             return response;
         }
-        public async Task<IResponse<int>> UploadFile(UploadRequest request, string folderName)
-        {
-            var fileName = await _fileHandler.Upload(request.File, $"{AppConstants.TempUploadPath + "\\" + folderName }");
 
-            var result = _fileRepository.Upload(request, fileName);
-            return Uploaded(entity: result.Id);
+
+        public async Task<int> UploadFile(UploadRequest request, string folderName)
+        {
+            var fullPath =  await _fileService.Upload(request.File, $"{AppConstants.TempUploadPath + "\\" + folderName }");
+            var fileLog = new FileLog
+            {
+                FullPath = fullPath,
+                FileName = Path.GetFileNameWithoutExtension(fullPath), // e.g., "document"
+                Extention = Path.GetExtension(fullPath),               // e.g., ".pdf"
+                CreatedDate = DateTime.UtcNow,
+                IsActive = true
+            };
+            var result = _fileRepository.Upload(fileLog);
+            return result.Id;
         }
+
     }
 }

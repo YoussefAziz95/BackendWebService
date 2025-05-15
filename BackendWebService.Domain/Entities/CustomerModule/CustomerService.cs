@@ -11,11 +11,22 @@ public class CustomerService : BaseEntity, IEntity, ITimeModification
     [ForeignKey("CustomerId")]
     public virtual Customer Customer { get; set; }
     [Required]
-    public int ServiceId { get; set; }
+    public int? ServiceId { get; set; }
     [ForeignKey("ServiceId")]
-    
-    public int? AssignedTechnicianId { get; set; } // Nullable, assigned later
     public virtual Service? Service { get; set; } // FK to Category
+    public int? PropertyId { get; set; }
+    [ForeignKey("PropertyId")]
+    public virtual Property? Property { get; set; }
+
+    public string? Notes { get; set; }
+    public int? VoiceNoteId { get; set; } // FK to File
+
+    [ForeignKey("VoiceNoteId")]
+    public virtual FileLog? VoiceNote { get; set; } // FK to File
+
+    public int? FilesId { get; set; }
+    [ForeignKey("FilesId")]
+    public virtual FileLog? Files { get; set; } // FK to File
 
     [Required]
     public StatusEnum Status { get; set; } // Enum: Pending, InProgress, Completed, etc.
@@ -24,6 +35,7 @@ public class CustomerService : BaseEntity, IEntity, ITimeModification
     [Required]
     public DateTime RequestedDate { get; set; } = DateTime.UtcNow;
     public DateTime? ScheduledDate { get; set; } // Nullable, if scheduled
-    public DateTime? CompletedDate { get; set; } // Nullable, when finished
+    public DateTime? CompletedDate { get; set; } // Nullable, when finished 
+    public string? additionalPhoneNumber { get; set; }
 }
 

@@ -18,7 +18,7 @@ public record ProductResponse(
     string Number,
     string Name,
     string Description,
-    DownloadResponse? File,
+    FileResponse? File,
     string Code,
     string PartNumber,
     string Manufacturer,

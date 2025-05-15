@@ -13,42 +13,43 @@ namespace Persistence.Repositories.FileSystem
         {
 
         }
-        public FileLog Upload(UploadRequest request, string fullPath)
+        public FileLog Upload(FileLog file)
         {
-
-            var file = FileMapper.FileMap(request, fullPath);
-            file.FileTypeId = _context.FileTypes.FirstOrDefault(f => f.Extentions.Contains(file.Extention)).Id;
-
             _dbSet.Add(file);
 
             var result = _context.SaveChanges();
             if (result < 1)
                 throw new ArgumentNullException("Cannot Add FileLog ");
-
-
             return file;
+        }
+        public bool Exists(string fileName)
+        {
+            return _dbSet.Any(x => x.FileName == fileName);
 
         }
-
-        public FileResponse GetFileResponse(int id)
+        public FileResponse GetFileResponse(string fileName)
         {
-            var file = _dbSet.FirstOrDefault(x => x.Id == id);
-            var fileresponse = new FileResponse(file.FullName, file.FullPath, file.Name, file.Extention);
+            var file = _dbSet.First(x => x.FileName == fileName);
+            var fileresponse = new FileResponse(file.FileName, file.FullPath, file.Extention);
             return fileresponse;
 
         }
 
-        public FileLog GetFile(int id)
-        {
-            var file = _dbSet.FirstOrDefault(x => x.Id == id);
-            return file;
 
-        }
-        public void Delete(FileLog file)
+        public void Delete(string fileName)
         {
+            var file = _dbSet.First(x => x.FileName == fileName);
             _dbSet.Remove(file);
             _context.SaveChanges();
         }
 
+        public FileLog? GetFileById(int? id)
+        {
+            return _dbSet.FirstOrDefault(x => x.Id == id);
+        }
+        public FileLog? GetFileById(string fileName)
+        {
+            return _dbSet.FirstOrDefault(x => x.FileName == fileName);
+        }
     }
 }

@@ -7,6 +7,7 @@ using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers;
 
@@ -38,10 +39,9 @@ public class ProductController : AppControllerBase
             Manufacturer = request.Manufacturer,
             CategoryId = request.CategoryId
         };
-        if(!_unitOfWork.GenericRepository<FileLog>().Exists(f=> f.Id == request.FileId))
+        if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
             return NotFound("File not found");
-        product.File = _fileSystemService.GetFileById(request.FileId);
-        product.Image = product.File.FullPath; product.FileId = request.FileId;
+        product.File = _unitOfWork.GenericRepository<FileLog>().Get(f => f.Id == request.FileId);
         product.FileId = request.FileId;
         _unitOfWork.GenericRepository<Product>().Add(product);
         var result = _unitOfWork.Save();
@@ -61,7 +61,7 @@ public class ProductController : AppControllerBase
             StatusCode = ApiResultStatusCode.Success,
             Message = "Product found",
             Succeeded = true,
-            Data = new ProductResponse(product.Id, product.Number, product.Name, product.Description, _fileSystemService.DownloadFileResponse(product.FileId), product.Code, product.PartNumber, product.Manufacturer, product.CategoryId, product.IsActive)
+            Data = new ProductResponse(product.Id, product.Number, product.Name, product.Description, _fileSystemService.DownloadFileResponse(product.File.FileName), product.Code, product.PartNumber, product.Manufacturer, product.CategoryId, product.IsActive)
         };
 
         return NewResult(response);
@@ -77,14 +77,18 @@ public class ProductController : AppControllerBase
         product.Number = request.Number;
         product.Name = request.Name;
         product.Description = request.Description;
-        if ((product.FileId??0) != request.FileId)
+        if ((product.FileId ?? 0) != request.FileId)
         {
-            _fileSystemService.DeleteFileById(product.FileId);
+            if (product.FileId as int? != null)
+            {
+                var fileLog = _unitOfWork.GenericRepository<FileLog>().Get(f => f.Id == request.FileId, disableTracking: true);
+                _fileSystemService.DeleteFile(fileLog.FileName);
+            }
         }
         if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
             return NotFound("Product not found");
-        product.File = _fileSystemService.GetFileById(request.FileId);
-        product.Image = product.File.FullPath; product.FileId = request.FileId;
+        product.File = _unitOfWork.GenericRepository<FileLog>().Get(f => f.Id == request.FileId);
+        product.FileId = request.FileId;
         product.Code = request.Code;
         product.PartNumber = request.PartNumber;
         product.Manufacturer = request.Manufacturer;
@@ -98,7 +102,7 @@ public class ProductController : AppControllerBase
             StatusCode = ApiResultStatusCode.Success,
             Message = "Product updated successfully",
             Succeeded = true,
-            Data = new ProductResponse(product.Id, product.Number, product.Name, product.Description, _fileSystemService.DownloadFileResponse(product.FileId), product.Code, product.PartNumber, product.Manufacturer, product.CategoryId, product.IsActive)
+            Data = new ProductResponse(product.Id, product.Number, product.Name, product.Description, _fileSystemService.DownloadFileResponse(product.File.FileName), product.Code, product.PartNumber, product.Manufacturer, product.CategoryId, product.IsActive)
         };
 
         return NewResult(response);
@@ -107,7 +111,7 @@ public class ProductController : AppControllerBase
     [HttpGet("GetAll")]
     public IActionResult GetAll()
     {
-        var products = _unitOfWork.GenericRepository<Product>().GetAll();
+        var products = _unitOfWork.GenericRepository<Product>().GetAll(include: c => c.Include(u => u.File));
         if (products == null || !products.Any())
             return NotFound("Products not found");
 
@@ -117,7 +121,7 @@ public class ProductController : AppControllerBase
             Message = "Products found",
             Succeeded = true,
             Data = products.Select(p =>
-                new ProductResponse(p.Id, p.Number, p.Name, p.Description, _fileSystemService.DownloadFileResponse(p.FileId), p.Code, p.PartNumber, p.Manufacturer, p.CategoryId, p.IsActive)).ToList()
+                new ProductResponse(p.Id, p.Number, p.Name, p.Description, _fileSystemService.DownloadFileResponse(p.File.FileName), p.Code, p.PartNumber, p.Manufacturer, p.CategoryId, p.IsActive)).ToList()
         };
 
         return NewResult(result);
