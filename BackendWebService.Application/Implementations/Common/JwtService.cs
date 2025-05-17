@@ -40,8 +40,8 @@ public class JwtService : IJwtService
         var secretKey = Encoding.UTF8.GetBytes(_siteSetting.SecretKey); // longer that 16 character
         var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey), SecurityAlgorithms.HmacSha256Signature);
 
-        var encryptionkey = Encoding.UTF8.GetBytes(_siteSetting.Encryptkey); //must be 16 character
-        var encryptingCredentials = new EncryptingCredentials(new SymmetricSecurityKey(encryptionkey), SecurityAlgorithms.Aes128KW, SecurityAlgorithms.Aes128CbcHmacSha256);
+        //var encryptionkey = Encoding.UTF8.GetBytes(_siteSetting.Encryptkey); //must be 16 character
+        //var encryptingCredentials = new EncryptingCredentials(new SymmetricSecurityKey(encryptionkey), SecurityAlgorithms.Aes128KW, SecurityAlgorithms.Aes128CbcHmacSha256);
 
 
         var claims = await _getClaimsAsync(user);
@@ -54,7 +54,6 @@ public class JwtService : IJwtService
             NotBefore = DateTime.Now.AddMinutes(0),
             Expires = DateTime.Now.AddMinutes(_siteSetting.ExpirationMinutes),
             SigningCredentials = signingCredentials,
-            EncryptingCredentials = encryptingCredentials,
             Subject = new ClaimsIdentity(claims)
         };
 

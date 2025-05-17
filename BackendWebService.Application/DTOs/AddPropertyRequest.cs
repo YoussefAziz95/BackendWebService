@@ -6,43 +6,41 @@ namespace Application.DTOs;
 public record AddPropertyRequest(
     int UserId,
     string Name,
-    string FullAddress,
-    double Latitude,
-    double Longitude,
-    string ZoneName,
+    string ContactName,
     string ContactNumber,
-    int? BuildingNumber,
-    int? FloorNumber,
-    int? ApartmentNumber,
-    int? StreetNumber
+    int ZoneId,
+    double Latitude,
+    double Longitude
 );
 
 public record UpdatePropertyRequest(
     int Id,
     int UserId,
     string Name,
-    string FullAddress,
-    string? ZoneName,
-    double Latitude,
-    double Longitude,
+    string ContactName,
     string ContactNumber,
-    int? BuildingNumber,
-    int? FloorNumber,
-    int? ApartmentNumber,
-    int? StreetNumber
+    int ZoneId,
+    double Latitude,
+    double Longitude
 );
 
 public record PropertyResponse(
     int Id,
     int UserId,
     string Name,
-    string FullAddress,
-    string? ZoneName,
+    string ContactName,
     string ContactNumber,
-    int? BuildingNumber,
-    int? FloorNumber,
-    int? ApartmentNumber,
-    int? StreetNumber,
-    DateTimeOffset CreatedAt,
-    DateTimeOffset? UpdatedAt
+    string ZoneName,
+    double Latitude,
+    double Longitude,
+    DateTimeOffset CreatedAt
+);
+public record PropertyListResponse(
+    int Id,
+    string Name,
+    string ContactName,
+    string ContactNumber,
+    string ZoneName,
+    double Latitude,
+    double Longitude
 );

@@ -113,6 +113,7 @@
 
   <ItemGroup>
     <Compile Remove="Contracts\Proxy\INotificationProxy.cs" />
+    <Compile Remove="Middlewares\FileDownloadMiddleware.cs" />
     <Compile Remove="Profiles\GroupMapper.cs" />
     <Compile Remove="Profiles\PreDocumentMapper.cs" />
     <Compile Remove="Profiles\UserMapper.cs" />

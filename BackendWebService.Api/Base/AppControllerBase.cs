@@ -1,6 +1,7 @@
 ﻿using Application.Contracts.DTOs;
 using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 namespace Api.Base;
 
 [Route("api/[controller]")]
@@ -30,5 +31,40 @@ public class AppControllerBase : ControllerBase
             default:
                 return new BadRequestObjectResult(response);
         }
+
+    }
+    public static string GetMimeTypeFromExtension(string extension)
+    {
+        return extension.ToLower() switch
+        {
+            ".txt" => "text/plain",
+            ".pdf" => "application/pdf",
+            ".doc" => "application/msword",
+            ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            ".xls" => "application/vnd.ms-excel",
+            ".xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            ".png" => "image/png",
+            ".jpg" => "image/jpeg",
+            ".jpeg" => "image/jpeg",
+            ".gif" => "image/gif",
+            ".csv" => "text/csv",
+            ".zip" => "application/zip",
+            ".json" => "application/json",
+            ".xml" => "application/xml",
+            ".mp4" => "video/mp4",
+            ".mp3" => "audio/mpeg",
+            _ => "application/octet-stream" // Default for unknown types
+        };
+    }
+    public static async Task<string> FileToBase64Async(string path)
+    {
+        var imageFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+        byte[] fileBytes;
+        await using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+        {
+            fileBytes = new byte[stream.Length];
+            await stream.ReadAsync(fileBytes, 0, (int)stream.Length);
+        }
+        return Convert.ToBase64String(fileBytes);
     }
 }

@@ -30,43 +30,39 @@ public class PropertyController : AppControllerBase
             Name = request.Name,
             Latitude = request.Latitude,
             Longitude = request.Longitude,
-            FullAddress = request.FullAddress,
-            UserId = request.UserId,
             ContactNumber = request.ContactNumber,
-            BuildingNumber = request.BuildingNumber,
-            FloorNumber = request.FloorNumber,
-            ApartmentNumber = request.ApartmentNumber,
-            StreetNumber = request.StreetNumber,
             CreatedAt = DateTime.UtcNow,
-            UpdatedAt = null,
+            UserId = request.UserId,
+
         };
-        Zone zone;
-        if (!_unitOfWork.GenericRepository<Zone>().Exists(c => c.Name == request.Name))
-            zone = new Zone() { Name = request.ZoneName };
-        else
-            zone = _unitOfWork.GenericRepository<Zone>().Get(c => c.Name == request.Name);
+        var zone = await _unitOfWork.GenericRepository<Zone>().GetByIdAsync(request.ZoneId);
+        if (zone is null)
+        {
+            NotFound("Zone not found");
+        }
         property.Zone = zone;
+
         _unitOfWork.GenericRepository<Property>().Add(property);
         var result = _unitOfWork.Save();
-        return Ok(property.Id);
+
+        return result > 0 ? Ok(property.Id) : BadRequest("Failed to add property");
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetProperty([FromRoute] int id)
+    public IActionResult GetProperty([FromRoute] int id)
     {
-        _unitOfWork.GenericRepository<Property>().Exists(Property => Property.Id == id);
-        var property = _unitOfWork.GenericRepository<Property>().Get(p => p.Id == id,
-            include: p => p.Include(z => z.Zone));
-        if (property == null)
+        var property = _unitOfWork.GenericRepository<Property>()
+            .Get(p => p.Id == id, include: p => p.Include(z => z.Zone).Include(u => u.User));
+
+        if (property is null)
             return NotFound("Property not found");
-        var result = new Response<PropertyResponse>()
+
+        var result = new Response<PropertyResponse>
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Property found",
             Succeeded = true,
-            Data = new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress,
-            property.Zone?.Name ?? null, property.ContactNumber, property.BuildingNumber, property.FloorNumber, property.ApartmentNumber, property.StreetNumber,
-            property.CreatedAt, property.UpdatedAt)
+            Data = new PropertyResponse(property.Id, property.User.Id, property.Name, property.User.FirstName, property.User.PhoneNumber, property.Zone.Name, property.Longitude, property.Latitude, property.CreatedDate.Value)
         };
         return NewResult(result);
     }
@@ -74,77 +70,82 @@ public class PropertyController : AppControllerBase
     [HttpPut]
     public async Task<IActionResult> UpdateProperty([FromBody] UpdatePropertyRequest request)
     {
-        var property = _unitOfWork.GenericRepository<Property>().Get(p => p.Id == request.Id,
-            include: p => p.Include(z => z.Zone));
-        var zone = _unitOfWork.GenericRepository<Zone>().Get(c => c.Name == request.ZoneName);
+        var property = _unitOfWork.GenericRepository<Property>()
+            .Get(p => p.Id == request.Id, include: p => p.Include(z => z.Zone));
+
         if (property is null)
             return NotFound("Property not found");
-        if (zone is null)
+        if (property.User is null)
+            return NotFound("Customer not found");
+        if (property.Zone is null)
             return NotFound("Zone not found");
-        if (zone.Name != property.Zone.Name)
+        var zone = await _unitOfWork.GenericRepository<Zone>().GetByIdAsync(request.ZoneId);
+        if (zone is null)
         {
-            property.Zone = zone;
+            NotFound("New Zone not found Check ZoneId");
         }
         property.Name = request.Name;
         property.Latitude = request.Latitude;
         property.Longitude = request.Longitude;
         property.ContactNumber = request.ContactNumber;
-        property.FullAddress = request.FullAddress;
-        property.UserId = request.UserId;
-        property.ApartmentNumber = request.ApartmentNumber;
-        property.BuildingNumber = request.BuildingNumber;
-        property.FloorNumber = request.FloorNumber;
-        property.StreetNumber = request.StreetNumber;
-        property.UpdatedAt = DateTime.UtcNow;
-        property.DeletedAt = null;
+        property.Zone = zone;
+        property.ZoneId = zone.Id;
         property.IsDeleted = false;
+        property.DeletedAt = null;
+
         _unitOfWork.GenericRepository<Property>().Update(property);
         var result = _unitOfWork.Save();
+
         if (result == 0)
             return BadRequest("Failed to update property");
 
-        var response = new Response<PropertyResponse>()
+        var response = new Response<PropertyResponse>
         {
             StatusCode = ApiResultStatusCode.Success,
-            Message = "Property updated successfully",
+            Message = "Property found",
             Succeeded = true,
-            Data = new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress,
-            property.Zone?.Name ?? null, property.ContactNumber, property.BuildingNumber, property.FloorNumber, property.ApartmentNumber, property.StreetNumber,
-            property.CreatedAt, property.UpdatedAt)
+            Data = new PropertyResponse(property.Id, property.User.Id, property.Name, property.User.FirstName, property.User.PhoneNumber, property.Zone.Name, property.Longitude, property.Latitude, property.CreatedDate.Value)
         };
         return NewResult(response);
     }
+
     [HttpDelete("SoftDelete/{id}")]
     public async Task<IActionResult> SoftDelete([FromRoute] int id)
     {
-        int result;
         await _unitOfWork.BeginTransactionAsync();
-        if (!_unitOfWork.GenericRepository<Property>().ExistsNoTracking())
-            return NotFound("Property not found");
-        else
-        {
-            var property = _unitOfWork.GenericRepository<Property>().Get(p => p.Id == id);
-            _unitOfWork.GenericRepository<Property>().SoftDelete(property);
-            result = _unitOfWork.Save();
-        }
-        return result > 0 ? BadRequest(result) : Ok(result);
 
+        if (!_unitOfWork.GenericRepository<Property>().Exists(p => p.Id == id))
+            return NotFound("Property not found");
+
+        var property = _unitOfWork.GenericRepository<Property>().Get(p => p.Id == id);
+        _unitOfWork.GenericRepository<Property>().SoftDelete(property);
+        var result = _unitOfWork.Save();
+
+        return result > 0 ? Ok("Property deleted successfully") : BadRequest("Failed to delete property");
     }
 
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll()
+    public IActionResult GetAll()
     {
-        var properties = _unitOfWork.GenericRepository<Property>().GetAll(include: p => p.Include(z => z.Zone));
-        var response = new PaginatedResponse<PropertyResponse>()
+        var properties = _unitOfWork.GenericRepository<Property>().GetAll(
+            include: p => p.Include(z => z.Zone).Include(u => u.User));
+
+        var response = new PaginatedResponse<PropertyListResponse>
         {
             StatusCode = ApiResultStatusCode.Success,
-            Message = "Propertys found",
+            Message = "Properties found",
             Succeeded = true,
-            Data = properties.Select(property => new PropertyResponse(property.Id, property.UserId, property.Name, property.FullAddress,
-            property.Zone?.Name ?? null, property.ContactNumber, property.BuildingNumber, property.FloorNumber, property.ApartmentNumber, property.StreetNumber,
-            property.CreatedAt, property.UpdatedAt)).ToList(),
+            Data = properties.Select(p => new PropertyListResponse(
+                p.Id,
+                p.Name,
+                p.User.FirstName,
+                p.ContactNumber,
+                p.Zone?.Name ?? string.Empty,
+                p.Latitude,
+                p.Longitude)).ToList(),
             TotalCount = properties.Count()
         };
+
         return NewResult(response);
     }
 }

@@ -37,12 +37,29 @@ namespace Api.Controllers
                     Succeeded = false
                 });
             }
+            if(customerService.Customer == null)
+            {
+                return NotFound(new Response<object>
+                {
+                    StatusCode = ApiResultStatusCode.NotFound,
+                    Message = "Customer not found",
+                    Succeeded = false
+                });
+            }
+            if (customerService.Service == null)
+            {
+                return NotFound(new Response<object>
+                {
+                    StatusCode = ApiResultStatusCode.NotFound,
+                    Message = "Service not found",
+                    Succeeded = false
+                });
+            }
 
             var response = new Response<BookingResponse>
             {
                 Data = new BookingResponse(
                     customerService.Id,
-                    customerService.AssignedTechnicianId,
                     customerService.CustomerId,
                     customerService.Service.Name,
                     customerService.Service.Code,
@@ -75,7 +92,6 @@ namespace Api.Controllers
             {
                 Data = customerServices.Select(c => new AllBookingResponse(
                     c.Id,
-                    c.AssignedTechnicianId,
                     c.CustomerId,
                     c.ServiceId,
                     c.Description,
@@ -211,8 +227,6 @@ namespace Api.Controllers
                 });
             }
 
-            // Assign the technician
-            customerRequest.AssignedTechnicianId = request.TechnicianId;
 
             // Optionally, update the status if needed
             if (customerRequest.Status == StatusEnum.Pending)

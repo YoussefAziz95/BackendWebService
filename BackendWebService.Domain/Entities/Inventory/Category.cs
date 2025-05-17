@@ -9,7 +9,6 @@ public class Category : BaseEntity, IEntity, ITimeModification
     [Required]
     public string Name { get; set; }
 
-    public string? Image { get; set; }
     [AllowNull]
     public int? ParentId { get; set; }
     public int? FileId { get; set; }

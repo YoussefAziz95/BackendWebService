@@ -7,7 +7,7 @@ namespace Application.Utilities
     /// <summary>
     /// Provides utility methods for handling files.
     /// </summary>
-    public class FileService : IFileService
+    public class FileHandler : IFileHandler
     {
         /// <summary>
         /// Uploads a file to the specified directory.
