@@ -12,6 +12,8 @@ using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Controllers;
 
@@ -41,8 +43,8 @@ public class AuthorizationController : AppControllerBase
         if (user == null)
             return Unauthorized("Invalid phone number or password");
 
-        if (!user.PhoneNumberConfirmed)
-            return Forbid("Phone Number not confirmed");
+        //if (!user.PhoneNumberConfirmed)
+        //    return Forbid("Phone Number not confirmed");
 
         var result = await _userManager.CheckPasswordAsync(user, request.Password);
 
@@ -63,6 +65,51 @@ public class AuthorizationController : AppControllerBase
                 Id: user.Id,
                 FullName: $"{user.FirstName} {user.LastName}",
                 PhoneNumner: user.PhoneNumber!,
+                Email: user.Email,
+                Token: accessToken.access_token,
+                TokenExpiry: DateTime.UtcNow.AddMinutes(30),
+                MainRole: user.MainRole,
+                Department: user.Department,
+                Title: user.Title,
+                IsActive: user.IsActive ?? true
+            )
+
+        };
+
+
+        return NewResult(response);
+    }
+    [HttpPost("login-email")]
+    public async Task<IActionResult> LoginEmail([FromBody] LoginEmailRequest request)
+    {
+        var user = await _userManager.FindByEmailAsync(request.Email.Trim());
+
+        if (user == null)
+            return Unauthorized("Invalid Email or Pssword");
+
+        //if (!user.EmailConfirmed)
+        //    return Forbid("Email not confirmed");
+
+        var result = await _userManager.CheckPasswordAsync(user, request.Password);
+
+
+        if (!result)
+            return Unauthorized("Invalid Email or Pssword");
+
+
+        var roles = await _userManager.GetRolesAsync(user);
+
+        var accessToken = await _jwtService.GenerateAsync(user);
+        var response = new Response<LoginResponse>()
+        {
+            StatusCode = ApiResultStatusCode.Success,
+            Message = "Login successful",
+            Succeeded = true,
+            Data = new LoginResponse(
+                Id: user.Id,
+                FullName: $"{user.FirstName} {user.LastName}",
+                PhoneNumner: user.PhoneNumber!,
+                Email: user.Email,
                 Token: accessToken.access_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
                 MainRole: user.MainRole,
@@ -110,6 +157,7 @@ public class AuthorizationController : AppControllerBase
                 Id: user.Id,
                 FullName: $"{user.FirstName} {user.LastName}",
                 PhoneNumner: user.PhoneNumber!,
+                Email: user.Email,
                 Token: accessToken.access_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
                 MainRole: user.MainRole,
@@ -149,6 +197,7 @@ public class AuthorizationController : AppControllerBase
                 Id: user.Id,
                 FullName: $"{user.FirstName} {user.LastName}",
                 PhoneNumner: user.PhoneNumber!,
+                Email: user.Email,
                 Token: result.access_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
                 MainRole: user.MainRole,
@@ -239,4 +288,5 @@ public class AuthorizationController : AppControllerBase
         var result = await _userManager.GetUserPages(id);
         return Ok(result);
     }
+
 }

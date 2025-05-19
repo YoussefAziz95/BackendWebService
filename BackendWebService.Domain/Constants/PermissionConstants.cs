@@ -6,26 +6,45 @@ namespace Domain.Constants;
 public static class PermissionConstants
 {
     // Claims OTP New List
-    public const string CATEGORIES = "Main.Menu.Categories.View";
-    public const string COMPANIES = "Main.Menu.Companies.View";
-    public const string CUSTOMERCATEGORY = "Main.Menu.CustomerCategory.View";
-    public const string CUSTOMER = "Main.Menu.Customer.View";
-    public const string DROPDOWN = "Main.Menu.DropDown.View";
-    public const string FILESYSTEM = "Main.Menu.FileSystem.View";
-    public const string NOTIFICATION = "Main.Menu.Notification.View";
     public const string ORGANIZATION = "Main.Menu.Organization.View";
-    public const string PART = "Main.Menu.Part.View";
-    public const string PERMISSIONS = "Main.Menu.Permissions.View";
-    public const string PREDOCUMENTS = "Main.Menu.PreDocuments.View";
-    public const string PRODUCT = "Main.Menu.Product.View";
+
+    // Identity
+    public const string USER = "User.Menu.User.View";
+    public const string ROLE = "User.Menu.Role.View";
+    public const string PERMISSIONS = "User.Menu.Permissions.View";
+
+    // Customer
+    public const string CUSTOMERUSER = "Customer.Menu.User.View";
+    public const string CUSTOMERROLE = "Customer.Menu.Role.View";
+    public const string CUSTOMERPERMISSIONS = "Customer.Menu.Permissions.View";
+    public const string CUSTOMER = "Customer.Menu.Customer.View";
     public const string PROPERTY = "Main.Menu.Property.View";
-    public const string ROLE = "Main.Menu.Role.View";
+    public const string CUSTOMERSERVICE = "Customer.Menu.Booking.View";
+    public const string CUSTOMERPRODUCT = "Main.Menu.Product.View";
+
+    // Technician
+    public const string TECHNICIANUSER = "Technician.Menu.User.View";
+    public const string TECHNICIANROLE = "Technician.Menu.Role.View";
+    public const string TECHNICIANPERMISSIONS = "Technician.Menu.Permissions.View";
+    public const string TECHNICIAN = "Technician.Menu.Technician.View";
+    public const string TECHNICIANPART = "Main.Menu.Part.View";
     public const string SERVICE = "Main.Menu.Service.View";
+    public const string TECHNICIANPRODUCT = "Main.Menu.Product.View";
+
+    // ERP
+    //public const string WORKFLOW = "Offers.Menu.Workflow.View";
+    //public const string ACTION = "Offers.Menu.Action.View";
+    //public const string OFFER = "Offers.Menu.Offer.View";
+
+    // Organization
+    //public const string COMPANY = "Organization.Menu.Company.View";
+    //public const string PREDOCUMENTS = "Main.Menu.PreDocuments.View";
+    //public const string UTILITY = "Main.Menu.Utility.View";
     public const string SUPPLIER = "Main.Menu.Supplier.View";
     public const string SUPPLIERDOCUMENT = "Main.Menu.SupplierDocument.View";
-    public const string USER = "Main.Menu.User.View";
-    public const string UTILITY = "Main.Menu.Utility.View";
+    public const string CATEGORY = "Organization.Menu.Category.View";
     public const string ZONE = "Main.Menu.Zone.View";
+
 
     public static Claim[] GetBasePermissions()
     {

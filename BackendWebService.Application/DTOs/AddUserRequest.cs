@@ -67,5 +67,6 @@ public record UserPagesResponse(
     string? Groups,
     string? Menu,
     string? Page,
-    string? Permission
+    string? Permission,
+    string? value
 );

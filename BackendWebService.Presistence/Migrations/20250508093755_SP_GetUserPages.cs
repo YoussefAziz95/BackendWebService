@@ -18,7 +18,8 @@ namespace Persistence.Migrations
                 REVERSE(PARSENAME(REPLACE(REVERSE(p.ClaimType), ',', '.'), 1)) AS Groups,
                 REVERSE(PARSENAME(REPLACE(REVERSE(p.ClaimType), ',', '.'), 2)) AS menu,
                 REVERSE(PARSENAME(REPLACE(REVERSE(p.ClaimType), ',', '.'), 3)) AS page,
-                REVERSE(PARSENAME(REPLACE(REVERSE(p.ClaimType), ',', '.'), 4)) AS permission
+                REVERSE(PARSENAME(REPLACE(REVERSE(p.ClaimType), ',', '.'), 4)) AS permission,
+                p.ClaimType AS value
             FROM 
                 dbo.Users u
                 JOIN dbo.UserRole ur ON  u.Id = ur.UserId
