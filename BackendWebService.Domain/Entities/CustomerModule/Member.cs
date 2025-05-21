@@ -1,7 +1,6 @@
-﻿
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Domain;
 [Table("Member")]
 public class Member : BaseEntity, IEntity, ITimeModification

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 [Table("CustomerAccount")]
-public class CustomerAccount : BaseEntity, IEntity, ITimeModification   
+public class CustomerAccount : BaseEntity, IEntity, ITimeModification
 {
     [ForeignKey("CustomerId")]
     public int CustomerId { get; set; }

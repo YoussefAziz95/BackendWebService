@@ -8,5 +8,5 @@ public class ExceptionLog : BaseEntity, IEntity, ITimeModification
     public string KeyExceptionMessage { get; set; }
     public int ExceptionCode { get; set; }
 }
-    
+
 

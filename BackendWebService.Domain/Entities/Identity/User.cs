@@ -1,8 +1,6 @@
 ﻿
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 public class User : IdentityUser<int>, IEntity, ITimeModification
@@ -55,7 +53,7 @@ public class User : IdentityUser<int>, IEntity, ITimeModification
     public ICollection<UserClaim> Claims { get; set; }
     public ICollection<UserToken> Tokens { get; set; }
     public ICollection<UserRefreshToken> UserRefreshTokens { get; set; }
-    public string? CreatedBy { get ; set ; }
-    public DateTime? UpdateDate { get ; set ; }
-    public string? UpdatedBy { get ; set ; }
+    public string? CreatedBy { get; set; }
+    public DateTime? UpdateDate { get; set; }
+    public string? UpdatedBy { get; set; }
 }
