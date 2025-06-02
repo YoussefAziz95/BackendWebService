@@ -8,7 +8,7 @@ namespace Application.DTOs.Companies
     /// <summary>
     /// Represents the response data for a company.
     /// </summary>
-    public class CompanyResponse: ICreateMapper<Company>
+    public class CompanyResponse
     {
         /// <summary>
         /// Gets or sets the unique identifier of the company.

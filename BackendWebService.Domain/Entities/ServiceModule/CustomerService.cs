@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
@@ -35,6 +36,5 @@ public class CustomerService : BaseEntity, IEntity, ITimeModification
     public DateTime RequestedDate { get; set; } = DateTime.UtcNow;
     public DateTime? ScheduledDate { get; set; } // Nullable, if scheduled
     public DateTime? CompletedDate { get; set; } // Nullable, when finished 
-    public string? additionalPhoneNumber { get; set; }
 }
 

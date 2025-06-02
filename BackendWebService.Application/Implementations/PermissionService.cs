@@ -1,10 +1,12 @@
 ﻿using Application.Contracts.DTOs;
 using Application.Contracts.Persistences;
 using Application.Contracts.Services;
+using Application.DTOs;
 using Application.DTOs.Permission;
 using Application.Wrappers;
 using Domain;
 using Domain.Constants;
+using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -33,6 +35,7 @@ namespace Application.Implementations
         {
             _roleManager = roleManager;
             _roleRepository = roleRepository;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -91,24 +94,29 @@ namespace Application.Implementations
         /// </summary>
         /// <param name="id">The ID of the user.</param>
         /// <returns>A response containing the pages accessible to the user.</returns>
-        public async Task<IResponse<IEnumerable<UserPagesResponse>>> GetUserPages(int id)
+        public async Task<IEnumerable<UserPagesResponse>> GetUserPages(int id)
         {
-            var claims = _unitOfWork.GenericRepository<UserRole>()
-                .GetAll(ur => ur.UserId == id, include: r => r.Include(r => r.Role).ThenInclude(rc => rc.RoleClaim))
-                .Select(rc => new { id = rc.RoleId, claims = rc.Role.RoleClaim })
-                .ToList()
-                .Select(rc => new UserPagesResponse
-                {
-                    id = rc.id,
-                    Groups = rc.claims.Select(c => c.ClaimType?.Split('.')[0]).First(),
-                    menu = rc.claims.Select(c => c.ClaimType?.Split('.')[1]).First(),
-                    page = rc.claims.Select(c => c.ClaimType?.Split('.')[2]).First(),
-                    permission = rc.claims.Select(c => c.ClaimType?.Split('.')[3]).First()
-                });
+            // Get all roles with their claims for the user
+            var userRoles = _unitOfWork.GenericRepository<UserRole>()
+                .GetAll(ur => ur.UserId == id, include: ur => ur.Include(ur => ur.Role).ThenInclude(r => r.Claims))
+                .First();
 
 
-            return Success(claims);
+            var claims = userRoles.Role.Claims
+                .Select(parts => new UserPagesResponse
+                (
+                    parts.Id,
+                    parts.ClaimType?.Split('.')[0],
+                    parts.ClaimType?.Split('.')[1],
+                    parts.ClaimType?.Split('.')[2],
+                    parts.ClaimType?.Split('.')[3],
+                    parts.ClaimType
+                ))
+                .ToList();
+
+            return claims;
         }
+
 
         private List<string> GetAllPermissions()
         {

@@ -2,9 +2,9 @@
 using Application.Profiles;
 using Domain;
 using System.ComponentModel.DataAnnotations;
-namespace Application.DTOs.Suppliers;
+namespace Application.DTOs;
 
-public class AddSupplierRequest : ICreateMapper<Supplier>, ICreateMapper<Organization>
+public class AddSupplierRequest 
 {
     [Required]
     public string Name { get; set; }

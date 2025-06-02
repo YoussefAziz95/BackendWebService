@@ -1,6 +1,7 @@
 ﻿
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 public class User : IdentityUser<int>, IEntity, ITimeModification
@@ -43,6 +44,8 @@ public class User : IdentityUser<int>, IEntity, ITimeModification
     // Relationships
 
     public int? OrganizationId { get; set; }
+    [ForeignKey("OrganizationId")]
+    public Organization? Organization { get; set; }
     public string? Department { get; set; }
     public string? Title { get; set; }
     public RoleEnum MainRole { get; set; }

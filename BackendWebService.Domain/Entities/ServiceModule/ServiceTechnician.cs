@@ -5,13 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 
-[Table("ServiceTechnician")]
-public class ServiceTechnician : BaseEntity, IEntity, ITimeModification
+[Table("TechnicianService")]
+public class TechnicianService : BaseEntity, IEntity, ITimeModification
 {
-    [Required]
-    public int TechnicianId { get; set; }
-    [Required]
+    public int? TechnicianId { get; set; }
+    
     public int? CustomerServiceId { get; set; }
+    [ForeignKey("CustomerServiceId")]
+    public virtual CustomerService? CustomerService { get; set; }
 
     public string? Notes { get; set; }
     public int? VoiceNoteId { get; set; }
@@ -21,10 +22,6 @@ public class ServiceTechnician : BaseEntity, IEntity, ITimeModification
     [Required, MaxLength(500)]
     public string Description { get; set; }
     public string? AdditionalPhoneNumber { get; set; }
-    [ForeignKey("TechnicianId")]
-    public virtual Technician Technician { get; set; }
-    [ForeignKey("CustomerServiceId")]
-    public virtual CustomerService? CustomerService { get; set; }
     [ForeignKey("VoiceNoteId")]
     public virtual FileLog? VoiceNote { get; set; }
     [ForeignKey("FilesId")]

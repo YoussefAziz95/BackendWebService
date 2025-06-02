@@ -2,7 +2,7 @@
 using Application.DTOs.Common;
 using Application.DTOs.Companies;
 using Application.DTOs.Companies;
-using Application.DTOs.Suppliers;
+using Application.DTOs;
 
 namespace Application.Contracts.Services;
 

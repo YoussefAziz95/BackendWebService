@@ -1,8 +1,6 @@
 ﻿using Application.Contracts.HubServices;
 using Application.Contracts.Persistences;
-using Application.Contracts.Persistences;
 using Application.Contracts.Proxy;
-using Application.DTOs.Notifications;
 using Application.DTOs.Notifications;
 using Application.Wrappers;
 using AutoMapper;

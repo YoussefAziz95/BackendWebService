@@ -1,6 +1,9 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
+using Application.DTOs;
+using Application.DTOs.Common;
 using Domain.Constants;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +11,7 @@ namespace Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[AllowAnonymous]
 public class PermissionsController : AppControllerBase
 {
     private readonly IPermissionService _permissionService;
@@ -18,7 +22,7 @@ public class PermissionsController : AppControllerBase
     }
 
     [HttpGet]
-    [Authorize(PermissionConstants.PERMISSION_VIEW)]
+    [Authorize(PermissionConstants.PERMISSION)]
     public IActionResult GetAll()
     {
         var result = _permissionService.GetAll();
@@ -26,17 +30,24 @@ public class PermissionsController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(PermissionConstants.PERMISSION_VIEW)]
+    [Authorize(PermissionConstants.PERMISSION)]
     public async Task<IActionResult> GetRolePermissions([FromRoute] int id)
     {
         var result = await _permissionService.GetRolePermissions(id);
         return NewResult(result);
     }
     [HttpGet("GetUserPages/{id}")]
-    [Authorize(PermissionConstants.PERMISSION_VIEW)]
+    //[Authorize(PermissionConstants.PERMISSION)]
     public async Task<IActionResult> GetUserPages(int id)
     {
         var result = await _permissionService.GetUserPages(id);
-        return NewResult(result);
+        var response = new Response<IEnumerable<UserPagesResponse>>()
+        {
+            Data = result,
+            StatusCode = ApiResultStatusCode.Success,
+            Succeeded = true,
+            Message = "User pages retrieved successfully"
+        };
+        return NewResult(response);
     }
 }

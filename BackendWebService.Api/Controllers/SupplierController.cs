@@ -1,7 +1,7 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
 using Application.DTOs.Common;
-using Application.DTOs.Suppliers;
+using Application.DTOs;
 using Application.Validators.Common;
 using Domain;
 using Domain.Constants;
@@ -25,7 +25,7 @@ public class SupplierController : AppControllerBase
     }
 
     [HttpPost("add")]
-    [Authorize(PermissionConstants.VENDOR_CREATE)]
+    [Authorize(PermissionConstants.SUPPLIER)]
     [ModelValidator]
     public async Task<IActionResult> AddSupplier([FromBody] AddSupplierRequest request)
     {
@@ -33,7 +33,7 @@ public class SupplierController : AppControllerBase
         return NewResult(result);
     }
     [HttpPut("Register/{id}")]
-    [Authorize(PermissionConstants.VENDOR_CREATE)]
+    [Authorize(PermissionConstants.SUPPLIER)]
     [ModelValidator]
     public async Task<IActionResult> AddSupplier([FromRoute] int id)
     {
@@ -41,7 +41,7 @@ public class SupplierController : AppControllerBase
         return NewResult(result);
     }
     [HttpGet("{id}")]
-    [Authorize(PermissionConstants.VENDOR_GET)]
+    [Authorize(PermissionConstants.SUPPLIER)]
     public async Task<IActionResult> GetSupplier([FromRoute] int id)
     {
         var result = await _supplierService.GetAsync(id);
@@ -49,7 +49,7 @@ public class SupplierController : AppControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(PermissionConstants.VENDOR_EDIT)]
+    [Authorize(PermissionConstants.SUPPLIER)]
     [ModelValidator]
     public async Task<IActionResult> UpdateSupplier([FromBody] UpdateSupplierRequest request)
     {
@@ -58,7 +58,7 @@ public class SupplierController : AppControllerBase
     }
 
     [HttpPost("GetAll")]
-    [Authorize(PermissionConstants.VENDOR_VIEW)]
+    [Authorize(PermissionConstants.SUPPLIER)]
     public async Task<IActionResult> GetAll([FromBody] GetPaginatedRequest request)
     {
         var result = await _supplierService.GetPaginated(request);
@@ -66,7 +66,7 @@ public class SupplierController : AppControllerBase
     }
 
     [HttpPost("GetRegisterSuppliers")]
-    [Authorize(PermissionConstants.VENDOR_VIEW)]
+    [Authorize(PermissionConstants.SUPPLIER)]
     public async Task<IActionResult> GetRegisterSuppliers([FromBody] GetPaginatedRequest request)
     {
         var result = await _supplierService.GetRegisterSuppliers(request);
@@ -74,7 +74,7 @@ public class SupplierController : AppControllerBase
     }
 
     [HttpPost("{id}")]
-    [Authorize(PermissionConstants.VENDOR_DELETE)]
+    [Authorize(PermissionConstants.SUPPLIER)]
     public async Task<IActionResult> DeleteSupplier([FromRoute] int id, [FromBody] DeleteSuperPasswordRequest deleteSuperPasswordRequest)
     {
         var validator = new DeleteSuperPasswordRequestValidator(_userManager); // Assuming you have a validator for DeleteSuperPasswordRequest
@@ -92,7 +92,7 @@ public class SupplierController : AppControllerBase
     }
 
     [HttpPost("addSupplierToCompany")]
-    [Authorize(PermissionConstants.VENDOR_CREATE)]
+    [Authorize(PermissionConstants.SUPPLIER)]
     [ModelValidator]
     public async Task<IActionResult> AddSupplierToCompany([FromBody] AddSupplierToCompany request)
     {

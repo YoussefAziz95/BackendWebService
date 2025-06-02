@@ -8,7 +8,7 @@ namespace Application.DTOs.SupplierDocuments
     /// <summary>
     /// Request data transfer object for adding a supplier document.
     /// </summary>
-    public class AddSupplierDocumentRequest:BaseValidationModel<AddSupplierDocumentRequest>, ICreateMapper<SupplierDocument>
+    public class AddSupplierDocumentRequest:BaseValidationModel<AddSupplierDocumentRequest>
     {
 
         public int UserId { get; set; }

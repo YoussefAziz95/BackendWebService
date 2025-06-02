@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Application.DTOs.Roles;
+using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace Application.DTOs.Permission
@@ -22,10 +23,5 @@ namespace Application.DTOs.Permission
         /// Gets or sets the list of claims associated with the permission.
         /// </summary>
         public List<ClaimResponse>? Claims { get; set; }
-    }
-    public class ClaimResponse
-    {
-        public int Id { get; set; }
-        public string Value { get; set; }
     }
 }

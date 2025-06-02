@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Users;
+﻿using Application.DTOs;
 using FluentValidation;
 
 namespace Application.Validators.Users
@@ -24,12 +24,6 @@ namespace Application.Validators.Users
                 .WithMessage("Last Name is required")
                 .Length(3, 20)
                 .WithMessage("Last Name length must be between 3 and 50 characters");
-
-            RuleFor(x => x.UserName)
-                .NotEmpty()
-                .WithMessage("UserName is required")
-                .Length(3, 20)
-                .WithMessage("UserName length must be between 3 and 50 characters");
 
             RuleFor(x => x.Email)
                 .NotEmpty()

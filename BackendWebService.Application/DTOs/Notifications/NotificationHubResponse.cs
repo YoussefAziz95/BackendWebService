@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.DTOs.Notifications;
 
-public class NotificationHubResponse : ICreateMapper<Notification>
+public class NotificationHubResponse 
 {
 
     [Required]

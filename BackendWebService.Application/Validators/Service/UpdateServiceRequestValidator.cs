@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Services;
+﻿using Application.DTOs;
 using FluentValidation;
 
 public class UpdateServiceRequestValidator : AbstractValidator<UpdateServiceRequest>
@@ -7,12 +7,10 @@ public class UpdateServiceRequestValidator : AbstractValidator<UpdateServiceRequ
     {
         // Validate that Name list should not be empty
         RuleFor(x => x.Name)
-     .NotEmpty()
-     .WithMessage("Services name cannot be empty.")
-     .Must(name => name != null && name.Any())
-     .WithMessage("Services name cannot be empty.");
-
-     
+         .NotEmpty()
+         .WithMessage("Services name cannot be empty.")
+         .Must(name => name != null && name.Any())
+         .WithMessage("Services name cannot be empty.");
 
         // Validate that Code is not empty
         RuleFor(x => x.Code)
@@ -21,9 +19,6 @@ public class UpdateServiceRequestValidator : AbstractValidator<UpdateServiceRequ
         .MinimumLength(3)
         .WithMessage("Services code must be at least 3 characters long.");
 
-        // Validate that CategoryId is greater than 0
-        RuleFor(x => x.CategoryId)
-            .GreaterThan(0)
-            .WithMessage("Categories is required.");
+        
     }
 }

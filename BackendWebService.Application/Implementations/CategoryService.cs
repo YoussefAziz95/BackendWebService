@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.DTOs;
 using Application.Contracts.Persistences;
 using Application.Contracts.Services;
-using Application.DTOs.Categories;
+using Application.DTOs;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
@@ -35,8 +35,6 @@ namespace Application.Implementations
                 if (!CheckIdExists((int)request.ParentId))
                     return NotFound<int>("Invalid ParentCategory Id");
 
-            // If parent ID is 0, set it to null
-            if (request.ParentId == 0) request.ParentId = null;
 
             var category = _mapper.Map<Category>(request);
             await _unitOfWork.GenericRepository<Category>().AddAsync(category);

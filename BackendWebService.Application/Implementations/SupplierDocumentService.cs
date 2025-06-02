@@ -1,12 +1,10 @@
 ﻿using Application.Contracts.DTOs;
-using Application.Contracts.Infrastructures;
 using Application.Contracts.Persistences;
 using Application.Contracts.Services;
 using Application.DTOs.SupplierDocuments;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
-using Domain.Constants;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Implementations
@@ -18,7 +16,6 @@ namespace Application.Implementations
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IFileService _fileHandler;
         private readonly ISupplierDocumentRepository _supplierDocumentRepository;
 
         /// <summary>
@@ -26,12 +23,11 @@ namespace Application.Implementations
         /// </summary>
         public SupplierDocumentService(IUnitOfWork unitOfWork,
                           IMapper mapper,
-                          IFileService fileHandler,
+                          IFileSystemService fileHandler,
                           ISupplierDocumentRepository supplierDocumentRepository)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _fileHandler = fileHandler;
             _supplierDocumentRepository = supplierDocumentRepository;
         }
 
@@ -124,14 +120,6 @@ namespace Application.Implementations
             throw new NotImplementedException();
         }
 
-        /// <inheritdoc/>
-        private async Task<string> UploadDocument(string DocUrl, int id, string? oldPath = null!)
-        {
-            if (oldPath is not null)
-                _fileHandler.Delete($"{DocUrl}");
-            return _fileHandler.Move(DocUrl, DocUrl.Replace($"{AppConstants.TempUploadPath}", $"{AppConstants.OfferUploadPath}"))
-            ? DocUrl.Replace($"{AppConstants.TempUploadPath}", $"{AppConstants.OfferUploadPath}") : DocUrl;
-        }
 
 
 

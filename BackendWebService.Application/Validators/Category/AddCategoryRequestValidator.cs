@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Categories;
+﻿using Application.DTOs;
 using FluentValidation;
 
 public class AddCategoryRequestValidator : AbstractValidator<AddCategoryRequest>

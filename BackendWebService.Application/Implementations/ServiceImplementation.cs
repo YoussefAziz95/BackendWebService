@@ -1,13 +1,13 @@
 ﻿using Application.Contracts.DTOs;
 using Application.Contracts.Persistences;
 using Application.Contracts.Services;
+using Application.DTOs;
 using Application.DTOs.Common;
-using Application.DTOs.Services;
-using Application.DTOs.Services.Responses;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
 using Domain.Constants;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Implementations
 {
@@ -69,13 +69,7 @@ namespace Application.Implementations
                                         $"Id {(request.sortDescending ? AppConstants.descending : AppConstants.ascending)}" :
             $"{request.sortBy} {(request.sortDescending ? AppConstants.descending : AppConstants.ascending)}";
             IQueryable<GetPaginatedService> materials = _unitOfWork.GenericRepository<Service>()?
-                       .GetAll()?.Select(t => new GetPaginatedService
-                       {
-                           Id = t.Id,
-                           Code = t.Code,
-                           Name = t.Name,
-
-                       }).AsQueryable();
+                       .GetAll()?.Select(t => new GetPaginatedService(t.Id, t.Code, t.Name))?.AsQueryable();
 
             var paginatedList = materials
                         .ToPaginatedList((int)request.pageNumber!, (int)request.pageSize!);
@@ -99,16 +93,9 @@ namespace Application.Implementations
         }
         private ServiceResponse GetById(int id)
         {
-            var material = _unitOfWork.GenericRepository<Service>()
-                           .Get(c => c.Id == id);
-            var response = new ServiceResponse
-            {
-                Id = material.Id,
-                Name = material.Name,
-                Code = material.Code,
-                CategoryId = material.CategoryId,
-
-            };
+            var service = _unitOfWork.GenericRepository<Service>()
+                           .Get(c => c.Id == id, include: c=> c.Include(m=> m.Category));
+            var response = new ServiceResponse(service.Id, service.Name, service.Code, service.Category.Name);
 
             return response;
         }

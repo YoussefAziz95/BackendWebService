@@ -6,7 +6,7 @@ namespace Application.DTOs.SupplierDocuments
     /// <summary>
     /// Represents a supplier document retrieved for pagination.
     /// </summary>
-    public class SupplierDocumentsResponse : ICreateMapper<SupplierDocument>
+    public class SupplierDocumentsResponse 
     {
         /// <summary>
         /// Gets or sets the unique identifier of the supplier document.

@@ -2,11 +2,10 @@
 using Application.Contracts.Infrastructures;
 using Application.Contracts.Persistences;
 using Application.Contracts.Services;
+using Application.DTOs;
 using Application.DTOs.Common;
 using Application.DTOs.Companies;
-using Application.DTOs.Companies;
-using Application.DTOs.Suppliers;
-using Application.DTOs.Users;
+using Application.DTOs;
 using Application.Model.EmailDto;
 using Application.Wrappers;
 using AutoMapper;

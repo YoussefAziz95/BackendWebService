@@ -17,9 +17,9 @@ namespace Api.Controllers;
 public class TechnicianController : AppControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly UserManager<User> _userManager;
+    private readonly UserManager<Technician> _userManager;
 
-    public TechnicianController(IUnitOfWork unitOfWork, UserManager<User> userManager)
+    public TechnicianController(IUnitOfWork unitOfWork, UserManager<Technician> userManager)
     {
         _unitOfWork = unitOfWork;
         _userManager = userManager;
@@ -29,7 +29,7 @@ public class TechnicianController : AppControllerBase
     public async Task<IActionResult> AddTechnician([FromBody] AddTechnicianRequest request)
     {
         // Create User  
-        var user = new User
+        var user = new Technician
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
@@ -55,14 +55,13 @@ public class TechnicianController : AppControllerBase
             });
         }
 
-        // Create Technician  
-        var technician = new Technician
-        {
-            UserId = user.Id,
-            User = user,
-        };
+        //// Create Technician  
+        //var technician = new Technician
+        //{
+            
+        //};
 
-        _unitOfWork.GenericRepository<Technician>().Add(technician);
+        //_unitOfWork.GenericRepository<Technician>().Add(technician);
         var saveResult = _unitOfWork.Save();
 
         if (saveResult <= 0)
@@ -80,8 +79,7 @@ public class TechnicianController : AppControllerBase
         var response = new Response<TechnicianResponse>
         {
             Data = new TechnicianResponse(
-                technician.Id,
-                technician.UserId,
+                user.Id,
                 user.FirstName,
                 user.LastName,
                 user.Email,
@@ -100,8 +98,7 @@ public class TechnicianController : AppControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetTechnician([FromRoute] int id)
     {
-        var technician = _unitOfWork.GenericRepository<Technician>()
-            .Get(c => c.Id == id, include: c => c.Include(u => u.User));
+        var technician = _unitOfWork.GenericRepository<Technician>().Get(c => c.Id == id);
         if (technician == null)
         {
             return NotFound(new Response<object>
@@ -117,13 +114,12 @@ public class TechnicianController : AppControllerBase
             Data = new TechnicianResponse
             (
                 technician.Id,
-                technician.UserId,
-                technician.User.FirstName,
-                technician.User.LastName,
-                technician.User.Email,
-                technician.User.PhoneNumber,
-                technician.User.MainRole.ToString(),
-                technician.User.CreatedDate
+                technician.FirstName,
+                technician.LastName,
+                technician.Email,
+                technician.PhoneNumber,
+                technician.MainRole.ToString(),
+                technician.CreatedDate
             ),
             StatusCode = ApiResultStatusCode.Success,
             Message = "Technician found",
@@ -137,7 +133,7 @@ public class TechnicianController : AppControllerBase
     public async Task<IActionResult> UpdateTechnician([FromBody] UpdateTechnicianRequest request)
     {
         var technician = _unitOfWork.GenericRepository<Technician>()
-            .Get(c => c.Id == request.Id, include: c => c.Include(u => u.User));
+            .Get(c => c.Id == request.Id);
         if (technician == null)
         {
             return NotFound(new Response<object>
@@ -149,14 +145,11 @@ public class TechnicianController : AppControllerBase
         }
 
         // Update User
-        technician.User.FirstName = request.FirstName;
-        technician.User.LastName = request.LastName;
-        technician.User.Email = request.Email;
-        technician.User.UserName = request.Email; // Keep UserName in sync with Email
-        technician.User.PhoneNumber = request.PhoneNumber;
-
-        // Update Technician
-        technician.User.PhoneNumber = request.PhoneNumber;
+        technician.FirstName = request.FirstName;
+        technician.LastName = request.LastName;
+        technician.Email = request.Email;
+        technician.UserName = request.Email; // Keep UserName in sync with Email
+        technician.PhoneNumber = request.PhoneNumber;
 
         // Convert the string status to the StatusEnum type
         if (!Enum.TryParse(request.Status, out StatusEnum parsedStatus))
@@ -189,12 +182,11 @@ public class TechnicianController : AppControllerBase
             Data = new TechnicianResponse
             (
                 technician.Id,
-                technician.UserId,
-                technician.User.FirstName,
-                technician.User.LastName,
-                technician.User.Email,
-                technician.User.PhoneNumber,
-                technician.User.MainRole.ToString(),
+                technician.FirstName,
+                technician.LastName,
+                technician.Email,
+                technician.PhoneNumber,
+                technician.MainRole.ToString(),
                 technician.CreatedDate
             ),
             StatusCode = ApiResultStatusCode.Success,
@@ -209,8 +201,7 @@ public class TechnicianController : AppControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
-        var customers = _unitOfWork.GenericRepository<Technician>()
-            .GetAll(include: c => c.Include(u => u.User));
+        var customers = _unitOfWork.GenericRepository<Technician>().GetAll();
         if (customers == null || !customers.Any())
         {
             return NotFound(new Response<object>
@@ -226,13 +217,12 @@ public class TechnicianController : AppControllerBase
             Data = customers.Select(c => new TechnicianResponse
             (
                 c.Id,
-                c.UserId,
-                c.User.FirstName,
-                c.User.LastName,
-                c.User.Email,
-                c.User.PhoneNumber,
-                c.User.MainRole.ToString(),
-                c.User.CreatedDate
+                c.FirstName,
+                c.LastName,
+                c.Email,
+                c.PhoneNumber,
+                c.MainRole.ToString(),
+                c.CreatedDate
              )).ToList(),
             StatusCode = ApiResultStatusCode.Success,
             Message = "Technicians retrieved successfully",

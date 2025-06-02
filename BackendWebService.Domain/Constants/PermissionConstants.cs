@@ -30,20 +30,25 @@ public static class PermissionConstants
     public const string TECHNICIANPART = "Main.Menu.Part.View";
     public const string SERVICE = "Main.Menu.Service.View";
     public const string TECHNICIANPRODUCT = "Main.Menu.Product.View";
+    public const string PREDOCUMENT = "Main.Menu.PreDocument.View";
 
-    // ERP
-    //public const string WORKFLOW = "Offers.Menu.Workflow.View";
-    //public const string ACTION = "Offers.Menu.Action.View";
-    //public const string OFFER = "Offers.Menu.Offer.View";
 
-    // Organization
-    //public const string COMPANY = "Organization.Menu.Company.View";
-    //public const string PREDOCUMENTS = "Main.Menu.PreDocuments.View";
-    //public const string UTILITY = "Main.Menu.Utility.View";
+
+    //ERP
+    public const string WORKFLOW = "Offers.Menu.Workflow.View";
+    public const string ACTION = "Offers.Menu.Action.View";
+    public const string OFFER = "Offers.Menu.Offer.View";
+
+    //Organization
+    public const string COMPANY = "Organization.Menu.Company.View";
+    public const string PREDOCUMENTS = "Main.Menu.PreDocuments.View";
+    public const string UTILITY = "Main.Menu.Utility.View";
     public const string SUPPLIER = "Main.Menu.Supplier.View";
     public const string SUPPLIERDOCUMENT = "Main.Menu.SupplierDocument.View";
     public const string CATEGORY = "Organization.Menu.Category.View";
     public const string ZONE = "Main.Menu.Zone.View";
+    public const string PERMISSION = "Main.Menu.Permission.View";
+
 
 
     public static Claim[] GetBasePermissions()

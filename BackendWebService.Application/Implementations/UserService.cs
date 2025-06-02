@@ -1,25 +1,15 @@
 ﻿using Application.Contracts.DTOs;
 using Application.Contracts.Persistences;
-using Application.Contracts.Persistences;
 using Application.Contracts.Services;
-using Application.DTOs.Common;
-using Application.DTOs.Users;
+using Application.DTOs;
 using Application.Wrappers;
 using AutoMapper;
-using Application.Profiles;
 using Domain;
-using Domain.Constants;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Application.Implementations
 {
-    /// <summary>
-    /// Services for managing application users.
-    /// </summary>
     public sealed class UserService : ResponseHandler, IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -36,14 +26,13 @@ namespace Application.Implementations
             _mapper = mapper;
         }
 
-        /// <inheritdoc/>
         public async Task<IResponse<int>> AddAsync(CreateUserWithPasswordRequest request)
         {
             if (!await UniqueEmail(request.Email))
                 return BadRequest<int>("EmailDto Address is already Registered.");
 
-            if (!await UniqueUsername(request.UserName))
-                return BadRequest<int>("UserName is already used.");
+            //if (!await UniqueUsername(request.UserName))
+            //    return BadRequest<int>("UserName is already used.");
 
             var companyId = IClientRepository._userInfo.CompanyId;
 
@@ -59,18 +48,16 @@ namespace Application.Implementations
             return Created(user.Id);
         }
 
-        /// <inheritdoc/>
-        public async Task<IResponse<UserResponse>> GetAsync(int id)
-        {
-            if (!CheckIdExists(id))
-                return NotFound<UserResponse>();
+        //public async Task<IResponse<UserResponse>> GetAsync(int id)
+        //{
+        //    if (!CheckIdExists(id))
+        //        return NotFound<UserResponse>();
 
-            var response = GetById(id);
+        //    var response = GetById(id);
 
-            return Success(response);
-        }
+        //    return Success(response);
+        //}
 
-        /// <inheritdoc/>
         public async Task<IResponse<bool>> ChangePassword(int userId, ChangePasswordRequest request)
         {
             if (!CheckIdExists(userId))
@@ -82,13 +69,11 @@ namespace Application.Implementations
                                     : BadRequest<bool>();
         }
 
-        /// <inheritdoc/>
         public bool CheckIdExists(int id)
         {
             return _unitOfWork.GenericRepository<User>().Get(u => u.Id == id) is not null;
         }
 
-        /// <inheritdoc/>
         public async Task<IResponse<string>> DeleteAsync(int id)
         {
             if (!CheckIdExists(id))
@@ -99,40 +84,35 @@ namespace Application.Implementations
             await _userManager.UpdateAsync(user!);
             return Deleted<string>();
         }
+        //public IResponse<UserResponse> Get(int id)
+        //{
+        //    if (!CheckIdExists(id))
+        //        return NotFound<UserResponse>();
 
-        /// <inheritdoc/>
-        public IResponse<UserResponse> Get(int id)
-        {
-            if (!CheckIdExists(id))
-                return NotFound<UserResponse>();
+        //    var response = GetById(id);
 
-            var response = GetById(id);
+        //    return Success(response);
+        //}
+        //public PaginatedResponse<UserResponse> GetUsersPaginated(GetPaginatedRequest request)
+        //{
+        //    string sortExpression = string.IsNullOrEmpty(request.sortBy) ?
+        //                                $"Id {(request.sortDescending ? AppConstants.descending : AppConstants.ascending)}" :
+        //    $"{request.sortBy} {(request.sortDescending ? AppConstants.descending : AppConstants.ascending)}";
+        //    var companyId = IClientRepository._userInfo.CompanyId;
 
-            return Success(response);
-        }
+        //    var users = _unitOfWork.GenericRepository<User>()
+        //                .GetAll()
+        //                .AsQueryable();
+        //    var userResponses = UserMapper.GetResponses(users.ToList(), _userManager, _unitOfWork).AsQueryable();
+        //    if (companyId > 0)
+        //    {
+        //        userResponses = userResponses.Where(c => c.CompanyId == companyId);
+        //    }
+        //    var papaginatedList = userResponses.ToPaginatedList((int)request.pageNumber!, (int)request.pageSize!);
 
-        /// <inheritdoc/>
-        public PaginatedResponse<UserResponse> GetUsersPaginated(GetPaginatedRequest request)
-        {
-            string sortExpression = string.IsNullOrEmpty(request.sortBy) ?
-                                        $"Id {(request.sortDescending ? AppConstants.descending : AppConstants.ascending)}" :
-            $"{request.sortBy} {(request.sortDescending ? AppConstants.descending : AppConstants.ascending)}";
-            var companyId = IClientRepository._userInfo.CompanyId;
+        //    return papaginatedList;
+        //}
 
-            var users = _unitOfWork.GenericRepository<User>()
-                        .GetAll()
-                        .AsQueryable();
-            var userResponses = UserMapper.GetResponses(users.ToList(), _userManager, _unitOfWork).AsQueryable();
-            if (companyId > 0)
-            {
-                userResponses = userResponses.Where(c => c.CompanyId == companyId);
-            }
-            var papaginatedList = userResponses.ToPaginatedList((int)request.pageNumber!, (int)request.pageSize!);
-
-            return papaginatedList;
-        }
-
-        /// <inheritdoc/>
         public async Task<IResponse<int>> UpdateAsync(int id, UpdateUserRequest request)
         {
             if (!CheckIdExists(id))
@@ -170,10 +150,10 @@ namespace Application.Implementations
             return Success(user.Id);
         }
 
-        private UserResponse GetById(int id)
-        {
-            return UserMapper.GetResponse(GetUserById(id), _userManager, _unitOfWork);
-        }
+        //private UserResponse GetById(int id)
+        //{
+        //    return UserMapper.GetResponse(GetUserById(id), _userManager, _unitOfWork);
+        //}
 
         private User GetUserById(int id)
         {
@@ -200,18 +180,6 @@ namespace Application.Implementations
         {
             return await _userManager.FindByNameAsync(username) is null;
         }
-        public async Task<IResponse<bool>> ActivateDeactivateOtp(ActivateDeactivateOtpRequest request)
-        {
-            if (!CheckIdExists(request.Id))
-                return NotFound<bool>();
-            else
-            {
-                var user = await _userManager.FindByIdAsync(request.Id.ToString());
-                user.HasOtp = request.HasOtp;
-                await _userManager.UpdateAsync(user);
 
-            }
-            return Success(true);
-        }
     }
 }

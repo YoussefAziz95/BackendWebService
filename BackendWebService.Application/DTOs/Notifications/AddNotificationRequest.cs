@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 namespace Application.DTOs.Notifications;
 
-public class AddNotificationRequest : ICreateMapper<Notification>
+public class AddNotificationRequest 
 {
     [Required]
     public string MessageTitle { get; set; }

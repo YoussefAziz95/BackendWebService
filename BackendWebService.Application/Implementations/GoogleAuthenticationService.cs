@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.Services;
-using Application.DTOs.SignIn;
+using Application.DTOs;
 using Application.Model.Authentication;
 using Google.Apis.Auth;
 using static Google.Apis.Auth.GoogleJsonWebSignature;

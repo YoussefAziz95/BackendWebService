@@ -62,18 +62,17 @@ public class AuthorizationController : AppControllerBase
             Message = "Login successful",
             Succeeded = true,
             Data = new LoginResponse(
-                Id: user.Id,
-                FullName: $"{user.FirstName} {user.LastName}",
-                PhoneNumner: user.PhoneNumber!,
-                Email: user.Email,
-                Token: accessToken.access_token,
-                TokenExpiry: DateTime.UtcNow.AddMinutes(30),
-                MainRole: user.MainRole,
-                Department: user.Department,
-                Title: user.Title,
-                IsActive: user.IsActive ?? true
-            )
-
+               Id: user.Id,
+               FullName: $"{user.FirstName} {user.LastName}",
+               PhoneNumner: user.PhoneNumber!,
+               Email: user.Email,
+               Token: accessToken.access_token,
+               TokenExpiry: DateTime.UtcNow.AddMinutes(30),
+               MainRole: user.MainRole.ToString(), // Convert RoleEnum to string  
+               Department: user.Department,
+               Title: user.Title,
+               IsActive: user.IsActive ?? true
+           )
         };
 
 
@@ -112,7 +111,7 @@ public class AuthorizationController : AppControllerBase
                 Email: user.Email,
                 Token: accessToken.access_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
-                MainRole: user.MainRole,
+                MainRole: user.MainRole.ToString(), // Convert RoleEnum to string  
                 Department: user.Department,
                 Title: user.Title,
                 IsActive: user.IsActive ?? true
@@ -160,7 +159,7 @@ public class AuthorizationController : AppControllerBase
                 Email: user.Email,
                 Token: accessToken.access_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
-                MainRole: user.MainRole,
+                MainRole: user.MainRole.ToString(), // Convert RoleEnum to string  
                 Department: user.Department,
                 Title: user.Title,
                 IsActive: user.IsActive ?? true
@@ -200,7 +199,7 @@ public class AuthorizationController : AppControllerBase
                 Email: user.Email,
                 Token: result.access_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
-                MainRole: user.MainRole,
+                MainRole: user.MainRole.ToString(), // Convert RoleEnum to string  
                 Department: user.Department,
                 Title: user.Title,
                 IsActive: user.IsActive ?? true

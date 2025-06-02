@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.DTOs;
+using Application.DTOs;
 using Application.DTOs.Common;
-using Application.DTOs.Services;
-using Application.DTOs.Services.Responses;
 
 namespace Application.Contracts.Services;
 

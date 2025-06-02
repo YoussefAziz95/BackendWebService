@@ -21,7 +21,7 @@ public class PreDocumentsController : AppControllerBase
     }
 
     [HttpPost]
-    //[Authorize(PermissionConstants.PREDOCUMENT_CREATE)]
+    //[Authorize(PermissionConstants.PREDOCUMENT)]
     [ModelValidator]
     public async Task<IActionResult> AddPreDocument([FromBody] AddPreDocumentRequest request)
     {
@@ -30,7 +30,7 @@ public class PreDocumentsController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(PermissionConstants.PREDOCUMENT_GET)]
+    [Authorize(PermissionConstants.PREDOCUMENT)]
     public async Task<IActionResult> GetPreDocument([FromRoute] int id)
     {
         var result = await _preDocumentService.GetAsync(id);
@@ -38,7 +38,7 @@ public class PreDocumentsController : AppControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(PermissionConstants.PREDOCUMENT_DELETE)]
+    [Authorize(PermissionConstants.PREDOCUMENT)]
     public async Task<IActionResult> DeletePreDocument([FromRoute] int id)
     {
         var result = await _preDocumentService.DeleteAsync(id);
@@ -46,7 +46,7 @@ public class PreDocumentsController : AppControllerBase
     }
 
     [HttpPut("{id}")]
-    //[Authorize(PermissionConstants.PREDOCUMENT_EDIT)]
+    //[Authorize(PermissionConstants.PREDOCUMENT)]
     [ModelValidator]
     public async Task<IActionResult> UpdatePreDocument([FromRoute] int id, [FromBody] UpdatePreDocumentRequest request)
     {
@@ -55,7 +55,7 @@ public class PreDocumentsController : AppControllerBase
     }
 
     [HttpPost("GetAll")]
-    [Authorize(PermissionConstants.PREDOCUMENT_VIEW)]
+    [Authorize(PermissionConstants.PREDOCUMENT)]
     public async Task<IActionResult> GetAll([FromBody] GetPaginatedRequest request)
     {
         var result = await _preDocumentService.GetPaginated(request);
@@ -63,7 +63,7 @@ public class PreDocumentsController : AppControllerBase
     }
 
     [HttpGet]
-    [Authorize(PermissionConstants.PREDOCUMENT_VIEW)]
+    [Authorize(PermissionConstants.PREDOCUMENT)]
     public async Task<IActionResult> GetAll()
     {
         var result = await _preDocumentService.GetAllAsync();

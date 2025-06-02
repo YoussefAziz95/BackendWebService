@@ -27,8 +27,9 @@ namespace Persistence.Repositories.Common
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
-            if (httpContextAccessor is not null && httpContextAccessor.HttpContext.User.Claims.Count() > 0)
+            if (httpContextAccessor is not null )
             {
+                if (httpContextAccessor?.HttpContext?.User.Claims.Count() > 0)
                 if (httpContextAccessor.HttpContext?.User?.Claims.Any(c => c.Type == "name")??false)
                 {
                     var username = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(c => c.Type == "name")?.Value;

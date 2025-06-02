@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Services;
+﻿using Application.DTOs;
 using FluentValidation;
 
 public class AddServiceRequestValidator : AbstractValidator<AddServiceRequest>
@@ -12,7 +12,7 @@ public class AddServiceRequestValidator : AbstractValidator<AddServiceRequest>
      .Must(name => name != null && name.Any())
      .WithMessage("Services name cannot be empty.");
 
-       
+
         // Validate that Code is not empty
         RuleFor(x => x.Code)
         .NotEmpty()
@@ -22,8 +22,8 @@ public class AddServiceRequestValidator : AbstractValidator<AddServiceRequest>
 
 
         // Validate that CategoryId is greater than 0
-        RuleFor(x => x.CategoryId)
-            .GreaterThan(0)
+        RuleFor(x => x.CategoryName)
+            .NotEmpty()
             .WithMessage("Categories is required");
     }
 }

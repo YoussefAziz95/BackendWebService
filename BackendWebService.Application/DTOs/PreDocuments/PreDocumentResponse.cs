@@ -8,7 +8,7 @@ namespace Application.DTOs.PreDocuments
     /// <summary>
     /// Represents the response data for a pre document.
     /// </summary>
-    public class PreDocumentResponse : ICreateMapper<PreDocument>
+    public class PreDocumentResponse 
     {
         /// <summary>
         /// Gets or sets the unique identifier of the pre document.

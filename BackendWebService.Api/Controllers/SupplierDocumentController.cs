@@ -21,7 +21,7 @@ public class SupplierDocumentController : AppControllerBase
     }
 
     [HttpPost]
-    [Authorize(PermissionConstants.VENDORDOCUMENT_CREATE)]
+    [Authorize(PermissionConstants.SUPPLIERDOCUMENT)]
     [ModelValidator]
     public async Task<IActionResult> AddSupplierDocument([FromBody] AddSupplierDocumentRequest request)
     {
@@ -30,7 +30,7 @@ public class SupplierDocumentController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(PermissionConstants.VENDORDOCUMENT_GET)]
+    [Authorize(PermissionConstants.SUPPLIERDOCUMENT)]
     public async Task<IActionResult> GetSupplierDocument([FromRoute] int id)
     {
         var result = await _supplierdocumentService.GetAsync(id);
@@ -38,7 +38,7 @@ public class SupplierDocumentController : AppControllerBase
     }
 
     [HttpPut]
-    [Authorize(PermissionConstants.VENDORDOCUMENT_EDIT)]
+    [Authorize(PermissionConstants.SUPPLIERDOCUMENT)]
     [ModelValidator]
     public async Task<IActionResult> UpdateSupplierDocument([FromBody] UpdateSupplierDocumentRequest request)
     {
@@ -47,7 +47,7 @@ public class SupplierDocumentController : AppControllerBase
     }
 
     [HttpPost("GetAll/{id}")]
-    [Authorize(PermissionConstants.VENDORDOCUMENT_VIEW)]
+    [Authorize(PermissionConstants.SUPPLIERDOCUMENT)]
     public async Task<IActionResult> GetAll([FromRoute] int id, [FromBody] GetPaginatedRequest request)
     {
         var result = await _supplierdocumentService.GetPaginated(id);

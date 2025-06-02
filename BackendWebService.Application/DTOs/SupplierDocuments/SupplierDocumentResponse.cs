@@ -7,7 +7,7 @@ namespace Application.DTOs.SupplierDocuments
     /// <summary>
     /// Represents a response model for supplier documents.
     /// </summary>
-    public class SupplierDocumentResponse : ICreateMapper<SupplierDocument>
+    public class SupplierDocumentResponse 
     {
         /// <summary>
         /// Gets or sets the ID of the supplier document.

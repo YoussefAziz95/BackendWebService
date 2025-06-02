@@ -1,17 +1,17 @@
+using Api;
+using Api.Profiles;
+using Application.Manager;
 using Application.Middleware;
 using Application.Model.Jwt;
-using Api;
 using BackendWebServiceApplication.ServiceConfiguration;
-using BackendWebServiceInfrastructure.Persistence.ServiceConfiguration;
 using CrossCuttingConcerns;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
+using nfrastructure.Persistence.ServiceConfiguration;
 using Persistence.Data;
-using System.Diagnostics;
 using Presistence.Data.Seeds;
-using Application.Manager;
-using Microsoft.EntityFrameworkCore;
-using Api.Profiles;
+using System.Diagnostics;
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
@@ -92,7 +92,7 @@ using (var scope = app.Services.CreateScope())
 
 app.UseStaticFiles();
 
-using(var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
@@ -100,7 +100,7 @@ using(var scope = app.Services.CreateScope())
         var roleManager = services.GetRequiredService<AppRoleManager>();
         var userManager = services.GetRequiredService<AppUserManager>();
         var dbcontext = services.GetRequiredService<ApplicationDbContext>();
-        await SeedingMaster.SeedAsync(roleManager , userManager, dbcontext);
+        await SeedingMaster.SeedAsync(roleManager, userManager, dbcontext);
     }
     catch (Exception ex)
     {

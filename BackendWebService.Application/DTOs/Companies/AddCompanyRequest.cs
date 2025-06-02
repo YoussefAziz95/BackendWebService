@@ -4,7 +4,7 @@ using Domain;
 using System.ComponentModel.DataAnnotations;
 namespace Application.DTOs.Companies;
 
-public class AddCompanyRequest : BaseValidationModel<AddCompanyRequest>, ICreateMapper<Company>, ICreateMapper<Organization>
+public class AddCompanyRequest : BaseValidationModel<AddCompanyRequest>
 {
     [Required]
     public string Name { get; set; }

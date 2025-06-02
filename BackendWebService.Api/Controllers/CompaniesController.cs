@@ -8,8 +8,6 @@ using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Application.DTOs.Companies;
-using Application.DTOs.Companies;
 
 namespace Api.Controllers;
 
@@ -27,7 +25,7 @@ public class CompaniesController : AppControllerBase
     }
 
     [HttpPost]
-    [Authorize(PermissionConstants.COMPANY_CREATE)]
+    [Authorize(PermissionConstants.COMPANY)]
     [ModelValidator]
     public async Task<IActionResult> AddCompany([FromBody] AddCompanyRequest request)
     {
@@ -36,7 +34,7 @@ public class CompaniesController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize(PermissionConstants.COMPANY_GET)]
+    [Authorize(PermissionConstants.COMPANY)]
     public async Task<IActionResult> GetCompany([FromRoute] int id)
     {
         var result = await _companyService.GetAsync(id);
@@ -44,7 +42,7 @@ public class CompaniesController : AppControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(PermissionConstants.COMPANY_EDIT)]
+    [Authorize(PermissionConstants.COMPANY)]
     [ModelValidator]
     public async Task<IActionResult> UpdateCompany([FromRoute] int id, [FromBody] UpdateCompanyRequest request)
     {
@@ -53,7 +51,7 @@ public class CompaniesController : AppControllerBase
     }
 
     [HttpPost("GetAll")]
-    [Authorize(PermissionConstants.COMPANY_VIEW)]
+    [Authorize(PermissionConstants.COMPANY)]
     public async Task<IActionResult> GetAll([FromBody] GetPaginatedRequest request)
     {
         var result = await _companyService.GetPaginated(request);
@@ -61,7 +59,7 @@ public class CompaniesController : AppControllerBase
     }
 
     [HttpPost("{id}")]
-    [Authorize(PermissionConstants.COMPANY_DELETE)]
+    [Authorize(PermissionConstants.COMPANY)]
     public async Task<IActionResult> DeleteCompany([FromRoute] int id, [FromBody] DeleteSuperPasswordRequest deleteSuperPasswordRequest)
     {
         var validator = new DeleteSuperPasswordRequestValidator(_userManager); // Assuming you have a validator for DeleteSuperPasswordRequest

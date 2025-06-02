@@ -1,14 +1,11 @@
-﻿using Application.DTOs.Common;
-using Application.DTOs.Users;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Application.DTOs.Group
 {
     /// <summary>
     /// Represents a response model for a group.
     /// </summary>
-    public class GroupResponse 
+    public class GroupResponse
     {
         /// <summary>
         /// Gets or sets the ID of the group.

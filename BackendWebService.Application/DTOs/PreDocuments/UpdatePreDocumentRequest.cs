@@ -7,7 +7,7 @@ namespace Application.DTOs.PreDocuments
     /// <summary>
     /// Represents a request model used to update pre document details.
     /// </summary>
-    public class UpdatePreDocumentRequest : BaseValidationModel<UpdatePreDocumentRequest>, ICreateMapper<PreDocument>
+    public class UpdatePreDocumentRequest : BaseValidationModel<UpdatePreDocumentRequest>
     {
         /// <summary>
         /// Gets or sets the identifier of the pre document.

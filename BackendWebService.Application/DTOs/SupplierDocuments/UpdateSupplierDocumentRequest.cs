@@ -8,7 +8,7 @@ namespace Application.DTOs.SupplierDocuments
     /// <summary>
     /// Represents a request model for updating a supplier document.
     /// </summary>
-    public class UpdateSupplierDocumentRequest : BaseValidationModel<UpdateSupplierDocumentRequest>, ICreateMapper<SupplierDocument>
+    public class UpdateSupplierDocumentRequest : BaseValidationModel<UpdateSupplierDocumentRequest>
     {
         public int Id { get; set; }
         /// <summary>

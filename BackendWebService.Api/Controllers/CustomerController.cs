@@ -17,9 +17,9 @@ namespace Api.Controllers;
 public class CustomerController : AppControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly UserManager<User> _userManager;
+    private readonly UserManager<Customer> _userManager;
 
-    public CustomerController(IUnitOfWork unitOfWork, UserManager<User> userManager)
+    public CustomerController(IUnitOfWork unitOfWork, UserManager<Customer> userManager)
     {
         _unitOfWork = unitOfWork;
         _userManager = userManager;
@@ -29,7 +29,7 @@ public class CustomerController : AppControllerBase
     public async Task<IActionResult> AddCustomer([FromBody] AddCustomerRequest request)
     {
         // Create User  
-        var user = new User
+        var user = new Customer
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
@@ -39,7 +39,6 @@ public class CustomerController : AppControllerBase
             IsActive = true,
             IsDeleted = false,
             CreatedDate = DateTime.UtcNow,
-            MainRole = RoleEnum.Customer
         };
 
         // Create user with Identity  
@@ -58,10 +57,6 @@ public class CustomerController : AppControllerBase
         // Create Customer  
         var customer = new Customer
         {
-            UserId = user.Id,
-            MFAEnabled = request.MFAEnabled,
-            Role = RoleEnum.Customer,
-            Status = StatusEnum.Active
         };
 
         _unitOfWork.GenericRepository<Customer>().Add(customer);
@@ -83,7 +78,6 @@ public class CustomerController : AppControllerBase
         {
             Data = new CustomerResponse(
                 customer.Id,
-                customer.UserId,
                 user.FirstName,
                 user.LastName,
                 user.Email,
@@ -105,7 +99,7 @@ public class CustomerController : AppControllerBase
     public async Task<IActionResult> GetCustomer([FromRoute] int id)
     {
         var customer = _unitOfWork.GenericRepository<Customer>()
-            .Get(c => c.Id == id, include: c => c.Include(u => u.User));
+            .Get(c => c.Id == id);
         if (customer == null)
         {
             return NotFound(new Response<object>
@@ -121,15 +115,14 @@ public class CustomerController : AppControllerBase
             Data = new CustomerResponse
             (
                 customer.Id,
-                customer.UserId,
-                customer.User.FirstName,
-                customer.User.LastName,
-                customer.User.Email,
-                customer.User.PhoneNumber,
+                customer.FirstName,
+                customer.LastName,
+                customer.Email,
+                customer.PhoneNumber,
                 customer.MFAEnabled,
                 customer.Role,
                 customer.Status,
-                customer.User.CreatedDate
+                customer.CreatedDate
             ),
             StatusCode = ApiResultStatusCode.Success,
             Message = "Customer found",
@@ -143,7 +136,7 @@ public class CustomerController : AppControllerBase
     public async Task<IActionResult> UpdateCustomer([FromBody] UpdateCustomerRequest request)
     {
         var customer = _unitOfWork.GenericRepository<Customer>()
-            .Get(c => c.Id == request.Id, include: c => c.Include(u => u.User));
+            .Get(c => c.Id == request.Id);
         if (customer == null)
         {
             return NotFound(new Response<object>
@@ -155,14 +148,14 @@ public class CustomerController : AppControllerBase
         }
 
         // Update User
-        customer.User.FirstName = request.FirstName;
-        customer.User.LastName = request.LastName;
-        customer.User.Email = request.Email;
-        customer.User.UserName = request.Email; // Keep UserName in sync with Email
-        customer.User.PhoneNumber = request.PhoneNumber;
+        customer.FirstName = request.FirstName;
+        customer.LastName = request.LastName;
+        customer.Email = request.Email;
+        customer.UserName = request.Email; // Keep UserName in sync with Email
+        customer.PhoneNumber = request.PhoneNumber;
 
         // Update Customer
-        customer.User.PhoneNumber = request.PhoneNumber;
+        customer.PhoneNumber = request.PhoneNumber;
         customer.MFAEnabled = request.MFAEnabled;
         customer.Status = request.Status;
 
@@ -184,15 +177,14 @@ public class CustomerController : AppControllerBase
             Data = new CustomerResponse
             (
                 customer.Id,
-                customer.UserId,
-                customer.User.FirstName,
-                customer.User.LastName,
-                customer.User.Email,
-                customer.User.PhoneNumber,
+                customer.FirstName,
+                customer.LastName,
+                customer.Email,
+                customer.PhoneNumber,
                 customer.MFAEnabled,
                 customer.Role,
                 customer.Status,
-                customer.User.CreatedDate
+                customer.CreatedDate
             ),
             StatusCode = ApiResultStatusCode.Success,
             Message = "Customer updated successfully",
@@ -206,8 +198,7 @@ public class CustomerController : AppControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
-        var customers = _unitOfWork.GenericRepository<Customer>()
-            .GetAll(include: c => c.Include(u => u.User));
+        var customers = _unitOfWork.GenericRepository<Customer>().GetAll();
         if (customers == null || !customers.Any())
         {
             return NotFound(new Response<object>
@@ -223,15 +214,14 @@ public class CustomerController : AppControllerBase
             Data = customers.Select(c => new CustomerResponse
             (
                 c.Id,
-                c.UserId,
-                c.User.FirstName,
-                c.User.LastName,
-                c.User.Email,
-                c.User.PhoneNumber,
+                c.FirstName,
+                c.LastName,
+                c.Email,
+                c.PhoneNumber,
                 c.MFAEnabled,
                 c.Role,
                 c.Status,
-                c.User.CreatedDate
+                c.CreatedDate
             )).ToList(),
             StatusCode = ApiResultStatusCode.Success,
             Message = "Customers retrieved successfully",

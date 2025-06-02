@@ -26,7 +26,7 @@ using SharedKernel.Extensions;
 using System.Security.Claims;
 using System.Text;
 
-namespace BackendWebServiceInfrastructure.Persistence.ServiceConfiguration;
+namespace nfrastructure.Persistence.ServiceConfiguration;
 
 public static class ServiceCollectionExtensions
 {
@@ -40,7 +40,6 @@ public static class ServiceCollectionExtensions
             options
                 .UseSqlServer(connectionString);
         });
-        //services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
         services.AddScoped<ISP_Call, SP_Call>();
         services.AddScoped<IUserRepository, UserRepository>();

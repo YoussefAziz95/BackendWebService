@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Categories;
+﻿using Application.DTOs;
 using Domain;
 
 namespace Application.Contracts.Persistences;

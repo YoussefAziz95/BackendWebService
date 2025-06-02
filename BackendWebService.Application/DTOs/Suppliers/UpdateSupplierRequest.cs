@@ -4,12 +4,12 @@ using Domain;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.Suppliers
+namespace Application.DTOs
 {
     /// <summary>
     /// Represents a request model for updating a supplier's information.
     /// </summary>
-    public class UpdateSupplierRequest : ICreateMapper<Supplier>
+    public class UpdateSupplierRequest 
     {
         public int Id { get; set; }
         /// <summary>

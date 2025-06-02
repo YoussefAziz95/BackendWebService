@@ -6,7 +6,7 @@ namespace Application.DTOs.SupplierCategories
     /// <summary>
     /// Request data transfer object for adding a supplier category.
     /// </summary>
-    public class AddSupplierCategoryRequest : BaseValidationModel<AddSupplierCategoryRequest>, ICreateMapper<SupplierCategory>
+    public class AddSupplierCategoryRequest : BaseValidationModel<AddSupplierCategoryRequest>
     {
         /// <summary>
         /// Gets or sets the Companies ID.

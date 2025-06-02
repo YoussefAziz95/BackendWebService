@@ -1,5 +1,5 @@
 ﻿
-using Application.DTOs.Suppliers;
+using Application.DTOs;
 using Domain;
 
 namespace Application.Contracts.Persistences;

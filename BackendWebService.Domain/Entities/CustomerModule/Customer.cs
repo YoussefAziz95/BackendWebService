@@ -4,11 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 [Table("Customer")]
-public class Customer : BaseEntity, IEntity, ITimeModification
+public class Customer : User
 {
-    public int UserId { get; set; }
-    [ForeignKey("UserId")]
-    public virtual User User { get; set; }
 
     [Required, Phone, MaxLength(20)]
     public bool MFAEnabled { get; set; } = false;

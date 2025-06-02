@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.DTOs;
-using Application.DTOs.Categories;
+using Application.DTOs;
 
 namespace Application.Contracts.Services;
 

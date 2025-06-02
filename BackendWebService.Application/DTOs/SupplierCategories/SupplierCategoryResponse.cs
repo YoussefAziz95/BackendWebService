@@ -6,7 +6,7 @@ namespace Application.DTOs.SupplierCategories
     /// <summary>
     /// Represents a response model for supplier categories.
     /// </summary>
-    public class SupplierCategoryResponse : ICreateMapper<SupplierCategory>
+    public class SupplierCategoryResponse 
     {
         /// <summary>
         /// Gets or sets the ID of the supplier category.

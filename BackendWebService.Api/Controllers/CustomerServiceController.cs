@@ -7,7 +7,6 @@ using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Migrations;
 
 namespace Api.Controllers
 {
@@ -25,8 +24,8 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetCustomerService([FromRoute] int id)
         {
-            var customerService = _unitOfWork.GenericRepository<CustomerService>().Get(c => c.Id == id, 
-                include: c=> c.Include(s=> s.Service).Include(c => c.Customer)
+            var customerService = _unitOfWork.GenericRepository<CustomerService>().Get(c => c.Id == id,
+                include: c => c.Include(s => s.Service).Include(c => c.Customer)
                 );
             if (customerService == null)
             {
@@ -37,7 +36,7 @@ namespace Api.Controllers
                     Succeeded = false
                 });
             }
-            if(customerService.Customer == null)
+            if (customerService.Customer == null)
             {
                 return NotFound(new Response<object>
                 {

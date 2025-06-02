@@ -7,7 +7,7 @@ namespace Application.DTOs.SupplierCategories
     /// <summary>
     /// Represents a request model for updating a supplier's category.
     /// </summary>
-    public class UpdateSupplierCategoryRequest : BaseValidationModel<UpdateSupplierCategoryRequest>, ICreateMapper<SupplierCategory>
+    public class UpdateSupplierCategoryRequest : BaseValidationModel<UpdateSupplierCategoryRequest>
     {
         /// <summary>
         /// Gets or sets the ID of the company associated with the category.

@@ -9,16 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\CompaniesController.cs" />
-    <Compile Remove="Controllers\NotificationController.cs" />
-    <Compile Remove="Controllers\OrganizationController.cs" />
-    <Compile Remove="Controllers\PermissionsController.cs" />
-    <Compile Remove="Controllers\PreDocumentsController.cs" />
-    <Compile Remove="Controllers\SupplierController.cs" />
-    <Compile Remove="Controllers\SupplierDocumentController.cs" />
     <Compile Remove="Controllers\UtilityController.cs" />
-    <Compile Remove="HubServices\NotificationService.cs" />
-    <Compile Remove="Proxy\NotificationProxy.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,11 +37,6 @@
     <ProjectReference Include="..\BackendWebService.Domain\BackendWebService.Domain.csproj" />
     <ProjectReference Include="..\BackendWebService.Presistence\BackendWebService.Persistence.csproj" />
     <ProjectReference Include="..\BackendWebService.SharedKernal\BackendWebService.SharedKernal.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="HubServices\" />
-    <Folder Include="Proxy\" />
   </ItemGroup>
 
 </Project>

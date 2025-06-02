@@ -6,6 +6,7 @@ using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers;
 
@@ -44,10 +45,10 @@ public class ServiceController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetService([FromRoute] int id)
+    public IActionResult GetService([FromRoute] int id)
     {
         _unitOfWork.GenericRepository<Service>().Exists(Service => Service.Id == id);
-        var service = await _unitOfWork.GenericRepository<Service>().GetByIdAsync(id);
+        var service = _unitOfWork.GenericRepository<Service>().Get(s=> s.Id == id, include: s => s.Include(c => c.Category));
         if (service == null)
             return NotFound("Service not found");
         var result = new Response<ServiceResponse>()
@@ -55,15 +56,15 @@ public class ServiceController : AppControllerBase
             StatusCode = ApiResultStatusCode.Success,
             Message = "Service found",
             Succeeded = true,
-            Data = new ServiceResponse(service.Id, service.Name, service.Code, service.CategoryId)
+            Data = new ServiceResponse(service.Id, service.Name, service.Code, service.Category.Name)
         };
         return NewResult(result);
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateService([FromBody] UpdateServiceRequest request)
+    public IActionResult UpdateService([FromBody] UpdateServiceRequest request)
     {
-        var service = await _unitOfWork.GenericRepository<Service>().GetByIdAsync(request.Id);
+        var service = _unitOfWork.GenericRepository<Service>().Get(c=> c.Id == request.Id, include: s => s.Include(c => c.Category));
         if (service == null)
             return NotFound("Service not found");
         service.Name = request.Name;
@@ -77,7 +78,7 @@ public class ServiceController : AppControllerBase
             StatusCode = ApiResultStatusCode.Success,
             Succeeded = true,
             Message = "Service updated successfully",
-            Data = new ServiceResponse(service.Id, service.Name, service.Code, service.CategoryId)
+            Data = new ServiceResponse(service.Id, service.Name, service.Code, service.Category.Name)
         };
         return NewResult(response);
     }
@@ -85,13 +86,13 @@ public class ServiceController : AppControllerBase
     [HttpPost("GetAll")]
     public async Task<IActionResult> GetAll()
     {
-        var services = _unitOfWork.GenericRepository<Service>().GetAll();
+        var services = _unitOfWork.GenericRepository<Service>().GetAll(include: s=> s.Include(c=>c.Category));
         var response = new PaginatedResponse<ServiceResponse>()
         {
             StatusCode = ApiResultStatusCode.Success,
             Succeeded = true,
             Message = "Services found",
-            Data = services.Select(service => new ServiceResponse(service.Id, service.Name, service.Code, service.CategoryId)).ToList(),
+            Data = services.Select(service => new ServiceResponse(service.Id, service.Name, service.Code, service.Category.Name)).ToList(),
             TotalCount = services.Count()
         };
         return NewResult(response);

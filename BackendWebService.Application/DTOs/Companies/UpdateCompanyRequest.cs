@@ -9,7 +9,7 @@ namespace Application.DTOs.Companies
     /// <summary>
     /// Represents a request model used to edit company details.
     /// </summary>
-    public class UpdateCompanyRequest : BaseValidationModel<UpdateCompanyRequest>, ICreateMapper<Company>
+    public class UpdateCompanyRequest : BaseValidationModel<UpdateCompanyRequest>    
     {
         public int Id { get; set; }
         /// <summary>

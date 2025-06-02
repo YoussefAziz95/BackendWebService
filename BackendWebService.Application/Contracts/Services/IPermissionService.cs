@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.DTOs;
+using Application.DTOs;
 using Application.DTOs.Permission;
 
 namespace Application.Contracts.Services;
@@ -11,5 +12,5 @@ public interface IPermissionService
 
     Task<IResponse<int>> AddPermissionsToRole(AddPermissionsToRoleRequest request);
 
-    Task<IResponse<IEnumerable<UserPagesResponse>>> GetUserPages(int id);
+    Task<IEnumerable<UserPagesResponse>> GetUserPages(int id);
 }

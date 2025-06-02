@@ -5,12 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.DTOs.Suppliers
+namespace Application.DTOs
 {
     /// <summary>
     /// Response data transfer object for a supplier.
     /// </summary>
-    public class SupplierResponse : ICreateMapper<Supplier>, ICreateMapper<Organization>
+    public class SupplierResponse 
     {
         /// <summary>
         /// Gets or sets the ID of the supplier.
