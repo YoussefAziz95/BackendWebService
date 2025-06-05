@@ -1,5 +1,5 @@
-﻿using Application.Contracts.Persistences;
-using Application.DTOs.Common;
+﻿using Application.Contracts.Persistence;
+using Application.Features.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Persistence.Data;

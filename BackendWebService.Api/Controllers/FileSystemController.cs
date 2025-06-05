@@ -1,8 +1,8 @@
 ﻿using Api.Base;
-using Application.Contracts.Persistences;
+using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.DTOs;
-using Application.DTOs.Common;
+using Application.Features.Common;
+using Application.Features;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -60,7 +60,7 @@ public class FileSystemController : AppControllerBase
         result.FileName = fileLog.FileName;
         result.FullPath = fileLog.FullPath;
         result.Extention = fileLog.Extention;
-        result.FileBase64 = await FileToBase64Async(fileLog.FullPath);
+        result.FileLink = await FileToBase64Async(fileLog.FullPath);
         response.StatusCode = ApiResultStatusCode.Success;
         response.Succeeded = true;
         response.Data = result;
@@ -104,7 +104,7 @@ public class FileSystemController : AppControllerBase
             fileResponse.FileName = fileLog.FileName;
             fileResponse.FullPath = fileLog.FullPath;
             fileResponse.Extention = fileLog.Extention;
-            fileResponse.FileBase64 = await FileToBase64Async(fileLog.FullPath);
+            fileResponse.FileLink = await FileToBase64Async(fileLog.FullPath);
             fileResponses.Add(fileResponse);
         }
 

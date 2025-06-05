@@ -1,5 +1,5 @@
-﻿using Application.Contracts.DTOs;
-using Application.DTOs.SupplierDocuments;
+﻿using Application.Contracts.Features;
+using Application.Features;
 
 namespace Application.Contracts.Services;
 

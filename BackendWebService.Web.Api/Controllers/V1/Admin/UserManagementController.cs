@@ -29,7 +29,7 @@ namespace Web.Api.Controllers.V1.Admin
         {
             var queryResult = await _sender.Send(new GetUsersQuery());
 
-            return base.OperationResult(queryResult);
+            return base.IResponse(queryResult);
         }
     }
 }

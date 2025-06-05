@@ -1,6 +1,6 @@
 ﻿
 
-namespace Application.Contracts.Persistences;
+namespace Application.Contracts.Persistence;
 public interface ILoggingRepository
 {
     void AddLog(Logging log);

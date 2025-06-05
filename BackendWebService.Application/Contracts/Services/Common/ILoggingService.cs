@@ -1,8 +1,8 @@
-﻿using Application.DTOs.Loggings;
+﻿using Application.Features;
 
 namespace Application.Contracts.Services;
 
 public interface ILoggingService
 {
-    void Log(LoggingDto loggingDto);
+    void Log(Logger loggingDto);
 }

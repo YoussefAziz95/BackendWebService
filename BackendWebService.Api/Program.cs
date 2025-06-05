@@ -10,7 +10,7 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using nfrastructure.Persistence.ServiceConfiguration;
 using Persistence.Data;
-using Presistence.Data.Seeds;
+using Persistence.Data.Seeds;
 using System.Diagnostics;
 var builder = WebApplication.CreateBuilder(args);
 

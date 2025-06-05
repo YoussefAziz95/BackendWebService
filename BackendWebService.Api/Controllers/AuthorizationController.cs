@@ -1,19 +1,14 @@
 ﻿using Api.Base;
 using Application.Contracts.Manager;
-using Application.Contracts.Persistences;
+using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.DTOs;
-using Application.DTOs.Common;
-using Application.Models.Jwt;
+using Application.Features;
+using Application.Features.Common;
 using Contracts.Services;
 using Domain;
-using Domain.Constants;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace Controllers;
 
@@ -64,7 +59,7 @@ public class AuthorizationController : AppControllerBase
             Data = new LoginResponse(
                Id: user.Id,
                FullName: $"{user.FirstName} {user.LastName}",
-               PhoneNumner: user.PhoneNumber!,
+               PhoneNumber: user.PhoneNumber!,
                Email: user.Email,
                Token: accessToken.access_token,
                TokenExpiry: DateTime.UtcNow.AddMinutes(30),
@@ -107,7 +102,7 @@ public class AuthorizationController : AppControllerBase
             Data = new LoginResponse(
                 Id: user.Id,
                 FullName: $"{user.FirstName} {user.LastName}",
-                PhoneNumner: user.PhoneNumber!,
+                PhoneNumber: user.PhoneNumber!,
                 Email: user.Email,
                 Token: accessToken.access_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
@@ -155,7 +150,7 @@ public class AuthorizationController : AppControllerBase
             Data = new LoginResponse(
                 Id: user.Id,
                 FullName: $"{user.FirstName} {user.LastName}",
-                PhoneNumner: user.PhoneNumber!,
+                PhoneNumber: user.PhoneNumber!,
                 Email: user.Email,
                 Token: accessToken.access_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
@@ -195,7 +190,7 @@ public class AuthorizationController : AppControllerBase
             Data = new LoginResponse(
                 Id: user.Id,
                 FullName: $"{user.FirstName} {user.LastName}",
-                PhoneNumner: user.PhoneNumber!,
+                PhoneNumber: user.PhoneNumber!,
                 Email: user.Email,
                 Token: result.access_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
@@ -228,14 +223,14 @@ public class AuthorizationController : AppControllerBase
         return result.Succeeded ? Ok("Password reset successfully.") : BadRequest(result.Errors);
     }
 
-  
+
     [HttpPost("confirm-phone-number")]
     public async Task<IActionResult> ConfirmPhoneNumber([FromBody] ConfirmPhoneNumberRequest request)
     {
         var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
         if (user == null) return BadRequest("Invalid request.");
 
-        var result = await _otpService.VerifyAsync(user,request.Code);
+        var result = await _otpService.VerifyAsync(user, request.Code);
         if (!result)
             return BadRequest("Invalid token");
         var response = await _userManager.ConfirmPhoneNumberAsync(user);

@@ -1,5 +1,5 @@
-﻿using Application.Contracts.Persistences;
-using Application.DTOs.Roles;
+﻿using Application.Contracts.Persistence;
+using Application.Features;
 using Domain;
 using Persistence.Data;
 using System.Data;
@@ -39,7 +39,7 @@ namespace Persistence.Repositories.Identity
         {
             var role = _context.Roles.First(r => r.Id == id);
             var roleResponse = _context.RoleClaims.Where(r => r.RoleId == id)
-                .Select(c => new ClaimResponse() { Id = c.Id, Value = c.ClaimValue }).ToList();
+                .Select(c => new ClaimResponse( c.Id, c.ClaimValue )).ToList();
             return roleResponse;
         }
 
@@ -48,12 +48,7 @@ namespace Persistence.Repositories.Identity
             var query = from r in _context.Roles
                         join rc in _context.RoleClaims on r.Id equals rc.RoleId into rcs
                         where r.Id == id
-                        select new RoleResponse
-                        {
-                            RoleId = r.Id,
-                            Claims = rcs.Select(rc => new ClaimResponse() { Id = rc.Id, Value = rc.ClaimValue }).ToList(),
-                            Name = r.Name,
-                        };
+                        select new RoleResponse(r.Id, r.Name, rcs.Select(rc => new ClaimResponse(rc.Id,rc.ClaimValue)).ToList());
             return query.FirstOrDefault();
         }
     }

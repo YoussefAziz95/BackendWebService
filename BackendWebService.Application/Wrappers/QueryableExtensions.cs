@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Common;
+﻿using Application.Features.Common;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;

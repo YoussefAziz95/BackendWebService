@@ -1,6 +1,6 @@
-﻿using Application.Contracts.Persistences;
+﻿using Application.Contracts.Persistence;
 using Application.Contracts.Proxy;
-using Application.DTOs.Notifications;
+using Application.Features;
 using CrossCuttingConcerns.ConfigHubs;
 
 using Microsoft.AspNetCore.SignalR;

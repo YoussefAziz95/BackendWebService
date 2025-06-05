@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Reflection;
+using Domain;
 
 namespace Persistence.Data;
 
@@ -32,7 +33,7 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
     public DbSet<Logging> Loggings { get; set; }
     public DbSet<WAction> WActions { get; internal set; }
     public DbSet<UserRefreshToken> UserRefreshTokens { get; internal set; }
-
+    public DbSet<FileLog> FileLogs { get; internal set; }
     public override async ValueTask<EntityEntry<TEntity>> AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default)
     {
         var baseEntity = entity as BaseEntity;
@@ -172,7 +173,7 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
             Suggestion = null,
             LogType = "EntityAction",
             Timestamp = DateTime.UtcNow,
-            SourceLayer = "Presistence.Data",
+            SourceLayer = "Persistence.Data",
             SourceClass = "ApplicationDbContext",
             SourceLineNumber = 0
         };

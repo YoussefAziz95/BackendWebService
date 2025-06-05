@@ -1,11 +1,10 @@
-﻿using Application.Contracts.Services;
-using Application.DTOs.Common;
-using Application.DTOs.PreDocuments;
-using Application.Validators.Common;
+﻿using Api.Base;
+using Application.Contracts.Services;
+using Application.Features;
+using Application.Features.Common;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Api.Base;
 
 namespace Api.Controllers;
 
@@ -22,7 +21,7 @@ public class PreDocumentsController : AppControllerBase
 
     [HttpPost]
     //[Authorize(PermissionConstants.PREDOCUMENT)]
-    [ModelValidator]
+
     public async Task<IActionResult> AddPreDocument([FromBody] AddPreDocumentRequest request)
     {
         var result = await _preDocumentService.AddAsync(request);
@@ -47,7 +46,7 @@ public class PreDocumentsController : AppControllerBase
 
     [HttpPut("{id}")]
     //[Authorize(PermissionConstants.PREDOCUMENT)]
-    [ModelValidator]
+
     public async Task<IActionResult> UpdatePreDocument([FromRoute] int id, [FromBody] UpdatePreDocumentRequest request)
     {
         var result = await _preDocumentService.UpdateAsync(id, request);

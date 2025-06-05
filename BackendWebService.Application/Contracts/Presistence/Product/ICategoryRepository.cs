@@ -1,7 +1,7 @@
-﻿using Application.DTOs;
+﻿using Application.Features;
 using Domain;
 
-namespace Application.Contracts.Persistences;
+namespace Application.Contracts.Persistence;
 
 public interface ICategoryRepository
 {

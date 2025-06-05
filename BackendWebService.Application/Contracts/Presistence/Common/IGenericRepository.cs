@@ -1,8 +1,8 @@
-﻿using Application.DTOs.Common;
+﻿using Application.Features.Common;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace Application.Contracts.Persistences;
+namespace Application.Contracts.Persistence;
 
 public interface IGenericRepository<T>
 {

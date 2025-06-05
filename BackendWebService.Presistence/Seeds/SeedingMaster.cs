@@ -2,7 +2,7 @@
 using Persistence.Seeds;
 using Persistence.Data;
 
-namespace Presistence.Data.Seeds;
+namespace Persistence.Data.Seeds;
 
 public static class SeedingMaster
 {

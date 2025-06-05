@@ -10,36 +10,30 @@
     <Compile Remove="Contracts\HubServices\**" />
     <Compile Remove="Contracts\Presistence\Workflows\**" />
     <Compile Remove="Contracts\Services\**" />
-    <Compile Remove="DTOs\Auths\**" />
-    <Compile Remove="DTOs\Categories\**" />
-    <Compile Remove="DTOs\Exceptions\**" />
-    <Compile Remove="DTOs\FileTypes\**" />
-    <Compile Remove="DTOs\Loggings\**" />
-    <Compile Remove="DTOs\Utilities\**" />
+    <Compile Remove="Features\Auths\**" />
+    <Compile Remove="Features\Categories\**" />
+    <Compile Remove="Features\Exceptions\**" />
+    <Compile Remove="Features\FileTypes\**" />
+    <Compile Remove="Features\Utilities\**" />
     <Compile Remove="Implementations\**" />
-    <Compile Remove="Validators\Company\**" />
     <EmbeddedResource Remove="Contracts\HubServices\**" />
     <EmbeddedResource Remove="Contracts\Presistence\Workflows\**" />
     <EmbeddedResource Remove="Contracts\Services\**" />
-    <EmbeddedResource Remove="DTOs\Auths\**" />
-    <EmbeddedResource Remove="DTOs\Categories\**" />
-    <EmbeddedResource Remove="DTOs\Exceptions\**" />
-    <EmbeddedResource Remove="DTOs\FileTypes\**" />
-    <EmbeddedResource Remove="DTOs\Loggings\**" />
-    <EmbeddedResource Remove="DTOs\Utilities\**" />
+    <EmbeddedResource Remove="Features\Auths\**" />
+    <EmbeddedResource Remove="Features\Categories\**" />
+    <EmbeddedResource Remove="Features\Exceptions\**" />
+    <EmbeddedResource Remove="Features\FileTypes\**" />
+    <EmbeddedResource Remove="Features\Utilities\**" />
     <EmbeddedResource Remove="Implementations\**" />
-    <EmbeddedResource Remove="Validators\Company\**" />
     <None Remove="Contracts\HubServices\**" />
     <None Remove="Contracts\Presistence\Workflows\**" />
     <None Remove="Contracts\Services\**" />
-    <None Remove="DTOs\Auths\**" />
-    <None Remove="DTOs\Categories\**" />
-    <None Remove="DTOs\Exceptions\**" />
-    <None Remove="DTOs\FileTypes\**" />
-    <None Remove="DTOs\Loggings\**" />
-    <None Remove="DTOs\Utilities\**" />
+    <None Remove="Features\Auths\**" />
+    <None Remove="Features\Categories\**" />
+    <None Remove="Features\Exceptions\**" />
+    <None Remove="Features\FileTypes\**" />
+    <None Remove="Features\Utilities\**" />
     <None Remove="Implementations\**" />
-    <None Remove="Validators\Company\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,8 +60,7 @@
     <Compile Include="Contracts\Services\ISupplierDocumentService.cs" />
     <Compile Include="Contracts\Services\ISupplierService.cs" />
     <Compile Include="Contracts\Services\IUserService.cs" />
-    <Compile Include="DTOs\Exceptions\ExceptionDto.cs" />
-    <Compile Include="DTOs\Loggings\LoggingDto.cs" />
+    <Compile Include="Features\Exceptions\ExceptionDto.cs" />
     <Compile Include="Implementations\AuthenticationFactory.cs" />
     <Compile Include="Implementations\CategoryService.cs" />
     <Compile Include="Implementations\Common\DropdownService.cs" />
@@ -88,9 +81,6 @@
     <Compile Include="Implementations\SupplierDocumentService.cs" />
     <Compile Include="Implementations\SupplierService.cs" />
     <Compile Include="Implementations\UserService.cs" />
-    <Compile Include="Validators\Company\AddCompanyRequestValidator.cs" />
-    <Compile Include="Validators\Company\EditCompanyRequestValidator.cs" />
-    <Compile Include="Validators\Company\ImageFileValidator.cs" />
   </ItemGroup>
 
   <ItemGroup>

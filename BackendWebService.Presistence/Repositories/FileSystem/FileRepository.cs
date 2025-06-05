@@ -1,10 +1,10 @@
-﻿using Application.Contracts.Persistences;
+﻿using Application.Contracts.Persistence;
 using AutoMapper;
 using Application.Profiles;
 using Domain;
 using Persistence.Data;
 using Persistence.Repositories.Common;
-using Application.DTOs;
+using Application.Features;
 namespace Persistence.Repositories.FileSystem
 {
     public class FileRepository : GenericRepository<FileLog>, IFileRepository

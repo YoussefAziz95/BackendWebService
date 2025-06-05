@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Persistences;
+﻿using Application.Contracts.Persistence;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;

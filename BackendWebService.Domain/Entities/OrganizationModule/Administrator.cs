@@ -1,4 +1,5 @@
 ﻿
+using Domain;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;

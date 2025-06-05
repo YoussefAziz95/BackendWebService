@@ -1,0 +1,8 @@
+﻿namespace Application.Features;
+
+public class UpdateVendorDocumentRequest
+{
+    public int Id { get; set; }
+    public int? FileId { get; set; }
+    public int UserId { get; set; }
+}

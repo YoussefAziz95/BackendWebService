@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Common;
+﻿using Application.Features.Common;
 
 namespace Application.Model.EAVEngine
 {

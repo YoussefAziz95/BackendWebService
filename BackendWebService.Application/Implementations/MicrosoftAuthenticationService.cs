@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.Services;
-using Application.DTOs;
 using Application.Model.Authentication;
+using Application.Features;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;

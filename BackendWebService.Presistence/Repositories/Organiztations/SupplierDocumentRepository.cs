@@ -1,5 +1,5 @@
-﻿using Application.Contracts.Persistences;
-using Application.DTOs.SupplierDocuments;
+﻿using Application.Contracts.Persistence;
+using Application.Features;
 using Application.Model.EAVEngine;
 using Domain;
 using Domain.Enums;
@@ -13,11 +13,7 @@ namespace Persistence.Repositories.Organizations
     /// </summary>
     public class SupplierDocumentRepository : ISupplierDocumentRepository
     {
-        private const string CASE = "WorkflowCase";
-        private const string ACTION = "WorkflowAction";
-        private const string WORKFLOW = "Workflow";
-        private const string VENDOR_DOCUMENT = "SupplierDocuments";
-        private const string PREDOCUMENT = "PreDocuments";
+
 
 
         private readonly ApplicationDbContext _context;
@@ -124,14 +120,7 @@ namespace Persistence.Repositories.Organizations
                             equals new { vd.PreDocumentId, vd.SupplierAccountId } into vds
                         from vd in vds.DefaultIfEmpty()
                         where v.Id == supplierId
-                        select new SupplierDocumentsResponse
-                        {
-                            PreDocumentName = p.Name,
-                            FileId = vd.FileId,
-                            IsApproved = vd.IsApproved,
-                            PreDocumentId = p.Id,
-                            Id = vd.Id,
-                        };
+                        select new SupplierDocumentsResponse(vd.Id, p.Name, vd.IsApproved, vd.FileId, p.Id);
 
             var s = query.ToList();
             return query;

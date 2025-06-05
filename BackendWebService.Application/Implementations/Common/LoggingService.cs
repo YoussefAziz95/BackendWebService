@@ -1,6 +1,6 @@
-﻿using Application.Contracts.Persistences;
+﻿using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.DTOs.Loggings;
+using Application.Features;
 using AutoMapper;
 
 namespace Application.Implementations.Common
@@ -16,7 +16,7 @@ namespace Application.Implementations.Common
             _loggingRepository = loggingRepository;
         }
 
-        public void Log(LoggingDto logDto)
+        public void Log(Logger logDto)
         {
             var log = new Logging()
             {

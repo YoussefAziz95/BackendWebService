@@ -1,7 +1,4 @@
-﻿using Application.Contracts.DTOs;
-using Application.DTOs.Common;
-using Application.DTOs;
-using Domain;
+﻿using Application.Features;
 
 namespace Application.Contracts.Services;
 

@@ -1,9 +1,9 @@
-﻿using Application.Contracts.Persistences;
+﻿using Application.Contracts.Persistence;
 using Domain;
 namespace Application.Profiles
 {
     /// <summary>
-    /// Static class containing methods to map pre document-related entities and DTOs.
+    /// Static class containing methods to map pre document-related entities and Features.
     /// </summary>
     public static class PreDocumentMapper
     {

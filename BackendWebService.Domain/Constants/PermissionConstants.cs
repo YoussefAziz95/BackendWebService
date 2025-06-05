@@ -94,7 +94,7 @@ public static class PermissionConstants
     //        if (field.FieldType == typeof(string))
     //        {
     //            string value = (string)field.GetValue(null)!;
-    //            if (!value.Contains("Create") && !value.Contains("VendorDocument"))
+    //            if (!value.Contains("Create") && !value.Contains("SupplierDocument"))
     //            {
     //                permissionsList.Add(value);
     //            }
@@ -131,7 +131,7 @@ public static class PermissionConstants
 
     //}
 
-    //public static string[] GetVendorAdminPermissions()
+    //public static string[] GetSupplierAdminPermissions()
     //{
     //    return GetAllPermissions().Where(p => p.Contains("User") || p.Contains("Permission") || p.Contains("Role")
     //    || p.Contains(PERMISSION_VIEW)).

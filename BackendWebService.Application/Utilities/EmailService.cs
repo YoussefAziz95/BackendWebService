@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.Infrastructures;
-using Application.Contracts.Persistences;
+using Application.Contracts.Persistence;
 using Application.Model.EmailDto;
 using Application.Wrappers;
 using Domain;

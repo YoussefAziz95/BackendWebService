@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.Services;
-using Application.DTOs.ExceptionLogs;
-using Application.DTOs.Loggings;
+using Application.Features;
+using Application.Features;
 using Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
@@ -50,25 +50,24 @@ namespace Application.Middleware
 
 
             var userId = context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var log = new LoggingDto
-            {
-                UserId = null,
-                Message = ex.Message,
-                Suggestion = ex.InnerException?.Message ?? null,
-                LogType = exceptionCode.ToString(),
-                Timestamp = DateTime.UtcNow,
-                SourceLayer = sourceLayer ?? "UnknownNamespace",
-                SourceClass = sourceClass ?? "UnknownClass",
-                SourceLineNumber = sourceLineNumber > 0 ? sourceLineNumber : 0
-            };
+            var log = new Logger
+            (
+                UserId : null,
+                Message : ex.Message,
+                Suggestion : ex.InnerException?.Message ?? null,
+                LogType : exceptionCode.ToString(),
+                Timestamp : DateTime.UtcNow,
+                SourceLayer : sourceLayer ?? "UnknownNamespace",
+                SourceClass : sourceClass ?? "UnknownClass",
+                SourceLineNumber : sourceLineNumber > 0 ? sourceLineNumber : 0
+            );
 
             _loggingService.Log(log);
-            var exception = new ExceptionDto()
-            {
-                KeyExceptionMessage = ex.GetType().Name,
-
-                ExceptionCode = (int)exceptionCode
-            };
+            var exception = new ExceptionDto
+            (
+                KeyExceptionMessage : ex.GetType().Name,
+                ExceptionCode : (int)exceptionCode
+            );
             _exceptionLogService.Add(exception);
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             await context.Response.WriteAsync(ex.Message);

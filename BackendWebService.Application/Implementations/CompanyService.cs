@@ -1,11 +1,9 @@
-﻿using Application.Contracts.DTOs;
+﻿using Application.Contracts.Features;
 using Application.Contracts.Infrastructures;
-using Application.Contracts.Persistences;
+using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.DTOs;
-using Application.DTOs.Common;
-using Application.DTOs.Companies;
-using Application.DTOs;
+using Application.Features;
+using Application.Features.Common;
 using Application.Model.EmailDto;
 using Application.Wrappers;
 using AutoMapper;
@@ -53,9 +51,6 @@ namespace Application.Implementations
             var user = _mapper.Map<CreateUserCompanyRequest>(company);
             user = _mapper.Map<CreateUserCompanyRequest>(request);
 
-            //var UserResponse = await _applicationUserService.AddUserCompanyAsync(user);
-            //if (!UserResponse.Succeeded)
-            //    return BadRequest<int>("Error Creating Customer");
             try
             {
                 var subject = "Suppliers " + company.Organization.Name + " Created";

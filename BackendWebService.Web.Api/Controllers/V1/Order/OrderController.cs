@@ -1,12 +1,12 @@
 ﻿using Asp.Versioning;
-using Application.Features.Order.Commands;
-using Application.Features.Order.Queries.GetUserOrders;
+using Application.Features;
+using Application.Features;
 using WebFramework.BaseController;
 using Mediator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Web.Api.Controllers.V1.Order;
+namespace Web.Api.Controllers.V1;
 
 [ApiVersion("1")]
 [ApiController]
@@ -20,7 +20,7 @@ public class OrderController(ISender sender) : BaseController
         model.UserId = base.UserId;
         var command = await sender.Send(model);
 
-        return base.OperationResult(command);
+        return base.IResponse(command);
     }
 
     [HttpGet("GetUserOrders")]
@@ -28,7 +28,7 @@ public class OrderController(ISender sender) : BaseController
     {
         var query = await sender.Send(new GetUserOrdersQueryModel(UserId));
 
-        return base.OperationResult(query);
+        return base.IResponse(query);
     }
 
     [HttpPut("UpdateOrder")]
@@ -38,10 +38,10 @@ public class OrderController(ISender sender) : BaseController
 
         var command = await sender.Send(model);
 
-        return base.OperationResult(command);
+        return base.IResponse(command);
     }
 
     [HttpDelete("DeleteAllUserOrders")]
     public async Task<IActionResult> DeleteAllUserOrders()
-        => base.OperationResult(await sender.Send(new DeleteUserOrdersCommand(base.UserId)));
+        => base.IResponse(await sender.Send(new DeleteUserOrdersCommand(base.UserId)));
 }

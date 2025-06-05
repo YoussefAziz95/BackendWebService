@@ -1,17 +1,16 @@
-﻿using Application.Contracts.DTOs;
+﻿using Application.Contracts.Features;
 using Application.Contracts.Infrastructures;
-using Application.Contracts.Persistences;
+using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.DTOs.Common;
-using Application.DTOs.SupplierCategories;
-using Application.DTOs;
-using Application.DTOs;
-using Application.DTOs;
+using Application.Features;
+using Application.Features.Common;
 using Application.Model.EmailDto;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
 using Domain.Constants;
+using System.Diagnostics.Metrics;
+using System.Numerics;
 using System.Security.Cryptography;
 
 namespace Application.Implementations
@@ -22,9 +21,9 @@ namespace Application.Implementations
     public class SupplierService : ResponseHandler, ISupplierService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
         private readonly ISupplierRepository _supplierRepository;
+        private readonly IMapper _mapper;
 
 
         /// <summary>
@@ -42,21 +41,24 @@ namespace Application.Implementations
         public SupplierService(IUnitOfWork unitOfWork,
                              IMapper mapper,
                              IEmailService emailService,
-                             ISupplierRepository supplierRepository
-                             )
+                             ISupplierRepository supplierRepository)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _emailService = emailService;
             _supplierRepository = supplierRepository;
+            _mapper = mapper;
 
         }
 
         /// <summary>
         /// Adds a new supplier.
         /// </summary>
-        private async Task<int> AddAsync(AddSupplierRequest request)
+        private async Task<IResponse<int>> AddAsync(AddSupplierRequest request)
         {
+            if (_unitOfWork.GenericRepository<Organization>().Exists(c => c.Email == request.Email)
+              || _unitOfWork.GenericRepository<User>().Exists(c => c.Email == request.Email))
+                return BadRequest<int>("EmailDto Already Exist!");
+
             var supplier = _mapper.Map<Supplier>(request);
             supplier.Organization = _mapper.Map<Organization>(request);
             var user = _mapper.Map<User>(supplier);
@@ -79,7 +81,7 @@ namespace Application.Implementations
                 Console.WriteLine(ex.ToString());
             }
 
-            return supplier.Id;
+            return Success(supplier.Id);
         }
         public async Task<IResponse<int>> AddUnregisteredAsync(AddSupplierRequest request)
         {
@@ -90,7 +92,7 @@ namespace Application.Implementations
 
             var result = await AddAsync(request);
 
-            return Created(result);
+            return result;
         }
         /// <summary>
         /// Registers a new supplier.
@@ -101,8 +103,9 @@ namespace Application.Implementations
                   || _unitOfWork.GenericRepository<User>().Exists(c => c.Email == request.Email))
                 return BadRequest<int>("EmailDto Already Exist!");
             var result = await AddAsync(request);
-            result = await _supplierRepository.Register(result);
-            return Created(result);
+            var id = result.Data;
+            var response =  _supplierRepository.Register(id);
+            return response.Status > 0 ? Success(id) : BadRequest<int>("Failed to Add Registered Account");
 
         }
 
@@ -129,9 +132,26 @@ namespace Application.Implementations
             if (!CheckIdExists(id))
                 return NotFound<SupplierResponse>();
             var supplier = _supplierRepository.GetById(id);
-            var response = _mapper.Map<SupplierResponse>(supplier.Organization);
-            response.Categories = _mapper.Map<List<SupplierCategoryResponse>>(supplier.SupplierCategories);
-            response.Fax = supplier.Organization.FaxNo;
+            var response = new SupplierResponse
+            (
+                Id: supplier.Id,
+                Name: supplier.Organization.Name,
+                Country: supplier.Organization.Country!,
+                City: supplier.Organization.City!,
+                StreetAddress: supplier.Organization.StreetAddress!,
+                Email: supplier.Organization.Email!,
+                TaxNo: supplier.Organization.TaxNo,
+                Phone: supplier.Organization.Phone,
+                ImageUrl: GetImageUrl(supplier.Organization.ImageUrl!),
+                Fax: supplier.Organization.Fax,
+                ApprovedDate: null,
+                IsDocumentsApproved: false,
+                IsApproved: false,
+                Categories: supplier.SupplierCategories?
+                    .Select(c => new SupplierCategoryResponse(supplier.Id, c.CategoryId)).ToList(),
+                Department: null,
+                Title: null
+            );
             return Success(response);
         }
 
@@ -199,21 +219,25 @@ namespace Application.Implementations
         {
             var supplier = _supplierRepository.GetById(id);
 
-            return new SupplierResponse
-            {
-                Id = supplier.Id,
-                TaxNo = supplier.Organization.TaxNo,
-                Email = supplier.Organization.Email!,
-                Phone = supplier.Organization.Phone!,
-                ImageUrl = GetImageUrl(supplier.Organization.ImageUrl!),
-                Fax = supplier.Organization.Fax!,
-                //IsApproved = companySupplier.IsApproved,
-                //ApprovedDate = companySupplier.ApprovedDate,
-                Name = supplier.Organization.Name,
-                City = supplier.Organization.City!,
-                Country = supplier.Organization.Country!,
-                StreetAddress = supplier.Organization.StreetAddress!,
-            };
+            return new SupplierResponse(
+                Id: supplier.Id,
+                Name: supplier.Organization.Name,
+                Country: supplier.Organization.Country!,
+                City: supplier.Organization.City!,
+                StreetAddress: supplier.Organization.StreetAddress!,
+                Email: supplier.Organization.Email!,
+                TaxNo: supplier.Organization.TaxNo,
+                Phone: supplier.Organization.Phone,
+                ImageUrl: GetImageUrl(supplier.Organization.ImageUrl!),
+                Fax: supplier.Organization.Fax,
+                ApprovedDate: null,
+                IsDocumentsApproved: false,
+                IsApproved: false,
+                Categories: supplier.SupplierCategories?
+                    .Select(c => new SupplierCategoryResponse(supplier.Id, c.CategoryId)).ToList(),
+                Department: null,
+                Title: null
+            );
         }
         private static string GetImageUrl(string imageName)
         {

@@ -32,7 +32,7 @@ public class UserController : BaseController
     {
         var command = await _mediator.Send(model);
 
-        return base.OperationResult(command);
+        return base.IResponse(command);
     }
 
 
@@ -41,7 +41,7 @@ public class UserController : BaseController
     {
         var query = await _mediator.Send(model);
 
-        return base.OperationResult(query);
+        return base.IResponse(query);
     }
 
     [HttpPost("LoginConfirmation")]
@@ -49,7 +49,7 @@ public class UserController : BaseController
     {
         var result = await _mediator.Send(model);
 
-        return base.OperationResult(result);
+        return base.IResponse(result);
     }
 
     [HttpPost("RefreshSignIn")]
@@ -63,7 +63,7 @@ public class UserController : BaseController
 
         var newTokenResult = await _mediator.Send(model);
 
-        return base.OperationResult(newTokenResult);
+        return base.IResponse(newTokenResult);
     }
 
     [HttpPost("Logout")]
@@ -72,6 +72,6 @@ public class UserController : BaseController
     {
         var commandResult = await _mediator.Send(new RequestLogoutCommand(base.UserId));
 
-        return base.OperationResult(commandResult);
+        return base.IResponse(commandResult);
     }
 }

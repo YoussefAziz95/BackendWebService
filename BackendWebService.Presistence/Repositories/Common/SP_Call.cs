@@ -1,10 +1,10 @@
-﻿using Application.Contracts.Persistences;
+﻿using Application.Contracts.Persistence;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using Persistence.Data;
 using System.Data;
 
-namespace Presistence.Repositories.Common
+namespace Persistence.Repositories.Common
 {
     /// <summary>
     /// Represents a class for executing stored procedures and handling data retrieval using Dapper.

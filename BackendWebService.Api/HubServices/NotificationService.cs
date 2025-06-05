@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.HubServices;
-using Application.Contracts.Persistences;
+using Application.Contracts.Persistence;
 using Application.Contracts.Proxy;
-using Application.DTOs.Notifications;
+using Application.Features;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;

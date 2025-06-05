@@ -1,8 +1,8 @@
 ﻿using Api.Base;
-using Application.Contracts.Persistences;
+using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.DTOs;
-using Application.DTOs.Common;
+using Application.Features;
+using Application.Features.Common;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -83,6 +83,8 @@ public class CategoriesController : AppControllerBase
         var result = _unitOfWork.Save();
         if (result == null)
             return NotFound("Category not found");
+        var fileResponse = _fileSystemService.DownloadFileResponse(category.File.FileName);
+        fileResponse.FileLink = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/FileSystem/file/download/{category.FileId}";
         var response = new Response<CategoryResponse>()
         {
             StatusCode = ApiResultStatusCode.Success,
@@ -101,16 +103,20 @@ public class CategoriesController : AppControllerBase
         if (categories is null)
             return NotFound("Categories not found");
         // Get the server URL
-        var serverUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/FileSystem/file/download/";
+        var categoriesReponse = new List<CategoryWithFileResponse>();
+        foreach (var c in categories)
+        {
+            var fileResponse = _fileSystemService.DownloadFileResponse(c.File.FileName);
+            fileResponse.FileLink = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/FileSystem/file/download/{c.FileId}";
+            var categoryResponse =  new CategoryWithFileResponse(c.Id, c.Name, c.ParentId,fileResponse, c.IsActive);
+            categoriesReponse.Add(categoryResponse);
+        }
         var result = new Response<List<CategoryWithFileResponse>>()
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Categories found",
             Succeeded = true,
-            Data = categories.Select(c => new CategoryWithFileResponse(c.Id, c.Name, c.ParentId,
-             $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/FileSystem/file/download/{c.Id}",
-            //_fileSystemService.DownloadFileResponse(c.File.FileName),
-            c.IsActive)).ToList()
+            Data = categoriesReponse
         };
         return NewResult(result);
     }

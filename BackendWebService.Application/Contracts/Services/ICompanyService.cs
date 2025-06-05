@@ -1,8 +1,8 @@
-﻿using Application.Contracts.DTOs;
-using Application.DTOs.Common;
-using Application.DTOs.Companies;
-using Application.DTOs.Companies;
-using Application.DTOs;
+﻿using Application.Contracts.Features;
+using Application.Features.Common;
+using Application.Features;
+using Application.Features;
+using Application.Features;
 
 namespace Application.Contracts.Services;
 

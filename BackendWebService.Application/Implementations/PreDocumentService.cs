@@ -1,10 +1,11 @@
-﻿using Application.Contracts.DTOs;
-using Application.Contracts.Persistences;
+﻿using Application.Contracts.Features;
+using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.DTOs.Common;
-using Application.DTOs.PreDocuments;
+using Application.Features.Common;
+using Application.Features;
 using Application.Wrappers;
 using AutoMapper;
+using Domain;
 using Domain;
 using Domain.Constants;
 using Microsoft.EntityFrameworkCore;

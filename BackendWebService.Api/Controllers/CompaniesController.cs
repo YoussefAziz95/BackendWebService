@@ -1,13 +1,13 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
-using Application.DTOs.Common;
-using Application.DTOs.Companies;
-using Application.Validators.Common;
+using Application.Features;
+using Application.Features.Common;
 using Domain;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel.Extensions;
 
 namespace Api.Controllers;
 
@@ -26,7 +26,7 @@ public class CompaniesController : AppControllerBase
 
     [HttpPost]
     [Authorize(PermissionConstants.COMPANY)]
-    [ModelValidator]
+
     public async Task<IActionResult> AddCompany([FromBody] AddCompanyRequest request)
     {
         var result = await _companyService.AddAsync(request);
@@ -43,7 +43,7 @@ public class CompaniesController : AppControllerBase
 
     [HttpPut("{id}")]
     [Authorize(PermissionConstants.COMPANY)]
-    [ModelValidator]
+
     public async Task<IActionResult> UpdateCompany([FromRoute] int id, [FromBody] UpdateCompanyRequest request)
     {
         var result = await _companyService.UpdateAsync(request);
@@ -62,13 +62,10 @@ public class CompaniesController : AppControllerBase
     [Authorize(PermissionConstants.COMPANY)]
     public async Task<IActionResult> DeleteCompany([FromRoute] int id, [FromBody] DeleteSuperPasswordRequest deleteSuperPasswordRequest)
     {
-        var validator = new DeleteSuperPasswordRequestValidator(_userManager); // Assuming you have a validator for DeleteSuperPasswordRequest
-        var validationResult = await validator.ValidateAsync(deleteSuperPasswordRequest);
-
-        if (!validationResult.IsValid)
+        if (deleteSuperPasswordRequest.SuperPassword == "")
         {
             // If validation fails, return bad request with errors
-            return BadRequest(validationResult.Errors);
+            return BadRequest("Enter Password");
         }
 
         // Validation passed, proceed with deletion

@@ -1,7 +1,7 @@
 ﻿using Api.Base;
-using Application.Contracts.Persistences;
-using Application.DTOs;
-using Application.DTOs.Common;
+using Application.Contracts.Persistence;
+using Application.Features.Common;
+using Application.Features;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;

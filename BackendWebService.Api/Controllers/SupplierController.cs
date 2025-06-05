@@ -1,8 +1,7 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
-using Application.DTOs.Common;
-using Application.DTOs;
-using Application.Validators.Common;
+using Application.Features;
+using Application.Features.Common;
 using Domain;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
@@ -26,7 +25,7 @@ public class SupplierController : AppControllerBase
 
     [HttpPost("add")]
     [Authorize(PermissionConstants.SUPPLIER)]
-    [ModelValidator]
+
     public async Task<IActionResult> AddSupplier([FromBody] AddSupplierRequest request)
     {
         var result = await _supplierService.AddRegisteredAsync(request);
@@ -34,7 +33,7 @@ public class SupplierController : AppControllerBase
     }
     [HttpPut("Register/{id}")]
     [Authorize(PermissionConstants.SUPPLIER)]
-    [ModelValidator]
+
     public async Task<IActionResult> AddSupplier([FromRoute] int id)
     {
         var result = await _supplierService.RegisterAsync(id);
@@ -50,7 +49,7 @@ public class SupplierController : AppControllerBase
 
     [HttpPut("{id}")]
     [Authorize(PermissionConstants.SUPPLIER)]
-    [ModelValidator]
+
     public async Task<IActionResult> UpdateSupplier([FromBody] UpdateSupplierRequest request)
     {
         var result = await _supplierService.UpdateAsync(request);
@@ -77,13 +76,10 @@ public class SupplierController : AppControllerBase
     [Authorize(PermissionConstants.SUPPLIER)]
     public async Task<IActionResult> DeleteSupplier([FromRoute] int id, [FromBody] DeleteSuperPasswordRequest deleteSuperPasswordRequest)
     {
-        var validator = new DeleteSuperPasswordRequestValidator(_userManager); // Assuming you have a validator for DeleteSuperPasswordRequest
-        var validationResult = await validator.ValidateAsync(deleteSuperPasswordRequest);
-
-        if (!validationResult.IsValid)
+        if (deleteSuperPasswordRequest.SuperPassword == "")
         {
             // If validation fails, return bad request with errors
-            return BadRequest(validationResult.Errors);
+            return BadRequest("Enter Password");
         }
 
         // Validation passed, proceed with deletion
@@ -93,7 +89,7 @@ public class SupplierController : AppControllerBase
 
     [HttpPost("addSupplierToCompany")]
     [Authorize(PermissionConstants.SUPPLIER)]
-    [ModelValidator]
+
     public async Task<IActionResult> AddSupplierToCompany([FromBody] AddSupplierToCompany request)
     {
         var result = await _supplierService.AddSupplierTOCompany(request);

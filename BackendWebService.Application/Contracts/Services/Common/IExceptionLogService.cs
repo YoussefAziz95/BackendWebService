@@ -1,4 +1,4 @@
-﻿using Application.DTOs.ExceptionLogs;
+﻿using Application.Features;
 
 namespace Application.Contracts.Services;
 

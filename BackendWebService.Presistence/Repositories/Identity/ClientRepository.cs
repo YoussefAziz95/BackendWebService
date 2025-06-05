@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Persistences;
+﻿using Application.Contracts.Persistence;
 using Application.Model.Notifications;
 using Microsoft.AspNetCore.Http;
 using Persistence.Data;

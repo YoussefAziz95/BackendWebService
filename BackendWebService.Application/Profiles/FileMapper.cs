@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+﻿using Application.Features;
 using Domain;
 
 namespace Application.Profiles

@@ -1,5 +1,4 @@
-﻿
-using Application.Contracts.Persistences;
+﻿using Application.Contracts.Persistence;
 using Persistence.Data;
 
 namespace Persistence.Repositories.Organizations

@@ -1,6 +1,6 @@
 ﻿using Application.Model.Notifications;
 
-namespace Application.Contracts.Persistences;
+namespace Application.Contracts.Persistence;
 
 public interface IUnitOfWork
 {

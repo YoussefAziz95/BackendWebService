@@ -1,13 +1,12 @@
 ﻿using Api.Base;
-using Application.Contracts.Persistences;
-using Application.DTOs;
-using Application.DTOs.Common;
+using Application.Contracts.Persistence;
+using Application.Features;
+using Application.Features.Common;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers;
 
@@ -58,7 +57,7 @@ public class TechnicianController : AppControllerBase
         //// Create Technician  
         //var technician = new Technician
         //{
-            
+
         //};
 
         //_unitOfWork.GenericRepository<Technician>().Add(technician);
@@ -150,19 +149,7 @@ public class TechnicianController : AppControllerBase
         technician.Email = request.Email;
         technician.UserName = request.Email; // Keep UserName in sync with Email
         technician.PhoneNumber = request.PhoneNumber;
-
-        // Convert the string status to the StatusEnum type
-        if (!Enum.TryParse(request.Status, out StatusEnum parsedStatus))
-        {
-            return BadRequest(new Response<object>
-            {
-                StatusCode = ApiResultStatusCode.BadRequest,
-                Message = "Invalid status value",
-                Succeeded = false
-            });
-        }
-
-        technician.AccountStatus = parsedStatus;
+        technician.AccountStatus = request.Status;
 
         _unitOfWork.GenericRepository<Technician>().Update(technician);
         var saveResult = _unitOfWork.Save();

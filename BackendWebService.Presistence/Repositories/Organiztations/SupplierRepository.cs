@@ -1,5 +1,5 @@
-﻿using Application.Contracts.Persistences;
-using Application.DTOs.Suppliers;
+﻿using Application.Contracts.Persistence;
+using Application.Features;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
@@ -15,11 +15,7 @@ namespace Persistence.Repositories.Organizations
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
 
-        /// <summary>
-        /// Constructs a new instance of the SupplierRepository with the specified application database context.
-        /// </summary>
-        /// <param name="context">The application database context.</param>
-        /// 
+
 
         public SupplierRepository(ApplicationDbContext context, UserManager<User> userManager)
         {
@@ -141,17 +137,7 @@ namespace Persistence.Repositories.Organizations
                          from cv in cvs.DefaultIfEmpty()
                          join o in _context.Organizations on v.OrganizationId equals o.Id
                          where cv.CompanyId == company.Id || cv.CompanyId == null
-                         select new GetPaginatedSupplier
-                         {
-                             Id = v.Id,
-                             SupplierAccountId = cv.Id,
-                             Email = o.Email,
-                             TaxNo = o.TaxNo,
-                             Name = o.Name,
-                             Country = o.Country,
-                             StreetAddress = o.StreetAddress,
-                             City = o.City,
-                         };
+                         select new GetPaginatedSupplier (v.Id, cv.Id, o.Name, o.Country, o.City, o.StreetAddress, o.Email, o.TaxNo);
 
             return result?.ToList() ?? new List<GetPaginatedSupplier>();
         }

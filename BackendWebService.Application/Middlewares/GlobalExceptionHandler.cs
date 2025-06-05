@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Common;
+﻿using Application.Features.Common;
 using Application.Exceptions;
 using Domain.Enums;
 using FluentValidation;

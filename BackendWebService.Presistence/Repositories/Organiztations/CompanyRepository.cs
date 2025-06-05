@@ -1,6 +1,6 @@
-﻿using Application.Contracts.Persistences;
-using Application.DTOs.Companies;
-using Application.DTOs.Suppliers;
+﻿using Application.Contracts.Persistence;
+using Application.Features;
+using Domain;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
@@ -63,18 +63,7 @@ namespace Persistence.Repositories.Organizations
         {
             var companyResponse = from c in _context.Companies
                                   join o in _context.Organizations on c.OrganizationId equals o.Id
-                                  select new GetPaginatedCompany
-                                  {
-                                      Id = c.Id,
-                                      City = c.Organization.City,
-                                      Country = c.Organization.Country,
-                                      StreetAddress = c.Organization.StreetAddress,
-                                      Email = c.Organization.Email,
-                                      TaxNo = c.Organization.TaxNo,
-                                      RoleType = Enum.GetName(typeof(RoleEnum), c.Organization.Type),
-                                      Name = o.Name,
-
-                                  };
+                                  select new GetPaginatedCompany(c.Id, c.Organization.City, c.Organization.Country, c.Organization.StreetAddress, c.Organization.Email, c.Organization.TaxNo, Enum.GetName(typeof(RoleEnum), c.Organization.Type), o.Name);
             return companyResponse.AsQueryable();
         }
 
@@ -82,22 +71,8 @@ namespace Persistence.Repositories.Organizations
         {
             var companyResponse = from c in _context.Companies
                                   join o in _context.Organizations on c.OrganizationId equals o.Id
-                                  select new CompanyResponse
-                                  {
-                                      Id = c.Id,
-                                      City = c.Organization.City,
-                                      Country = c.Organization.Country,
-                                      StreetAddress = c.Organization.StreetAddress,
-                                      Email = c.Organization.Email,
-                                      TaxNo = c.Organization.TaxNo,
-                                      Fax = c.Organization.Fax,
-                                      Phone = c.Organization.Phone,
-                                      RoleType = Enum.GetName(typeof(RoleEnum), c.Organization.Type),
-                                      Name = c.Organization.Name,
-                                      IsActive = c.IsActive,
-                                      CreatedDate = c.CreatedDate,
-                                      UpdateDate = c.UpdateDate,
-                                  };
+                                  select new CompanyResponse(c.Id, c.Organization.Name, c.Organization.Country, c.Organization.City, c.Organization.StreetAddress, c.Organization.Email, c.Organization.TaxNo, c.Organization.Phone, c.Organization.ImageUrl, c.Organization.Fax, Enum.GetName(typeof(RoleEnum), c.Organization.Type) ?? "Unknown", c.IsActive ?? false, c.CreatedDate ?? DateTime.UnixEpoch, c.UpdateDate
+                                            );
             return companyResponse.FirstOrDefault();
         }
 

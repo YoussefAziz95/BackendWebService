@@ -1,7 +1,7 @@
 ﻿using Api.Base;
-using Application.Contracts.Persistences;
-using Application.DTOs.Common;
-using Application.DTOs;
+using Application.Contracts.Persistence;
+using Application.Features;
+using Application.Features.Common;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -32,7 +32,7 @@ public class ServiceController : AppControllerBase
         };
 
         Category category;
-        if (!_unitOfWork.GenericRepository<Category>().Exists(c=>c.Name == request.CategoryName))
+        if (!_unitOfWork.GenericRepository<Category>().Exists(c => c.Name == request.CategoryName))
             return BadRequest("Category not found");
 
         category = _unitOfWork.GenericRepository<Category>().Get(c => c.Name == request.CategoryName);
@@ -48,7 +48,7 @@ public class ServiceController : AppControllerBase
     public IActionResult GetService([FromRoute] int id)
     {
         _unitOfWork.GenericRepository<Service>().Exists(Service => Service.Id == id);
-        var service = _unitOfWork.GenericRepository<Service>().Get(s=> s.Id == id, include: s => s.Include(c => c.Category));
+        var service = _unitOfWork.GenericRepository<Service>().Get(s => s.Id == id, include: s => s.Include(c => c.Category));
         if (service == null)
             return NotFound("Service not found");
         var result = new Response<ServiceResponse>()
@@ -64,7 +64,7 @@ public class ServiceController : AppControllerBase
     [HttpPut]
     public IActionResult UpdateService([FromBody] UpdateServiceRequest request)
     {
-        var service = _unitOfWork.GenericRepository<Service>().Get(c=> c.Id == request.Id, include: s => s.Include(c => c.Category));
+        var service = _unitOfWork.GenericRepository<Service>().Get(c => c.Id == request.Id, include: s => s.Include(c => c.Category));
         if (service == null)
             return NotFound("Service not found");
         service.Name = request.Name;
@@ -86,7 +86,7 @@ public class ServiceController : AppControllerBase
     [HttpPost("GetAll")]
     public async Task<IActionResult> GetAll()
     {
-        var services = _unitOfWork.GenericRepository<Service>().GetAll(include: s=> s.Include(c=>c.Category));
+        var services = _unitOfWork.GenericRepository<Service>().GetAll(include: s => s.Include(c => c.Category));
         var response = new PaginatedResponse<ServiceResponse>()
         {
             StatusCode = ApiResultStatusCode.Success,

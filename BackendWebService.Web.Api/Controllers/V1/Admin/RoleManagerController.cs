@@ -26,7 +26,7 @@ namespace Web.Api.Controllers.V1.Admin
         {
             var queryResult = await sender.Send(new GetAllRolesQuery());
 
-            return base.OperationResult(queryResult);
+            return base.IResponse(queryResult);
         }
 
         [HttpGet("AuthRoutes")]
@@ -34,7 +34,7 @@ namespace Web.Api.Controllers.V1.Admin
         {
             var queryModel = await sender.Send(new GetAuthorizableRoutesQuery());
 
-            return base.OperationResult(queryModel);
+            return base.IResponse(queryModel);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Web.Api.Controllers.V1.Admin
             var commandResult =
                 await sender.Send(new UpdateRoleClaimsCommand(model.RoleId, model.RoleClaimValue));
 
-            return base.OperationResult(commandResult);
+            return base.IResponse(commandResult);
         }
 
         [HttpPost("NewRole")]
@@ -56,7 +56,7 @@ namespace Web.Api.Controllers.V1.Admin
         {
             var commandResult = await sender.Send(model);
 
-            return base.OperationResult(commandResult);
+            return base.IResponse(commandResult);
         }
 
     }

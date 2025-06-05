@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Notifications;
+﻿using Application.Features;
 
 namespace Application.Contracts.HubServices;
 

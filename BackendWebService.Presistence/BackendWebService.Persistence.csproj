@@ -8,20 +8,8 @@
 
   <ItemGroup>
     <Compile Remove="Data\Configurations\Common\**" />
-    <Compile Remove="Repositories\Organiztations\**" />
-    <Compile Remove="Repositories\Product\**" />
-    <Compile Remove="Repositories\WorkflowReviewRepositories\**" />
-    <Compile Remove="Repositories\Workflows\**" />
     <EmbeddedResource Remove="Data\Configurations\Common\**" />
-    <EmbeddedResource Remove="Repositories\Organiztations\**" />
-    <EmbeddedResource Remove="Repositories\Product\**" />
-    <EmbeddedResource Remove="Repositories\WorkflowReviewRepositories\**" />
-    <EmbeddedResource Remove="Repositories\Workflows\**" />
     <None Remove="Data\Configurations\Common\**" />
-    <None Remove="Repositories\Organiztations\**" />
-    <None Remove="Repositories\Product\**" />
-    <None Remove="Repositories\WorkflowReviewRepositories\**" />
-    <None Remove="Repositories\Workflows\**" />
   </ItemGroup>
 
   <ItemGroup>

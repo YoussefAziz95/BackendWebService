@@ -1,7 +1,7 @@
 ﻿using Api.Base;
-using Application.Contracts.Persistences;
-using Application.DTOs;
-using Application.DTOs.Common;
+using Application.Contracts.Persistence;
+using Application.Features;
+using Application.Features.Common;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -63,7 +63,7 @@ namespace Api.Controllers
                     customerService.Service.Name,
                     customerService.Service.Code,
                     customerService.Description,
-                    customerService.Status.ToString(),
+                    customerService.Status,
                     customerService.RequestedDate
                 ),
                 StatusCode = ApiResultStatusCode.Success,
@@ -94,7 +94,7 @@ namespace Api.Controllers
                     c.CustomerId,
                     c.ServiceId,
                     c.Description,
-                    c.Status.ToString(), // Convert StatusEnum to string  
+                    c.Status, // Convert StatusEnum to string  
                     c.RequestedDate
                 )).ToList(),
                 StatusCode = ApiResultStatusCode.Success,

@@ -1,6 +1,5 @@
-﻿using Application.Contracts.DTOs;
-using Application.DTOs;
-using Application.DTOs.Permission;
+﻿using Application.Contracts.Features;
+using Application.Features;
 
 namespace Application.Contracts.Services;
 

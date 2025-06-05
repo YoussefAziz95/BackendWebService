@@ -1,8 +1,8 @@
-﻿using Application.DTOs.Companies;
-using Application.DTOs;
+﻿using Application.Features;
+using Application.Features;
 using Domain;
 
-namespace Application.Contracts.Persistences;
+namespace Application.Contracts.Persistence;
 
 public interface ICompanyRepository : IOrganizationRepository<Company, CompanyResponse, GetPaginatedCompany>
 {

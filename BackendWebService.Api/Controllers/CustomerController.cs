@@ -1,13 +1,12 @@
 ﻿using Api.Base;
-using Application.Contracts.Persistences;
-using Application.DTOs;
-using Application.DTOs.Common;
+using Application.Contracts.Persistence;
+using Application.Features;
+using Application.Features.Common;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers;
 

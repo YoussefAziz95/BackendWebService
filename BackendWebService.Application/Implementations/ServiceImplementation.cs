@@ -1,8 +1,8 @@
-﻿using Application.Contracts.DTOs;
-using Application.Contracts.Persistences;
+﻿using Application.Contracts.Features;
+using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.DTOs;
-using Application.DTOs.Common;
+using Application.Features;
+using Application.Features.Common;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
@@ -94,7 +94,7 @@ namespace Application.Implementations
         private ServiceResponse GetById(int id)
         {
             var service = _unitOfWork.GenericRepository<Service>()
-                           .Get(c => c.Id == id, include: c=> c.Include(m=> m.Category));
+                           .Get(c => c.Id == id, include: c => c.Include(m => m.Category));
             var response = new ServiceResponse(service.Id, service.Name, service.Code, service.Category.Name);
 
             return response;

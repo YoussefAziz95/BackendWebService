@@ -19,7 +19,7 @@ namespace Web.Api.Controllers.V1.Admin
         {
             var query = await sender.Send(model);
 
-            return base.OperationResult(query);
+            return base.IResponse(query);
         }
 
         [Authorize(Roles = "admin")]
@@ -28,7 +28,7 @@ namespace Web.Api.Controllers.V1.Admin
         {
             var commandResult = await sender.Send(model);
 
-            return base.OperationResult(commandResult);
+            return base.IResponse(commandResult);
         }
     }
 }

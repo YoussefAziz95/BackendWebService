@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using Asp.Versioning;
-using Application.Features.Order.Queries.GetAllOrders;
+using Application.Features;
 using WebFramework.BaseController;
 using WebFramework.WebExtensions;
 using Mediator;
@@ -29,7 +29,7 @@ namespace Web.Api.Controllers.V1.Admin
         {
             var queryResult = await _sender.Send(new GetAllOrdersQuery());
 
-            return base.OperationResult(queryResult);
+            return base.IResponse(queryResult);
         }
     }
 }

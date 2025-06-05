@@ -1,5 +1,5 @@
-﻿using Application.Contracts.Persistences;
-using Application.DTOs.Categories;
+﻿using Application.Contracts.Persistence;
+using Application.Features;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
@@ -12,13 +12,11 @@ namespace Persistence.Repositories.Product
         public List<CategoryResponse> GetAll(int CompanyId)
         {
             var query = from c in _context.Categories
+                        join cf in _context.FileLogs on c.FileId equals cf.Id
                         where c.OrganizationId == _context.userInfo.OrganizationId
-                        select new CategoryResponse
-                        {
-                            Id = c.Id,
-                            Name = c.Name,
-                            ParentId = c.ParentId
-                        };
+                        select new CategoryResponse(c.Id, c.Name, c.ParentId, new FileResponse(cf.FileName,cf.FullPath,cf.Extention),
+                                c.IsActive);
+
             return query.Any() ? query.ToList() : null;
         }
 

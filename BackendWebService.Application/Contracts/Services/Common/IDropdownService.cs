@@ -1,5 +1,5 @@
-﻿using Application.Contracts.DTOs;
-using Application.DTOs.Common;
+﻿using Application.Contracts.Features;
+using Application.Features.Common;
 
 namespace Application.Contracts.Services;
 public interface IDropdownService

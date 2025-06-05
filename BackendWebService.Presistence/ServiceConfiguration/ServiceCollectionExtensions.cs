@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.Persistence;
-using Application.Contracts.Persistences;
-using Application.DTOs.Common;
+using Application.Contracts.Persistence;
+using Application.Features.Common;
 using Application.Manager;
 using Application.Model.Jwt;
 using Application.Persistence.Repositories;
@@ -21,10 +21,12 @@ using Persistence.Repositories.FileSystem;
 using Persistence.Repositories.Identity;
 using Persistence.Repositories.Notifications;
 using Persistence.Store;
-using Presistence.Repositories.Common;
+using Persistence.Repositories.Common;
 using SharedKernel.Extensions;
 using System.Security.Claims;
 using System.Text;
+using Persistence.Repositories.Organizations;
+using Persistence.Repositories.Product;
 
 namespace nfrastructure.Persistence.ServiceConfiguration;
 
@@ -44,10 +46,10 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ISP_Call, SP_Call>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
-        //services.AddScoped<ICompanyRepository, CompanyRepository>();
-        //services.AddScoped<ISupplierRepository, SupplierRepository>();
-        //services.AddScoped<ICategoryRepository, CategoryRepository>();
-        //services.AddScoped<ISupplierDocumentRepository, SupplierDocumentRepository>();
+        services.AddScoped<ICompanyRepository, CompanyRepository>();
+        services.AddScoped<ISupplierRepository, SupplierRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<ISupplierDocumentRepository, SupplierDocumentRepository>();
         services.AddScoped<IFileRepository, FileRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ILoggingRepository, LoggingRepository>();

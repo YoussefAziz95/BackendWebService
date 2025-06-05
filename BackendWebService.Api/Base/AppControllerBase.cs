@@ -1,4 +1,4 @@
-﻿using Application.Contracts.DTOs;
+﻿using Application.Contracts.Features;
 using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;

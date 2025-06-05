@@ -1,0 +1,3 @@
+﻿namespace Application.Features;
+
+public record ProductResponse(int? Id, string Number, string Name, string Description, FileResponse? File, string Code, string PartNumber, string Manufacturer, int CategoryId, bool? IsActive);

@@ -1,4 +1,4 @@
-﻿namespace Application.Contracts.Persistences;
+﻿namespace Application.Contracts.Persistence;
 
 public interface IActorRepository<IAction>
 {

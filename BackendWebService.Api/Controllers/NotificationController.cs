@@ -1,6 +1,6 @@
 ﻿using Api.Base;
 using Application.Contracts.HubServices;
-using Application.DTOs.Notifications;
+using Application.Features;
 using CrossCuttingConcerns.ConfigHubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,6 @@
-﻿using Application.Contracts.Persistences;
+﻿using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.DTOs.ExceptionLogs;
+using Application.Features;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;

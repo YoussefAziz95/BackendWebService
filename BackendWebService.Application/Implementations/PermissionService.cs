@@ -1,12 +1,10 @@
-﻿using Application.Contracts.DTOs;
-using Application.Contracts.Persistences;
+﻿using Application.Contracts.Features;
+using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.DTOs;
-using Application.DTOs.Permission;
+using Application.Features;
 using Application.Wrappers;
 using Domain;
 using Domain.Constants;
-using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Data;

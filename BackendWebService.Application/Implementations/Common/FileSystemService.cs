@@ -1,13 +1,13 @@
-﻿using Application.Contracts.DTOs;
+﻿using Application.Contracts.Features;
 using Application.Contracts.Infrastructures;
-using Application.Contracts.Persistences;
+using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.DTOs.Common;
+using Application.Features.Common;
 using Application.Model.File;
 using Application.Wrappers;
-using Application.DTOs;
 using Domain.Constants;
 using Domain;
+using Application.Features;
 
 namespace Application.Implementations.Common
 {

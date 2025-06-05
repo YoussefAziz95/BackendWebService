@@ -1,15 +1,16 @@
-﻿using Application.Contracts.DTOs;
+﻿using Application.Contracts.Features;
 using Application.Contracts.Manager;
-using Application.Contracts.Persistences;
-using Application.DTOs;
-using Dapper;
+using Application.Contracts.Persistence;
 using Domain;
+using Dapper;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Data;
+
+using Application.Features;
 
 namespace Application.Manager;
 

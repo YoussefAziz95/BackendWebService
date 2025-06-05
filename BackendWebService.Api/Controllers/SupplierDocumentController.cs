@@ -1,8 +1,7 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
-using Application.DTOs.Common;
-using Application.DTOs.SupplierDocuments;
-using Application.Validators.Common;
+using Application.Features;
+using Application.Features.Common;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +21,7 @@ public class SupplierDocumentController : AppControllerBase
 
     [HttpPost]
     [Authorize(PermissionConstants.SUPPLIERDOCUMENT)]
-    [ModelValidator]
+
     public async Task<IActionResult> AddSupplierDocument([FromBody] AddSupplierDocumentRequest request)
     {
         var result = await _supplierdocumentService.AddAsync(request);
@@ -39,7 +38,7 @@ public class SupplierDocumentController : AppControllerBase
 
     [HttpPut]
     [Authorize(PermissionConstants.SUPPLIERDOCUMENT)]
-    [ModelValidator]
+
     public async Task<IActionResult> UpdateSupplierDocument([FromBody] UpdateSupplierDocumentRequest request)
     {
         var result = await _supplierdocumentService.UpdateAsync(request);
