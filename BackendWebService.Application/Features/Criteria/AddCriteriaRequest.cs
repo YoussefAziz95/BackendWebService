@@ -1,4 +1,4 @@
-﻿namespace BackendWebService.Application.Features.Criteria
+﻿namespace Application.Features.Criteria
 {
     public class AddCriteriaRequest
     {

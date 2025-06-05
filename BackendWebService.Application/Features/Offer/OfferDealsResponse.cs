@@ -1,8 +1,8 @@
 ﻿using Application.Features.Common;
-using BackendWebService.Application.Features.Criteria;
-using BackendWebService.Application.Features.Deal;
+using Application.Features.Criteria;
+using Application.Features.Deal;
 
-namespace BackendWebService.Application.Features
+namespace Application.Features
 {
     public class OfferDealsResponse
     {

@@ -16,9 +16,9 @@ namespace Api.Controllers;
 public class CustomerController : AppControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly UserManager<Customer> _userManager;
+    private readonly UserManager<User> _userManager;
 
-    public CustomerController(IUnitOfWork unitOfWork, UserManager<Customer> userManager)
+    public CustomerController(IUnitOfWork unitOfWork, UserManager<User> userManager)
     {
         _unitOfWork = unitOfWork;
         _userManager = userManager;
@@ -28,7 +28,7 @@ public class CustomerController : AppControllerBase
     public async Task<IActionResult> AddCustomer([FromBody] AddCustomerRequest request)
     {
         // Create User  
-        var user = new Customer
+        var user = new User
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
@@ -56,6 +56,13 @@ public class CustomerController : AppControllerBase
         // Create Customer  
         var customer = new Customer
         {
+            User = user,
+            UserId = user.Id, // Set UserId to link Customer with User
+            MFAEnabled = request.MFAEnabled,
+            Role = RoleEnum.Customer, // Default role for new customers
+            Status = StatusEnum.Active, // Default status for new customers
+
+
         };
 
         _unitOfWork.GenericRepository<Customer>().Add(customer);
@@ -114,10 +121,10 @@ public class CustomerController : AppControllerBase
             Data = new CustomerResponse
             (
                 customer.Id,
-                customer.FirstName,
-                customer.LastName,
-                customer.Email,
-                customer.PhoneNumber,
+                customer.User.FirstName,
+                customer.User.LastName,
+                customer.User.Email,
+                customer.User.PhoneNumber,
                 customer.MFAEnabled,
                 customer.Role,
                 customer.Status,
@@ -147,14 +154,13 @@ public class CustomerController : AppControllerBase
         }
 
         // Update User
-        customer.FirstName = request.FirstName;
-        customer.LastName = request.LastName;
-        customer.Email = request.Email;
-        customer.UserName = request.Email; // Keep UserName in sync with Email
-        customer.PhoneNumber = request.PhoneNumber;
+        customer.User.FirstName = request.FirstName;
+        customer.User.LastName = request.LastName;
+        customer.User.Email = request.Email;
+        customer.User.UserName = request.Email; // Keep UserName in sync with Email
+        customer.User.PhoneNumber = request.PhoneNumber;
 
         // Update Customer
-        customer.PhoneNumber = request.PhoneNumber;
         customer.MFAEnabled = request.MFAEnabled;
         customer.Status = request.Status;
 
@@ -176,10 +182,10 @@ public class CustomerController : AppControllerBase
             Data = new CustomerResponse
             (
                 customer.Id,
-                customer.FirstName,
-                customer.LastName,
-                customer.Email,
-                customer.PhoneNumber,
+                customer.User.FirstName,
+                customer.User.LastName,
+                customer.User.Email,
+                customer.User.PhoneNumber,
                 customer.MFAEnabled,
                 customer.Role,
                 customer.Status,
@@ -213,10 +219,10 @@ public class CustomerController : AppControllerBase
             Data = customers.Select(c => new CustomerResponse
             (
                 c.Id,
-                c.FirstName,
-                c.LastName,
-                c.Email,
-                c.PhoneNumber,
+                c.User.FirstName,
+                c.User.LastName,
+                c.User.Email,
+                c.User.PhoneNumber,
                 c.MFAEnabled,
                 c.Role,
                 c.Status,

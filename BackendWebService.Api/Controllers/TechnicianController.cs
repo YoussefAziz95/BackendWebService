@@ -16,9 +16,9 @@ namespace Api.Controllers;
 public class TechnicianController : AppControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly UserManager<Technician> _userManager;
+    private readonly UserManager<User> _userManager;
 
-    public TechnicianController(IUnitOfWork unitOfWork, UserManager<Technician> userManager)
+    public TechnicianController(IUnitOfWork unitOfWork, UserManager<User> userManager)
     {
         _unitOfWork = unitOfWork;
         _userManager = userManager;
@@ -28,7 +28,7 @@ public class TechnicianController : AppControllerBase
     public async Task<IActionResult> AddTechnician([FromBody] AddTechnicianRequest request)
     {
         // Create User  
-        var user = new Technician
+        var user = new User
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
@@ -113,11 +113,11 @@ public class TechnicianController : AppControllerBase
             Data = new TechnicianResponse
             (
                 technician.Id,
-                technician.FirstName,
-                technician.LastName,
-                technician.Email,
-                technician.PhoneNumber,
-                technician.MainRole.ToString(),
+                technician.User.FirstName,
+                technician.User.LastName,
+                technician.User.Email,
+                technician.User.PhoneNumber,
+                technician.User.MainRole.ToString(),
                 technician.CreatedDate
             ),
             StatusCode = ApiResultStatusCode.Success,
@@ -144,11 +144,11 @@ public class TechnicianController : AppControllerBase
         }
 
         // Update User
-        technician.FirstName = request.FirstName;
-        technician.LastName = request.LastName;
-        technician.Email = request.Email;
-        technician.UserName = request.Email; // Keep UserName in sync with Email
-        technician.PhoneNumber = request.PhoneNumber;
+        technician.User.FirstName = request.FirstName;
+        technician.User.LastName = request.LastName;
+        technician.User.Email = request.Email;
+        technician.User.UserName = request.Email; // Keep UserName in sync with Email
+        technician.User.PhoneNumber = request.PhoneNumber;
         technician.AccountStatus = request.Status;
 
         _unitOfWork.GenericRepository<Technician>().Update(technician);
@@ -169,11 +169,11 @@ public class TechnicianController : AppControllerBase
             Data = new TechnicianResponse
             (
                 technician.Id,
-                technician.FirstName,
-                technician.LastName,
-                technician.Email,
-                technician.PhoneNumber,
-                technician.MainRole.ToString(),
+                technician.User.FirstName,
+                technician.User.LastName,
+                technician.User.Email,
+                technician.User.PhoneNumber,
+                technician.User.MainRole.ToString(),
                 technician.CreatedDate
             ),
             StatusCode = ApiResultStatusCode.Success,
@@ -204,11 +204,11 @@ public class TechnicianController : AppControllerBase
             Data = customers.Select(c => new TechnicianResponse
             (
                 c.Id,
-                c.FirstName,
-                c.LastName,
-                c.Email,
-                c.PhoneNumber,
-                c.MainRole.ToString(),
+                c.User.FirstName,
+                c.User.LastName,
+                c.User.Email,
+                c.User.PhoneNumber,
+                c.User.MainRole.ToString(),
                 c.CreatedDate
              )).ToList(),
             StatusCode = ApiResultStatusCode.Success,

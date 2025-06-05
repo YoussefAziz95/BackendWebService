@@ -1,4 +1,4 @@
-﻿namespace BackendWebService.Application.Features.Deal
+﻿namespace Application.Features.Deal
 {
     public class DealDetailsResponse
     {

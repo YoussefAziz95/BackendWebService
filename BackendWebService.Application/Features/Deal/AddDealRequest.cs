@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BackendWebService.Application.Features.Deal
+namespace Application.Features.Deal
 {
     public class AddDealRequest
     {

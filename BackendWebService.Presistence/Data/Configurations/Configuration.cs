@@ -85,7 +85,6 @@ public sealed class UserGroupConfiguration : IEntityTypeConfiguration<UserGroup>
     public void Configure(EntityTypeBuilder<UserGroup> builder)
     {
         builder.HasKey(x => new { x.UserId, x.GroupId });
-        builder.HasOne(u => u.User).WithMany().HasForeignKey(u => u.UserId).OnDelete(DeleteBehavior.NoAction);
         builder.HasOne(g => g.Group).WithMany(g => g.UserGroups).HasForeignKey(g => g.GroupId).OnDelete(DeleteBehavior.NoAction);
     }
 }
@@ -121,6 +120,41 @@ public sealed class CategoryConfig : IEntityTypeConfiguration<Category>
     public void Configure(EntityTypeBuilder<Category> builder)
     {
         builder.HasIndex(c => c.Name);
+
+    }
+}
+
+public sealed class WorkflowConfuguration : IEntityTypeConfiguration<Workflow>
+{
+    public void Configure(EntityTypeBuilder<Workflow> builder)
+    {
+        builder.HasMany(c => c.WorkflowCycles)
+            .WithOne(c => c.Workflow)
+            .HasForeignKey(c => c.WorkflowId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+    }
+}
+public sealed class WorkflowCycleConfuguration : IEntityTypeConfiguration<WorkflowCycle>
+{
+    public void Configure(EntityTypeBuilder<WorkflowCycle> builder)
+    {
+        builder.HasOne(wc => wc.Workflow)
+            .WithMany(w => w.WorkflowCycles)
+            .HasForeignKey(wc => wc.WorkflowId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+    }
+}
+
+public sealed class WorkflowActionConfuguration : IEntityTypeConfiguration<WorkflowAction>
+{
+    public void Configure(EntityTypeBuilder<WorkflowAction> builder)
+    {
+        builder.HasOne(wc => wc.WorkflowCase)
+            .WithMany(w => w.WorkflowActions)
+            .HasForeignKey(wc => wc.WorkflowCaseId)
+            .OnDelete(DeleteBehavior.NoAction);
 
     }
 }

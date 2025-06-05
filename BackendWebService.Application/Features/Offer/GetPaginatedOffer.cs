@@ -1,6 +1,6 @@
 ﻿using Application.Features.Common;
 
-namespace BackendWebService.Application.Features
+namespace Application.Features
 {
     public class GetPaginatedOffer
     {

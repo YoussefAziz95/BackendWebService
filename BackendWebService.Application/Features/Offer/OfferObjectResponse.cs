@@ -1,4 +1,4 @@
-﻿namespace BackendWebService.Application.Features
+﻿namespace Application.Features
 {
     public class OfferObjectResponse
     {

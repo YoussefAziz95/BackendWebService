@@ -7,12 +7,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Domain;
 
 [Table("Administrator")]
-public class Administrator : User 
+public class Administrator : BaseEntity, IEntity, ITimeModification
 {
-    public int OrganizationId { get; set; }
-    [ForeignKey("OrganizationId")]
-    [DeleteBehavior(DeleteBehavior.NoAction)]
-    public virtual Organization Organization { get; set; }
+    public required int UserId { get; set; }
+    [ForeignKey("UserId")]
+    public required User User { get; set; }
     public RoleEnum MainRole => RoleEnum.SuperAdmin;
     public OrganizationEnum Role { get; set; } = OrganizationEnum.Administrator;
     public string Attributes { get; set; } // Consider using a JSON column

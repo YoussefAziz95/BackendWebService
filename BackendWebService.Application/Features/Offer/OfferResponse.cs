@@ -1,8 +1,8 @@
 ﻿using Application.Features.Common;
 using Domain.Enums;
-using BackendWebService.Application.Features.Criteria;
+using Application.Features.Criteria;
 
-namespace BackendWebService.Application.Features
+namespace Application.Features
 {
     public class OfferResponse
     {

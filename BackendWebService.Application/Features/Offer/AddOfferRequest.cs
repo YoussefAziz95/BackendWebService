@@ -1,7 +1,7 @@
-﻿using BackendWebService.Application.Features.Criteria;
+﻿using Application.Features.Criteria;
 using Domain.Enums;
 
-namespace BackendWebService.Application.Features
+namespace Application.Features
 {
     public class AddOfferRequest 
     {
