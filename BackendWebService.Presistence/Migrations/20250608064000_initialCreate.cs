@@ -41,7 +41,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FullAddress = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    StreetAddress = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     State = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -824,7 +824,6 @@ namespace Persistence.Migrations
                     OrganizationId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RegistrationNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AddressId = table.Column<int>(type: "int", nullable: true),
                     ContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -839,11 +838,6 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Company", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Company_Address_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Address",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Company_Organization_OrganizationId",
                         column: x => x.OrganizationId,
@@ -2487,11 +2481,6 @@ namespace Persistence.Migrations
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Company_AddressId",
-                table: "Company",
-                column: "AddressId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Company_OrganizationId",
                 table: "Company",
                 column: "OrganizationId");
@@ -3051,6 +3040,9 @@ namespace Persistence.Migrations
                 name: "FileFieldValidator");
 
             migrationBuilder.DropTable(
+                name: "Address");
+
+            migrationBuilder.DropTable(
                 name: "SubMenu");
 
             migrationBuilder.DropTable(
@@ -3160,9 +3152,6 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "FileLog");
-
-            migrationBuilder.DropTable(
-                name: "Address");
 
             migrationBuilder.DropTable(
                 name: "Franchise");

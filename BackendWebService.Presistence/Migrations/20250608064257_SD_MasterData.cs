@@ -14,6 +14,21 @@ namespace Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             var hasher = new PasswordHasher<User>();
+
+            migrationBuilder.Sql("SET IDENTITY_INSERT [dbo].[Address] ON");
+
+            migrationBuilder.InsertData(
+                table: "Address",
+                columns: new[] { "Id", "StreetAddress", "City", "State", "Country", "PostalCode", "CreatedBy", "CreatedDate", "IsActive", "IsDeleted", "IsSystem" },
+                values: new object[,]
+                {
+                    { 1, "45 Engine Blvd, Stuttgart, Germany", "Stuttgart", "Baden-Württemberg", "Germany", "70173", "System", DateTime.Now, true, false, true },
+                    { 2, "78 Brake Street, Milan, Italy", "Milan", "Lombardy", "Italy", "20121", "System", DateTime.Now, true, false, true }
+                });
+
+            // Disable IDENTITY_INSERT for Address table
+            migrationBuilder.Sql("SET IDENTITY_INSERT [dbo].[Address] OFF");
+
             migrationBuilder.Sql("SET IDENTITY_INSERT [dbo].[Role] ON");
 
             migrationBuilder.InsertData(
@@ -21,6 +36,8 @@ namespace Persistence.Migrations
             columns: new[] { "Id", "Name", "DisplayName", "NormalizedName", "ConcurrencyStamp", "ParentId", "IsSystem", "CreatedBy", "CreatedDate", "IsActive", "IsDeleted" },
             values: new object[,]
             {
+
+                    { (int)RoleEnum.SuperAdmin, Enum.GetName(typeof(RoleEnum), RoleEnum.SuperAdmin), Enum.GetName(typeof(RoleEnum), RoleEnum.SuperAdmin), "SUPERADMIN", null, null, true, "System", DateTime.Now, true, false },
                     { (int)RoleEnum.Admin, Enum.GetName(typeof(RoleEnum), RoleEnum.Admin), Enum.GetName(typeof(RoleEnum), RoleEnum.Admin), "ADMIN", null, null, true, "System", DateTime.Now, true, false },
                     { (int)RoleEnum.Technician, Enum.GetName(typeof(RoleEnum), RoleEnum.Technician), Enum.GetName(typeof(RoleEnum), RoleEnum.Technician), "TECHNICIAN", null, null, true, "System", DateTime.Now, true, false },
                     { (int)RoleEnum.Customer, Enum.GetName(typeof(RoleEnum), RoleEnum.Customer), Enum.GetName(typeof(RoleEnum), RoleEnum.Customer), "CUSTOMER", null, null, true, "System", DateTime.Now, true, false }
@@ -39,15 +56,16 @@ namespace Persistence.Migrations
 
                 values: new object[,]
                 {
-                    { 1, (int)OrganizationEnum.Administrator ,"AutoParts Global", "321456789", "info@intX.net", "321-456-789","321456789",  "System", DateTime.Now, true, false, true,"USA", "Detroit", "123 Motorway Ave" },
-                    { 2, (int)OrganizationEnum.Company ,"Turbo Engines Ltd.", "321456789", "info@intX.net", "321-456-789","321456789",  "System", DateTime.Now, true, false, true,"Germany", "Stuttgart", "45 Engine Blvd" },
-                    { 3, (int)OrganizationEnum.Supplier ,"Elite Brake Systems", "123456789", "support@intX.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"Italy", "Milan", "78 Brake Street" },
-                    { 4, (int)OrganizationEnum.Supplier ,"Titan Tires Co.", "123456789", "contac4t@intX2.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"Japan", "Osaka", "250 Tire Road" },
-                    { 5, (int)OrganizationEnum.Supplier ,"Speedy Lubricants", "123456789", "contact5@intX2.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"UAE", "Abu Dhabi", "99 Oil Street" },
-                    { 6, (int)OrganizationEnum.Supplier ,"EcoAuto Batteries", "123456789", "contac6t@intX2.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"China", "Beijing", "600 Battery Lane" },
-                    { 7, (int)OrganizationEnum.Supplier ,"Global Exhaust Solutions", "123456789", "contact7@intX2.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"Brazil", "São Paulo", "18 Exhaust Blvd" },
-                    { 8, (int)OrganizationEnum.Supplier ,"CarTech Electronics", "123456789", "contact8@intX2.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"USA", "Silicon Valley", "777 Tech Park" },
-                    { 9, (int)OrganizationEnum.Supplier ,"Global Electronics", "123456789", "contact9@intX2.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"USA", "Silicon Valley", "777 Tech Park" },
+                    { 1, (int)OrganizationEnum.Organization ,"The Framework", "321456789", "info@domain.net", "321-456-789","321456789",  "System", DateTime.Now, true, false, true,"USA", "Detroit", "123 Motorway Ave" },
+                    { 2, (int)OrganizationEnum.Organization ,"AutoParts Global", "321456789", "info@domain.net", "321-456-789","321456789",  "System", DateTime.Now, true, false, true,"USA", "Detroit", "123 Motorway Ave" },
+                    { 3, (int)OrganizationEnum.Company ,"Turbo Engines Ltd.", "321456789", "info@domain.net", "321-456-789","321456789",  "System", DateTime.Now, true, false, true,"Germany", "Stuttgart", "45 Engine Blvd" },
+                    { 4, (int)OrganizationEnum.Company ,"Elite Brake Systems", "123456789", "support@domain.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"Italy", "Milan", "78 Brake Street" },
+                    { 5, (int)OrganizationEnum.Supplier ,"Titan Tires Co.", "123456789", "contac4t@domain2.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"Japan", "Osaka", "250 Tire Road" },
+                    { 6, (int)OrganizationEnum.Supplier ,"Speedy Lubricants", "123456789", "contact5@domain2.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"UAE", "Abu Dhabi", "99 Oil Street" },
+                    { 7, (int)OrganizationEnum.Supplier ,"EcoAuto Batteries", "123456789", "contac6t@domain2.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"China", "Beijing", "600 Battery Lane" },
+                    { 8, (int)OrganizationEnum.Supplier ,"Global Exhaust Solutions", "123456789", "contact7@domain2.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"Brazil", "São Paulo", "18 Exhaust Blvd" },
+                    { 9, (int)OrganizationEnum.Supplier ,"CarTech Electronics", "123456789", "contact8@domain2.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"USA", "Silicon Valley", "777 Tech Park" },
+                    { 10, (int)OrganizationEnum.Supplier ,"Global Electronics", "123456789", "contact9@domain2.net", "123-456-789","321456789",  "System", DateTime.Now, true, false, true,"USA", "Silicon Valley", "777 Tech Park" },
                 });
 
             migrationBuilder.Sql("SET IDENTITY_INSERT [dbo].[Organization] OFF");

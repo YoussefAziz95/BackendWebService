@@ -31,7 +31,7 @@ public class AuthorizationController : AppControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] LoginPhoneRequest request)
     {
         var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
 
@@ -202,17 +202,30 @@ public class AuthorizationController : AppControllerBase
         });
     }
 
-    [HttpPost("reset-password")]
-    public async Task<IActionResult> ResetPasswordRequest([FromBody] ResetPasswordRequest request)
+    [HttpPost("resetPassword")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
     {
         var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
         if (user == null) return BadRequest("User not found.");
 
         var token = await _userManager.GeneratePasswordResetTokenAsync(user);
         // Send token via email or SMS here
-        return Ok(new { message = "Password reset instructions sent." });
+        return Ok(new { message = "Password reset instructions sent. " + token });
     }
+    [HttpPost("resetPasswordAuth")]
+    public async Task<IActionResult> ResetPasswordAuth([FromBody] ResetPasswordAuthRequest request)
+    {
+        var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
+        if (user == null) return BadRequest("User not found.");
 
+        var result = await _userManager.ChangePasswordAsync(user, request.oldPassword, request.newPassword);
+
+        if(!result.Succeeded)
+        {
+            return BadRequest(result.Errors);
+        }
+        return Ok(new { message = "Password changed successfully. " });
+    }
     [HttpPost("reset-password/confirm")]
     public async Task<IActionResult> ConfirmResetPassword([FromBody] ConfirmResetPasswordRequest request)
     {

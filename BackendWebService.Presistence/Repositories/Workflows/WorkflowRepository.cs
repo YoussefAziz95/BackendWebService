@@ -170,7 +170,7 @@ namespace Persistence.Repositories.Workflows
         public List<WorkflowAllResponse> GetPaginated(GetPaginatedRequest request)
         {
             var workflowResponses = new List<WorkflowAllResponse>();
-            var workflows = _context.Set<Workflow>().Where(w => w.CompanyId == request.CompanyId)
+            var workflows = _context.Set<Workflow>()
                 .Select(w => new { w.Id, w.Name, w.Description });
             foreach (var workflow in workflows)
             {

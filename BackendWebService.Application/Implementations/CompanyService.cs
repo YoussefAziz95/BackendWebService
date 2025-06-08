@@ -117,8 +117,7 @@ namespace Application.Implementations
                 var user = _unitOfWork.GenericRepository<User>().Get(b => b.Email == oldsupplier.Organization.Email);
 
 
-                user.Department = request.Department is not null ? request.Department : user.Department;
-                user.Title = request.Title is not null ? request.Title : user.Title;
+               
                 _unitOfWork.GenericRepository<User>().Update(user);
                 _unitOfWork.Save();
                 return oldsupplier.Id > 0 ? Success(oldsupplier.Id)

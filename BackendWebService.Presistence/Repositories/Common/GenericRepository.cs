@@ -20,7 +20,6 @@ namespace Persistence.Repositories.Common
         internal DbSet<T> _dbSet;
         private PropertyInfo _propertyId;
         private PropertyInfo[] _propertyInfos;
-        private PropertyInfo _OrganizationIdProperty;
 
         /// <summary>
         /// Constructs the generic repository with the specified application database context.
@@ -33,21 +32,16 @@ namespace Persistence.Repositories.Common
             var type = typeof(T);
             _propertyInfos = typeof(T).GetProperties();
             _propertyId = type.GetProperty("Id", BindingFlags.Public | BindingFlags.Instance);
-            _OrganizationIdProperty = type.GetProperty("OrganizationId");
 
         }
 
         public void Add(T entity)
         {
-            if (_context.userInfo is not null)
-                _OrganizationIdProperty.SetValue(entity, _context.userInfo.OrganizationId);
             _context.Add(entity);
         }
 
         public async virtual Task AddAsync(T entity)
         {
-            if (_context.userInfo is not null)
-                _OrganizationIdProperty.SetValue(entity, _context.userInfo.OrganizationId);
             await _context.AddAsync(entity);
         }
 
@@ -58,10 +52,6 @@ namespace Persistence.Repositories.Common
 
         public async Task AddRangeAsync(IEnumerable<T> entities)
         {
-            foreach (T entity in entities)
-            {
-                _OrganizationIdProperty.SetValue(entity, _context.userInfo.OrganizationId);
-            }
             await _dbSet.AddRangeAsync(entities);
         }
 

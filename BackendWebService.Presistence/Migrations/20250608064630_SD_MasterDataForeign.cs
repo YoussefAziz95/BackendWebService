@@ -1,7 +1,9 @@
 ﻿using Domain;
 using Domain.Enums;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Newtonsoft.Json.Linq;
 
 #nullable disable
 
@@ -36,6 +38,60 @@ namespace Persistence.Migrations
                     { 12, "Car Batteries", 6, "System", DateTime.Now, true, false, true }
                 });
             migrationBuilder.Sql("SET IDENTITY_INSERT [dbo].[Category] OFF");
+
+            // Enable IDENTITY_INSERT for Company table
+            migrationBuilder.Sql("SET IDENTITY_INSERT [dbo].[Company] ON");
+            migrationBuilder.InsertData(
+            table: "Company",
+               columns: new[] { "Id", "OrganizationId", "Name", "RegistrationNumber", "ContactEmail", "ContactPhone", "Status", "CreatedBy", "CreatedDate", "IsActive", "IsDeleted", "IsSystem" },
+               values: new object[,]
+               {
+                    { 1, 3,"Turbo Engines Ltd.", "REG123456", "info@domain.net", "321-456-789", (int)StatusEnum.Active, "System", DateTime.Now, true, false, true },
+                    { 2, 4, "Elite Brake Systems", "REG789012", "support@domain.net", "123-456-789", (int)StatusEnum.Active, "System", DateTime.Now, true, false, true }
+               });
+
+            // Enable IDENTITY_INSERT for Supplier table
+            migrationBuilder.Sql("SET IDENTITY_INSERT [dbo].[Supplier] ON");
+
+            migrationBuilder.InsertData(
+                table: "Supplier",
+                columns: new[] { "Id", "OrganizationId", "Rating", "BankAccount", "Status", "CreatedBy", "CreatedDate", "IsActive", "IsDeleted", "IsSystem" },
+                values: new object[,]
+                {
+                    { 1, 5, 4.5m, "IBAN1234567890", (int)StatusEnum.Active, "System", DateTime.Now, true, false, true },
+                    { 2, 6, 4.2m, "IBAN2345678901", (int)StatusEnum.Active, "System", DateTime.Now, true, false, true },
+                    { 3, 7, 4.8m, "IBAN3456789012", (int)StatusEnum.Active, "System", DateTime.Now, true, false, true },
+                    { 4, 8, 4.0m, "IBAN4567890123", (int)StatusEnum.Active, "System", DateTime.Now, true, false, true },
+                    { 5, 9, 4.7m, "IBAN5678901234", (int)StatusEnum.Active, "System", DateTime.Now, true, false, true },
+                    { 6, 10, 4.3m, "IBAN6789012345", (int)StatusEnum.Active, "System", DateTime.Now, true, false, true }
+                });
+
+            // Disable IDENTITY_INSERT for Supplier table
+            migrationBuilder.Sql("SET IDENTITY_INSERT [dbo].[Supplier] OFF");
+
+            // Enable IDENTITY_INSERT for SupplierCategory table
+            migrationBuilder.Sql("SET IDENTITY_INSERT [dbo].[SupplierCategory] ON");
+
+            migrationBuilder.InsertData(
+                table: "SupplierCategory",
+                columns: new[] { "Id", "SupplierId", "CategoryId", "CreatedBy", "CreatedDate", "IsActive", "IsDeleted", "IsSystem" },
+                values: new object[,]
+                {
+                    { 1, 1, 3, "System", DateTime.Now, true, false, true }, // Titan Tires Co. -> Tires
+                    { 2, 1, 10, "System", DateTime.Now, true, false, true }, // Titan Tires Co. -> Winter Tires
+                    { 3, 2, 4, "System", DateTime.Now, true, false, true }, // Speedy Lubricants -> Lubricants
+                    { 4, 2, 11, "System", DateTime.Now, true, false, true }, // Speedy Lubricants -> Motor Oil
+                    { 5, 3, 6, "System", DateTime.Now, true, false, true }, // EcoAuto Batteries -> Batteries
+                    { 6, 3, 12, "System", DateTime.Now, true, false, true }, // EcoAuto Batteries -> Car Batteries
+                    { 7, 4, 7, "System", DateTime.Now, true, false, true }, // Global Exhaust Solutions -> Exhaust Systems
+                    { 8, 5, 5, "System", DateTime.Now, true, false, true }, // CarTech Electronics -> Electronics
+                    { 9, 6, 5, "System", DateTime.Now, true, false, true }  // Global Electronics -> Electronics
+                });
+
+            // Disable IDENTITY_INSERT for SupplierCategory table
+            migrationBuilder.Sql("SET IDENTITY_INSERT [dbo].[SupplierCategory] OFF");
+
+
             migrationBuilder.Sql("SET IDENTITY_INSERT [dbo].[Service] ON");
             migrationBuilder.InsertData(
                 table: "Service",

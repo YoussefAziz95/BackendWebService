@@ -50,7 +50,7 @@ public static class ServiceCollectionExtension
         //services.AddScoped<IUserService, UserService>();
         //services.AddScoped<IUtilityService, UtilityService>();
         services.AddScoped<IPermissionService, PermissionService>();
-        //services.AddScoped<ICompanyService, CompanyService>();
+        services.AddScoped<ICompanyService, CompanyService>();
 
         //services.AddScoped<ISupplierDocumentService, SupplierDocumentService>();
         //services.AddScoped<ICategoryService, CategoryService>();

@@ -62,9 +62,8 @@ namespace Persistence.Repositories.Organizations
         public IQueryable<GetPaginatedCompany> GetPaginated()
         {
             var companyResponse = from c in _context.Companies
-                                  join o in _context.Organizations on c.OrganizationId equals o.Id
-                                  select new GetPaginatedCompany(c.Id, c.Organization.City, c.Organization.Country, c.Organization.StreetAddress, c.Organization.Email, c.Organization.TaxNo, Enum.GetName(typeof(RoleEnum), c.Organization.Type), o.Name);
-            return companyResponse.AsQueryable();
+                                  select new GetPaginatedCompany(c.Id, c.Organization.City, c.Organization.Country, c.Organization.StreetAddress, c.Organization.Email, c.Organization.TaxNo, Enum.GetName(typeof(RoleEnum), c.Organization.Type), c.Organization.Name);
+            return companyResponse.ToList().AsQueryable();
         }
 
         public CompanyResponse GetResponse(int id)

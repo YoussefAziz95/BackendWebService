@@ -7,7 +7,7 @@ public class Address : BaseEntity, IEntity, ITimeModification
 {
 
     [Required, MaxLength(255)]
-    public string FullAddress { get; set; }
+    public string StreetAddress { get; set; }
     [Required, MaxLength(100)]
     public string City { get; set; }
     [Required, MaxLength(100)]

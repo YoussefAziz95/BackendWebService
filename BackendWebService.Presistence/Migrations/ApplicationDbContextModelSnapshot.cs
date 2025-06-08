@@ -8,7 +8,7 @@ using Persistence.Data;
 
 #nullable disable
 
-namespace Persistence.Migrations
+namespace BackendWebService.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -97,11 +97,6 @@ namespace Persistence.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FullAddress")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
@@ -123,6 +118,11 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
@@ -395,9 +395,6 @@ namespace Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ContactEmail")
                         .HasColumnType("nvarchar(max)");
 
@@ -438,8 +435,6 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.HasIndex("OrganizationId");
 
@@ -4356,17 +4351,11 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Company", b =>
                 {
-                    b.HasOne("Domain.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId");
-
                     b.HasOne("Domain.Organization", "Organization")
                         .WithMany()
                         .HasForeignKey("OrganizationId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Address");
 
                     b.Navigation("Organization");
                 });

@@ -161,7 +161,7 @@ namespace Application.Implementations
         /// </summary>
         public async Task<PaginatedResponse<GetPaginatedSupplier>> GetPaginated(GetPaginatedRequest request)
         {
-            var paginatedList = _supplierRepository.GetPaginated(request.CompanyId ?? 1).AsQueryable()
+            var paginatedList = _supplierRepository.GetPaginated().AsQueryable()
                         .ToPaginatedList(1, (int)request.pageSize!);
             return paginatedList;
         }

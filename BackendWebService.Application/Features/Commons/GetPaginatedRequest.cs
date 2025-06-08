@@ -1,2 +1,2 @@
 ﻿namespace Application.Features.Common;
-public record GetPaginatedRequest(int? pageNumber, int? pageSize, string? filterBy, string? sortBy, bool sortDescending, int? CompanyId);
+public record GetPaginatedRequest(int? pageNumber = 0, int? pageSize = 100, string? filterBy = "", string? sortBy = "", bool sortDescending = false);
