@@ -1,5 +1,6 @@
 ﻿using Application.Contracts.Persistence;
 using Domain;
+
 namespace Application.Profiles
 {
     /// <summary>

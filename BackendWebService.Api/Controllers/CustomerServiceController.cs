@@ -199,12 +199,12 @@ namespace Api.Controllers
             });
         }
 
-        // 3. Assign a Technician
+        // 3. Assign a Employee
         [HttpPut("assign/{id}")]
-        public async Task<IActionResult> AssignTechnician(int id, [FromBody] AssignTechnicianRequest request)
+        public async Task<IActionResult> AssignEmployee(int id, [FromBody] AssignEmployeeRequest request)
         {
             // Validate the request
-            if (request == null || request.TechnicianId <= 0)
+            if (request == null || request.EmployeeId <= 0)
             {
                 return BadRequest(new Response<object>
                 {
@@ -241,7 +241,7 @@ namespace Api.Controllers
                 return BadRequest(new Response<object>
                 {
                     StatusCode = ApiResultStatusCode.BadRequest,
-                    Message = "Failed to assign technician",
+                    Message = "Failed to assign employee",
                     Succeeded = false
                 });
             }
@@ -249,7 +249,7 @@ namespace Api.Controllers
             return Ok(new Response<object>
             {
                 StatusCode = ApiResultStatusCode.Success,
-                Message = "Technician assigned successfully",
+                Message = "Employee assigned successfully",
                 Succeeded = true
             });
         }

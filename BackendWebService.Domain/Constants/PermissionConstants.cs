@@ -15,15 +15,15 @@ public static class PermissionConstants
     public const string CUSTOMERSERVICE = "Customer.Menu.Booking.View";
     public const string CUSTOMERPRODUCT = "Customer.Menu.Product.View";
 
-    // Technician
-    public const string TECHNICIANUSER = "Technician.Menu.User.View";
-    public const string TECHNICIANROLE = "Technician.Menu.Role.View";
-    public const string TECHNICIANPERMISSIONS = "Technician.Menu.Permissions.View";
-    public const string TECHNICIAN = "Technician.Menu.Technician.View";
-    public const string TECHNICIANPART = "Technician.Menu.Part.View";
-    public const string SERVICE = "Technician.Menu.Service.View";
-    public const string TECHNICIANPRODUCT = "Technician.Menu.Product.View";
-    public const string PREDOCUMENT = "Technician.Menu.PreDocument.View";
+    // Employee
+    public const string EMPLOYEEUSER = "Employee.Menu.User.View";
+    public const string EMPLOYEEROLE = "Employee.Menu.Role.View";
+    public const string EMPLOYEEPERMISSIONS = "Employee.Menu.Permissions.View";
+    public const string EMPLOYEE = "Employee.Menu.Employee.View";
+    public const string EMPLOYEEPART = "Employee.Menu.Part.View";
+    public const string SERVICE = "Employee.Menu.Service.View";
+    public const string EMPLOYEEPRODUCT = "Employee.Menu.Product.View";
+    public const string PREDOCUMENT = "Employee.Menu.PreDocument.View";
 
 
     // Identity

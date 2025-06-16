@@ -6,7 +6,7 @@ namespace Application.Contracts.Persistence;
 
 public interface IGenericRepository<T>
 {
-
+    IQueryable<T> GetAllAsQuerable(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null!, bool disabledTracking = true, bool isActive = true, bool isDeleted = false);
     IEnumerable<T> GetAll(
                 Expression<Func<T, bool>> filter = null!,
                 Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null!,

@@ -6,9 +6,9 @@ using Application.Features;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
-using Domain;
 using Domain.Constants;
 using Microsoft.EntityFrameworkCore;
+using Domain;
 
 namespace Application.Implementations
 {
@@ -85,16 +85,13 @@ namespace Application.Implementations
 
         public async Task<PaginatedResponse<PreDocumentResponse>> GetPaginated(GetPaginatedRequest request)
         {
-            string sortExpression = string.IsNullOrEmpty(request.sortBy) ?
-                                        $"Id {(request.sortDescending ? AppConstants.descending : AppConstants.ascending)}" :
-            $"{request.sortBy} {(request.sortDescending ? AppConstants.descending : AppConstants.ascending)}";
 
             var PreDocuments = _unitOfWork.GenericRepository<PreDocument>()
                        .GetAll()
                        .AsQueryable();
 
             var paginatedList = _mapper.ProjectTo<PreDocumentResponse>(PreDocuments)
-                                .ToPaginatedList((int)request.pageNumber!, (int)request.pageSize!);
+                                .ToPaginatedList((int)request.PageNumber!, (int)request.PageSize!);
             return paginatedList;
         }
 

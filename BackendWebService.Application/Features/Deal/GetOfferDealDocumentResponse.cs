@@ -1,9 +1,5 @@
-﻿namespace Application.Features.Deal
-{
-    public class GetOfferDealDocumentResponse
-    {
-        public int CriteriaId { get; set; }
-        public string CrteriaName { get; set; }
+﻿namespace Application.Features;
 
-    }
-}
+public record GetOfferDealDocumentResponse(
+int CriteriaId,
+string CrteriaName);

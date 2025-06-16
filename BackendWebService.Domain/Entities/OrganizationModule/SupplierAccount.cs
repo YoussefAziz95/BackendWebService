@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Domain;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 [Table("SupplierAccount")]

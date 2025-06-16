@@ -26,7 +26,11 @@
         /// <summary>
         /// Temporary upload path constant.
         /// </summary>
-        public static string TempUploadPath = "C:\\Temp";
+        public static string TempUploadPath = "C:\\FDF";
+
+        public static string BackupImage = "C:\\FDF\\FDFBackupImage.jpg";
+
+        public static string BackupImageSecond = "C:\\FDF\\FDFBackupImageSecond.png";
 
         /// <summary>
         /// Allowed extensions for files.

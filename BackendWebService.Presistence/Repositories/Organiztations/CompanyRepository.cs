@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Persistence;
 using Application.Features;
 using Domain;
-using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 
@@ -59,10 +58,20 @@ namespace Persistence.Repositories.Organizations
             return change.State == EntityState.Deleted;
         }
 
-        public IQueryable<GetPaginatedCompany> GetPaginated()
+        public IQueryable<CompanyAllResponse> GetPaginated()
         {
-            var companyResponse = from c in _context.Companies
-                                  select new GetPaginatedCompany(c.Id, c.Organization.City, c.Organization.Country, c.Organization.StreetAddress, c.Organization.Email, c.Organization.TaxNo, Enum.GetName(typeof(RoleEnum), c.Organization.Type), c.Organization.Name);
+
+            //var companyResponse = from c in _context.Companies
+            //                      join a in _context.Set<Address>() on c.OrganizationId equals a.OrganizationId into ca
+            //                      from a in ca.DefaultIfEmpty()
+            //                      join co in _context.Set<Contact>() on c.OrganizationId equals co.OrganizationId into cco
+            //                      from co in cco.DefaultIfEmpty()
+            //                      join cc in _context.Set<CompanyCategory>() on c.OrganizationId equals cc.OrganizationId into ccc
+            //                      from cc in ccc.DefaultIfEmpty()
+            //                      join m in _context.Set<Manager>() on c.OrganizationId equals m.OrganizationId into cm
+            //                      from m in cm.DefaultIfEmpty()
+            //                      select new CompanyAllResponse(c.Id, c.CompanyName, c..Country, c.Organization.StreetAddress, c.Organization.Email, c.Organization.TaxNo, Enum.GetName(typeof(RoleEnum), c.Organization.Type), c.Organization.Name);
+            var companyResponse = new List<CompanyAllResponse>();
             return companyResponse.ToList().AsQueryable();
         }
 
@@ -70,8 +79,23 @@ namespace Persistence.Repositories.Organizations
         {
             var companyResponse = from c in _context.Companies
                                   join o in _context.Organizations on c.OrganizationId equals o.Id
-                                  select new CompanyResponse(c.Id, c.Organization.Name, c.Organization.Country, c.Organization.City, c.Organization.StreetAddress, c.Organization.Email, c.Organization.TaxNo, c.Organization.Phone, c.Organization.ImageUrl, c.Organization.Fax, Enum.GetName(typeof(RoleEnum), c.Organization.Type) ?? "Unknown", c.IsActive ?? false, c.CreatedDate ?? DateTime.UnixEpoch, c.UpdateDate
-                                            );
+                                  select new CompanyResponse(
+                                            c.Id,
+                                            c.Organization.Name,
+                                            c.Organization.Country,
+                                            c.Organization.City,
+                                            c.Organization.StreetAddress,
+                                            c.Organization.Email,
+                                            c.Organization.TaxNo,
+                                            c.Organization.Phone,
+                                            c.Organization.FileId!,
+                                            null,
+                                            c.Organization.FaxNo,
+                                            Enum.GetName(typeof(RoleEnum),
+                                            c.Organization.Type) ?? "Unknown",
+                                            c.IsActive ?? false,
+                                            c.CreatedDate ?? DateTime.UnixEpoch,
+                                            c.UpdateDate);
             return companyResponse.FirstOrDefault();
         }
 

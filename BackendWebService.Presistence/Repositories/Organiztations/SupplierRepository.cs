@@ -1,6 +1,7 @@
 ﻿using Application.Contracts.Persistence;
 using Application.Features;
 using Domain;
+using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -56,7 +57,7 @@ namespace Persistence.Repositories.Organizations
                 try
                 {
                     Organization organization = supplier.Organization;
-                    organization.FaxNo = organization.Fax;
+                    organization.FaxNo = organization.FaxNo;
                     organization.Type = OrganizationEnum.Supplier;
                     var x = _context.Add(organization);
                     _context.SaveChanges();
@@ -74,7 +75,7 @@ namespace Persistence.Repositories.Organizations
                     user = await GetSupplierUser(user, supplier, generateRandomPassword);
                     _context.Add(user);
                     _context.SaveChanges();
-                    var result = await _userManager.AddToRoleAsync(user, RoleEnum.Technician.ToString());
+                    var result = await _userManager.AddToRoleAsync(user, RoleEnum.Employee.ToString());
                     _context.SaveChanges();
                     transaction.Commit();
                 }
@@ -150,7 +151,7 @@ namespace Persistence.Repositories.Organizations
             {
                 try
                 {
-                    supplier.Organization.FaxNo = entity.Organization.Fax;
+                    supplier.Organization.FaxNo = entity.Organization.FaxNo;
                     supplier.Organization.Email = entity.Organization.Email;
                     supplier.Organization.Phone = entity.Organization.Phone;
                     supplier.Organization.TaxNo = entity.Organization.TaxNo;

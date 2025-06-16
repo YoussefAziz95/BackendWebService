@@ -29,6 +29,8 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
     public DbSet<UserGroup> UserGroups { get; set; }
     public DbSet<FileType> FileTypes { get; set; }
     public DbSet<Actor> Actors { get; set; }
+    public DbSet<Address> Addresses { get; set; }
+
     public DbSet<Service> Services { get; set; }
     public DbSet<Logging> Loggings { get; set; }
     public DbSet<WAction> WActions { get; internal set; }

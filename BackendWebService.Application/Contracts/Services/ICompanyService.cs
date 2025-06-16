@@ -16,7 +16,7 @@ public interface ICompanyService
 
     Task<IResponse<int>> UpdateAsync(UpdateCompanyRequest request);
 
-    Task<PaginatedResponse<GetPaginatedCompany>> GetPaginated(GetPaginatedRequest request);
+    Task<PaginatedResponse<CompanyAllResponse>> GetPaginated(GetPaginatedCompanyRequest request);
 
     bool CheckIdExists(int id);
 }

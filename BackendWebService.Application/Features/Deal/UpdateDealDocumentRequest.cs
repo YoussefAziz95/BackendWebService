@@ -1,15 +1,7 @@
-﻿namespace Application.Features.Deal
-{
-    public class UpdateDealDocumentRequest
-    {
+﻿namespace Application.Features;
 
-        public int Id { get; set; }
-        public int CriteriaId { get; set; }
-
-        public int FileId { get; set; }
-        public string? RichText { get; set; }
-
-
-
-    }
-}
+public record UpdateDealDocumentRequest(
+int Id,
+int CriteriaId,
+int FileId,
+string? RichText);

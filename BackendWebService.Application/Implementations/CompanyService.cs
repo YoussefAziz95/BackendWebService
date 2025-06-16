@@ -8,6 +8,10 @@ using Application.Model.EmailDto;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
+using Domain;
+using Domain.Enums;
+using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 
@@ -76,13 +80,19 @@ namespace Application.Implementations
         }
 
         /// <inheritdoc/>
-        public async Task<PaginatedResponse<GetPaginatedCompany>> GetPaginated(GetPaginatedRequest request)
+        public async Task<PaginatedResponse<CompanyAllResponse>> GetPaginated(GetPaginatedCompanyRequest request)
         {
 
-
-            var paginatedList = _companyRepository.GetPaginated()
-                                .ToPaginatedList((int)request.pageNumber!, (int)request.pageSize!);
-            return paginatedList;
+            var query = _unitOfWork.GenericRepository<Company>().GetAll(
+                include: c => c.Include(o => o.Organization))
+            .Select(c => new CompanyAllResponse(
+                c.Id,
+                c.CompanyName,
+                c.Addresses.FirstOrDefault().FullAddress,
+                c.Addresses.FirstOrDefault().Zone,
+                Enum.GetName(typeof(OrganizationEnum), c.Organization.Type))).AsQueryable();
+            var result = query.ToPaginatedList((int)request.PageNumber!, (int)request.PageSize!);
+            return result;
         }
 
         /// <inheritdoc/>

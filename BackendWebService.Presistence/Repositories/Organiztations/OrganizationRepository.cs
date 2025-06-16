@@ -1,5 +1,6 @@
 ﻿using Application.Contracts.Persistence;
 using Domain;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 namespace Persistence.Repositories.Organizations
@@ -16,7 +17,7 @@ namespace Persistence.Repositories.Organizations
         public abstract int Add(TEntity entity);
         protected int AddOrganization(Organization entity)
         {
-            entity.FaxNo = entity.Fax;
+            entity.FaxNo = entity.FaxNo;
             _context.Add(entity);
             _context.SaveChanges();
 

@@ -1,12 +1,6 @@
-﻿using Application.Features.Common;
+﻿namespace Application.Features;
 
-namespace Application.Features.Deal
-{
-    public class GetOfferDealDetailsResponse
-    {
-
-        public int OfferItemId { get; set; }
-        public string OfferItemName { get; set; }
-        public int OfferItemQuantity { get; set; }
-    }
-}
+public record GetOfferDealDetailsResponse(
+int OfferItemId,
+string OfferItemName,
+int OfferItemQuantity);

@@ -1,7 +1,9 @@
 ﻿using Api.Base;
 using Application.Contracts.Persistence;
+using Application.Contracts.Services;
 using Application.Features;
 using Application.Features.Common;
+using Domain;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -17,10 +19,12 @@ namespace Api.Controllers;
 public class CompaniesController : AppControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly ICompanyService _companyService;
 
-    public CompaniesController(IUnitOfWork unitOfWork)
+    public CompaniesController(IUnitOfWork unitOfWork, ICompanyService companyService)
     {
         _unitOfWork = unitOfWork;
+        _companyService = companyService;
     }
 
     [HttpPost]
@@ -28,7 +32,7 @@ public class CompaniesController : AppControllerBase
     {
         var company = new Company
         {
-            Name = request.Name,
+            CompanyName = request.CompanyName,
             ContactEmail = request.Email,
             ContactPhone = request.Phone,
             RegistrationNumber = request.RegistrationNumber,
@@ -37,7 +41,7 @@ public class CompaniesController : AppControllerBase
         };
         var organization = new Organization
         {
-            Name = request.Name,
+            Name = request.CompanyName,
             Email = request.Email,
             Phone = request.Phone,
             City = request.City,
@@ -85,15 +89,13 @@ public class CompaniesController : AppControllerBase
         if (company == null)
             return NotFound("Company not found");
 
-        company.Name = request.Name;
         company.Organization.StreetAddress = request.StreetAddress;
-        company.Name = request.Name;
+        company.CompanyName = request.CompanyName;
         company.ContactEmail = request.Email;
         company.ContactPhone = request.Phone;
         company.RegistrationNumber = request.RegistrationNumber;
         company.Status = StatusEnum.Active;
         company.IsActive = true;
-        company.Name = request.Name;
         company.Organization.Email = request.Email;
         company.Organization.Phone = request.Phone;
         company.Organization.City = request.City;
@@ -116,35 +118,10 @@ public class CompaniesController : AppControllerBase
         return NewResult(result);
     }
 
-    [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll()
+    [HttpPost("GetAll")]
+    public async Task<IActionResult> GetAll(GetPaginatedCompanyRequest request)
     {
-        var query = _unitOfWork.GenericRepository<Company>().GetAll(include: c => c.Include(o => o.Organization)).Select
-            (c => new CompanyResponse(
-                c.Id,
-                c.Name,
-                c.Organization.Country,
-                c.Organization.City,
-                c.Organization.StreetAddress,
-                c.ContactEmail,
-                c.Organization.TaxNo,
-                c.ContactPhone,
-                null,
-                c.Organization.Fax,
-                Enum.GetName(typeof(OrganizationEnum), c.Organization.Type),
-                c.IsActive ?? true,
-                c.CreatedDate ?? DateTime.UtcNow,
-                c.UpdateDate)).ToList();
-        var response = new Response<List<CompanyResponse>>
-        {
-            Data = query,
-            Succeeded = true,
-            StatusCode = ApiResultStatusCode.Success,
-            Message = "Companies retrieved successfully"
-        };
-
-
-
+        var response = await _companyService.GetPaginated(request);
         return NewResult(response);
     }
 

@@ -87,7 +87,7 @@ namespace Persistence.Repositories.Common
 
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null!, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null!, Func<IQueryable<T>, Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<T, object>> include = null!, bool disabledTracking = true, bool isActive = true, bool isDeleted = false)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null!, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null!, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null!, bool disabledTracking = true, bool isActive = true, bool isDeleted = false)
         {
             IQueryable<T> query = _dbSet;
             if (disabledTracking) query = query.AsNoTracking();
@@ -106,9 +106,22 @@ namespace Persistence.Repositories.Common
                 return query.ToList();
         }
 
+        public IQueryable<T> GetAllAsQuerable(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null!, bool disabledTracking = true, bool isActive = true, bool isDeleted = false)
+        {
+            IQueryable<T> query = _dbSet;
+            if (disabledTracking) query = query.AsNoTracking();
+            if (include is not null) query = include(query);
+            //foreach (PropertyInfo pInfo in _propertyInfos)
+            //{
+            //    if (pInfo.Name == "IsDeleted")
+            //        query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(isDeleted)).AsQueryable();
+            //    if (pInfo.Name == "IsActive")
+            //        query = query.ToList().Where(x => x.GetType().GetProperty(pInfo.Name)!.GetValue(x)!.Equals(isActive)).AsQueryable();
+            //}
+            return query.AsQueryable();
+        }
 
-
-        public async Task<T?> GetAsync(Expression<Func<T, bool>> filter = null!, Func<IQueryable<T>, Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<T, object>> include = null!, bool disableTracking = true, bool isActive = true, bool isDeleted = false)
+        public async Task<T?> GetAsync(Expression<Func<T, bool>> filter = null!, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null!, bool disableTracking = true, bool isActive = true, bool isDeleted = false)
         {
             IQueryable<T> query = _dbSet;
             if (disableTracking) query = query.AsNoTracking();

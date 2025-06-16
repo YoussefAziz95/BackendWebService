@@ -2,4 +2,5 @@
 
 namespace Application.Features;
 
-public record UploadRequest(IFormFile? File);
+public record UploadRequest(
+IFormFile? File);

@@ -1,8 +1,16 @@
-﻿
-namespace Domain.Enums;
-public enum ActorEnum
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Enums
 {
-    User = 1,
-    Role = 2,
-    Group = 3,
+    public enum ActorEnum
+    {
+        [Display(Description = "مستخدم")]
+        User = 1,
+
+        [Display(Description = "دور")]
+        Role = 2,
+
+        [Display(Description = "مجموعة")]
+        Group = 3,
+    }
 }

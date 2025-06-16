@@ -1,30 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Application.Features;
 
-namespace Application.Features.Deal
-{
-    public class AddDealRequest
-    {
-        public int OfferId { get; set; }
-
-        public int CompanyVendorId { get; set; }
-
-        public decimal? TotalPrice { get; set; }
-
-        public decimal? FinalPrice { get; set; }
-
-        [Range(1, 100)]
-        public int? Vat { get; set; }
-
-        [Range(1, 100)]
-        public int? Discount { get; set; }
-
-        public int? Quantity { get; set; }
-
-        public int? UserId { get; set; }
-
-        public int StatusId { get; set; }
-
-        public List<AddDealDocumentRequest> DealDocuments { get; set; }
-        public List<AddDealDetailsRequest> DealDetails { get; set; }
-    }
-}
+public record AddDealRequest(
+int OfferId,
+decimal? TotalPrice,
+decimal? FinalPrice,
+int? Vat,
+int? Discount,
+int? Quantity,
+int? UserId,
+int StatusId,
+List<AddDealDocumentRequest> DealDocuments,
+List<AddDealDetailsRequest> DealDetails);

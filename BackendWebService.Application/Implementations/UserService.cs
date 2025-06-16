@@ -97,8 +97,8 @@ namespace Application.Implementations
         //public PaginatedResponse<UserResponse> GetUsersPaginated(GetPaginatedRequest request)
         //{
         //    string sortExpression = string.IsNullOrEmpty(request.sortBy) ?
-        //                                $"Id {(request.sortDescending ? AppConstants.descending : AppConstants.ascending)}" :
-        //    $"{request.sortBy} {(request.sortDescending ? AppConstants.descending : AppConstants.ascending)}";
+        //                                $"Id {(request.SortDescending ? AppConstants.descending : AppConstants.ascending)}" :
+        //    $"{request.sortBy} {(request.SortDescending ? AppConstants.descending : AppConstants.ascending)}";
         //    var companyId = IClientRepository._userInfo.CompanyId;
 
         //    var users = _unitOfWork.GenericRepository<User>()
@@ -109,7 +109,7 @@ namespace Application.Implementations
         //    {
         //        userResponses = userResponses.Where(c => c.CompanyId == companyId);
         //    }
-        //    var papaginatedList = userResponses.ToPaginatedList((int)request.pageNumber!, (int)request.pageSize!);
+        //    var papaginatedList = userResponses.ToPaginatedList((int)request.PageNumber!, (int)request.PageSize!);
 
         //    return papaginatedList;
         //}

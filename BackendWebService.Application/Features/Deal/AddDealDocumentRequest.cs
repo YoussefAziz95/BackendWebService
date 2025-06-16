@@ -1,14 +1,6 @@
-﻿namespace Application.Features.Deal
-{
-    public class AddDealDocumentRequest
-    {
+﻿namespace Application.Features;
 
-        public int CriteriaId { get; set; }
-
-        public int FileId { get; set; }
-        public string? RichText { get; set; }
-
-
-
-    }
-}
+public record AddDealDocumentRequest(
+int CriteriaId,
+int FileId,
+string? RichText);

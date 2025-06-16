@@ -1,16 +1,9 @@
-﻿namespace Application.Features.Criteria
-{
-    public class CriteriaResponse
-    {
-        public int Id { get; set; }
-        public string Term { get; set; }
+﻿namespace Application.Features;
 
-        public bool? IsRequired { get; set; }
-
-        public int OfferId { get; set; }
-
-        public int Weight { get; set; }
-
-        public int FileTypeId { get; set; }
-    }
-}
+public record CriteriaResponse(
+int Id,
+string Term,
+int FileTypeId,
+bool? IsRequired,
+int Weight,
+int OfferId);

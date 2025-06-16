@@ -1,3 +1,8 @@
 ﻿namespace Application.Features;
 
-public record CategoryResponse(int? Id, string Name, int? ParentId, FileResponse? File, bool? IsActive);
+public record CategoryResponse(
+int? Id,
+string Name,
+int? ParentId,
+string? FileLink,
+bool? IsActive);

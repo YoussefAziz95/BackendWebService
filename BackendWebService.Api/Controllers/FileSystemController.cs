@@ -57,13 +57,13 @@ public class FileSystemController : AppControllerBase
         if (result is null) return NotFound();
 
         var response = new Response<FileResponse>();
-        result.FileName = fileLog.FileName;
-        result.FullPath = fileLog.FullPath;
-        result.Extention = fileLog.Extention;
-        result.FileLink = await FileToBase64Async(fileLog.FullPath);
         response.StatusCode = ApiResultStatusCode.Success;
         response.Succeeded = true;
-        response.Data = result;
+        response.Data =  new FileResponse(
+                            fileLog.FileName,
+                            fileLog.FullPath,
+                            fileLog.Extention,
+                            await FileToLink(fileLog.Id));
 
         return NewResult(response);
     }
@@ -100,11 +100,11 @@ public class FileSystemController : AppControllerBase
         var fileResponses = new List<FileResponse>();
         foreach (var fileLog in fileLogs)
         {
-            var fileResponse = new FileResponse();
-            fileResponse.FileName = fileLog.FileName;
-            fileResponse.FullPath = fileLog.FullPath;
-            fileResponse.Extention = fileLog.Extention;
-            fileResponse.FileLink = await FileToBase64Async(fileLog.FullPath);
+            var fileResponse = new FileResponse(
+                                    fileLog.FileName,
+                                    fileLog.FullPath,
+                                    fileLog.Extention,
+                                    await FileToLink(fileLog.Id));
             fileResponses.Add(fileResponse);
         }
 

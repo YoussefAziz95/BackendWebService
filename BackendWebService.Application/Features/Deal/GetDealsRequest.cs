@@ -1,10 +1,5 @@
-﻿namespace Application.Features.Deal
-{
-    public class GetDealsRequest
-    {
+﻿namespace Application.Features;
 
-        public int? CompanyId { get; set; }
-
-        public int? OfferId { get; set; }
-    }
-}
+public record GetDealsRequest(
+int? CompanyId,
+int? OfferId);

@@ -4,7 +4,7 @@ using Domain;
 
 namespace Application.Contracts.Persistence;
 
-public interface ICompanyRepository : IOrganizationRepository<Company, CompanyResponse, GetPaginatedCompany>
+public interface ICompanyRepository : IOrganizationRepository<Company, CompanyResponse, CompanyAllResponse>
 {
     int Add(Company entity);
 }

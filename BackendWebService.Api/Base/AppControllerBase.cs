@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.Features;
+using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
@@ -56,15 +57,20 @@ public class AppControllerBase : ControllerBase
             _ => "application/octet-stream" // Default for unknown types
         };
     }
-    public static async Task<string> FileToBase64Async(string path)
+    [NonAction]
+    public async Task<string> FileToLink(int fileId)
     {
-        var imageFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
-        byte[] fileBytes;
-        await using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+        string imageFolderPath = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/FileSystem/file/download/1";
+
+        try
         {
-            fileBytes = new byte[stream.Length];
-            await stream.ReadAsync(fileBytes, 0, (int)stream.Length);
+            imageFolderPath = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/FileSystem/file/download/{fileId}";
         }
-        return Convert.ToBase64String(fileBytes);
+        catch (Exception ex)
+        {
+            // optionally log
+        }
+
+        return imageFolderPath;
     }
 }

@@ -8,6 +8,7 @@ using Application.Model.EmailDto;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
+using Domain;
 using Domain.Constants;
 using System.Diagnostics.Metrics;
 using System.Numerics;
@@ -142,8 +143,9 @@ namespace Application.Implementations
                 Email: supplier.Organization.Email!,
                 TaxNo: supplier.Organization.TaxNo,
                 Phone: supplier.Organization.Phone,
-                ImageUrl: GetImageUrl(supplier.Organization.ImageUrl!),
-                Fax: supplier.Organization.Fax,
+                FileId: supplier.Organization.FileId!,
+                ImageUrl: null,
+                Fax: supplier.Organization.FaxNo,
                 ApprovedDate: null,
                 IsDocumentsApproved: false,
                 IsApproved: false,
@@ -162,14 +164,14 @@ namespace Application.Implementations
         public async Task<PaginatedResponse<GetPaginatedSupplier>> GetPaginated(GetPaginatedRequest request)
         {
             var paginatedList = _supplierRepository.GetPaginated().AsQueryable()
-                        .ToPaginatedList(1, (int)request.pageSize!);
+                        .ToPaginatedList(1, (int)request.PageSize!);
             return paginatedList;
         }
 
         public async Task<PaginatedResponse<GetPaginatedSupplier>> GetRegisterSuppliers(GetPaginatedRequest request)
         {
             var paginatedList = _supplierRepository.GetRegisteredSupplier().AsQueryable()
-                        .ToPaginatedList(1, (int)request.pageSize!);
+                        .ToPaginatedList(1, (int)request.PageSize!);
             return paginatedList;
         }
         public async Task<IResponse<int>> AddSupplierTOCompany(AddSupplierToCompany request)
@@ -228,8 +230,9 @@ namespace Application.Implementations
                 Email: supplier.Organization.Email!,
                 TaxNo: supplier.Organization.TaxNo,
                 Phone: supplier.Organization.Phone,
-                ImageUrl: GetImageUrl(supplier.Organization.ImageUrl!),
-                Fax: supplier.Organization.Fax,
+                FileId: supplier.Organization.FileId!,
+                ImageUrl: null,
+                Fax: supplier.Organization.FaxNo,
                 ApprovedDate: null,
                 IsDocumentsApproved: false,
                 IsApproved: false,

@@ -15,7 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Application.Implementations;
 
-namespace BackendWebServiceApplication.ServiceConfiguration;
+namespace Application.ServiceConfiguration;
 
 public static class ServiceCollectionExtension
 {

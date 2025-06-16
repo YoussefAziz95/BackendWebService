@@ -3,7 +3,7 @@ using Api.Profiles;
 using Application.Manager;
 using Application.Middleware;
 using Application.Model.Jwt;
-using BackendWebServiceApplication.ServiceConfiguration;
+using Application.ServiceConfiguration;
 using CrossCuttingConcerns;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
@@ -32,16 +32,24 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
-    option.SwaggerDoc("v1", new OpenApiInfo { Title = "Rest App", Version = "v1" });
-    option.AddSecurityDefinition("token", new OpenApiSecurityScheme
+    try
     {
-        Type = SecuritySchemeType.Http,
-        In = ParameterLocation.Header,
-        Name = HeaderNames.Authorization,
-        Scheme = "Bearer"
-    });
+        option.SwaggerDoc("v1", new OpenApiInfo { Title = "Rest App", Version = "v1" });
+        option.AddSecurityDefinition("token", new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.Http,
+            In = ParameterLocation.Header,
+            Name = HeaderNames.Authorization,
+            Scheme = "Bearer"
+        });
 
-    option.OperationFilter<SecureEndpointAuthRequirementFilter>();
+        option.OperationFilter<SecureEndpointAuthRequirementFilter>();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Swagger setup error: {ex.Message}");
+    }
+    
 });
 
 builder.Services.AddApplicationServices()
@@ -111,8 +119,11 @@ using (var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(); 
+    app.UseSwaggerUI(c =>
+    {
+        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None); // Collapse everything
+    });
 }
 
 app.UseSession();

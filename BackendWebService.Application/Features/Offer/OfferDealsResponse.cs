@@ -1,6 +1,6 @@
 ﻿using Application.Features.Common;
-using Application.Features.Criteria;
-using Application.Features.Deal;
+
+using Application.Features;
 
 namespace Application.Features
 {

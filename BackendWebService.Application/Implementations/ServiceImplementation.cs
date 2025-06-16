@@ -65,14 +65,11 @@ namespace Application.Implementations
         public async Task<PaginatedResponse<GetPaginatedService>> GetPaginated(GetPaginatedRequest request)
         {
 
-            string sortExpression = string.IsNullOrEmpty(request.sortBy) ?
-                                        $"Id {(request.sortDescending ? AppConstants.descending : AppConstants.ascending)}" :
-            $"{request.sortBy} {(request.sortDescending ? AppConstants.descending : AppConstants.ascending)}";
             IQueryable<GetPaginatedService> materials = _unitOfWork.GenericRepository<Service>()?
                        .GetAll()?.Select(t => new GetPaginatedService(t.Id, t.Code, t.Name))?.AsQueryable();
 
             var paginatedList = materials
-                        .ToPaginatedList((int)request.pageNumber!, (int)request.pageSize!);
+                        .ToPaginatedList((int)request.PageNumber!, (int)request.PageSize!);
             return paginatedList;
         }
 

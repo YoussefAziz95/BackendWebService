@@ -53,7 +53,7 @@ public class CategoriesController : AppControllerBase
             return NotFound("File not found");
         var result = new Response<CategoryResponse>()
         {
-            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, _fileSystemService.DownloadFileResponse(category.File.FileName), category.IsActive),
+            Data = new CategoryResponse(category.Id, category.Name, category.ParentId,  await FileToLink(category.FileId??1), category.IsActive),
             StatusCode = ApiResultStatusCode.Success,
             Succeeded = true,
             Message = "Category found"
@@ -81,16 +81,13 @@ public class CategoriesController : AppControllerBase
 
         _unitOfWork.GenericRepository<Category>().Update(category);
         var result = _unitOfWork.Save();
-        if (result == null)
-            return NotFound("Category not found");
-        var fileResponse = _fileSystemService.DownloadFileResponse(category.File.FileName);
-        fileResponse.FileLink = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/FileSystem/file/download/{category.FileId}";
+      
         var response = new Response<CategoryResponse>()
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Category updated successfully",
             Succeeded = true,
-            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, _fileSystemService.DownloadFileResponse(category.File.FileName), category.IsActive)
+            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, await FileToLink(category.FileId ?? 1), category.IsActive)
         };
         return NewResult(response);
     }
@@ -106,9 +103,7 @@ public class CategoriesController : AppControllerBase
         var categoriesReponse = new List<CategoryWithFileResponse>();
         foreach (var c in categories)
         {
-            var fileResponse = _fileSystemService.DownloadFileResponse(c.File.FileName);
-            fileResponse.FileLink = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/FileSystem/file/download/{c.FileId}";
-            var categoryResponse =  new CategoryWithFileResponse(c.Id, c.Name, c.ParentId,fileResponse, c.IsActive);
+            var categoryResponse =  new CategoryWithFileResponse(c.Id, c.Name, c.ParentId, await FileToLink(c.FileId ?? 1), c.IsActive);
             categoriesReponse.Add(categoryResponse);
         }
         var result = new Response<List<CategoryWithFileResponse>>()
@@ -122,53 +117,69 @@ public class CategoriesController : AppControllerBase
     }
 
     [HttpGet("GetByParentId/{id?}")]
-    public IActionResult GetByParentId([FromRoute] int? id = null)
+    public async Task<IActionResult> GetByParentId([FromRoute] int? id = null)
     {
 
         var categories = _unitOfWork.GenericRepository<Category>().GetAll(c => c.ParentId == id, include: c => c.Include(s => s.SubCategories));
         if (categories is null)
             return NotFound("Categories not found");
         var hasChildCategories = categories.Select(category => (c: category, hasChild: category.SubCategories is not null && category.SubCategories.Any()));
+        var response = new List<CategoryHasChildResponse>();
+        foreach (var c in hasChildCategories)
+        {
+            var r =  new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, await FileToLink(c.c.FileId ?? 1), c.hasChild, c.c.IsActive); 
+        }
         var result = new Response<List<CategoryHasChildResponse>>()
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Categories found",
             Succeeded = true,
-            Data = hasChildCategories.Select(c => new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, _fileSystemService.DownloadFileResponse(c.c.File.FileName), c.hasChild, c.c.IsActive)).ToList()
+            Data = response
         };
+
         return NewResult(result);
     }
-    [HttpGet("GetAvailableTechnicians/{categoryId?}")]
-    public IActionResult GetAvailableTechnicians([FromRoute] int? categoryId = null)
+    [HttpGet("GetAvailableEmployees/{categoryId?}")]
+    public async Task<IActionResult> GetAvailableEmployees([FromRoute] int? categoryId = null)
     {
 
         var categories = _unitOfWork.GenericRepository<Category>().GetAll(c => c.ParentId == categoryId, include: c => c.Include(s => s.SubCategories));
         if (categories is null)
             return NotFound("Categories not found");
         var hasChildCategories = categories.Select(category => (c: category, hasChild: category.SubCategories is not null && category.SubCategories.Any()));
+        var response = new List<CategoryHasChildResponse>();
+        foreach (var c in hasChildCategories)
+        {
+            var r = new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, await FileToLink(c.c.FileId ?? 1), c.hasChild, c.c.IsActive);
+        }
         var result = new Response<List<CategoryHasChildResponse>>()
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Categories found",
             Succeeded = true,
-            Data = hasChildCategories.Select(c => new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, _fileSystemService.DownloadFileResponse(c.c.File.FileName), c.hasChild, c.c.IsActive)).ToList()
+            Data = response
         };
         return NewResult(result);
     }
     [HttpGet("GetServices/{categoryId?}")]
-    public IActionResult GetServices([FromRoute] int id)
+    public async Task<IActionResult> GetServices([FromRoute] int id)
     {
 
         var categories = _unitOfWork.GenericRepository<Category>().GetAll(c => c.ParentId == id, include: c => c.Include(s => s.SubCategories));
         if (categories is null)
             return NotFound("Categories not found");
         var hasChildCategories = categories.Select(category => (c: category, hasChild: category.SubCategories is not null && category.SubCategories.Any()));
+        var response = new List<CategoryHasChildResponse>();
+        foreach (var c in hasChildCategories)
+        {
+            var r = new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, await FileToLink(c.c.FileId ?? 1), c.hasChild, c.c.IsActive);
+        }
         var result = new Response<List<CategoryHasChildResponse>>()
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Categories found",
             Succeeded = true,
-            Data = hasChildCategories.Select(c => new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, _fileSystemService.DownloadFileResponse(c.c.File.FileName), c.hasChild, c.c.IsActive)).ToList()
+            Data = response
         };
         return NewResult(result);
     }

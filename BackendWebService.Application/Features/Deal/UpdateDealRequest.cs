@@ -1,31 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace Application.Features;
 
-namespace Application.Features.Deal
-{
-    public class UpdateDealRequest
-    {
-        public int Id { get; set; }
-        public int OfferId { get; set; }
-
-        public int CompanyVendorId { get; set; }
-
-        public decimal? TotalPrice { get; set; }
-
-        public decimal? FinalPrice { get; set; }
-
-        [Range(1, 100)]
-        public int? Vat { get; set; }
-
-        [Range(1, 100)]
-        public int? Discount { get; set; }
-
-        public int? Quantity { get; set; }
-
-        public int? UserId { get; set; }
-
-        public int StatusId { get; set; }
-
-        public List<UpdateDealDocumentRequest> DealDocuments { get; set; }
-        public List<UpdateDealDetailsRequest> DealDetails { get; set; }
-    }
-}
+public record UpdateDealRequest(
+int Id,
+int OfferId,
+decimal? TotalPrice,
+decimal? FinalPrice,
+int? Vat,
+int? Discount,
+int? Quantity,
+int? UserId,
+int StatusId,
+List<UpdateDealDocumentRequest> DealDocuments,
+List<UpdateDealDetailsRequest> DealDetails);

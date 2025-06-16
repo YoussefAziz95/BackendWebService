@@ -1,15 +1,8 @@
-﻿namespace Application.Features.Deal
-{
-    public class UpdateDealDetailsRequest
-    {
-        public int Id { get; set; }
-        public int Quantity { get; set; }
+﻿namespace Application.Features;
 
-        public decimal DetailPrice { get; set; }
-
-        public decimal ItemPrice { get; set; }
-
-        public int OfferItemId { get; set; }
-
-    }
-}
+public record UpdateDealDetailsRequest(
+int Id,
+int Quantity,
+decimal DetailPrice,
+decimal ItemPrice,
+int OfferItemId);
