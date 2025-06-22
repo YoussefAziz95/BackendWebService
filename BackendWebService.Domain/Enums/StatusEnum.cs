@@ -1,7 +1,7 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Enums;
+
 public enum StatusEnum
 {
     [Display(Name = "Saved", Description = "تم الحفظ")]

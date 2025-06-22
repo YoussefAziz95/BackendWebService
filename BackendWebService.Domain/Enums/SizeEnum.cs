@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Enums;
+
 public enum SizeEnum
 {
     [Display(Name = "Small", Description = "صغير")]

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Enums;
+
 public enum ContactEnum
 {
     [Display(Name = "Extension", Description = "تحويلة")]
