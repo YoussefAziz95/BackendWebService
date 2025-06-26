@@ -1,6 +1,6 @@
-﻿using Domain.Enums;
+﻿using Domain;
+using Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Domain;
 
 [Table("FileFieldValidator")]
 public class FileFieldValidator : BaseEntity, IEntity, ITimeModification

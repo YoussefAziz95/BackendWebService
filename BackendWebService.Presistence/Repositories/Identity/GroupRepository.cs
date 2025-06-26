@@ -4,7 +4,7 @@ using Persistence.Data;
 
 namespace Persistence.Repositories.Identity
 {
-    public class GroupRepository : IActorRepository<WAction>
+    public class GroupRepository : IActorRepository<ActionActor>
     {
         private readonly ApplicationDbContext _context;
         public GroupRepository(ApplicationDbContext context)
@@ -12,7 +12,7 @@ namespace Persistence.Repositories.Identity
             _context = context;
         }
 
-        public List<WAction> getActions(int userid)
+        public List<ActionActor> getActions(int userid)
         {
             throw new NotImplementedException();
         }

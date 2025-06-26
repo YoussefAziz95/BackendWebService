@@ -12,4 +12,7 @@ public enum OrganizationEnum
 
     [Display(Name = "Supplier", Description = "مورد أو جهة توريد")]
     Supplier = 3,
+
+    [Display(Name = "Consumer", Description = "مستهلك أو جهة تقدم سلع او منتجات")]
+    Consumer = 4,
 }

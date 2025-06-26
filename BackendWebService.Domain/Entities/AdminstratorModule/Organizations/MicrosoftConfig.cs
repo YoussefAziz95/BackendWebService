@@ -1,6 +1,8 @@
 ﻿using Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Domain;
+
 [Table("MicrosoftConfig")]
 public class MicrosoftConfig : BaseEntity, IEntity, ITimeModification
 {

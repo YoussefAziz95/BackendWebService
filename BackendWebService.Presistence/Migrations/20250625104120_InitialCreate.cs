@@ -6,11 +6,35 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class initialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ActionObject",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ActionId = table.Column<int>(type: "int", nullable: false),
+                    ActionType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ObjectId = table.Column<int>(type: "int", nullable: false),
+                    ObjectType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActionObject", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Actor",
                 columns: table => new
@@ -36,50 +60,17 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerAccount",
+                name: "Branch",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsSocialLogin = table.Column<bool>(type: "bit", nullable: false),
-                    SocialProvider = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    SocialProviderId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false),
-                    AccountStatus = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    AccountStatusReason = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerAccount", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EmployeeJob",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    JobId = table.Column<int>(type: "int", nullable: false),
-                    AssignedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    CompletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FranchiseName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FranchiseSlogan = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    LogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    WebsiteUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BranchId = table.Column<int>(type: "int", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -91,75 +82,12 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmployeeJob", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ExceptionLog",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    KeyExceptionMessage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ExceptionCode = table.Column<int>(type: "int", nullable: false),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExceptionLog", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FileFieldValidator",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FileType = table.Column<int>(type: "int", nullable: false),
-                    Validator = table.Column<int>(type: "int", nullable: false),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FileFieldValidator", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FileLog",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FullPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Extention = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileType = table.Column<int>(type: "int", nullable: false),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FileLog", x => x.Id);
+                    table.PrimaryKey("PK_Branch", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Branch_Branch_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branch",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -168,7 +96,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     Extentions = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
@@ -182,31 +110,6 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FileType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Franchise",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FranchiseName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    FranchiseSlogan = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    LogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    WebsiteUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Franchise", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -256,6 +159,32 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Job",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExpirationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsVerified = table.Column<bool>(type: "bit", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Job", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LDAPConfig",
                 columns: table => new
                 {
@@ -287,13 +216,16 @@ namespace Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: true),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LogType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExceptionCode = table.Column<int>(type: "int", nullable: true),
+                    KeyExceptionMessage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LogType = table.Column<int>(type: "int", nullable: true),
                     Suggestion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SourceLayer = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SourceClass = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SourceLineNumber = table.Column<int>(type: "int", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    SourceLayer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SourceClass = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SourceLineNumber = table.Column<int>(type: "int", nullable: true),
+                    CorrelationId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -306,28 +238,6 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Logging", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Menu",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TaxInPercent = table.Column<int>(type: "int", nullable: false),
-                    ServiceInPercent = table.Column<int>(type: "int", nullable: false),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Menu", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -364,16 +274,16 @@ namespace Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     KeyMessageTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KeyMessageBody = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Priority = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Priority = table.Column<int>(type: "int", nullable: false),
                     TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NotifierId = table.Column<int>(type: "int", nullable: false),
                     NotifiedId = table.Column<int>(type: "int", nullable: false),
                     NotifiedType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NotificationTypeId = table.Column<int>(type: "int", nullable: true),
-                    NotificationType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NotificationType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NotificationObjectId = table.Column<int>(type: "int", nullable: true),
-                    NotificationObjectType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NotificationObjectType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -389,6 +299,41 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Offer",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Extention = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    IsMultiple = table.Column<bool>(type: "bit", nullable: false),
+                    IsLocal = table.Column<bool>(type: "bit", nullable: false),
+                    AccessType = table.Column<int>(type: "int", nullable: false),
+                    Currency = table.Column<int>(type: "int", nullable: false),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    SpecificationsFileId = table.Column<int>(type: "int", nullable: false),
+                    RichText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Offer", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PaymentMethod",
                 columns: table => new
                 {
@@ -401,8 +346,8 @@ namespace Persistence.Migrations
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsVerified = table.Column<bool>(type: "bit", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
@@ -425,9 +370,9 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PortionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProtionDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StorageUnitMUnit = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    UnitOfMeasure = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -499,11 +444,11 @@ namespace Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    PaymentMethodId = table.Column<int>(type: "int", nullable: false),
-                    Type = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    PaymentMethod = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Currency = table.Column<int>(type: "int", maxLength: 10, nullable: false),
-                    Status = table.Column<int>(type: "int", maxLength: 20, nullable: false),
+                    Currency = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     ReferenceNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     TransactionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -528,7 +473,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Key = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Language = table.Column<int>(type: "int", nullable: false),
                     TableName = table.Column<int>(type: "int", nullable: false),
                     Field = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -545,30 +490,6 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TranslationKey", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WorkflowReview",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OwnerId = table.Column<int>(type: "int", nullable: false),
-                    OwnerType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ObjectId = table.Column<int>(type: "int", nullable: false),
-                    ObjectType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WorkflowReview", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -597,6 +518,309 @@ namespace Persistence.Migrations
                         column: x => x.ParentZoneId,
                         principalTable: "Zone",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BranchContact",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BranchId = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BranchContact", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BranchContact_Branch_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branch",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BranchLocation",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BranchId = table.Column<int>(type: "int", nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    State = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    Latitude = table.Column<double>(type: "float", nullable: false),
+                    Longitude = table.Column<double>(type: "float", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BranchLocation", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BranchLocation_Branch_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branch",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BranchWorkingHour",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BranchId = table.Column<int>(type: "int", nullable: false),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    OpenTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    CloseTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    IsClosed = table.Column<bool>(type: "bit", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BranchWorkingHour", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BranchWorkingHour_Branch_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branch",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FileFieldValidator",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileTypeId = table.Column<int>(type: "int", nullable: false),
+                    Validator = table.Column<int>(type: "int", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileFieldValidator", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FileFieldValidator_FileType_FileTypeId",
+                        column: x => x.FileTypeId,
+                        principalTable: "FileType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FileLog",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FullPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Extention = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileTypeId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileLog", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FileLog_FileType_FileTypeId",
+                        column: x => x.FileTypeId,
+                        principalTable: "FileType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NotificationDetail",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NotificationId = table.Column<int>(type: "int", nullable: false),
+                    Channel = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NotificationDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_NotificationDetail_Notification_NotificationId",
+                        column: x => x.NotificationId,
+                        principalTable: "Notification",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Criteria",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Term = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    IsRequired = table.Column<bool>(type: "bit", nullable: false),
+                    OfferId = table.Column<int>(type: "int", nullable: false),
+                    Weight = table.Column<int>(type: "int", nullable: false),
+                    FileTypeId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Criteria", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Criteria_Offer_OfferId",
+                        column: x => x.OfferId,
+                        principalTable: "Offer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OfferObject",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OfferId = table.Column<int>(type: "int", nullable: false),
+                    ObjectId = table.Column<int>(type: "int", nullable: false),
+                    ObjectType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OfferObject", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OfferObject_Offer_OfferId",
+                        column: x => x.OfferId,
+                        principalTable: "Offer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Receipt",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PaymentMethodId = table.Column<int>(type: "int", nullable: false),
+                    IssuedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Receipt", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Receipt_PaymentMethod_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalTable: "PaymentMethod",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoleClaim",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleClaim", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RoleClaim_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -669,133 +893,12 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cafe",
+                name: "Inventory",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CafeCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    FranchiseId = table.Column<int>(type: "int", nullable: true),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cafe", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Cafe_Franchise_FranchiseId",
-                        column: x => x.FranchiseId,
-                        principalTable: "Franchise",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Cafe_Menu_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menu",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NotificationDetail",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NotificationId = table.Column<int>(type: "int", nullable: false),
-                    Channel = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    IsRead = table.Column<bool>(type: "bit", nullable: false),
-                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NotificationDetail", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_NotificationDetail_Notification_NotificationId",
-                        column: x => x.NotificationId,
-                        principalTable: "Notification",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StorageUnit",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PortionTypeId = table.Column<int>(type: "int", nullable: true),
-                    FullQuantity = table.Column<int>(type: "int", nullable: false),
-                    unit = table.Column<int>(type: "int", nullable: false),
-                    FranchiseId = table.Column<int>(type: "int", nullable: true),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StorageUnit", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_StorageUnit_Franchise_FranchiseId",
-                        column: x => x.FranchiseId,
-                        principalTable: "Franchise",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_StorageUnit_PortionType_PortionTypeId",
-                        column: x => x.PortionTypeId,
-                        principalTable: "PortionType",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoleClaim",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoleClaim", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RoleClaim_Role_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Role",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Inventroy",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
@@ -808,43 +911,12 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Inventroy", x => x.Id);
+                    table.PrimaryKey("PK_Inventory", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Inventroy_Category_CategoryId",
+                        name: "FK_Inventory_Category_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Category",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Item",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ItemName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ItemDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    PreparationTimeMinutes = table.Column<int>(type: "int", nullable: false),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Item", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Item_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -892,9 +964,9 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
@@ -914,41 +986,6 @@ namespace Persistence.Migrations
                         principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SubMenu",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SubMenuName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    SubMenuDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: true),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubMenu", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SubMenu_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SubMenu_Menu_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menu",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -980,6 +1017,74 @@ namespace Persistence.Migrations
                     table.PrimaryKey("PK_Company", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Company_Organization_OrganizationId",
+                        column: x => x.OrganizationId,
+                        principalTable: "Organization",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Consumer",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    Rating = table.Column<decimal>(type: "decimal(3,2)", precision: 3, scale: 2, nullable: true),
+                    BankAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Consumer", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Consumer_Organization_OrganizationId",
+                        column: x => x.OrganizationId,
+                        principalTable: "Organization",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Department",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    ParentDepartmentId = table.Column<int>(type: "int", nullable: true),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    BranchId = table.Column<int>(type: "int", nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Department", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Department_Branch_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branch",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Department_Department_ParentDepartmentId",
+                        column: x => x.ParentDepartmentId,
+                        principalTable: "Department",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Department_Organization_OrganizationId",
                         column: x => x.OrganizationId,
                         principalTable: "Organization",
                         principalColumn: "Id");
@@ -1036,7 +1141,7 @@ namespace Persistence.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FranchiseId = table.Column<int>(type: "int", nullable: true),
+                    BranchId = table.Column<int>(type: "int", nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
@@ -1053,9 +1158,9 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Franchise_FranchiseId",
-                        column: x => x.FranchiseId,
-                        principalTable: "Franchise",
+                        name: "FK_Users_Branch_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branch",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Users_Organization_OrganizationId",
@@ -1065,13 +1170,17 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Receipt",
+                name: "Item",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PaymentMethodId = table.Column<int>(type: "int", nullable: false),
-                    CafeId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    PreparationTimeMinutes = table.Column<int>(type: "int", nullable: false),
+                    InventoryId = table.Column<int>(type: "int", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -1083,30 +1192,31 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Receipt", x => x.Id);
+                    table.PrimaryKey("PK_Item", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Receipt_Cafe_CafeId",
-                        column: x => x.CafeId,
-                        principalTable: "Cafe",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Receipt_PaymentMethod_PaymentMethodId",
-                        column: x => x.PaymentMethodId,
-                        principalTable: "PaymentMethod",
+                        name: "FK_Item_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Item_Inventory_InventoryId",
+                        column: x => x.InventoryId,
+                        principalTable: "Inventory",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Table",
+                name: "StorageUnit",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TableNumber = table.Column<int>(type: "int", nullable: false),
-                    TableQRCode = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    TableSecret = table.Column<int>(type: "int", nullable: false),
-                    CafeId = table.Column<int>(type: "int", nullable: true),
+                    InventoryId = table.Column<int>(type: "int", nullable: false),
+                    PortionTypeId = table.Column<int>(type: "int", nullable: true),
+                    FullQuantity = table.Column<int>(type: "int", nullable: false),
+                    Unit = table.Column<int>(type: "int", nullable: false),
+                    BranchId = table.Column<int>(type: "int", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -1118,54 +1228,23 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Table", x => x.Id);
+                    table.PrimaryKey("PK_StorageUnit", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Table_Cafe_CafeId",
-                        column: x => x.CafeId,
-                        principalTable: "Cafe",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Portion",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    StorageUnitId = table.Column<int>(type: "int", nullable: false),
-                    PortionTypeId = table.Column<int>(type: "int", nullable: false),
-                    PortionSize = table.Column<int>(type: "int", nullable: false),
-                    ItemId = table.Column<int>(type: "int", nullable: true),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Portion", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Portion_Item_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Item",
+                        name: "FK_StorageUnit_Branch_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branch",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Portion_PortionType_PortionTypeId",
+                        name: "FK_StorageUnit_Inventory_InventoryId",
+                        column: x => x.InventoryId,
+                        principalTable: "Inventory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StorageUnit_PortionType_PortionTypeId",
                         column: x => x.PortionTypeId,
                         principalTable: "PortionType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Portion_StorageUnit_StorageUnitId",
-                        column: x => x.StorageUnitId,
-                        principalTable: "StorageUnit",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1207,7 +1286,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    isAvailable = table.Column<bool>(type: "bit", nullable: true),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: true),
                     RequiredAmount = table.Column<int>(type: "int", nullable: true),
                     AvailableAmount = table.Column<int>(type: "int", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: true),
@@ -1231,14 +1310,50 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MenuItem",
+                name: "BranchService",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ItemId = table.Column<int>(type: "int", nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    SubMenuId = table.Column<int>(type: "int", nullable: true),
+                    BranchId = table.Column<int>(type: "int", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BranchService", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BranchService_Branch_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branch",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BranchService_Service_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Service",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OfferItem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    RequiredAmount = table.Column<int>(type: "int", nullable: true),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    OfferId = table.Column<int>(type: "int", nullable: false),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -1250,24 +1365,19 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MenuItem", x => x.Id);
+                    table.PrimaryKey("PK_OfferItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MenuItem_Item_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Item",
+                        name: "FK_OfferItem_Offer_OfferId",
+                        column: x => x.OfferId,
+                        principalTable: "Offer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MenuItem_Menu_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menu",
+                        name: "FK_OfferItem_Service_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Service",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MenuItem_SubMenu_SubMenuId",
-                        column: x => x.SubMenuId,
-                        principalTable: "SubMenu",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1395,6 +1505,76 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ConsumerAccount",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    SupplierId = table.Column<int>(type: "int", nullable: false),
+                    ApprovedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConsumerAccount", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ConsumerAccount_Company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Company",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ConsumerAccount_Consumer_SupplierId",
+                        column: x => x.SupplierId,
+                        principalTable: "Consumer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConsumerCustomer",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SupplierId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConsumerCustomer", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ConsumerCustomer_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ConsumerCustomer_Consumer_SupplierId",
+                        column: x => x.SupplierId,
+                        principalTable: "Consumer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SupplierAccount",
                 columns: table => new
                 {
@@ -1465,13 +1645,47 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ActionActor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    ActionType = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    TargetEntityId = table.Column<int>(type: "int", nullable: true),
+                    TableName = table.Column<int>(type: "int", nullable: true),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActionActor", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ActionActor_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Administrator",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false),
+                    OrganizationType = table.Column<int>(type: "int", nullable: false),
                     Attributes = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
@@ -1495,13 +1709,79 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BranchEmployee",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BranchId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    JobTitle = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    AssignedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BranchEmployee", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BranchEmployee_Branch_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branch",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BranchEmployee_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Client",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    MFAEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Client", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Client_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Customer",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    MFAEnabled = table.Column<bool>(type: "bit", maxLength: 20, nullable: false),
+                    MFAEnabled = table.Column<bool>(type: "bit", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
@@ -1522,6 +1802,52 @@ namespace Persistence.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Deal",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    OfferId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    CompanyVendorId = table.Column<int>(type: "int", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    FinalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Vat = table.Column<int>(type: "int", nullable: true),
+                    Discount = table.Column<int>(type: "int", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: true),
+                    StatusId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Deal", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Deal_Offer_OfferId",
+                        column: x => x.OfferId,
+                        principalTable: "Offer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Deal_Organization_OrganizationId",
+                        column: x => x.OrganizationId,
+                        principalTable: "Organization",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Deal_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1585,6 +1911,52 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TableId = table.Column<int>(type: "int", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Tax = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Service = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    OrderName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ReceiptId = table.Column<int>(type: "int", nullable: true),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Order_BranchContact_TableId",
+                        column: x => x.TableId,
+                        principalTable: "BranchContact",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Order_Receipt_ReceiptId",
+                        column: x => x.ReceiptId,
+                        principalTable: "Receipt",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Order_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Property",
                 columns: table => new
                 {
@@ -1593,7 +1965,7 @@ namespace Persistence.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ContactName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     ZoneId = table.Column<int>(type: "int", nullable: true),
                     Latitude = table.Column<double>(type: "float", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
@@ -1625,6 +1997,35 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TimeSlot",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TimeSlot", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TimeSlot_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserClaim",
                 columns: table => new
                 {
@@ -1634,6 +2035,10 @@ namespace Persistence.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -1693,6 +2098,10 @@ namespace Persistence.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -1714,7 +2123,15 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsValid = table.Column<bool>(type: "bit", nullable: false)
+                    IsValid = table.Column<bool>(type: "bit", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1732,7 +2149,15 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1764,6 +2189,10 @@ namespace Persistence.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -1775,40 +2204,6 @@ namespace Persistence.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WAction",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StatusId = table.Column<int>(type: "int", nullable: false),
-                    ActionType = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true),
-                    TargetEntityId = table.Column<int>(type: "int", nullable: true),
-                    TableName = table.Column<int>(type: "int", nullable: true),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WAction", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WAction_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1846,21 +2241,15 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Portion",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TableId = table.Column<int>(type: "int", nullable: false),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Tax = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Service = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    OrderName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CafeId = table.Column<int>(type: "int", nullable: true),
-                    ReceiptId = table.Column<int>(type: "int", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    StorageUnitId = table.Column<int>(type: "int", nullable: false),
+                    PortionTypeId = table.Column<int>(type: "int", nullable: false),
+                    Size = table.Column<int>(type: "int", nullable: false),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -1872,61 +2261,17 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.PrimaryKey("PK_Portion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Order_Cafe_CafeId",
-                        column: x => x.CafeId,
-                        principalTable: "Cafe",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Order_Receipt_ReceiptId",
-                        column: x => x.ReceiptId,
-                        principalTable: "Receipt",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Order_Table_TableId",
-                        column: x => x.TableId,
-                        principalTable: "Table",
+                        name: "FK_Portion_PortionType_PortionTypeId",
+                        column: x => x.PortionTypeId,
+                        principalTable: "PortionType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Order_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PortionItem",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PortionId = table.Column<int>(type: "int", nullable: false),
-                    ItemId = table.Column<int>(type: "int", nullable: false),
-                    OrganizationId = table.Column<int>(type: "int", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PortionItem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PortionItem_Item_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Item",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PortionItem_Portion_PortionId",
-                        column: x => x.PortionId,
-                        principalTable: "Portion",
+                        name: "FK_Portion_StorageUnit_StorageUnitId",
+                        column: x => x.StorageUnitId,
+                        principalTable: "StorageUnit",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1976,6 +2321,7 @@ namespace Persistence.Migrations
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FileId = table.Column<int>(type: "int", nullable: true),
+                    ConsumerAccountId = table.Column<int>(type: "int", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -1989,6 +2335,11 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_SupplierDocument", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_SupplierDocument_ConsumerAccount_ConsumerAccountId",
+                        column: x => x.ConsumerAccountId,
+                        principalTable: "ConsumerAccount",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_SupplierDocument_PreDocument_PreDocumentId",
                         column: x => x.PreDocumentId,
                         principalTable: "PreDocument",
@@ -2000,6 +2351,128 @@ namespace Persistence.Migrations
                         principalTable: "SupplierAccount",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClientAccount",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsSocialLogin = table.Column<bool>(type: "bit", nullable: false),
+                    SocialProvider = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    SocialProviderId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false),
+                    AccountStatus = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    AccountStatusReason = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientAccount", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ClientAccount_Client_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Client",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DealDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DealId = table.Column<int>(type: "int", nullable: false),
+                    OfferItemId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    DetailPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ItemPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DealDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DealDetails_Deal_DealId",
+                        column: x => x.DealId,
+                        principalTable: "Deal",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_DealDetails_OfferItem_OfferItemId",
+                        column: x => x.OfferItemId,
+                        principalTable: "OfferItem",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DealDocument",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Score = table.Column<int>(type: "int", nullable: true),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RichText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StatusId = table.Column<int>(type: "int", nullable: true),
+                    DealId = table.Column<int>(type: "int", nullable: false),
+                    CriteriaId = table.Column<int>(type: "int", nullable: false),
+                    FileId = table.Column<int>(type: "int", nullable: false),
+                    FileFieldValidatorId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DealDocument", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DealDocument_Criteria_CriteriaId",
+                        column: x => x.CriteriaId,
+                        principalTable: "Criteria",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_DealDocument_Deal_DealId",
+                        column: x => x.DealId,
+                        principalTable: "Deal",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_DealDocument_FileFieldValidator_FileFieldValidatorId",
+                        column: x => x.FileFieldValidatorId,
+                        principalTable: "FileFieldValidator",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_DealDocument_FileLog_FileId",
+                        column: x => x.FileId,
+                        principalTable: "FileLog",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -2033,14 +2506,12 @@ namespace Persistence.Migrations
                         name: "FK_Attachment_FileFieldValidator_FileFieldValidatorId",
                         column: x => x.FileFieldValidatorId,
                         principalTable: "FileFieldValidator",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Attachment_FileLog_FileId",
                         column: x => x.FileId,
                         principalTable: "FileLog",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -2051,7 +2522,6 @@ namespace Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ReceiverId = table.Column<int>(type: "int", nullable: false),
                     EmailId = table.Column<int>(type: "int", nullable: false),
-                    Actor = table.Column<int>(type: "int", nullable: false),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -2065,8 +2535,8 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Recipient", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Recipient_Actor_Actor",
-                        column: x => x.Actor,
+                        name: "FK_Recipient_Actor_ReceiverId",
+                        column: x => x.ReceiverId,
                         principalTable: "Actor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -2085,7 +2555,7 @@ namespace Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", maxLength: 50, nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
@@ -2137,16 +2607,161 @@ namespace Persistence.Migrations
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmployeeAssignment_Job_JobId",
+                        column: x => x.JobId,
+                        principalTable: "Job",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerProperty",
+                name: "EmployeeCertification",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    CertificationName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    IssuingAuthority = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    IssuedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    VerificationNotes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeCertification", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmployeeCertification_Employee_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employee",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeJob",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    JobId = table.Column<int>(type: "int", nullable: false),
+                    AssignedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    CompletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeJob", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmployeeJob_Employee_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employee",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmployeeJob_Job_JobId",
+                        column: x => x.JobId,
+                        principalTable: "Job",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JobVerification",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    Verification = table.Column<int>(type: "int", nullable: false),
+                    VerificationCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    ExpirationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsVerified = table.Column<bool>(type: "bit", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobVerification", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_JobVerification_Employee_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employee",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    ItemId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ExpectedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Item_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Item",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Order_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Order",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClientProperty",
                 columns: table => new
                 {
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     PropertyId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     AddressId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     State = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     PostalCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
@@ -2166,27 +2781,27 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CustomerProperty", x => new { x.CustomerId, x.PropertyId });
+                    table.PrimaryKey("PK_ClientProperty", x => new { x.CustomerId, x.PropertyId });
                     table.ForeignKey(
-                        name: "FK_CustomerProperty_Address_AddressId",
+                        name: "FK_ClientProperty_Address_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Address",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CustomerProperty_Customer_CustomerId",
+                        name: "FK_ClientProperty_Client_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customer",
+                        principalTable: "Client",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CustomerProperty_Property_PropertyId",
+                        name: "FK_ClientProperty_Property_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Property",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerService",
+                name: "ClientService",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -2202,6 +2817,136 @@ namespace Persistence.Migrations
                     RequestedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ScheduledDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CompletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientService", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ClientService_Client_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Client",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClientService_FileLog_FilesId",
+                        column: x => x.FilesId,
+                        principalTable: "FileLog",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ClientService_FileLog_VoiceNoteId",
+                        column: x => x.VoiceNoteId,
+                        principalTable: "FileLog",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ClientService_Property_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Property",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ClientService_Service_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Service",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomerPaymentMethod",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    PaymentMethodId = table.Column<int>(type: "int", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    VoiceNoteId = table.Column<int>(type: "int", nullable: true),
+                    FilesId = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    RequestedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ScheduledDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CompletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedByUserId = table.Column<int>(type: "int", nullable: true),
+                    OrganizationId = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
+                    IsSystem = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerPaymentMethod", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CustomerPaymentMethod_Customer_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerPaymentMethod_FileLog_FilesId",
+                        column: x => x.FilesId,
+                        principalTable: "FileLog",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CustomerPaymentMethod_FileLog_VoiceNoteId",
+                        column: x => x.VoiceNoteId,
+                        principalTable: "FileLog",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CustomerPaymentMethod_PaymentMethod_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalTable: "PaymentMethod",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerPaymentMethod_Property_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Property",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CustomerPaymentMethod_Service_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Service",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerPaymentMethod_Users_UpdatedByUserId",
+                        column: x => x.UpdatedByUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomerService",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    VoiceNoteId = table.Column<int>(type: "int", nullable: true),
+                    FilesId = table.Column<int>(type: "int", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    RequestedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ScheduledDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CompletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    HandledByUserId = table.Column<int>(type: "int", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -2241,10 +2986,15 @@ namespace Persistence.Migrations
                         principalTable: "Service",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerService_Users_HandledByUserId",
+                        column: x => x.HandledByUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkflowCase",
+                name: "Case",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -2265,19 +3015,19 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkflowCase", x => x.Id);
+                    table.PrimaryKey("PK_Case", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WorkflowCase_SupplierAccount_CompanySupplierId",
+                        name: "FK_Case_ConsumerAccount_CompanySupplierId",
                         column: x => x.CompanySupplierId,
-                        principalTable: "SupplierAccount",
+                        principalTable: "ConsumerAccount",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_WorkflowCase_Users_UserId",
+                        name: "FK_Case_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_WorkflowCase_Workflow_WorkflowId",
+                        name: "FK_Case_Workflow_WorkflowId",
                         column: x => x.WorkflowId,
                         principalTable: "Workflow",
                         principalColumn: "Id",
@@ -2320,16 +3070,13 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderItem",
+                name: "PortionItem",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    PortionId = table.Column<int>(type: "int", nullable: false),
                     ItemId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ExpectedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -2341,17 +3088,17 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderItem", x => x.Id);
+                    table.PrimaryKey("PK_PortionItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderItem_Item_ItemId",
+                        name: "FK_PortionItem_Item_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Item",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderItem_Order_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Order",
+                        name: "FK_PortionItem_Portion_PortionId",
+                        column: x => x.PortionId,
+                        principalTable: "Portion",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -2364,11 +3111,11 @@ namespace Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EmployeeId = table.Column<int>(type: "int", nullable: true),
                     CustomerServiceId = table.Column<int>(type: "int", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     VoiceNoteId = table.Column<int>(type: "int", nullable: true),
                     FilesId = table.Column<int>(type: "int", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    AdditionalPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdditionalPhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -2399,14 +3146,14 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkflowAction",
+                name: "CaseAction",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Order = table.Column<int>(type: "int", nullable: true),
                     WorkflowActorId = table.Column<int>(type: "int", nullable: true),
-                    WorkflowCaseId = table.Column<int>(type: "int", nullable: false),
+                    CaseId = table.Column<int>(type: "int", nullable: false),
                     WorkflowCycleId = table.Column<int>(type: "int", nullable: false),
                     StatusId = table.Column<int>(type: "int", nullable: false),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
@@ -2420,24 +3167,29 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkflowAction", x => x.Id);
+                    table.PrimaryKey("PK_CaseAction", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WorkflowAction_Users_WorkflowActorId",
+                        name: "FK_CaseAction_Case_CaseId",
+                        column: x => x.CaseId,
+                        principalTable: "Case",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CaseAction_Users_WorkflowActorId",
                         column: x => x.WorkflowActorId,
                         principalTable: "Users",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_WorkflowAction_WorkflowCase_WorkflowCaseId",
-                        column: x => x.WorkflowCaseId,
-                        principalTable: "WorkflowCase",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_WorkflowAction_WorkflowCycle_WorkflowCycleId",
+                        name: "FK_CaseAction_WorkflowCycle_WorkflowCycleId",
                         column: x => x.WorkflowCycleId,
                         principalTable: "WorkflowCycle",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActionActor_UserId",
+                table: "ActionActor",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Address_CompanyId",
@@ -2465,14 +3217,74 @@ namespace Persistence.Migrations
                 column: "FileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cafe_FranchiseId",
-                table: "Cafe",
-                column: "FranchiseId");
+                name: "IX_Branch_BranchId",
+                table: "Branch",
+                column: "BranchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cafe_MenuId",
-                table: "Cafe",
-                column: "MenuId");
+                name: "IX_BranchContact_BranchId",
+                table: "BranchContact",
+                column: "BranchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BranchEmployee_BranchId",
+                table: "BranchEmployee",
+                column: "BranchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BranchEmployee_UserId",
+                table: "BranchEmployee",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BranchLocation_BranchId",
+                table: "BranchLocation",
+                column: "BranchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BranchService_BranchId",
+                table: "BranchService",
+                column: "BranchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BranchService_ServiceId",
+                table: "BranchService",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BranchWorkingHour_BranchId",
+                table: "BranchWorkingHour",
+                column: "BranchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Case_CompanySupplierId",
+                table: "Case",
+                column: "CompanySupplierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Case_UserId",
+                table: "Case",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Case_WorkflowId",
+                table: "Case",
+                column: "WorkflowId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CaseAction_CaseId",
+                table: "CaseAction",
+                column: "CaseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CaseAction_WorkflowActorId",
+                table: "CaseAction",
+                column: "WorkflowActorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CaseAction_WorkflowCycleId",
+                table: "CaseAction",
+                column: "WorkflowCycleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Category_FileId",
@@ -2490,6 +3302,51 @@ namespace Persistence.Migrations
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Client_UserId",
+                table: "Client",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientAccount_CustomerId",
+                table: "ClientAccount",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientProperty_AddressId",
+                table: "ClientProperty",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientProperty_PropertyId",
+                table: "ClientProperty",
+                column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientService_CustomerId",
+                table: "ClientService",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientService_FilesId",
+                table: "ClientService",
+                column: "FilesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientService_PropertyId",
+                table: "ClientService",
+                column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientService_ServiceId",
+                table: "ClientService",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientService_VoiceNoteId",
+                table: "ClientService",
+                column: "VoiceNoteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Company_OrganizationId",
                 table: "Company",
                 column: "OrganizationId");
@@ -2500,9 +3357,35 @@ namespace Persistence.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CompanyCategory_CompanyId",
+                name: "IX_CompanyCategory_CompanyId_CategoryId",
                 table: "CompanyCategory",
+                columns: new[] { "CompanyId", "CategoryId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Consumer_OrganizationId",
+                table: "Consumer",
+                column: "OrganizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConsumerAccount_CompanyId",
+                table: "ConsumerAccount",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConsumerAccount_SupplierId",
+                table: "ConsumerAccount",
+                column: "SupplierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConsumerCustomer_CategoryId",
+                table: "ConsumerCustomer",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConsumerCustomer_SupplierId",
+                table: "ConsumerCustomer",
+                column: "SupplierId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contact_CompanyId",
@@ -2510,19 +3393,49 @@ namespace Persistence.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Criteria_OfferId",
+                table: "Criteria",
+                column: "OfferId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Customer_UserId",
                 table: "Customer",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerProperty_AddressId",
-                table: "CustomerProperty",
-                column: "AddressId");
+                name: "IX_CustomerPaymentMethod_CustomerId",
+                table: "CustomerPaymentMethod",
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerProperty_PropertyId",
-                table: "CustomerProperty",
+                name: "IX_CustomerPaymentMethod_FilesId",
+                table: "CustomerPaymentMethod",
+                column: "FilesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerPaymentMethod_PaymentMethodId",
+                table: "CustomerPaymentMethod",
+                column: "PaymentMethodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerPaymentMethod_PropertyId",
+                table: "CustomerPaymentMethod",
                 column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerPaymentMethod_ServiceId",
+                table: "CustomerPaymentMethod",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerPaymentMethod_UpdatedByUserId",
+                table: "CustomerPaymentMethod",
+                column: "UpdatedByUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerPaymentMethod_VoiceNoteId",
+                table: "CustomerPaymentMethod",
+                column: "VoiceNoteId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerService_CustomerId",
@@ -2533,6 +3446,11 @@ namespace Persistence.Migrations
                 name: "IX_CustomerService_FilesId",
                 table: "CustomerService",
                 column: "FilesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerService_HandledByUserId",
+                table: "CustomerService",
+                column: "HandledByUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerService_PropertyId",
@@ -2548,6 +3466,66 @@ namespace Persistence.Migrations
                 name: "IX_CustomerService_VoiceNoteId",
                 table: "CustomerService",
                 column: "VoiceNoteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Deal_OfferId",
+                table: "Deal",
+                column: "OfferId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Deal_OrganizationId",
+                table: "Deal",
+                column: "OrganizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Deal_UserId",
+                table: "Deal",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DealDetails_DealId",
+                table: "DealDetails",
+                column: "DealId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DealDetails_OfferItemId",
+                table: "DealDetails",
+                column: "OfferItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DealDocument_CriteriaId",
+                table: "DealDocument",
+                column: "CriteriaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DealDocument_DealId",
+                table: "DealDocument",
+                column: "DealId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DealDocument_FileFieldValidatorId",
+                table: "DealDocument",
+                column: "FileFieldValidatorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DealDocument_FileId",
+                table: "DealDocument",
+                column: "FileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Department_BranchId",
+                table: "Department",
+                column: "BranchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Department_OrganizationId",
+                table: "Department",
+                column: "OrganizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Department_ParentDepartmentId",
+                table: "Department",
+                column: "ParentDepartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmailLog_SenderId",
@@ -2570,6 +3548,26 @@ namespace Persistence.Migrations
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EmployeeAssignment_JobId",
+                table: "EmployeeAssignment",
+                column: "JobId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeCertification_EmployeeId",
+                table: "EmployeeCertification",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeJob_EmployeeId",
+                table: "EmployeeJob",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeJob_JobId",
+                table: "EmployeeJob",
+                column: "JobId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EmployeeService_CustomerServiceId",
                 table: "EmployeeService",
                 column: "CustomerServiceId");
@@ -2585,8 +3583,18 @@ namespace Persistence.Migrations
                 column: "VoiceNoteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inventroy_CategoryId",
-                table: "Inventroy",
+                name: "IX_FileFieldValidator_FileTypeId",
+                table: "FileFieldValidator",
+                column: "FileTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FileLog_FileTypeId",
+                table: "FileLog",
+                column: "FileTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Inventory_CategoryId",
+                table: "Inventory",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
@@ -2595,24 +3603,19 @@ namespace Persistence.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Item_InventoryId",
+                table: "Item",
+                column: "InventoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobVerification_EmployeeId",
+                table: "JobVerification",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Managers_CompanyId",
                 table: "Managers",
                 column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItem_ItemId",
-                table: "MenuItem",
-                column: "ItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItem_MenuId",
-                table: "MenuItem",
-                column: "MenuId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItem_SubMenuId",
-                table: "MenuItem",
-                column: "SubMenuId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NotificationDetail_NotificationId",
@@ -2620,9 +3623,19 @@ namespace Persistence.Migrations
                 column: "NotificationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_CafeId",
-                table: "Order",
-                column: "CafeId");
+                name: "IX_OfferItem_OfferId",
+                table: "OfferItem",
+                column: "OfferId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OfferItem_ServiceId",
+                table: "OfferItem",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OfferObject_OfferId",
+                table: "OfferObject",
+                column: "OfferId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_ReceiptId",
@@ -2658,11 +3671,6 @@ namespace Persistence.Migrations
                 name: "IX_Part_ProductId",
                 table: "Part",
                 column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Portion_ItemId",
-                table: "Portion",
-                column: "ItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Portion_PortionTypeId",
@@ -2705,24 +3713,19 @@ namespace Persistence.Migrations
                 column: "ZoneId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Receipt_CafeId",
-                table: "Receipt",
-                column: "CafeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Receipt_PaymentMethodId",
                 table: "Receipt",
                 column: "PaymentMethodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recipient_Actor",
-                table: "Recipient",
-                column: "Actor");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Recipient_EmailId",
                 table: "Recipient",
                 column: "EmailId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipient_ReceiverId",
+                table: "Recipient",
+                column: "ReceiverId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -2757,24 +3760,19 @@ namespace Persistence.Migrations
                 column: "SpareId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StorageUnit_FranchiseId",
+                name: "IX_StorageUnit_BranchId",
                 table: "StorageUnit",
-                column: "FranchiseId");
+                column: "BranchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StorageUnit_InventoryId",
+                table: "StorageUnit",
+                column: "InventoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StorageUnit_PortionTypeId",
                 table: "StorageUnit",
                 column: "PortionTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubMenu_CategoryId",
-                table: "SubMenu",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubMenu_MenuId",
-                table: "SubMenu",
-                column: "MenuId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Supplier_OrganizationId",
@@ -2802,6 +3800,11 @@ namespace Persistence.Migrations
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SupplierDocument_ConsumerAccountId",
+                table: "SupplierDocument",
+                column: "ConsumerAccountId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SupplierDocument_PreDocumentId",
                 table: "SupplierDocument",
                 column: "PreDocumentId");
@@ -2812,9 +3815,15 @@ namespace Persistence.Migrations
                 column: "SupplierAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Table_CafeId",
-                table: "Table",
-                column: "CafeId");
+                name: "IX_TimeSlot_UserId",
+                table: "TimeSlot",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TranslationKey_Key_Language",
+                table: "TranslationKey",
+                columns: new[] { "Key", "Language" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserClaim_UserId",
@@ -2847,9 +3856,9 @@ namespace Persistence.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_FranchiseId",
+                name: "IX_Users_BranchId",
                 table: "Users",
-                column: "FranchiseId");
+                column: "BranchId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_OrganizationId",
@@ -2864,11 +3873,6 @@ namespace Persistence.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WAction_UserId",
-                table: "WAction",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Workflow_CompanyId",
                 table: "Workflow",
                 column: "CompanyId");
@@ -2877,36 +3881,6 @@ namespace Persistence.Migrations
                 name: "IX_Workflow_UserId",
                 table: "Workflow",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WorkflowAction_WorkflowActorId",
-                table: "WorkflowAction",
-                column: "WorkflowActorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WorkflowAction_WorkflowCaseId",
-                table: "WorkflowAction",
-                column: "WorkflowCaseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WorkflowAction_WorkflowCycleId",
-                table: "WorkflowAction",
-                column: "WorkflowCycleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WorkflowCase_CompanySupplierId",
-                table: "WorkflowCase",
-                column: "CompanySupplierId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WorkflowCase_UserId",
-                table: "WorkflowCase",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WorkflowCase_WorkflowId",
-                table: "WorkflowCase",
-                column: "WorkflowId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkflowCycle_WorkflowId",
@@ -2933,22 +3907,61 @@ namespace Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ActionActor");
+
+            migrationBuilder.DropTable(
+                name: "ActionObject");
+
+            migrationBuilder.DropTable(
                 name: "Administrator");
 
             migrationBuilder.DropTable(
                 name: "Attachment");
 
             migrationBuilder.DropTable(
+                name: "BranchEmployee");
+
+            migrationBuilder.DropTable(
+                name: "BranchLocation");
+
+            migrationBuilder.DropTable(
+                name: "BranchService");
+
+            migrationBuilder.DropTable(
+                name: "BranchWorkingHour");
+
+            migrationBuilder.DropTable(
+                name: "CaseAction");
+
+            migrationBuilder.DropTable(
+                name: "ClientAccount");
+
+            migrationBuilder.DropTable(
+                name: "ClientProperty");
+
+            migrationBuilder.DropTable(
+                name: "ClientService");
+
+            migrationBuilder.DropTable(
                 name: "CompanyCategory");
+
+            migrationBuilder.DropTable(
+                name: "ConsumerCustomer");
 
             migrationBuilder.DropTable(
                 name: "Contact");
 
             migrationBuilder.DropTable(
-                name: "CustomerAccount");
+                name: "CustomerPaymentMethod");
 
             migrationBuilder.DropTable(
-                name: "CustomerProperty");
+                name: "DealDetails");
+
+            migrationBuilder.DropTable(
+                name: "DealDocument");
+
+            migrationBuilder.DropTable(
+                name: "Department");
 
             migrationBuilder.DropTable(
                 name: "EmployeeAccount");
@@ -2957,22 +3970,19 @@ namespace Persistence.Migrations
                 name: "EmployeeAssignment");
 
             migrationBuilder.DropTable(
+                name: "EmployeeCertification");
+
+            migrationBuilder.DropTable(
                 name: "EmployeeJob");
 
             migrationBuilder.DropTable(
                 name: "EmployeeService");
 
             migrationBuilder.DropTable(
-                name: "ExceptionLog");
-
-            migrationBuilder.DropTable(
-                name: "FileType");
-
-            migrationBuilder.DropTable(
                 name: "GoogleConfig");
 
             migrationBuilder.DropTable(
-                name: "Inventroy");
+                name: "JobVerification");
 
             migrationBuilder.DropTable(
                 name: "LDAPConfig");
@@ -2984,13 +3994,13 @@ namespace Persistence.Migrations
                 name: "Managers");
 
             migrationBuilder.DropTable(
-                name: "MenuItem");
-
-            migrationBuilder.DropTable(
                 name: "MicrosoftConfig");
 
             migrationBuilder.DropTable(
                 name: "NotificationDetail");
+
+            migrationBuilder.DropTable(
+                name: "OfferObject");
 
             migrationBuilder.DropTable(
                 name: "OrderItem");
@@ -3012,6 +4022,9 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "SupplierDocument");
+
+            migrationBuilder.DropTable(
+                name: "TimeSlot");
 
             migrationBuilder.DropTable(
                 name: "Transaction");
@@ -3038,34 +4051,46 @@ namespace Persistence.Migrations
                 name: "UserToken");
 
             migrationBuilder.DropTable(
-                name: "WAction");
+                name: "Case");
 
             migrationBuilder.DropTable(
-                name: "WorkflowAction");
-
-            migrationBuilder.DropTable(
-                name: "WorkflowReview");
-
-            migrationBuilder.DropTable(
-                name: "FileFieldValidator");
+                name: "WorkflowCycle");
 
             migrationBuilder.DropTable(
                 name: "Address");
 
             migrationBuilder.DropTable(
-                name: "Employee");
+                name: "Client");
+
+            migrationBuilder.DropTable(
+                name: "OfferItem");
+
+            migrationBuilder.DropTable(
+                name: "Criteria");
+
+            migrationBuilder.DropTable(
+                name: "Deal");
+
+            migrationBuilder.DropTable(
+                name: "FileFieldValidator");
+
+            migrationBuilder.DropTable(
+                name: "Job");
 
             migrationBuilder.DropTable(
                 name: "CustomerService");
 
             migrationBuilder.DropTable(
-                name: "SubMenu");
+                name: "Employee");
 
             migrationBuilder.DropTable(
                 name: "Notification");
 
             migrationBuilder.DropTable(
                 name: "Order");
+
+            migrationBuilder.DropTable(
+                name: "Item");
 
             migrationBuilder.DropTable(
                 name: "Portion");
@@ -3086,16 +4111,22 @@ namespace Persistence.Migrations
                 name: "PreDocument");
 
             migrationBuilder.DropTable(
+                name: "SupplierAccount");
+
+            migrationBuilder.DropTable(
                 name: "Group");
 
             migrationBuilder.DropTable(
                 name: "Role");
 
             migrationBuilder.DropTable(
-                name: "WorkflowCase");
+                name: "ConsumerAccount");
 
             migrationBuilder.DropTable(
-                name: "WorkflowCycle");
+                name: "Workflow");
+
+            migrationBuilder.DropTable(
+                name: "Offer");
 
             migrationBuilder.DropTable(
                 name: "Customer");
@@ -3107,13 +4138,10 @@ namespace Persistence.Migrations
                 name: "Service");
 
             migrationBuilder.DropTable(
+                name: "BranchContact");
+
+            migrationBuilder.DropTable(
                 name: "Receipt");
-
-            migrationBuilder.DropTable(
-                name: "Table");
-
-            migrationBuilder.DropTable(
-                name: "Item");
 
             migrationBuilder.DropTable(
                 name: "StorageUnit");
@@ -3122,28 +4150,10 @@ namespace Persistence.Migrations
                 name: "Product");
 
             migrationBuilder.DropTable(
-                name: "SupplierAccount");
-
-            migrationBuilder.DropTable(
-                name: "Workflow");
-
-            migrationBuilder.DropTable(
-                name: "Zone");
-
-            migrationBuilder.DropTable(
-                name: "PaymentMethod");
-
-            migrationBuilder.DropTable(
-                name: "Cafe");
-
-            migrationBuilder.DropTable(
-                name: "PortionType");
-
-            migrationBuilder.DropTable(
-                name: "Category");
-
-            migrationBuilder.DropTable(
                 name: "Supplier");
+
+            migrationBuilder.DropTable(
+                name: "Consumer");
 
             migrationBuilder.DropTable(
                 name: "Company");
@@ -3152,16 +4162,31 @@ namespace Persistence.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Menu");
+                name: "Zone");
 
             migrationBuilder.DropTable(
-                name: "Franchise");
+                name: "PaymentMethod");
+
+            migrationBuilder.DropTable(
+                name: "Inventory");
+
+            migrationBuilder.DropTable(
+                name: "PortionType");
+
+            migrationBuilder.DropTable(
+                name: "Branch");
 
             migrationBuilder.DropTable(
                 name: "Organization");
 
             migrationBuilder.DropTable(
+                name: "Category");
+
+            migrationBuilder.DropTable(
                 name: "FileLog");
+
+            migrationBuilder.DropTable(
+                name: "FileType");
         }
     }
 }

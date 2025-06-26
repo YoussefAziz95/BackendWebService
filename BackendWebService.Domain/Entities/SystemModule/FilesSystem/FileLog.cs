@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain;
 
 [Table("FileLog")]
 public class FileLog : BaseEntity, IEntity, ITimeModification
@@ -20,5 +19,3 @@ public class FileLog : BaseEntity, IEntity, ITimeModification
     [ForeignKey(nameof(FileTypeId))]
     public FileType FileType { get; set; }
 }
-
-

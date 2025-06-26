@@ -46,24 +46,6 @@ public static class PermissionConstants
     public const string SUPPLIER = "Admin.Menu.Supplier.View";
     public const string SUPPLIERDOCUMENT = "Admin.Menu.SupplierDocument.View";
 
-
-
-    public static Claim[] GetBasePermissions()
-    {
-        Type permissionsType = typeof(PermissionConstants);
-        FieldInfo[] fields = permissionsType.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-
-        List<string> permissionsList = new List<string>();
-        foreach (FieldInfo field in fields)
-        {
-            if (field.FieldType == typeof(string))
-            {
-                string value = (string)field.GetValue(null)!;
-                permissionsList.Add(value);
-            }
-        }
-        return permissionsList.Select(c => new Claim(c, AppConstants.Permission)).ToArray();
-    }
     public static string[] GetAllPermissions()
     {
         Type permissionsType = typeof(PermissionConstants);
@@ -80,74 +62,59 @@ public static class PermissionConstants
         }
         return permissionsList.ToArray();
     }
-    //public static string[] GetAllPermissionsAdmin()
-    //{
-    //    Type permissionsType = typeof(PermissionConstants);
-    //    FieldInfo[] fields = permissionsType.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-
-    //    List<string> permissionsList = new List<string>();
-    //    foreach (FieldInfo field in fields)
-    //    {
-    //        if (field.FieldType == typeof(string))
-    //        {
-    //            string value = (string)field.GetValue(null)!;
-    //            if (!value.Contains("Create") && !value.Contains("SupplierDocument"))
-    //            {
-    //                permissionsList.Add(value);
-    //            }
-    //        }
-    //    }
-    //    return permissionsList.Concat([COMPANY_CREATE]).ToArray();
-    //}
-
-    //public static string[] GetCompanyAdminPermissions()
-    //{
-
-    //    return new string[]{DEAL_VIEW,
-    //        DEAL_GET,
-    //        DEAL_EDIT,
-    //        DEAL_DELETE,
-    //        SUPPLIER_VIEW,
-    //        SUPPLIER_GET,
-    //        SUPPLIER_EDIT,
-    //        SUPPLIER_DELETE,
-    //        SUPPLIER_CREATE,
-    //        SUPPLIERCATEGORY_VIEW,
-    //        SUPPLIERCATEGORY_GET,
-    //        SUPPLIERCATEGORY_EDIT,
-    //        SUPPLIERCATEGORY_DELETE,
-    //        SUPPLIERCATEGORY_CREATE,
-    //        ACTION_VIEW,
-    //        ACTION_EDIT,
-    //        ACTION_GET,
-    //        SERVICE_VIEW,
-    //        SERVICE_GET,
-    //        SERVICE_CREATE,
-    //        SERVICE_EDIT,
-    //        SERVICE_DELETE };
-
-    //}
-
-    //public static string[] GetSupplierAdminPermissions()
-    //{
-    //    return GetAllPermissions().Where(p => p.Contains("User") || p.Contains("Permission") || p.Contains("Role")
-    //    || p.Contains(PERMISSION_VIEW)).
-    //    Concat([OFFER_VIEW,
-    //        OFFER_DEAL_ADD,
-    //        DEAL_VIEW,
-    //        DEAL_GET,
-    //        DEAL_CREATE,
-    //        DEAL_EDIT,
-    //        DEAL_DELETE,
-    //        SUPPLIERDOCUMENT_VIEW,
-    //        SUPPLIERDOCUMENT_GET,
-    //        SUPPLIERDOCUMENT_EDIT,
-    //        SUPPLIERDOCUMENT_CREATE,
-    //        CATEGORY_CREATE ,
-    //        CATEGORY_EDIT ,
-    //        CATEGORY_DELETE ,
-    //        CATEGORY_TITLE,
-    //    ]).Where(p => !p.Contains("Company")).Distinct().ToArray();
-    //}
-
+    public static string[] GetCustomerPermissions()
+    {
+        return  new[]
+        {
+                CUSTOMERUSER,
+                CUSTOMERROLE,
+                CUSTOMERPERMISSIONS,
+                CUSTOMER,
+                PROPERTY,
+                CUSTOMERSERVICE,
+                CUSTOMERPRODUCT,
+        };
+    }
+    public static string[] GetEmployeePermissions()
+    {
+        return new[]
+        {
+                EMPLOYEEUSER,
+                EMPLOYEEROLE,
+                EMPLOYEEPERMISSIONS,
+                EMPLOYEE,
+                EMPLOYEEPART,
+                SERVICE,
+                EMPLOYEEPRODUCT,
+                PREDOCUMENT,
+        };
+    }
+    public static string[] GetAdminPermissions()
+    {
+        return new[]
+        {
+                USER,
+                ROLE,
+                PERMISSIONS,
+                WORKFLOW,
+                ACTION,
+                OFFER,
+                DEAL,
+                CATEGORY,
+                ZONE,
+                PERMISSION,
+                ORGANIZATION,
+        };
+    }
+    public static string[] GetCompanyPermissions()
+    {
+        return new[]
+        {
+                COMPANY,
+                PREDOCUMENTS,
+                UTILITY,
+                SUPPLIER,
+                SUPPLIERDOCUMENT
+        };
+    }
 }

@@ -1,25 +1,30 @@
-﻿using Domain.Enums;
+﻿using Domain;
+using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Domain;
+
 [Table("EmployeeAssignment")]
 public class EmployeeAssignment : BaseEntity, IEntity, ITimeModification
 {
+    [Required]
     public int EmployeeId { get; set; }
-    [ForeignKey("EmployeeId")]
-    public Employee Employee { get; set; } // Navigation Property  
 
-    [ForeignKey("JobId")]
-    public int JobId { get; set; } // FK to Job  
+    [ForeignKey(nameof(EmployeeId))]
+    public virtual Employee Employee { get; set; }
 
     [Required]
+    public int JobId { get; set; }
+
+    [ForeignKey(nameof(JobId))]
+    public virtual Job Job { get; set; }
+
     public DateTime AssignedDate { get; set; } = DateTime.UtcNow;
 
     [Required]
-    public StatusEnum Status { get; set; } // Pending, Accepted, Rejected, Reassigned  
+    public StatusEnum Status { get; set; }
 
-    public DateTime? EmployeeResponseDate { get; set; } // When the employee responds  
+    public DateTime? EmployeeResponseDate { get; set; }
 
-    [MaxLength(500)] // Limits admin notes to 500 characters  
-    public string? AdminNotes { get; set; } // Optional: Reason for reassignment/rejection  
+    [MaxLength(500)]
+    public string? AdminNotes { get; set; }
 }

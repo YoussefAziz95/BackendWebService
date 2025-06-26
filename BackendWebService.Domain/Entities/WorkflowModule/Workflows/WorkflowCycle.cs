@@ -1,25 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain;
-
-public class WorkflowCycle : BaseEntity
+[Table("WorkflowCycle")]
+public class WorkflowCycle : BaseEntity, IEntity, ITimeModification
 {
-    [Required]
-    [Range(1, int.MaxValue, ErrorMessage = "ActionOrder must be at least 1.")]
-    public int ActionOrder { get; set; } // Ensures valid ordering
+    [Required, Range(1, int.MaxValue)]
+    public int ActionOrder { get; set; }
 
     [MaxLength(100)]
-    public string? ActionType { get; set; } // Optional but limited in length
+    public string? ActionType { get; set; }
 
-    public bool Mandatory { get; set; } = false; // Default to non-mandatory
+    public bool Mandatory { get; set; } = false;
 
-    [ForeignKey(nameof(Workflow))]
     [Required]
     public int WorkflowId { get; set; }
-    public Workflow Workflow { get; set; } = null!; // Required navigation property
 
-    [ForeignKey(nameof(WorkflowReviewer))]
-    public int? WorkflowReviewerId { get; set; } // Nullable reviewer
-    public User? WorkflowReviewer { get; set; } // Navigation property for reviewer
+    [ForeignKey(nameof(WorkflowId))]
+    public Workflow Workflow { get; set; } = null!;
+
+    public int? WorkflowReviewerId { get; set; }
+
+    [ForeignKey(nameof(WorkflowReviewerId))]
+    public User? WorkflowReviewer { get; set; }
 }

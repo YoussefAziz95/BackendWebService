@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Domain;
 
 [Table("EmailLog")]
 public class EmailLog : BaseEntity, IEntity, ITimeModification
@@ -10,13 +10,10 @@ public class EmailLog : BaseEntity, IEntity, ITimeModification
 
     public string Body { get; set; }
 
-    public DateTime SentAt { get; set; }
+    public DateTime SentAt { get; set; } = DateTime.UtcNow;
 
     public int SenderId { get; set; }
 
     [ForeignKey(nameof(SenderId))]
     public User Sender { get; set; }
-
 }
-
-

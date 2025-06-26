@@ -1,6 +1,8 @@
 ﻿using Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Domain;
+
 [Table("LDAPConfig")]
 public class LDAPConfig : BaseEntity, IEntity, ITimeModification
 {

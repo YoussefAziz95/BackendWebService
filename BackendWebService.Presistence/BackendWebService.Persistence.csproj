@@ -32,4 +32,8 @@
     <ProjectReference Include="..\BackendWebService.Domain\BackendWebService.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

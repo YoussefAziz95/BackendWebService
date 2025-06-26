@@ -95,12 +95,12 @@ public sealed class EmailConfiguration : IEntityTypeConfiguration<EmailLog>
         builder.HasOne(e => e.Sender).WithMany().HasForeignKey(e => e.SenderId).OnDelete(DeleteBehavior.NoAction);
     }
 }
-public sealed class CutomerProprtyConfiguration : IEntityTypeConfiguration<CustomerProperty>
+public sealed class CutomerProprtyConfiguration : IEntityTypeConfiguration<ClientProperty>
 {
-    public void Configure(EntityTypeBuilder<CustomerProperty> builder)
+    public void Configure(EntityTypeBuilder<ClientProperty> builder)
     {
         builder.HasKey(x => new { x.CustomerId, x.PropertyId });
-        builder.HasOne(x => x.Customer).WithMany(y => y.CustomerProperties).HasForeignKey(u => u.CustomerId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(x => x.Customer).WithMany(y => y.ClientProperties).HasForeignKey(u => u.CustomerId).OnDelete(DeleteBehavior.NoAction);
         builder.HasOne(x => x.Property).WithMany().HasForeignKey(g => g.PropertyId).OnDelete(DeleteBehavior.NoAction);
     }
 }
@@ -147,13 +147,13 @@ public sealed class WorkflowCycleConfuguration : IEntityTypeConfiguration<Workfl
     }
 }
 
-public sealed class WorkflowActionConfuguration : IEntityTypeConfiguration<WorkflowAction>
+public sealed class CaseActionConfuguration : IEntityTypeConfiguration<CaseAction>
 {
-    public void Configure(EntityTypeBuilder<WorkflowAction> builder)
+    public void Configure(EntityTypeBuilder<CaseAction> builder)
     {
-        builder.HasOne(wc => wc.WorkflowCase)
-            .WithMany(w => w.WorkflowActions)
-            .HasForeignKey(wc => wc.WorkflowCaseId)
+        builder.HasOne(wc => wc.Case)
+            .WithMany(w => w.CaseActions)
+            .HasForeignKey(wc => wc.CaseId)
             .OnDelete(DeleteBehavior.NoAction);
 
     }

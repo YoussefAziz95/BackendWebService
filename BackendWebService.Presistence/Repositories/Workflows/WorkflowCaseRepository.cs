@@ -9,24 +9,24 @@ using Persistence.Repositories.Common;
 
 namespace Persistence.Repositories.Workflows
 {
-    public class WorkflowCaseRepository : GenericRepository<WorkflowCase>, IWorkflowCaseRepository
+    public class CaseRepository : GenericRepository<Case>, ICaseRepository
     {
-        private IWorkflowReviewRepositoryFactory<WorkflowCase, WorkflowCycle> _workflowReviewRepositoryFactory;
+        private IWorkflowReviewRepositoryFactory<Case, WorkflowCycle> _actionObjectRepositoryFactory;
         private IWorkflowRepository _workflowRepository;
         private readonly ApplicationDbContext _context;
 
-        public WorkflowCaseRepository(ApplicationDbContext context,
+        public CaseRepository(ApplicationDbContext context,
             IWorkflowRepository workflowRepository) : base(context)
         {
             _workflowRepository = workflowRepository;
             _context = context;
         }
 
-        public WorkflowCase OpenCase(int workflowId, int companySupplierId)
+        public Case OpenCase(int workflowId, int companySupplierId)
         {
 
             Workflow workflow = _workflowRepository.GetById(workflowId);
-            var workflowCase = new WorkflowCase()
+            var wcase = new Case()
             {
                 CompanySupplierId = _context.userInfo.OrganizationId ?? 0,
                 OrganizationId = _context.Set<Company>().Where(o => o.Id == workflow.CompanyId).Select(o => o.OrganizationId).First(),
@@ -35,10 +35,10 @@ namespace Persistence.Repositories.Workflows
                 WorkflowId = workflow.Id,
                 ActionIndex = 1,
             };
-            _context.Add(workflowCase);
+            _context.Add(wcase);
             _context.SaveChanges();
 
-            return workflowCase;
+            return wcase;
 
         }
     }

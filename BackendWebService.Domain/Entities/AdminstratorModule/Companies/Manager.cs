@@ -8,15 +8,16 @@ namespace Domain;
 public class Manager : BaseEntity, IEntity, ITimeModification
 {
     [Required]
-    public int CompanyId { get; set; } // معرف الشركة
+    public int CompanyId { get; set; }
+    [ForeignKey(nameof(CompanyId))]
+    public Company Company { get; set; }
 
     [Required]
     [MaxLength(150)]
-    public string Name { get; set; } // اسم المدير
-
+    public string Name { get; set; }
     [NotMapped]
-    public RoleEnum? ManagerType => Enum.TryParse<RoleEnum>(Position, out var parsedType) ? parsedType : null;  // نوع المدير
+    public RoleEnum? ManagerType => Enum.TryParse<RoleEnum>(Position, out var parsedType) ? parsedType : null; 
 
     [Required]
-    public string Position { get; set; }  // المنصب - يحسب ولا يُخزن
+    public string Position { get; set; }
 }

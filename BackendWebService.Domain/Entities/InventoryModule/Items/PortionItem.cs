@@ -3,17 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 
-public class PortionItem : BaseEntity
+[Table("PortionItem")]
+public class PortionItem : BaseEntity, IEntity, ITimeModification
 {
-    [Required]
     public int PortionId { get; set; }
-
     [ForeignKey(nameof(PortionId))]
     public Portion Portion { get; set; }
 
-    [Required]
     public int ItemId { get; set; }
-
     [ForeignKey(nameof(ItemId))]
     public Item Item { get; set; }
 }

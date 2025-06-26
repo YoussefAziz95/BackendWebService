@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 
 namespace Domain;
 
-public class RoleClaim : IdentityRoleClaim<int>
+[Table("RoleClaim")]
+public class RoleClaim : IdentityRoleClaim<int>, IEntity, ITimeModification
 {
     public RoleClaim()
     {
@@ -27,4 +29,11 @@ public class RoleClaim : IdentityRoleClaim<int>
     public override string? ClaimType { get; set; }
     public override string? ClaimValue { get; set; }
     public DateTime? CreatedDate { get; set; } = DateTime.UtcNow;
+    public int? OrganizationId { get; set; }
+    public bool? IsActive { get; set; }
+    public bool? IsDeleted { get; set; }
+    public bool? IsSystem { get; set; }
+    public string? CreatedBy { get; set; }
+    public DateTime? UpdateDate { get; set; }
+    public string? UpdatedBy { get; set; }
 }

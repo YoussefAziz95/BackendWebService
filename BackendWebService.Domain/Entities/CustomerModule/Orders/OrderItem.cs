@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 
-public class OrderItem : BaseEntity
+[Table("OrderItem")]
+public class OrderItem : BaseEntity, IEntity, ITimeModification
 {
     [Required]
     public int OrderId { get; set; }
@@ -20,8 +21,9 @@ public class OrderItem : BaseEntity
     [Required]
     public int Quantity { get; set; }
 
-    [Column(TypeName = "decimal(18, 2)")]
+    [Column(TypeName = "decimal(18,2)")]
     public decimal Total { get; set; }
 
+    [Required]
     public DateTime ExpectedTime { get; set; }
 }

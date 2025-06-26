@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain;
-
-public class Workflow : BaseEntity
+[Table("Workflow")]
+public class Workflow : BaseEntity, IEntity, ITimeModification
 {
     [Required, MaxLength(100)]
     public string Name { get; set; } = string.Empty;
@@ -11,12 +11,15 @@ public class Workflow : BaseEntity
     [MaxLength(500)]
     public string? Description { get; set; }
 
-    [ForeignKey(nameof(User))]
-    public int? UserId { get; set; } // Optional: If workflow is user-specific  
-    public User? User { get; set; }  // Navigation property  
+    public int? UserId { get; set; }
 
-    [ForeignKey(nameof(Company))]
-    public int? CompanyId { get; set; } // Optional: If workflow belongs to a company  
-    public Company? Company { get; set; }  // Navigation property  
+    [ForeignKey(nameof(UserId))]
+    public User? User { get; set; }
+
+    public int? CompanyId { get; set; }
+
+    [ForeignKey(nameof(CompanyId))]
+    public Company? Company { get; set; }
+
     public IList<WorkflowCycle>? WorkflowCycles { get; set; }
 }

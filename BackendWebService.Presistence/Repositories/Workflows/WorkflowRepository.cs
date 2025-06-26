@@ -14,8 +14,8 @@ namespace Persistence.Repositories.Workflows
 {
     public class WorkflowRepository : GenericRepository<Workflow>, IWorkflowRepository
     {
-        private IWorkflowReviewRepositoryFactory<WorkflowCase, WorkflowCycle> _workflowReviewRepositoryFactory;
-        private IActorRepositoryFactory<WorkflowAction> _actorRepositoryFactory;
+        private IWorkflowReviewRepositoryFactory<Case, WorkflowCycle> _actionObjectRepositoryFactory;
+        private IActorRepositoryFactory<CaseAction> _actorRepositoryFactory;
         private const string WORKFLOW = "Workflow";
         private const string WORKFLOW_CYCLE = "WorkflowCycle";
 
@@ -25,7 +25,7 @@ namespace Persistence.Repositories.Workflows
 
         }
 
-        public async Task<int> AddWorkflowAsync(Workflow workflow, WorkflowReview workflowReview, List<WorkflowReview> workflowCycleReviews, List<Actor> workflowCycleActors)
+        public async Task<int> AddWorkflowAsync(Workflow workflow, ActionObject actionObject, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors)
         {
             var result = -1;
             using (var transaction = _context.Database.BeginTransaction())
@@ -33,11 +33,11 @@ namespace Persistence.Repositories.Workflows
                 try
                 {
 
-                    if (_context.Set<WorkflowReview>().
-                        Any(wr => wr.ObjectId == workflowReview.ObjectId
-                        && wr.ObjectType == workflowReview.ObjectType
-                        && wr.OwnerType == WORKFLOW))
-                        throw new Exception(" Cannot Create workflow for " + workflowReview.ObjectType + " " + workflowReview.ObjectId);
+                    if (_context.Set<ActionObject>().
+                        Any(wr => wr.ObjectId == actionObject.ObjectId
+                        && wr.ObjectType == actionObject.ObjectType
+                        && wr.ActionType == WORKFLOW))
+                        throw new Exception(" Cannot Create workflow for " + actionObject.ObjectType + " " + actionObject.ObjectId);
                     _context.Add(workflow);
                     _context.SaveChanges();
 
@@ -48,27 +48,27 @@ namespace Persistence.Repositories.Workflows
                     _context.SaveChanges();
 
 
-                    workflowReview.OwnerId = workflow.Id;
-                    workflowReview.OwnerType = WORKFLOW;
+                    actionObject.ActionId = workflow.Id;
+                    actionObject.ActionType = WORKFLOW;
 
 
 
                     for (int i = 0; i < workflow.WorkflowCycles.Count; i++)
                     {
-                        if (workflowCycleReviews[i].ObjectId == 0 || workflowCycleReviews[i].ObjectType == "")
+                        if (workflowActorObjects[i].ObjectId == 0 || workflowActorObjects[i].ObjectType == "")
                         {
-                            workflowCycleReviews[i].ObjectId = workflowReview.ObjectId;
-                            workflowCycleReviews[i].ObjectType = workflowReview.ObjectType;
+                            workflowActorObjects[i].ObjectId = actionObject.ObjectId;
+                            workflowActorObjects[i].ObjectType = actionObject.ObjectType;
                         }
-                        workflowCycleReviews[i].OwnerId = workflow.WorkflowCycles[i].Id;
-                        workflowCycleReviews[i].OwnerType = WORKFLOW_CYCLE;
+                        workflowActorObjects[i].ActionId = workflow.WorkflowCycles[i].Id;
+                        workflowActorObjects[i].ActionType = WORKFLOW_CYCLE;
                         workflowCycleActors[i].OwnerId = workflow.WorkflowCycles[i].Id;
                         workflowCycleActors[i].OwnerType = WORKFLOW_CYCLE;
 
 
                     }
-                    _context.Add(workflowReview);
-                    _context.AddRange(workflowCycleReviews);
+                    _context.Add(actionObject);
+                    _context.AddRange(workflowActorObjects);
                     _context.AddRange(workflowCycleActors);
                     result = _context.SaveChanges();
 
@@ -86,7 +86,7 @@ namespace Persistence.Repositories.Workflows
             return workflow.Id;
         }
 
-        public async Task<int> UpdateWorkflow(Workflow updatedWorkflow, WorkflowReview updatedWorkflowReview, List<WorkflowReview> workflowCycleReviews, List<Actor> workflowCycleActors)
+        public async Task<int> UpdateWorkflow(Workflow updatedWorkflow, ActionObject updatedWorkflowReview, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors)
         {
             var result = -1;
             using (var transaction = _context.Database.BeginTransaction())
@@ -94,9 +94,9 @@ namespace Persistence.Repositories.Workflows
                 try
                 {
                     Workflow workflow = GetById(updatedWorkflow.Id);
-                    var workflowReview = _context.Set<WorkflowReview>().First(r => r.OwnerId == workflow.Id && r.OwnerType == WORKFLOW);
-                    workflowReview.ObjectId = updatedWorkflowReview.ObjectId;
-                    workflowReview.ObjectType = updatedWorkflowReview.ObjectType;
+                    var actionObject = _context.Set<ActionObject>().First(r => r.ActionId == workflow.Id && r.ActionType == WORKFLOW);
+                    actionObject.ObjectId = updatedWorkflowReview.ObjectId;
+                    actionObject.ObjectType = updatedWorkflowReview.ObjectType;
 
                     workflow.WorkflowCycles.ToList().ForEach(c => c.IsDeleted = true);
                     int i = 0;
@@ -105,14 +105,14 @@ namespace Persistence.Repositories.Workflows
                         var cycle = workflow.WorkflowCycles.FirstOrDefault(t => t.Id == updatedCycle.Id && t.Id != 0);
                         if (cycle is not null)
                         {
-                            var review = _context.Set<WorkflowReview>().FirstOrDefault(r => r.OwnerId == cycle.Id && r.OwnerType == WORKFLOW_CYCLE);
+                            var review = _context.Set<ActionObject>().FirstOrDefault(r => r.ActionId == cycle.Id && r.ActionType == WORKFLOW_CYCLE);
                             var actor = _context.Set<Actor>().FirstOrDefault(r => r.OwnerId == cycle.Id && r.OwnerType == WORKFLOW_CYCLE);
                             cycle.IsDeleted = false;
                             cycle.Mandatory = updatedCycle.Mandatory;
                             cycle.ActionOrder = updatedCycle.ActionOrder;
                             cycle.ActionType = updatedCycle.ActionType;
-                            review.ObjectId = workflowCycleReviews[i].ObjectId;
-                            review.ObjectType = workflowCycleReviews[i].ObjectType;
+                            review.ObjectId = workflowActorObjects[i].ObjectId;
+                            review.ObjectType = workflowActorObjects[i].ObjectType;
                             actor.ActorId = workflowCycleActors[i].ActorId;
                             actor.ActorType = workflowCycleActors[i].ActorType;
                             updatedCycle.Id = 0;
@@ -127,24 +127,24 @@ namespace Persistence.Repositories.Workflows
                             updatedCycle.WorkflowId = workflow.Id;
                             _context.Add(updatedCycle);
                             _context.SaveChanges();
-                            if (workflowCycleReviews[i].ObjectId == 0 || workflowCycleReviews[i].ObjectType == "")
+                            if (workflowActorObjects[i].ObjectId == 0 || workflowActorObjects[i].ObjectType == "")
                             {
-                                workflowCycleReviews[i].ObjectId = workflowReview.ObjectId;
-                                workflowCycleReviews[i].ObjectType = workflowReview.ObjectType;
+                                workflowActorObjects[i].ObjectId = actionObject.ObjectId;
+                                workflowActorObjects[i].ObjectType = actionObject.ObjectType;
                             }
-                            workflowCycleReviews[i].OwnerId = updatedCycle.Id;
-                            workflowCycleReviews[i].OwnerType = WORKFLOW_CYCLE;
+                            workflowActorObjects[i].ActionId = updatedCycle.Id;
+                            workflowActorObjects[i].ActionType = WORKFLOW_CYCLE;
                             workflowCycleActors[i].OwnerId = updatedCycle.Id;
                             workflowCycleActors[i].OwnerType = WORKFLOW_CYCLE;
 
-                            _context.Add(workflowCycleReviews[i]);
+                            _context.Add(workflowActorObjects[i]);
                             _context.Add(workflowCycleActors[i]);
                         }
                         i++;
                     });
                     foreach (var criteria in workflow.WorkflowCycles.Where(c => c.IsDeleted??true))
                     {
-                        var review = _context.Set<WorkflowReview>().First(a => a.OwnerId == criteria.Id && a.OwnerType == WORKFLOW_CYCLE);
+                        var review = _context.Set<ActionObject>().First(a => a.ActionId == criteria.Id && a.ActionType == WORKFLOW_CYCLE);
                         var actor = _context.Set<Actor>().First(a => a.OwnerId == criteria.Id && a.OwnerType == WORKFLOW_CYCLE);
                         _context.Remove(review);
                         _context.Remove(actor);
@@ -175,15 +175,15 @@ namespace Persistence.Repositories.Workflows
             foreach (var workflow in workflows)
             {
 
-                var workflowReview = _context.Set<WorkflowReview>().First(r => r.OwnerId == workflow.Id && r.OwnerType == WORKFLOW);
-                _workflowReviewRepositoryFactory = new WorkflowReviewRepositoryFactory<WorkflowCase, WorkflowCycle>(_context, workflowReview.ObjectType);
+                var actionObject = _context.Set<ActionObject>().First(r => r.ActionId == workflow.Id && r.ActionType == WORKFLOW);
+                _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory<Case, WorkflowCycle>(_context, actionObject.ObjectType);
 
                 var workflowResponse = new WorkflowAllResponse(
                     Id : workflow.Id,
                     Name : workflow.Name,
                     Description : workflow.Name,
-                    WorkflowType : workflowReview.ObjectType,
-                    ObjectType : _workflowReviewRepositoryFactory.GetObjectType(workflowReview.ObjectId)
+                    WorkflowType : actionObject.ObjectType,
+                    ObjectType : _actionObjectRepositoryFactory.GetObjectType(actionObject.ObjectId)
 
                 );
                 workflowResponses.Add(workflowResponse);
@@ -206,22 +206,22 @@ namespace Persistence.Repositories.Workflows
 
             var workflow = Get(w=> w.Id == id, include: wc => wc.Include(c=> c.WorkflowCycles?? new List<WorkflowCycle>()));
 
-            var workflowReview = _context.Set<WorkflowReview>().First(r => r.OwnerId == workflow.Id && r.OwnerType == WORKFLOW);
+            var actionObject = _context.Set<ActionObject>().First(r => r.ActionId == workflow.Id && r.ActionType == WORKFLOW);
             var workflowResponse = new WorkflowResponse(
                 Id : workflow.Id,
                 Name: workflow.Name,
                 Description: workflow.Description,
                 UserId : workflow.UserId,
                 CompanyId : workflow.CompanyId,
-                ObjectType : workflowReview.ObjectType,
-                ObjectId : workflowReview.ObjectId,
+                ObjectType : actionObject.ObjectType,
+                ObjectId : actionObject.ObjectId,
                 WorkflowCycles: workflow.WorkflowCycles.Select(c => new WorkflowCycleResponse(
                     Id : c.Id,
                     Mandatory : c.Mandatory,
                     WorkflowId : c.WorkflowId,
                     ActionOrder : c.ActionOrder,
-                    ObjectType : _context.Set<WorkflowReview>().First(r => r.OwnerId == c.Id && r.OwnerType == WORKFLOW_CYCLE).ObjectType,
-                    ObjectId : _context.Set<WorkflowReview>().First(r => r.OwnerId == c.Id && r.OwnerType == WORKFLOW_CYCLE).ObjectId,
+                    ObjectType : _context.Set<ActionObject>().First(r => r.ActionId == c.Id && r.ActionType == WORKFLOW_CYCLE).ObjectType,
+                    ObjectId : _context.Set<ActionObject>().First(r => r.ActionId == c.Id && r.ActionType == WORKFLOW_CYCLE).ObjectId,
                     ActorType : _context.Set<Actor>().First(a => a.OwnerId == c.Id && a.OwnerType == WORKFLOW_CYCLE).ActorType,
                     ActorId : _context.Set<Actor>().First(a => a.OwnerId == c.Id && a.OwnerType == WORKFLOW_CYCLE).ActorId,
                     ActionType : c.ActionType

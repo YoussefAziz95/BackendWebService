@@ -6,7 +6,7 @@ using System.Data;
 
 namespace Persistence.Repositories.Identity
 {
-    public class RoleRepository : IActorRepository<WAction>, IRoleRepository
+    public class RoleRepository : IActorRepository<ActionActor>, IRoleRepository
     {
         private readonly ApplicationDbContext _context;
         public RoleRepository(ApplicationDbContext context)
@@ -14,7 +14,7 @@ namespace Persistence.Repositories.Identity
             _context = context;
         }
 
-        public List<WAction> getActions(int userid)
+        public List<ActionActor> getActions(int userid)
         {
             throw new NotImplementedException();
         }

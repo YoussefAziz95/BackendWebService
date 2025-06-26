@@ -1,9 +1,11 @@
 ﻿using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 
-public class Offer : BaseEntity
+[Table("Offer")]
+public class Offer : BaseEntity, IEntity, ITimeModification
 {
     [Required]
     public int OrganizationId { get; set; }
@@ -21,7 +23,7 @@ public class Offer : BaseEntity
     public DateTime EndDate { get; set; }
 
     [StringLength(10)]
-    public string? Extention { get; set; } = ".txt";// Assuming file extension, kept nullable
+    public string? Extention { get; set; } = ".txt";
 
     [Required, StringLength(50)]
     public string Code { get; set; }
@@ -50,8 +52,8 @@ public class Offer : BaseEntity
 
     public string? RichText { get; set; }
 
-    // Navigation properties
-    public List<Criteria> Criterias { get; set; } = new();
-    public List<OfferItem> OfferItems { get; set; } = new();
-    public List<OfferObject> OfferObjects { get; set; } = new();
+    // Navigation
+    public virtual List<Criteria> Criterias { get; set; } 
+    public virtual List<OfferItem> OfferItems { get; set; } 
+    public virtual List<OfferObject> OfferObjects { get; set; } 
 }

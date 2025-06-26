@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.Persistence;
-using Application.Features.Common;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Persistence.Data;
@@ -252,8 +252,8 @@ namespace Persistence.Repositories.Common
         {
             return _context.Database.ExecuteSqlRaw(query, args);
         }
-        
-       
+
+
 
 
         public bool ExistsNoTracking(Expression<Func<T, bool>> filter = null!)

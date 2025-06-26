@@ -19,12 +19,12 @@ public class ExceptionLogService : ResponseHandler, IExceptionLogService
     }
     public void Add(ExceptionDto request)
     {
-        var exception = new ExceptionLog()
+        var exception = new Logging()
         {
             ExceptionCode = request.ExceptionCode,
             KeyExceptionMessage = request.KeyExceptionMessage,
         };
-        _unitOfWork.GenericRepository<ExceptionLog>().AddAsync(exception);
+        _unitOfWork.GenericRepository<Logging>().AddAsync(exception);
         _unitOfWork.SaveAsync();
     }
 }

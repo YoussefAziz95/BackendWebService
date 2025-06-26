@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 
-public class WorkflowAction : BaseEntity
+[Table("CaseAction")]
+public class CaseAction : BaseEntity, IEntity, ITimeModification
 {
     [Range(1, int.MaxValue, ErrorMessage = "Order must be a positive number.")]
     public int? Order { get; set; }
@@ -12,10 +14,10 @@ public class WorkflowAction : BaseEntity
     public int? WorkflowActorId { get; set; }
     public User? WorkflowActor { get; set; } // Navigation property (nullable)
 
-    [ForeignKey(nameof(WorkflowCase))]
+    [ForeignKey(nameof(Case))]
     [Required]
-    public int WorkflowCaseId { get; set; }
-    public WorkflowCase WorkflowCase { get; set; } = null!; // Navigation property
+    public int CaseId { get; set; }
+    public Case Case { get; set; } = null!; // Navigation property
 
     [ForeignKey(nameof(WorkflowCycle))]
     [Required]

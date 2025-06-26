@@ -2,12 +2,14 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
+
 [Table("Property")]
 public class Property : BaseEntity, IEntity, ITimeModification
 {
+    [Required]
     public int UserId { get; set; }
 
-    [ForeignKey("UserId")]
+    [ForeignKey(nameof(UserId))]
     public virtual User User { get; set; }
 
     [Required, MaxLength(100)]
@@ -16,11 +18,12 @@ public class Property : BaseEntity, IEntity, ITimeModification
     [MaxLength(100)]
     public string? ContactName { get; set; }
 
+    [Phone, MaxLength(20)]
     public string ContactNumber { get; set; }
 
     public int? ZoneId { get; set; }
 
-    [ForeignKey("ZoneId")]
+    [ForeignKey(nameof(ZoneId))]
     public Zone? Zone { get; set; }
 
     [Required, Range(-90, 90)]

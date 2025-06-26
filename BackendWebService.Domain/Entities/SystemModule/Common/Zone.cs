@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain;
 
 [Table("Zone")]
+[Index(nameof(ParentZoneId))]
 public class Zone : BaseEntity, IEntity, ITimeModification
 {
     [Required]
@@ -18,5 +20,5 @@ public class Zone : BaseEntity, IEntity, ITimeModification
     public Zone? ParentZone { get; set; }
 
     [InverseProperty("ParentZone")]
-    public ICollection<Zone>? SubZones { get; set; }
+    public ICollection<Zone> SubZones { get; set; } = new List<Zone>();
 }

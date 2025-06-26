@@ -1,22 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain;
 
 [Table("CompanyCategory")]
+[Index(nameof(CompanyId), nameof(CategoryId), IsUnique = true)]
 public class CompanyCategory : BaseEntity, IEntity, ITimeModification
 {
     [Required]
-    public int CompanyId { get; set; } // معرف الشركة
+    public int CompanyId { get; set; }
 
     [ForeignKey(nameof(CompanyId))]
-    public Company Company { get; set; } // الشركة المرتبطة بالنشاط
+    public Company Company { get; set; }
 
     [Required]
-    public int CategoryId { get; set; } // اسم النشاط
+    public int CategoryId { get; set; }
 
-    // This assumes Category.Name is the primary or unique key
     [ForeignKey(nameof(CategoryId))]
-    public Category? Category { get; set; } // النشاط
-
+    public Category? Category { get; set; }
 }

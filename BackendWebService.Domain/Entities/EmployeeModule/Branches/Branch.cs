@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 
-public class Branch : BaseEntity
+[Table("Branch")]
+public class Branch : BaseEntity, IEntity, ITimeModification
 {
     [Required, StringLength(100)]
     public string FranchiseName { get; set; }
@@ -19,9 +21,9 @@ public class Branch : BaseEntity
     [Url]
     public string? WebsiteUrl { get; set; }
 
-    public virtual List<Branch> Cafes { get; set; } = new();
+    public virtual List<Branch> Cafes { get; set; } 
 
-    public virtual List<StorageUnit> StorageUnits { get; set; } = new();
+    public virtual List<StorageUnit> StorageUnits { get; set; } 
 
-    public virtual List<User> Customers { get; set; } = new();
+    public virtual List<User> Customers { get; set; } 
 }

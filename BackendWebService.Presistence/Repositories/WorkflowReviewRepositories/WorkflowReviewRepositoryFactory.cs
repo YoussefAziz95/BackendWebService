@@ -29,7 +29,7 @@ namespace Persistence.Repositories.WorkflowReviewRepositories
             return _getObjectType.GetObjectType(id);
         }
 
-        public int GetNextModel(TCase workflowCycle, TCycle workflowCase)
+        public int GetNextModel(TCase workflowCycle, TCycle wcase)
         {
             throw new NotImplementedException();
         }

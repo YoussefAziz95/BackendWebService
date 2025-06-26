@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
+
 [Table("Group")]
 public class Group : BaseEntity, IEntity, ITimeModification
 {

@@ -11,10 +11,10 @@ public class Transaction : BaseEntity, IEntity, ITimeModification
     public int UserId { get; set; }
 
     [Required]
-    public PaymentEnum PaymentMethod { get; set; } // renamed: was `PaymentMethodId` but it’s an enum, not FK
+    public PaymentEnum PaymentMethod { get; set; } // Enum (e.g., Cash, Card)
 
     [Required]
-    public TransactionEnum Type { get; set; } // removed MaxLength, it's an enum
+    public TransactionEnum Type { get; set; }
 
     [Required]
     [Column(TypeName = "decimal(18,2)")]
@@ -22,14 +22,13 @@ public class Transaction : BaseEntity, IEntity, ITimeModification
     public decimal Amount { get; set; }
 
     [Required]
-    public CurrencyEnum Currency { get; set; } // same fix: removed MaxLength
+    public CurrencyEnum Currency { get; set; }
 
     [Required]
     public StatusEnum Status { get; set; }
 
-    [Required]
-    [MaxLength(100)]
-    public string ReferenceNumber { get; set; } // Consider adding a unique index
+    [Required, MaxLength(100)]
+    public string ReferenceNumber { get; set; } // Should be indexed uniquely
 
     [MaxLength(500)]
     public string? Notes { get; set; }

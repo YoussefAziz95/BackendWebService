@@ -1,33 +1,31 @@
-﻿using Domain.Enums;
+﻿using Domain;
+using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain;
 [Table("EmployeeCertification")]
-public class EmployeeCertification
+public class EmployeeCertification : BaseEntity, IEntity, ITimeModification
 {
-    [Key]
-    public int Id { get; set; }
-
-    [ForeignKey("EmployeeId")]
+    [Required]
     public int EmployeeId { get; set; }
 
-    [Required]
-    [MaxLength(150)] // Certification name limit
-    public string CertificationName { get; set; } // e.g., "HVAC License", "Electrical Safety Certification"  
+    [ForeignKey(nameof(EmployeeId))]
+    public virtual Employee Employee { get; set; }
 
-    [Required]
-    [MaxLength(150)] // Issuing authority name limit
-    public string IssuingAuthority { get; set; } // e.g., "National Electrician Board"  
+    [Required, MaxLength(150)]
+    public string CertificationName { get; set; }
+
+    [Required, MaxLength(150)]
+    public string IssuingAuthority { get; set; }
 
     [Required]
     public DateTime IssuedDate { get; set; }
 
-    public DateTime? ExpirationDate { get; set; } // Nullable if no expiry  
+    public DateTime? ExpirationDate { get; set; }
 
     [Required]
-    public StatusEnum Status { get; set; } // Pending, Verified, Expired  
+    public StatusEnum Status { get; set; }
 
-    [MaxLength(500)] // Limits notes to 500 characters
-    public string? VerificationNotes { get; set; } // Optional: SuperAdmin verification notes  
+    [MaxLength(500)]
+    public string? VerificationNotes { get; set; }
 }

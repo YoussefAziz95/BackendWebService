@@ -2,8 +2,8 @@
 
 namespace Application.Contracts.Persistence
 {
-    public interface IWorkflowCaseRepository
+    public interface ICaseRepository
     {
-        WorkflowCase OpenCase(int workflowId, int companySupplierId);
+        Case OpenCase(int workflowId, int companySupplierId);
     }
 }

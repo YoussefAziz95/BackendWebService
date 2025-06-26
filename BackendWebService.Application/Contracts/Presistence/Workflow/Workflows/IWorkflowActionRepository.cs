@@ -4,11 +4,11 @@ using Domain;
 
 namespace Application.Contracts.Persistence
 {
-    public interface IWorkflowActionRepository
+    public interface ICaseActionRepository
     {
-        int AddNewAction(WorkflowCase workflowCase);
+        int AddNeactionActor(Case wcase);
         int TakeAction(TakeActionModel reviewObjectModel);
-        List<WorkflowActionsResponse> GetActionsByUserId(int userId);
+        List<CaseActionsResponse> GetActionsByUserId(int userId);
         ActionResponse GetAsync(int id, int userId);
     }
 }

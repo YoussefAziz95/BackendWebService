@@ -1,16 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain;
 [Table("EmployeeAccount")]
 public class EmployeeAccount : BaseEntity, IEntity, ITimeModification
 {
-    public int EmployeeId { get; set; }
-    [ForeignKey("EmployeeId")]
-    public Employee Employee { get; set; } // Navigation property
-
     [Required]
-    [MaxLength(50)] // Limit role name length
+    public int EmployeeId { get; set; }
+
+    [ForeignKey(nameof(EmployeeId))]
+    public virtual Employee Employee { get; set; }
 
     public bool IsActive { get; set; } = true;
 

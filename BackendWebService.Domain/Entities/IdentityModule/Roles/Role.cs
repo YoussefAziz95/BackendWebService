@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
+
+[Table("Role")]
 public class Role : IdentityRole<int>, IEntity, ITimeModification
 {
     public Role()

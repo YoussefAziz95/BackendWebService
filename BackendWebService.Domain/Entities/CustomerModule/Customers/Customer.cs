@@ -1,18 +1,24 @@
-﻿using Domain.Enums;
+﻿using Domain;
+using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain;
 [Table("Customer")]
 public class Customer : BaseEntity, IEntity, ITimeModification
 {
-    public required int UserId { get; set; }
-    [ForeignKey("UserId")]
-    public required User User { get; set; }
+    [Required]
+    public int UserId { get; set; }
 
-    [Required, Phone, MaxLength(20)]
+    [ForeignKey("UserId")]
+    public virtual User User { get; set; }
+
     public bool MFAEnabled { get; set; } = false;
-    public RoleEnum Role { get; set; } = RoleEnum.Customer;  // Default role
+
+    public RoleEnum Role { get; set; } = RoleEnum.Customer;
+
     public StatusEnum Status { get; set; } = StatusEnum.Active;
-    public virtual ICollection<CustomerProperty> CustomerProperties { get; set; }
+
+    // Proper navigation properties
+    public virtual ICollection<CustomerService> CustomerServices { get; set; } = new List<CustomerService>();
+    public virtual ICollection<CustomerPaymentMethod> CustomerPaymentMethods { get; set; } = new List<CustomerPaymentMethod>();
 }

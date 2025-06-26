@@ -8,10 +8,10 @@ using Persistence.Data;
 
 namespace Persistence.Repositories.Identity
 {
-    public class UserRepository : UserStore, IActorRepository<WAction>, IUserRepository
+    public class UserRepository : UserStore, IActorRepository<ActionActor>, IUserRepository
     {
         private readonly ApplicationDbContext _context;
-        private const string WORKFLOW_ACTION = "WorkflowAction";
+        private const string WORKFLOW_ACTION = "CaseAction";
 
 
         public UserRepository(ApplicationDbContext context) : base(context)
@@ -33,18 +33,18 @@ namespace Persistence.Repositories.Identity
             }
             return users.FirstOrDefault();
         }
-        public List<WAction> getActions(int userid)
+        public List<ActionActor> getActions(int userid)
         {
             var actors = _context.Actors.Where(a => a.ActorId == userid && a.ActorType == "Customer" && a.OwnerType == WORKFLOW_ACTION).ToList();
-            var workflowActions = new List<WAction>();
+            var caseActions = new List<ActionActor>();
             actors.ForEach(actor =>
             {
-                var action = _context.WActions.FirstOrDefault(a => a.Id == actor.OwnerId && a.StatusId <= StatusEnum.New);
+                var action = _context.ActionActors.FirstOrDefault(a => a.Id == actor.OwnerId && a.StatusId <= StatusEnum.New);
                 if (action is not null)
-                    workflowActions.Add(action);
+                    caseActions.Add(action);
             });
 
-            return workflowActions;
+            return caseActions;
         }
 
         public string GetActorType(int id)

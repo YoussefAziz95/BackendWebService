@@ -1,14 +1,28 @@
-﻿using Domain.Enums;
+﻿using Domain;
+using Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Domain;
+
 [Table("EmployeeJob")]
 public class EmployeeJob : BaseEntity, IEntity, ITimeModification
 {
-    public int Id { get; set; }
+    [Required]
     public int EmployeeId { get; set; }
+
+    [ForeignKey(nameof(EmployeeId))]
+    public virtual Employee Employee { get; set; }
+
+    [Required]
     public int JobId { get; set; }
-    public DateTime AssignedDate { get; set; }
+
+    [ForeignKey(nameof(JobId))]
+    public virtual Job Job { get; set; }
+
+    public DateTime AssignedDate { get; set; } = DateTime.UtcNow;
+
     public StatusEnum Status { get; set; }
+
     public DateTime? CompletionDate { get; set; }
+
     public string? Notes { get; set; }
 }

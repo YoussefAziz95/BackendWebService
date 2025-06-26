@@ -1,10 +1,19 @@
-﻿namespace Domain;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class PortionType : BaseEntity
+namespace Domain;
+
+[Table("PortionType")]
+public class PortionType : BaseEntity, IEntity, ITimeModification
 {
-    public string? PortionName { get; set; }
-    public string? ProtionDescription { get; set; }
-    public string? StorageUnitMUnit { get; set; }
+    [MaxLength(100)]
+    public string Name { get; set; }
 
+    [MaxLength(300)]
+    public string? Description { get; set; }
 
+    [MaxLength(50)]
+    public string? UnitOfMeasure { get; set; }
+
+    public virtual ICollection<Portion> Portions { get; set; }
 }

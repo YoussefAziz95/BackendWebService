@@ -12,19 +12,19 @@ namespace Persistence.Repositories.Workflows
 
         public WorkflowCycleRepository(ApplicationDbContext context) : base(context) { }
 
-        public int AddWorklfowCycleRange(List<WorkflowCycle> workflowCycles, List<ActorModel> actorModels, List<WorkflowReview> workflowReviews, int WorkflowId)
+        public int AddWorklfowCycleRange(List<WorkflowCycle> workflowCycles, List<ActorModel> actorModels, List<ActionObject> actionObjects, int WorkflowId)
         {
 
 
             //for (int i = 0; i < workflowCycles.Count; i++)
             //{
             //    _actorRepositoryFactory = new ActorRepositoryFactory(DbContext, actorModels[i].ActorTypeId);
-            //    var workflowReviewerId = _actorRepositoryFactory.AddActorAsync(actorModels[i]);
-            //    workflowCycles[i].WorkflowReviewerId = workflowReviewerId;
-            //    workflowReviewModels[i].WorkflowReviewTypeId = type;
-            //    _workflowReviewRepositoryFactory = new WorkflowReviewRepositoryFactory(DbContext, workflowReviewModels[i].WorkflowReviewTypeId);
-            //    var workflowReviewId = _workflowReviewRepositoryFactory.AddWorkflowReviewAsync(workflowReviewModels[i]);
-            //    workflowCycles[i].WorkflowReviewId = workflowReviewId;
+            //    var actionObjecterId = _actorRepositoryFactory.AddActorAsync(actorModels[i]);
+            //    workflowCycles[i].WorkflowReviewerId = actionObjecterId;
+            //    actionObjectModels[i].WorkflowReviewTypeId = type;
+            //    _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory(DbContext, actionObjectModels[i].WorkflowReviewTypeId);
+            //    var actionObjectId = _actionObjectRepositoryFactory.AddWorkflowReviewAsync(actionObjectModels[i]);
+            //    workflowCycles[i].WorkflowReviewId = actionObjectId;
 
 
             //    workflowCycles[i].WorkflowId = WorkflowId;

@@ -1,19 +1,23 @@
-﻿using Domain.Enums;
+﻿using Domain;
+using Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain;
-[Table("WAction")]
-public class WAction : BaseEntity, IEntity, ITimeModification
+[Table("ActionActor")]
+public class ActionActor : BaseEntity, IEntity, ITimeModification
 {
-    public int Id { get; set; }
     public string Name { get; set; }
     public string? Description { get; set; }
+
     public StatusEnum StatusId { get; set; }
     public ActionEnum ActionType { get; set; }
-    public DateTime CreatedAt { get; set; }
+
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
+
     public int? UserId { get; set; }
+    [ForeignKey(nameof(UserId))]
     public User? User { get; set; }
+
     public int? TargetEntityId { get; set; }
     public TableNameEnum? TableName { get; set; }
 }

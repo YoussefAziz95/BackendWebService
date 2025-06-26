@@ -3,12 +3,12 @@ using Domain;
 using Persistence.Data;
 namespace Persistence.Repositories.Identity;
 
-public class ActorRepositoryFactory : IActorRepositoryFactory<WAction>
+public class ActorRepositoryFactory : IActorRepositoryFactory<ActionActor>
 {
 
     // DbContext instance
     protected readonly ApplicationDbContext _context;
-    protected readonly IActorRepository<WAction> _actorRepository;
+    protected readonly IActorRepository<ActionActor> _actorRepository;
 
 
     public ActorRepositoryFactory(ApplicationDbContext context, string ActorType)
@@ -17,12 +17,12 @@ public class ActorRepositoryFactory : IActorRepositoryFactory<WAction>
 
     }
 
-    string IActorRepositoryFactory<WAction>.GetActorType(int id)
+    string IActorRepositoryFactory<ActionActor>.GetActorType(int id)
     {
         throw new NotImplementedException();
     }
 
-    List<WAction> IActorRepositoryFactory<WAction>.getActions(int id)
+    List<ActionActor> IActorRepositoryFactory<ActionActor>.getActions(int id)
     {
         throw new NotImplementedException();
     }

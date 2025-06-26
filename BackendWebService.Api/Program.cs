@@ -10,7 +10,6 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using nfrastructure.Persistence.ServiceConfiguration;
 using Persistence.Data;
-using Persistence.Data.Seeds;
 using System.Diagnostics;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,7 +48,7 @@ builder.Services.AddSwaggerGen(option =>
     {
         Console.WriteLine($"Swagger setup error: {ex.Message}");
     }
-    
+
 });
 
 builder.Services.AddApplicationServices()
@@ -108,7 +107,6 @@ using (var scope = app.Services.CreateScope())
         var roleManager = services.GetRequiredService<AppRoleManager>();
         var userManager = services.GetRequiredService<AppUserManager>();
         var dbcontext = services.GetRequiredService<ApplicationDbContext>();
-        await SeedingMaster.SeedAsync(roleManager, userManager, dbcontext);
     }
     catch (Exception ex)
     {
@@ -119,7 +117,7 @@ using (var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger(); 
+    app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None); // Collapse everything

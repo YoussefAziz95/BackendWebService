@@ -4,15 +4,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Domain;
 
 [Table("TimeSlot")]
-public class TimeSlot
+public class TimeSlot : BaseEntity, IEntity, ITimeModification
 {
-    public int Id { get; set; } // Unique identifier for the time slot
-    public DateTime StartTime { get; set; } // Start time of the time slot
-    public DateTime EndTime { get; set; } // End time of the time slot
+    [Key]
+    public int Id { get; set; }
+
     [Required]
-    public int UserId { get; set; } // Foreign key to the user
-    [ForeignKey("UserId")]
-    public virtual User User { get; set; } // Navigation property to the user
+    public DateTime StartTime { get; set; }
 
+    [Required]
+    public DateTime EndTime { get; set; }
+
+    [Required]
+    public int UserId { get; set; }
+
+    [ForeignKey(nameof(UserId))]
+    public virtual User User { get; set; }
 }
-

@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain;
 
 [Table("Attachment")]
 public class Attachment : BaseEntity, IEntity, ITimeModification
@@ -19,9 +19,10 @@ public class Attachment : BaseEntity, IEntity, ITimeModification
     public EmailLog Email { get; set; }
 
     [ForeignKey(nameof(FileId))]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public FileLog File { get; set; }
 
     [ForeignKey(nameof(FileFieldValidatorId))]
+    [DeleteBehavior(DeleteBehavior.NoAction)]
     public FileFieldValidator FileFieldValidator { get; set; }
 }
-

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Domain;
 
 [Table("Address")]
-public class Address : BaseEntity, ITimeModification, IEntity
+public class Address : BaseEntity, IEntity, ITimeModification
 {
     public bool IsAdministration { get; set; }
     [Required]

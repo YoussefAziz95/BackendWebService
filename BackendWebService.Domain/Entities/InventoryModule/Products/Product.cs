@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
+
 [Table("Product")]
 public class Product : BaseEntity, IEntity, ITimeModification
 {
@@ -11,13 +12,15 @@ public class Product : BaseEntity, IEntity, ITimeModification
     public string Code { get; set; }
     public string PartNumber { get; set; }
     public string Manufacturer { get; set; }
+
     [Required]
     public int CategoryId { get; set; }
+
     public int? FileId { get; set; }
-    [ForeignKey("CategoryId")]
+
+    [ForeignKey(nameof(CategoryId))]
     public Category Category { get; set; }
-    [ForeignKey("FileId")]
+
+    [ForeignKey(nameof(FileId))]
     public FileLog? File { get; set; }
-
 }
-

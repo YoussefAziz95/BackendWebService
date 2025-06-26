@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain;
+﻿using Domain;
+using System.ComponentModel.DataAnnotations.Schema;
 
 [Table("Recipient")]
 public class Recipient : BaseEntity, IEntity, ITimeModification
@@ -14,7 +13,4 @@ public class Recipient : BaseEntity, IEntity, ITimeModification
 
     [ForeignKey(nameof(EmailId))]
     public EmailLog Email { get; set; }
-
 }
-
-

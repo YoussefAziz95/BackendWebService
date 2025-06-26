@@ -1,11 +1,12 @@
 ﻿using Application.Model.Notifications;
-using SharedKernel.Extensions;
 using Domain;
+using Domain;
+using Domain.Enums;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using SharedKernel.Extensions;
 using System.Reflection;
-using Domain;
 
 namespace Persistence.Data;
 
@@ -33,7 +34,7 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
 
     public DbSet<Service> Services { get; set; }
     public DbSet<Logging> Loggings { get; set; }
-    public DbSet<WAction> WActions { get; internal set; }
+    public DbSet<ActionActor> ActionActors { get; internal set; }
     public DbSet<UserRefreshToken> UserRefreshTokens { get; internal set; }
     public DbSet<FileLog> FileLogs { get; internal set; }
     public override async ValueTask<EntityEntry<TEntity>> AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default)
@@ -131,7 +132,7 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
         foreach (var entry in entries.ToList())
         {
             var entityName = entry.Entity.GetType().Name;
-            if (entityName == nameof(Logging) || entityName == nameof(ExceptionLog))
+            if (entityName == nameof(Logging) || entityName == nameof(LogTypeEnum))
             {
                 continue;
             }
@@ -152,7 +153,7 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
                     UserId = 0,
                     Message = logMessage,
                     Suggestion = null,
-                    LogType = "EntityAction",
+                    LogType = LogTypeEnum.Info,
                     Timestamp = DateTime.UtcNow,
                     SourceLayer = entry.Entity.GetType().Namespace?? "",
                     SourceClass = entry.Entity.GetType().Name,
@@ -173,7 +174,7 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
             UserId = 0,
             Message = logMessage,
             Suggestion = null,
-            LogType = "EntityAction",
+            LogType = LogTypeEnum.Info,
             Timestamp = DateTime.UtcNow,
             SourceLayer = "Persistence.Data",
             SourceClass = "ApplicationDbContext",

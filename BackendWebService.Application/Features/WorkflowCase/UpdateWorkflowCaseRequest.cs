@@ -2,4 +2,4 @@
 
 namespace Application.Features;
 
-public record UpdateWorkflowCaseRequest(StatusEnum Status, string Comment);
+public record UpdateCaseRequest(StatusEnum Status, string Comment);

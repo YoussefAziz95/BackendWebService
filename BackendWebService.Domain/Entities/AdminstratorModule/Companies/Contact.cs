@@ -9,12 +9,10 @@ namespace Domain;
 public class Contact : BaseEntity, IEntity, ITimeModification
 {
     [Required]
-    public int CompanyId { get; set; } // معرف الشركة
-    public string? Value { get; set; } // القيمة (رقم الهاتف، البريد الإلكتروني، إلخ)  
+    public int CompanyId { get; set; }
+    public string? Value { get; set; }
     [Required]
-    public string? Type { get; set; }//للاتصال  
+    public string? Type { get; set; }
     [NotMapped]
-    public ContactEnum? ContactType => Enum.TryParse<ContactEnum>(Type, out var parsedType) ? parsedType : null;  // نوع الاتصال  
-
-
+    public ContactEnum? ContactType => Enum.TryParse<ContactEnum>(Type, out var parsedType) ? parsedType : null;
 }

@@ -1,14 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace Domain;
 
-[Table("Inventroy")]
-public class Inventroy : BaseEntity, IEntity, ITimeModification
+[Table("Inventory")]
+public class Inventory : BaseEntity, IEntity, ITimeModification
 {
-    [Required]
+    [Required, MaxLength(100)]
     public string Name { get; set; }
+
     public int? CategoryId { get; set; }
 
     [ForeignKey("CategoryId")]
     public virtual Category? Category { get; set; }
+
+    public ICollection<StorageUnit> StorageUnits { get; set; }
+
+    public ICollection<Item> Items { get; set; }
 }

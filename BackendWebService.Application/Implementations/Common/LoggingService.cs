@@ -1,4 +1,5 @@
-﻿using Application.Contracts.Persistence;
+﻿using Domain;
+using Application.Contracts.Persistence;
 using Application.Contracts.Services;
 using Application.Features;
 using AutoMapper;

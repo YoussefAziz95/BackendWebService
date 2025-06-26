@@ -5,10 +5,10 @@ namespace Application.Contracts;
 
 public interface IWorkflowRepository
 {
-    Task<int> UpdateWorkflow(Workflow updatedEntity, WorkflowReview workflowReview, List<WorkflowReview> workflowCycleReviews, List<Actor> workflowCycleActors);
+    Task<int> UpdateWorkflow(Workflow updatedEntity, ActionObject actionObject, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors);
 
 
-    Task<int> AddWorkflowAsync(Workflow fullEntity, WorkflowReview workflowReview, List<WorkflowReview> workflowCycleReviews, List<Actor> workflowCycleActors);
+    Task<int> AddWorkflowAsync(Workflow fullEntity, ActionObject actionObject, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors);
 
     Workflow GetById(int id);
 

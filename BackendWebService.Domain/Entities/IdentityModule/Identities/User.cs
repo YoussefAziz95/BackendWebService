@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
+
+[Table("Users")]
 public class User : IdentityUser<int>, IEntity, ITimeModification
 {
     public string GeneratedCode { get; set; }

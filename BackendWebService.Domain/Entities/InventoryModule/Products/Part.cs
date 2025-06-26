@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
+
 [Table("Part")]
 public class Part : BaseEntity, IEntity, ITimeModification
 {
@@ -10,9 +11,8 @@ public class Part : BaseEntity, IEntity, ITimeModification
     public string Image { get; set; }
     public string PartNumber { get; set; }
     public string Manufacturer { get; set; }
+
     public int ProductId { get; set; }
-    [ForeignKey("ProductId")]
+    [ForeignKey(nameof(ProductId))]
     public Product Product { get; set; }
-
-
 }

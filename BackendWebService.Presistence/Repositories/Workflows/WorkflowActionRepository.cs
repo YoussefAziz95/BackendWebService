@@ -11,34 +11,34 @@ using Persistence.Repositories.WorkflowReviewRepositories;
 
 namespace Persistence.Repositories.Workflows
 {
-    public class WorkflowActionRepository : GenericRepository<WorkflowAction>, IWorkflowActionRepository
+    public class CaseActionRepository : GenericRepository<CaseAction>, ICaseActionRepository
     {
 
         // DbContext instance
         protected readonly ApplicationDbContext _context;
-        private IWorkflowReviewRepositoryFactory<WorkflowCase,WorkflowCycle> _workflowReviewRepositoryFactory;
+        private IWorkflowReviewRepositoryFactory<Case,WorkflowCycle> _actionObjectRepositoryFactory;
         private readonly string WORKFLOW_CYCLE = "WorkflowCycle";
-        private readonly string WORKFLOW_ACTION = "WorkflowAction";
-        public WorkflowActionRepository(ApplicationDbContext context) : base(context)
+        private readonly string WORKFLOW_ACTION = "CaseAction";
+        public CaseActionRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
 
         }
 
-        public int AddNewAction(WorkflowCase workflowCase)
+        public int AddNeactionActor(Case wcase)
         {
             var result = -1;
-            var cycle = _context.Set<WorkflowCycle>().First(w => w.ActionOrder == workflowCase.ActionIndex && w.WorkflowId == workflowCase.WorkflowId);
-            var workflowAction = new WorkflowAction()
+            var cycle = _context.Set<WorkflowCycle>().First(w => w.ActionOrder == wcase.ActionIndex && w.WorkflowId == wcase.WorkflowId);
+            var caseAction = new CaseAction()
             {
                 StatusId = (int)StatusEnum.New,
-                Order = workflowCase.ActionIndex,
-                WorkflowCaseId = workflowCase.Id,
+                Order = wcase.ActionIndex,
+                CaseId = wcase.Id,
                 WorkflowCycleId = cycle.Id
 
             };
 
-            _context.Add(workflowAction);
+            _context.Add(caseAction);
             result = _context.SaveChanges();
             var cycleActor = _context.Set<Actor>().First(a => a.OwnerId == cycle.Id && a.OwnerType == WORKFLOW_CYCLE);
             var actor = new Actor()
@@ -46,27 +46,27 @@ namespace Persistence.Repositories.Workflows
                 ActorId = cycleActor.ActorId,
                 ActorType = cycleActor.ActorType,
                 OwnerType = WORKFLOW_ACTION,
-                OwnerId = workflowAction.Id,
+                OwnerId = caseAction.Id,
             };
             _context.Add(actor);
-            return workflowAction.Id;
+            return caseAction.Id;
         }
         public int TakeAction(TakeActionModel actionModel)
         {
-            var workflowActionId = -1;
+            var caseActionId = -1;
 
             using (var transaction = _context.Database.BeginTransaction())
             {
                 try
                 {
-                    var action = _context.Set<WorkflowAction>().First(a => a.Id == actionModel.Id);
-                    var workflowReview = _context.Set<WorkflowReview>().First(wr => wr.OwnerId == action.Id && wr.OwnerType == WORKFLOW_ACTION);
-                    actionModel.Id = workflowReview.ObjectId;
-                    _workflowReviewRepositoryFactory = new WorkflowReviewRepositoryFactory<WorkflowCase,WorkflowCycle>(_context, workflowReview.ObjectType);
-                    var workflowCase = _context.Set<WorkflowCase>().First(c => c.Id == action.WorkflowCaseId);
-                    int CycleCount = _context.Set<WorkflowCycle>().Count(c => c.WorkflowId == workflowCase.WorkflowId);
+                    var action = _context.Set<CaseAction>().First(a => a.Id == actionModel.Id);
+                    var actionObject = _context.Set<ActionObject>().First(wr => wr.ActionId == action.Id && wr.ActionType == WORKFLOW_ACTION);
+                    actionModel.Id = actionObject.ObjectId;
+                    _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory<Case,WorkflowCycle>(_context, actionObject.ObjectType);
+                    var wcase = _context.Set<Case>().First(c => c.Id == action.CaseId);
+                    int CycleCount = _context.Set<WorkflowCycle>().Count(c => c.WorkflowId == wcase.WorkflowId);
 
-                    workflowCase.ActionIndex = (action.Order ?? 0) + 1;
+                    wcase.ActionIndex = (action.Order ?? 0) + 1;
                     if (actionModel.StatusId == 0)
                         action.StatusId = (int)StatusEnum.Accepted;
                     else
@@ -75,33 +75,33 @@ namespace Persistence.Repositories.Workflows
                     _context.Update(action);
 
                     if (actionModel.StatusId == (int)StatusEnum.Returned)
-                        workflowCase.StatusId = actionModel.StatusId;
+                        wcase.StatusId = actionModel.StatusId;
 
                     else if (action.StatusId == (int)StatusEnum.Accepted)
 
-                        if (workflowCase.ActionIndex <= CycleCount)
+                        if (wcase.ActionIndex <= CycleCount)
                         {
-                            _workflowReviewRepositoryFactory.UpdateObjectModel(actionModel, false);
-                            workflowActionId = AddNewAction(workflowCase);
-                            var actionNext = _context.Set<WorkflowAction>().First(a => a.Id == workflowActionId);
+                            _actionObjectRepositoryFactory.UpdateObjectModel(actionModel, false);
+                            caseActionId = AddNeactionActor(wcase);
+                            var actionNext = _context.Set<CaseAction>().First(a => a.Id == caseActionId);
                             var cycle = _context.Set<WorkflowCycle>().First(c => c.Id == actionNext.WorkflowCycleId);
-                            var objectId = _workflowReviewRepositoryFactory.GetNextModel(workflowCase, cycle);
-                            WorkflowReview workflowReviewAction = new WorkflowReview()
+                            var objectId = _actionObjectRepositoryFactory.GetNextModel(wcase, cycle);
+                            ActionObject actionObjectAction = new ActionObject()
                             {
-                                OwnerId = workflowActionId,
-                                OwnerType = WORKFLOW_ACTION,
+                                ActionId = caseActionId,
+                                ActionType = WORKFLOW_ACTION,
                                 ObjectId = objectId,
-                                ObjectType = workflowReview.ObjectType
+                                ObjectType = actionObject.ObjectType
                             };
-                            _context.Add(workflowReviewAction);
+                            _context.Add(actionObjectAction);
                         }
-                    if (workflowCase.ActionIndex > CycleCount)
+                    if (wcase.ActionIndex > CycleCount)
                     {
-                        _workflowReviewRepositoryFactory.UpdateObjectModel(actionModel, true);
-                        workflowCase.StatusId = action.StatusId;
+                        _actionObjectRepositoryFactory.UpdateObjectModel(actionModel, true);
+                        wcase.StatusId = action.StatusId;
                     }
 
-                    _context.Set<WorkflowCase>().Update(workflowCase);
+                    _context.Set<Case>().Update(wcase);
                     _context.SaveChanges();
                     transaction.Commit();
                     return action.Id;
@@ -110,7 +110,7 @@ namespace Persistence.Repositories.Workflows
                 {
                     // Rollback the transaction in case of an error
                     transaction.Rollback();
-                    return workflowActionId;
+                    return caseActionId;
                 }
             }
         }
@@ -131,20 +131,20 @@ namespace Persistence.Repositories.Workflows
                         };
             return users;
         }
-        public List<WorkflowActionsResponse> GetActionsByUserId(int userId)
+        public List<CaseActionsResponse> GetActionsByUserId(int userId)
         {
             var userClient = GetUsers().Where(u => u.UserId == _context.userInfo.UserId).Distinct().First();
             var user = _context.Users.Where(u => u.Id == _context.userInfo.UserId).First();
 
-            var query = from workflowCase in _context.Set<WorkflowCase>()
-                        join actions in _context.Set<WorkflowAction>().Where(a => a.StatusId == (int)StatusEnum.New) on workflowCase.Id equals actions.WorkflowCaseId
-                        join actors in _context.Set<Actor>().Where(a => a.OwnerType == "WorkflowAction") on actions.Id equals actors.OwnerId
-                        join workflowReview in _context.Set<WorkflowReview>().Where(wr => wr.OwnerType == "WorkflowAction") on actions.Id equals workflowReview.OwnerId
-                        join organiztations in _context.Set<Organization>() on workflowCase.OrganizationId equals organiztations.Id
+            var query = from wcase in _context.Set<Case>()
+                        join actions in _context.Set<CaseAction>().Where(a => a.StatusId == (int)StatusEnum.New) on wcase.Id equals actions.CaseId
+                        join actors in _context.Set<Actor>().Where(a => a.OwnerType == "CaseAction") on actions.Id equals actors.OwnerId
+                        join actionObject in _context.Set<ActionObject>().Where(wr => wr.ActionType == "CaseAction") on actions.Id equals actionObject.ActionId
+                        join organiztations in _context.Set<Organization>() on wcase.OrganizationId equals organiztations.Id
                         join workflowCycle in _context.Set<WorkflowCycle>() on actions.WorkflowCycleId equals workflowCycle.Id
-                        join requester in _context.Users on workflowCase.UserId equals requester.Id
-                        select new WorkflowActionRecord
-                        (actions.Id, actors.ActorType, actors.ActorId, requester.FirstName + " " + requester.LastName, organiztations.Name, actions.WorkflowCaseId, workflowReview.ObjectType, workflowReview.ObjectId, workflowCycle.ActionType);
+                        join requester in _context.Users on wcase.UserId equals requester.Id
+                        select new CaseActionRecord
+                        (actions.Id, actors.ActorType, actors.ActorId, requester.FirstName + " " + requester.LastName, organiztations.Name, actions.CaseId, actionObject.ObjectType, actionObject.ObjectId, workflowCycle.ActionType);
             var list = query.Distinct().ToList();
             var userActions =
             from q in list.Where(a => a.AssignedOnType == "Customer")
@@ -154,25 +154,25 @@ namespace Persistence.Repositories.Workflows
             var groupActions =
             from q in list.Where(a => a.AssignedOnType == "Group")
             join ug in _context.Set<UserGroup>().Where(g => g.UserId == _context.userInfo.UserId) on q.AssignedOnId equals ug.GroupId
-            select new WorkflowActionRecord
+            select new CaseActionRecord
                        (q.Id, q.AssignedOnType, q.AssignedOnId, q.RequesterName, q.CompanySupplierName, q.CaseId, q.CaseType, q.CaseName, q.ActionType);
 
             var roleActions =
             from q in list.Where(a => a.AssignedOnType == "ApplicationRole")
             join ug in _context.UserRoles.Where(g => g.UserId == _context.userInfo.UserId) on q.AssignedOnId equals ug.RoleId
-            select new WorkflowActionRecord
+            select new CaseActionRecord
                        (q.Id, q.AssignedOnType, q.AssignedOnId, q.RequesterName, q.CompanySupplierName, q.CaseId, q.CaseType, q.CaseName, q.ActionType);
 
             // Combine user actions and role names into one collection
             var actionsList = userActions.ToList();
             actionsList.AddRange(groupActions.ToList());
             actionsList.AddRange(roleActions.ToList());
-            List<WorkflowActionsResponse> actionsResponse = new List<WorkflowActionsResponse>();
+            List<CaseActionsResponse> actionsResponse = new List<CaseActionsResponse>();
 
             foreach (var action in actionsList.Distinct())
             {
-                _workflowReviewRepositoryFactory = new WorkflowReviewRepositoryFactory<WorkflowCase, WorkflowCycle>(_context, action.CaseType);
-                var actionReponse = new WorkflowActionsResponse(
+                _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory<Case, WorkflowCycle>(_context, action.CaseType);
+                var actionReponse = new CaseActionsResponse(
                     Id : action.Id,
                     AssignedOnName : action.AssignedOnId.ToString(),
                     AssignedOnType : action.AssignedOnType,
@@ -180,7 +180,7 @@ namespace Persistence.Repositories.Workflows
                     OrganizationName : action.CompanySupplierName,
                     CaseId : action.CaseId,
                     CaseType : action.CaseType,
-                    CaseName : _workflowReviewRepositoryFactory.GetObjectModel(action.CaseName).ObjectName,
+                    CaseName : _actionObjectRepositoryFactory.GetObjectModel(action.CaseName).ObjectName,
                     ActionType : action.ActionType,
                     ActionName: action.ActionType // ????????????????
                 );
@@ -192,7 +192,7 @@ namespace Persistence.Repositories.Workflows
             return actionsResponse;
 
         }
-        public record WorkflowActionRecord(
+        public record CaseActionRecord(
             int Id,
             string AssignedOnType,
             int AssignedOnId,
@@ -214,17 +214,17 @@ namespace Persistence.Repositories.Workflows
         }
         public ActionResponse GetAsync(int id, int userId)
         {
-            var query = from act in _context.Set<WorkflowAction>()
-                        join wcase in _context.Set<WorkflowCase>() on act.WorkflowCaseId equals wcase.Id
+            var query = from act in _context.Set<CaseAction>()
+                        join wcase in _context.Set<Case>() on act.CaseId equals wcase.Id
                         join cycle in _context.Set<WorkflowCycle>() on act.WorkflowCycleId equals cycle.Id
                         join requester in _context.Set<User>() on wcase.UserId equals requester.Id
-                        join wreview in _context.Set<WorkflowReview>() on new { OwnerId = act.Id, OwnerType = WORKFLOW_ACTION } equals new { wreview.OwnerId, wreview.OwnerType }
+                        join wreview in _context.Set<ActionObject>() on new { ActionId = act.Id, ActionType = WORKFLOW_ACTION } equals new { wreview.ActionId, wreview.ActionType }
                         where act.Id == id
                         select new { act, wcase, cycle, requester, wreview };
             var action = query.First();
             var assignee = Getuser(userId);
-            _workflowReviewRepositoryFactory = new WorkflowReviewRepositoryFactory<WorkflowCase, WorkflowCycle>(_context, action.wreview.ObjectType);
-            var objectModel = _workflowReviewRepositoryFactory.GetObjectModel(action.wreview.ObjectId);
+            _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory<Case, WorkflowCycle>(_context, action.wreview.ObjectType);
+            var objectModel = _actionObjectRepositoryFactory.GetObjectModel(action.wreview.ObjectId);
 
 
             var actionsResponse = new ActionResponse(
@@ -259,12 +259,12 @@ namespace Persistence.Repositories.Workflows
         }
 
       
-        List<WorkflowActionsResponse> IWorkflowActionRepository.GetActionsByUserId(int userId)
+        List<CaseActionsResponse> ICaseActionRepository.GetActionsByUserId(int userId)
         {
             throw new NotImplementedException();
         }
 
-        ActionResponse IWorkflowActionRepository.GetAsync(int id, int userId)
+        ActionResponse ICaseActionRepository.GetAsync(int id, int userId)
         {
             throw new NotImplementedException();
         }

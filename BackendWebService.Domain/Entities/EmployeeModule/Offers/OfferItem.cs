@@ -3,23 +3,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 
-public class OfferItem : BaseEntity
+[Table("OfferItem")]
+public class OfferItem : BaseEntity, IEntity, ITimeModification
 {
     [Required, Range(1, int.MaxValue)]
     public int Quantity { get; set; }
 
     [Range(1, int.MaxValue)]
-    public int? RequiredAmount { get; set; } // Nullable, only needed in some cases
+    public int? RequiredAmount { get; set; }
 
     [Required]
-    public int MaterialId { get; set; }
+    public int ServiceId { get; set; }
+
+    [ForeignKey(nameof(ServiceId))]
+    public Service Service { get; set; }
 
     [Required]
     public int OfferId { get; set; }
-
-    // Navigation properties
-    [ForeignKey(nameof(MaterialId))]
-    public Material Material { get; set; }
 
     [ForeignKey(nameof(OfferId))]
     public Offer Offer { get; set; }

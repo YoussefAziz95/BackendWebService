@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
+
 [Table("Supplier")]
 public class Supplier : BaseEntity, IEntity, ITimeModification
 {

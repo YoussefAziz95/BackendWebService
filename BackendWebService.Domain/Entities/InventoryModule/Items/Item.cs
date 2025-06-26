@@ -3,23 +3,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain;
 
-public class Item : BaseEntity
+[Table("Item")]
+public class Item : BaseEntity, IEntity, ITimeModification
 {
-    [Required, StringLength(100)]
-    public string ItemName { get; set; }
+    [Required, MaxLength(100)]
+    public string Name { get; set; }
 
-    [StringLength(500)]
-    public string? ItemDescription { get; set; }
+    [MaxLength(500)]
+    public string? Description { get; set; }
 
-    public virtual List<Portion> Portions { get; set; } = new();
-
-    [Required]
     [Column(TypeName = "decimal(18,2)")]
     public decimal UnitPrice { get; set; }
 
-    [Required]
+    public int CategoryId { get; set; }
+    [ForeignKey(nameof(CategoryId))]
     public virtual Category Category { get; set; }
 
-    [Range(0, 180)] // Prevents unrealistic values
     public int PreparationTimeMinutes { get; set; }
+
+    public virtual ICollection<PortionItem> PortionItems { get; set; }
 }

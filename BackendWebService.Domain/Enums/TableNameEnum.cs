@@ -148,8 +148,8 @@ public enum TableNameEnum
     [Display(Name = "UserGroup", Description = "مجموعة المستخدم")]
     UserGroup,
 
-    [Display(Name = "WAction", Description = "الإجراء")]
-    WAction,
+    [Display(Name = "ActionActor", Description = "الإجراء")]
+    ActionActor,
 
     [Display(Name = "Role", Description = "الدور")]
     Role,
