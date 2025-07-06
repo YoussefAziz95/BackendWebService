@@ -1,7 +1,7 @@
-﻿using System.Globalization;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Globalization;
 using System.Security.Claims;
 using System.Security.Principal;
-using Microsoft.AspNetCore.Identity;
 
 namespace SharedKernel.Extensions;
 

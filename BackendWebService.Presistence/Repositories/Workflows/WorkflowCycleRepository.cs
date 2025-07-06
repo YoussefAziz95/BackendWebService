@@ -1,7 +1,6 @@
 ﻿using Application.Contracts;
 using Application.Features;
 using Application.Model.EAVEngine;
-using Domain;
 using Persistence.Data;
 using Persistence.Repositories.Common;
 

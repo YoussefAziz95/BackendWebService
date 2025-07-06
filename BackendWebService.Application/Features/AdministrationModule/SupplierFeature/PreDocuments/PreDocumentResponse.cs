@@ -1,0 +1,2 @@
+﻿namespace Application.Features;
+public record PreDocumentResponse(int Id, string Name, int FileTypeId, bool? IsRequired, bool? IsMultiple, bool? IsLocal, bool IsActive, DateTime CreatedDate, DateTime? UpdateDate);

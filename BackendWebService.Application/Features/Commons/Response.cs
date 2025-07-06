@@ -3,8 +3,7 @@ using Domain.Enums;
 using SharedKernel.Extensions;
 using System.Diagnostics;
 
-namespace Application.Features.Common;
-
+namespace Application.Features;
 public class Response
 {
     public bool Succeeded { get; set; }

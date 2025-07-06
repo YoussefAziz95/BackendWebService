@@ -1,19 +1,19 @@
-﻿using Application.Contracts.Infrastructures;
+﻿using Application.AppManager;
+using Application.Contracts.AppManager;
+using Application.Contracts.Infrastructures;
 using Application.Contracts.Services;
 using Application.Identity.Jwt;
+using Application.Implementations;
 using Application.Implementations.Common;
-using Application.Manager;
 using Application.Middleware;
 using Application.Permissions;
 using Application.ServicesImplementation.Common;
 using Application.Utilities;
-using Application.Contracts.Manager;
 using Contracts.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using Application.Implementations;
 
 namespace Application.ServiceConfiguration;
 

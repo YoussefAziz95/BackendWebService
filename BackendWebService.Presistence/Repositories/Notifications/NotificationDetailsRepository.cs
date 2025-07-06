@@ -1,5 +1,4 @@
-﻿using Domain;
-using Persistence.Data;
+﻿using Persistence.Data;
 
 namespace Persistence.Repositories.Notifications
 {

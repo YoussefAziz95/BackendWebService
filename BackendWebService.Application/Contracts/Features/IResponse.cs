@@ -13,4 +13,5 @@ public interface IResponse<T>
     List<string>? Errors { get; set; }
 
     T? Data { get; set; }
+
 }

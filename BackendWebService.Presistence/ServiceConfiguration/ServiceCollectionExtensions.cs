@@ -1,7 +1,6 @@
-﻿using Application.Contracts.Persistence;
+﻿using Application.AppManager;
 using Application.Contracts.Persistence;
-using Application.Features.Common;
-using Application.Manager;
+using Application.Features;
 using Application.Model.Jwt;
 using Application.Persistence.Repositories;
 using Domain;
@@ -20,13 +19,12 @@ using Persistence.Repositories.Common;
 using Persistence.Repositories.FileSystem;
 using Persistence.Repositories.Identity;
 using Persistence.Repositories.Notifications;
+using Persistence.Repositories.Organizations;
+using Persistence.Repositories.Product;
 using Persistence.Store;
-using Persistence.Repositories.Common;
 using SharedKernel.Extensions;
 using System.Security.Claims;
 using System.Text;
-using Persistence.Repositories.Organizations;
-using Persistence.Repositories.Product;
 
 namespace nfrastructure.Persistence.ServiceConfiguration;
 

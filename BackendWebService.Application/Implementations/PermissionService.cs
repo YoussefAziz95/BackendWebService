@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Reflection;
 using System.Security.Claims;
-
 namespace Application.Implementations
 {
     /// <summary>

@@ -2,9 +2,6 @@
 using Application.Contracts.Services;
 using Application.Wrappers;
 using AutoMapper;
-using Domain;
-using System;
-using System.Threading.Tasks;
 
 
 namespace Application.Implementations

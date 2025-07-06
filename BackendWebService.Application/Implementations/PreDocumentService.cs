@@ -1,15 +1,11 @@
 ﻿using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.Features.Common;
 using Application.Features;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
-using Domain.Constants;
 using Microsoft.EntityFrameworkCore;
-using Domain;
-
 namespace Application.Implementations
 {
     public class PreDocumentService : ResponseHandler, IPreDocumentService

@@ -1,13 +1,10 @@
-﻿using Application.Features.Common;
-using Application.Exceptions;
+﻿using Application.Exceptions;
+using Application.Features;
 using Domain.Enums;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Application.Middleware
 {

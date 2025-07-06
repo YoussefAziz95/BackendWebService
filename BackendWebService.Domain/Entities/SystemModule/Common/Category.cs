@@ -22,4 +22,3 @@ public class Category : BaseEntity, IEntity, ITimeModification
     [InverseProperty(nameof(ParentCategory))]
     public List<Category>? SubCategories { get; set; }
 }
- 

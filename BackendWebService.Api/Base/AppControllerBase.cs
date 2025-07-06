@@ -1,14 +1,21 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
+using SharedKernel.Extensions;
+using System.Security.Claims;
 namespace Api.Base;
 
 [Route("api/[controller]")]
 [ApiController]
 public class AppControllerBase : ControllerBase
 {
+
+    protected string UserName => User.Identity?.Name;
+    protected int UserId => int.Parse(User.Identity.GetUserId());
+    protected string UserEmail => User.Identity.FindFirstValue(ClaimTypes.Email);
+    protected string UserRole => User.Identity.FindFirstValue(ClaimTypes.Role);
+
+    protected string UserKey => User.FindFirstValue(ClaimTypes.UserData);
     public ObjectResult NewResult<T>(IResponse<T> response)
     {
         switch (response.StatusCode)
@@ -73,4 +80,8 @@ public class AppControllerBase : ControllerBase
 
         return imageFolderPath;
     }
+
+
+
+
 }

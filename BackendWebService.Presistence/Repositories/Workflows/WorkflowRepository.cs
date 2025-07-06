@@ -1,13 +1,11 @@
 ﻿using Application.Contracts;
 using Application.Contracts.Persistence;
 using Application.Features;
-using Application.Features.Common;
 using AutoMapper;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Persistence.Repositories.Common;
-using Persistence.Repositories.Identity;
 using Persistence.Repositories.WorkflowReviewRepositories;
 
 namespace Persistence.Repositories.Workflows
@@ -142,7 +140,7 @@ namespace Persistence.Repositories.Workflows
                         }
                         i++;
                     });
-                    foreach (var criteria in workflow.WorkflowCycles.Where(c => c.IsDeleted??true))
+                    foreach (var criteria in workflow.WorkflowCycles.Where(c => c.IsDeleted ?? true))
                     {
                         var review = _context.Set<ActionObject>().First(a => a.ActionId == criteria.Id && a.ActionType == WORKFLOW_CYCLE);
                         var actor = _context.Set<Actor>().First(a => a.OwnerId == criteria.Id && a.OwnerType == WORKFLOW_CYCLE);
@@ -179,11 +177,11 @@ namespace Persistence.Repositories.Workflows
                 _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory<Case, WorkflowCycle>(_context, actionObject.ObjectType);
 
                 var workflowResponse = new WorkflowAllResponse(
-                    Id : workflow.Id,
-                    Name : workflow.Name,
-                    Description : workflow.Name,
-                    WorkflowType : actionObject.ObjectType,
-                    ObjectType : _actionObjectRepositoryFactory.GetObjectType(actionObject.ObjectId)
+                    Id: workflow.Id,
+                    Name: workflow.Name,
+                    Description: workflow.Name,
+                    WorkflowType: actionObject.ObjectType,
+                    ObjectType: _actionObjectRepositoryFactory.GetObjectType(actionObject.ObjectId)
 
                 );
                 workflowResponses.Add(workflowResponse);
@@ -204,31 +202,31 @@ namespace Persistence.Repositories.Workflows
         public WorkflowResponse GetWorkflowById(int id)
         {
 
-            var workflow = Get(w=> w.Id == id, include: wc => wc.Include(c=> c.WorkflowCycles?? new List<WorkflowCycle>()));
+            var workflow = Get(w => w.Id == id, include: wc => wc.Include(c => c.WorkflowCycles ?? new List<WorkflowCycle>()));
 
             var actionObject = _context.Set<ActionObject>().First(r => r.ActionId == workflow.Id && r.ActionType == WORKFLOW);
             var workflowResponse = new WorkflowResponse(
-                Id : workflow.Id,
+                Id: workflow.Id,
                 Name: workflow.Name,
                 Description: workflow.Description,
-                UserId : workflow.UserId,
-                CompanyId : workflow.CompanyId,
-                ObjectType : actionObject.ObjectType,
-                ObjectId : actionObject.ObjectId,
+                UserId: workflow.UserId,
+                CompanyId: workflow.CompanyId,
+                ObjectType: actionObject.ObjectType,
+                ObjectId: actionObject.ObjectId,
                 WorkflowCycles: workflow.WorkflowCycles.Select(c => new WorkflowCycleResponse(
-                    Id : c.Id,
-                    Mandatory : c.Mandatory,
-                    WorkflowId : c.WorkflowId,
-                    ActionOrder : c.ActionOrder,
-                    ObjectType : _context.Set<ActionObject>().First(r => r.ActionId == c.Id && r.ActionType == WORKFLOW_CYCLE).ObjectType,
-                    ObjectId : _context.Set<ActionObject>().First(r => r.ActionId == c.Id && r.ActionType == WORKFLOW_CYCLE).ObjectId,
-                    ActorType : _context.Set<Actor>().First(a => a.OwnerId == c.Id && a.OwnerType == WORKFLOW_CYCLE).ActorType,
-                    ActorId : _context.Set<Actor>().First(a => a.OwnerId == c.Id && a.OwnerType == WORKFLOW_CYCLE).ActorId,
-                    ActionType : c.ActionType
+                    Id: c.Id,
+                    Mandatory: c.Mandatory,
+                    WorkflowId: c.WorkflowId,
+                    ActionOrder: c.ActionOrder,
+                    ObjectType: _context.Set<ActionObject>().First(r => r.ActionId == c.Id && r.ActionType == WORKFLOW_CYCLE).ObjectType,
+                    ObjectId: _context.Set<ActionObject>().First(r => r.ActionId == c.Id && r.ActionType == WORKFLOW_CYCLE).ObjectId,
+                    ActorType: _context.Set<Actor>().First(a => a.OwnerId == c.Id && a.OwnerType == WORKFLOW_CYCLE).ActorType,
+                    ActorId: _context.Set<Actor>().First(a => a.OwnerId == c.Id && a.OwnerType == WORKFLOW_CYCLE).ActorId,
+                    ActionType: c.ActionType
                 )).ToList()
 
             );
-         
+
             return workflowResponse;
         }
 

@@ -1,9 +1,7 @@
 ﻿using Domain;
 using Domain.Enums;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Newtonsoft.Json.Linq;
 
 #nullable disable
 
@@ -132,45 +130,45 @@ namespace Persistence.Migrations
                 },
                 values: new object[,]
                 {
-                    { 10, "CTR0010", "John", "Doe", "jdoe", "JDOE", "john.doe@domain.com",
-                      "JOHN.DOE@DOMAIN.COM", "1234567890", true, false, true, DateTime.Now, 1, "Customers", "Standard Customer", (int)RoleEnum.Customer, "System", null, null, true,
-                      hasher.HashPassword(null, "User@123"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
+                    { 6, "CTR0010", "John", "Doe", "jdoe", "JDOE", "johndoe@domain.com",
+                      "JOHNDOE@DOMAIN.COM", "1234567890", true, false, true, DateTime.Now, 1, "Customers", "Standard Customer", (int)RoleEnum.Customer, "System", null, null, true,
+                      hasher.HashPassword(null, "P@ssw0rd"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
 
-                    { 11, "CTR0011", "Jane", "Smith", "janesmith", "JANESMITH", "jane.smith@domain.com",
-                      "JANE.SMITH@DOMAIN.COM", "0987654321", true, false, true, DateTime.Now, 1, "Customers", "VIP Customer", (int)RoleEnum.Customer, "System", null, null, true,
-                      hasher.HashPassword(null, "User@123"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
+                    { 7, "CTR0011", "Jane", "Smith", "janesmith", "JANESMITH", "janesmith@domain.com",
+                      "JANESMITH@DOMAIN.COM", "0987654321", true, false, true, DateTime.Now, 1, "Customers", "VIP Customer", (int)RoleEnum.Customer, "System", null, null, true,
+                      hasher.HashPassword(null, "P@ssw0rd"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
 
-                    { 12, "CTR0012", "Adam", "Lee", "adamlee", "ADAMLEE", "adam.lee@domain.com",
-                      "ADAM.LEE@DOMAIN.COM", "1122334455", true, false, true, DateTime.Now, 1, "Customers", "Standard Customer", (int)RoleEnum.Customer, "System", null, null, true,
-                      hasher.HashPassword(null, "User@123"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
+                    { 8, "CTR0012", "Adam", "Lee", "adamlee", "ADAMLEE", "adamlee@domain.com",
+                      "ADAMLEE@DOMAIN.COM", "1122334455", true, false, true, DateTime.Now, 1, "Customers", "Standard Customer", (int)RoleEnum.Customer, "System", null, null, true,
+                      hasher.HashPassword(null, "P@ssw0rd"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
 
-                    { 13, "CTR0013", "Sara", "Connor", "saraconnor", "SARACONNOR", "sara.connor@domain.com",
-                      "SARA.CONNOR@DOMAIN.COM", "2233445566", true, false, true, DateTime.Now, 1, "Customers", "Premium Member", (int)RoleEnum.Customer, "System", null, null, true,
-                      hasher.HashPassword(null, "User@123"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
+                    { 9, "CTR0013", "Sara", "Connor", "saraconnor", "SARACONNOR", "saraconnor@domain.com",
+                      "SARACONNOR@DOMAIN.COM", "2233445566", true, false, true, DateTime.Now, 1, "Customers", "Premium Member", (int)RoleEnum.Customer, "System", null, null, true,
+                      hasher.HashPassword(null, "P@ssw0rd"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
 
-                    { 14, "CTR0014", "Michael", "Brown", "michaelbrown", "MICHAELBROWN", "michael.b@domain.com",
-                      "MICHAEL.B@DOMAIN.COM", "3564556677", true, false, true, DateTime.Now, 1, "Customers", "Frequent Buyer", (int)RoleEnum.Customer, "System", null, null, true,
-                      hasher.HashPassword(null, "User@123"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
+                    { 10, "CTR0014", "Michael", "Brown", "michaelbrown", "MICHAELBROWN", "michaelb@domain.com",
+                      "MICHAELB@DOMAIN.COM", "3564556677", true, false, true, DateTime.Now, 1, "Customers", "Frequent Buyer", (int)RoleEnum.Customer, "System", null, null, true,
+                      hasher.HashPassword(null, "P@ssw0rd"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
 
-                    { 15, "CTR0015", "Emily", "Clark", "emilyclark", "EMILYCLARK", "emily.c@domain.com",
-                      "EMILY.C@DOMAIN.COM", "3344556677", true, false, true, DateTime.Now, 1, "Customers", "Occasional Buyer", (int)RoleEnum.Customer, "System", null, null, true,
-                      hasher.HashPassword(null, "User@123"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
+                    { 11, "CTR0015", "Emily", "Clark", "emilyclark", "EMILYCLARK", "emilyc@domain.com",
+                      "EMILYC@DOMAIN.COM", "3344556677", true, false, true, DateTime.Now, 1, "Customers", "Occasional Buyer", (int)RoleEnum.Customer, "System", null, null, true,
+                      hasher.HashPassword(null, "P@ssw0rd"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
 
-                    { 16, "CTR0016", "Daniel", "James", "danieljames", "DANIELJAMES", "daniel.j@domain.com",
-                      "DANIEL.J@DOMAIN.COM", "4455667788", true, false, true, DateTime.Now, 1, "Customers", "New Customer", (int)RoleEnum.Customer, "System", null, null, true,
-                      hasher.HashPassword(null, "User@123"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
+                    { 12, "CTR0016", "Daniel", "James", "danieljames", "DANIELJAMES", "danielj@domain.com",
+                      "DANIELJ@DOMAIN.COM", "4455667788", true, false, true, DateTime.Now, 1, "Customers", "New Customer", (int)RoleEnum.Customer, "System", null, null, true,
+                      hasher.HashPassword(null, "P@ssw0rd"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
 
-                    { 17, "CTR0017", "Olivia", "King", "oliviaking", "OLIVIAKING", "olivia.k@domain.com",
-                      "OLIVIA.K@DOMAIN.COM", "5566778899", true, false, true, DateTime.Now, 1, "Customers", "VIP Customer", (int)RoleEnum.Customer, "System", null, null, true,
-                      hasher.HashPassword(null, "User@123"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
+                    { 13, "CTR0017", "Olivia", "King", "oliviaking", "OLIVIAKING", "oliviak@domain.com",
+                      "OLIVIAK@DOMAIN.COM", "5566778899", true, false, true, DateTime.Now, 1, "Customers", "VIP Customer", (int)RoleEnum.Customer, "System", null, null, true,
+                      hasher.HashPassword(null, "P@ssw0rd"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
 
-                    { 18, "CTR0018", "Alex", "Reed", "alexreed", "ALEXREED", "alex.r@domain.com",
-                      "ALEX.R@DOMAIN.COM", "6677889900", true, false, true, DateTime.Now, 1, "Customers", "Standard Customer", (int)RoleEnum.Customer, "System", null, null, true,
-                      hasher.HashPassword(null, "User@123"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
+                    { 14, "CTR0018", "Alex", "Reed", "alexreed", "ALEXREED", "alexr@domain.com",
+                      "ALEXR@DOMAIN.COM", "6677889900", true, false, true, DateTime.Now, 1, "Customers", "Standard Customer", (int)RoleEnum.Customer, "System", null, null, true,
+                      hasher.HashPassword(null, "P@ssw0rd"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
 
-                    { 19, "CTR0019", "Linda", "Taylor", "lindataylor", "LINDATAYLOR", "linda.t@domain.com",
-                      "LINDA.T@DOMAIN.COM", "7788990011", true, false, true, DateTime.Now, 1, "Customers", "Occasional Buyer", (int)RoleEnum.Customer, "System", null, null, true,
-                      hasher.HashPassword(null, "User@123"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
+                    { 15, "CTR0019", "Linda", "Taylor", "lindataylor", "LINDATAYLOR", "lindat@domain.com",
+                      "LINDAT@DOMAIN.COM", "7788990011", true, false, true, DateTime.Now, 1, "Customers", "Occasional Buyer", (int)RoleEnum.Customer, "System", null, null, true,
+                      hasher.HashPassword(null, "P@ssw0rd"), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), true, false, null, false, 0 },
                 });
 
 

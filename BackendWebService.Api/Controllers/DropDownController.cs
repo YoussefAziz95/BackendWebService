@@ -1,6 +1,6 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
-using Application.Features.Common;
+using Application.Features;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

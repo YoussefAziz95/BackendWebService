@@ -1,9 +1,8 @@
 ﻿using Api.Base;
-using Application.Contracts.Manager;
+using Application.Contracts.AppManager;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
 using Application.Features;
-using Application.Features.Common;
 using Contracts.Services;
 using Domain;
 using Domain.Enums;
@@ -220,7 +219,7 @@ public class AuthorizationController : AppControllerBase
 
         var result = await _userManager.ChangePasswordAsync(user, request.oldPassword, request.newPassword);
 
-        if(!result.Succeeded)
+        if (!result.Succeeded)
         {
             return BadRequest(result.Errors);
         }

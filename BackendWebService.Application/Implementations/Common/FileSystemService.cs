@@ -1,14 +1,9 @@
-﻿using Application.Contracts.Features;
-using Application.Contracts.Infrastructures;
+﻿using Application.Contracts.Infrastructures;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.Features.Common;
-using Application.Model.File;
+using Application.Features;
 using Application.Wrappers;
 using Domain.Constants;
-using Domain;
-using Application.Features;
-
 namespace Application.Implementations.Common
 {
     public class FileSystemService : ResponseHandler, IFileSystemService
@@ -38,7 +33,7 @@ namespace Application.Implementations.Common
 
         public async Task<int> UploadFile(UploadRequest request, string folderName)
         {
-            var fullPath =  await _fileService.Upload(request.File, $"{AppConstants.TempUploadPath + "\\" + folderName }");
+            var fullPath = await _fileService.Upload(request.File, $"{AppConstants.TempUploadPath + "\\" + folderName}");
             var fileLog = new FileLog
             {
                 FullPath = fullPath,

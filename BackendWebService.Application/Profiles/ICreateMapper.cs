@@ -2,7 +2,7 @@
 
 namespace Application.Profiles;
 
-public interface ICreateMapper<TSource> 
+public interface ICreateMapper<TSource>
 {
     void Map(Profile profile)
     {

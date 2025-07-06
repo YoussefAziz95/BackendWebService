@@ -10,28 +10,49 @@
     <Compile Remove="Contracts\HubServices\**" />
     <Compile Remove="Contracts\Presistence\Workflows\**" />
     <Compile Remove="Contracts\Services\**" />
+    <Compile Remove="Features\AdministrationModule\OrganizationFeature\Address\AddAddress\**" />
     <Compile Remove="Features\Auths\**" />
     <Compile Remove="Features\Categories\**" />
-    <Compile Remove="Features\Exceptions\**" />
+    <Compile Remove="Features\SystemModule\Commons\Category\AddCategory\**" />
+    <Compile Remove="Features\AdministrationModule\CompanyFeature\CompanyCategory\AddCompanyCategory\**" />
+    <Compile Remove="Features\AdministrationModule\CompanyFeature\Companies\AddCompany\**" />
+    <Compile Remove="Features\AdministrationModule\OrganizationFeature\Contact\AddContact\**" />
+    <Compile Remove="Features\EmployeeModule\OfferFeature\Criteria\AddCriteria\**" />
     <Compile Remove="Features\FileTypes\**" />
+    <Compile Remove="Features\AdministrationModule\CompanyFeature\Manager\AddManager\**" />
+    <Compile Remove="Features\AdministrationModule\OrganizationFeature\AddOrganization\**" />
     <Compile Remove="Features\Utilities\**" />
     <Compile Remove="Implementations\**" />
     <EmbeddedResource Remove="Contracts\HubServices\**" />
     <EmbeddedResource Remove="Contracts\Presistence\Workflows\**" />
     <EmbeddedResource Remove="Contracts\Services\**" />
+    <EmbeddedResource Remove="Features\AdministrationModule\OrganizationFeature\Address\AddAddress\**" />
     <EmbeddedResource Remove="Features\Auths\**" />
     <EmbeddedResource Remove="Features\Categories\**" />
-    <EmbeddedResource Remove="Features\Exceptions\**" />
+    <EmbeddedResource Remove="Features\SystemModule\Commons\Category\AddCategory\**" />
+    <EmbeddedResource Remove="Features\AdministrationModule\CompanyFeature\CompanyCategory\AddCompanyCategory\**" />
+    <EmbeddedResource Remove="Features\AdministrationModule\CompanyFeature\Companies\AddCompany\**" />
+    <EmbeddedResource Remove="Features\AdministrationModule\OrganizationFeature\Contact\AddContact\**" />
+    <EmbeddedResource Remove="Features\EmployeeModule\OfferFeature\Criteria\AddCriteria\**" />
     <EmbeddedResource Remove="Features\FileTypes\**" />
+    <EmbeddedResource Remove="Features\AdministrationModule\CompanyFeature\Manager\AddManager\**" />
+    <EmbeddedResource Remove="Features\AdministrationModule\OrganizationFeature\AddOrganization\**" />
     <EmbeddedResource Remove="Features\Utilities\**" />
     <EmbeddedResource Remove="Implementations\**" />
     <None Remove="Contracts\HubServices\**" />
     <None Remove="Contracts\Presistence\Workflows\**" />
     <None Remove="Contracts\Services\**" />
+    <None Remove="Features\AdministrationModule\OrganizationFeature\Address\AddAddress\**" />
     <None Remove="Features\Auths\**" />
     <None Remove="Features\Categories\**" />
-    <None Remove="Features\Exceptions\**" />
+    <None Remove="Features\SystemModule\Commons\Category\AddCategory\**" />
+    <None Remove="Features\AdministrationModule\CompanyFeature\CompanyCategory\AddCompanyCategory\**" />
+    <None Remove="Features\AdministrationModule\CompanyFeature\Companies\AddCompany\**" />
+    <None Remove="Features\AdministrationModule\OrganizationFeature\Contact\AddContact\**" />
+    <None Remove="Features\EmployeeModule\OfferFeature\Criteria\AddCriteria\**" />
     <None Remove="Features\FileTypes\**" />
+    <None Remove="Features\AdministrationModule\CompanyFeature\Manager\AddManager\**" />
+    <None Remove="Features\AdministrationModule\OrganizationFeature\AddOrganization\**" />
     <None Remove="Features\Utilities\**" />
     <None Remove="Implementations\**" />
   </ItemGroup>
@@ -60,7 +81,6 @@
     <Compile Include="Contracts\Services\ISupplierDocumentService.cs" />
     <Compile Include="Contracts\Services\ISupplierService.cs" />
     <Compile Include="Contracts\Services\IUserService.cs" />
-    <Compile Include="Features\Exceptions\ExceptionDto.cs" />
     <Compile Include="Implementations\AuthenticationFactory.cs" />
     <Compile Include="Implementations\CategoryService.cs" />
     <Compile Include="Implementations\Common\DropdownService.cs" />
@@ -100,6 +120,15 @@
   <ItemGroup>
     <ProjectReference Include="..\BackendWebService.Domain\BackendWebService.Domain.csproj" />
     <ProjectReference Include="..\BackendWebService.SharedKernal\BackendWebService.SharedKernal.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\AdministrationModule\newAdministrator\" />
+    <Folder Include="Features\AdministrationModule\ConsumerFeature\newConsumerCustomer\" />
+    <Folder Include="Features\AdministrationModule\ConsumerFeature\newConsumerAccounts\" />
+    <Folder Include="Features\AdministrationModule\ConsumerFeature\newConsumers\" />
+    <Folder Include="Features\AdministrationModule\ConsumerFeature\" />
+    <Folder Include="Features\ClientModule\newClients\" />
   </ItemGroup>
 
 </Project>

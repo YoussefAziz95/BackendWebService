@@ -1,15 +1,14 @@
-﻿using Domain;
-using Application.Contracts.Persistence;
+﻿using Application.Contracts.Persistence;
 using Application.Contracts.Services;
 using Application.Features;
 using AutoMapper;
-
+using Domain;
 namespace Application.Implementations.Common
 {
     public class LoggingService : ILoggingService
     {
         private readonly ILoggingRepository _loggingRepository;
-        
+
 
 
         public LoggingService(ILoggingRepository loggingRepository, IMapper mapper)

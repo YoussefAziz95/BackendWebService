@@ -34,6 +34,6 @@ public class RoleClaim : IdentityRoleClaim<int>, IEntity, ITimeModification
     public bool? IsDeleted { get; set; }
     public bool? IsSystem { get; set; }
     public string? CreatedBy { get; set; }
-    public DateTime? UpdateDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
     public string? UpdatedBy { get; set; }
 }

@@ -1,7 +1,5 @@
 ﻿using Application.Features;
 using Application.Model.EAVEngine;
-using Domain;
-
 namespace Application.Contracts.Persistence
 {
     public interface ICaseActionRepository

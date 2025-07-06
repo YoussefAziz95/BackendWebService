@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using BackendWebService.Domain.Entities.AdminstratorModule.Organizations;
+using Domain;
 using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,4 +25,8 @@ public class Organization : BaseEntity, IEntity, ITimeModification
 
     [ForeignKey(nameof(FileId))]
     public FileLog File { get; set; }
+
+
+    public ICollection<Address>? Addresses { get; set; }
+    public ICollection<Contact>? Contacts { get; set; }
 }

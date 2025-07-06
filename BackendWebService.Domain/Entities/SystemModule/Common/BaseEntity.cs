@@ -46,7 +46,7 @@ public interface ITimeModification
 {
     DateTime? CreatedDate { get; set; }
     string? CreatedBy { get; set; }
-    DateTime? UpdateDate { get; set; }
+    DateTime? UpdatedDate { get; set; }
     string? UpdatedBy { get; set; }
 }
 public abstract class BaseEntity : BaseEntity<int>, IEntity, ITimeModification
@@ -58,6 +58,6 @@ public abstract class BaseEntity : BaseEntity<int>, IEntity, ITimeModification
     public bool? IsSystem { get; set; } = false;
     public DateTime? CreatedDate { get; set; } = DateTime.UtcNow;
     public string? CreatedBy { get; set; }
-    public DateTime? UpdateDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
     public string? UpdatedBy { get; set; }
 }

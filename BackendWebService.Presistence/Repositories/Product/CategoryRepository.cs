@@ -14,7 +14,7 @@ namespace Persistence.Repositories.Product
             var query = from c in _context.Categories
                         join cf in _context.FileLogs on c.FileId equals cf.Id
                         where c.OrganizationId == _context.userInfo.OrganizationId
-                        select new CategoryResponse(c.Id, c.Name, c.ParentId,null,
+                        select new CategoryResponse(c.Id, c.Name, c.ParentId, null,
                                 c.IsActive);
 
             return query.Any() ? query.ToList() : null;

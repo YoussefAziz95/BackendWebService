@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Application.Model.EmailDto;
+﻿namespace Application.Model.EmailDto;
 public class EmailDto
 {
     public EmailDto(string subject, string body, string to, string cC, string bCC, DateTime sentAt, int senderId)

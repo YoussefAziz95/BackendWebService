@@ -1,8 +1,6 @@
-﻿using Application.Contracts.Manager;
+﻿using Application.Contracts.AppManager;
 using Application.Contracts.Services;
 using Domain;
-using Microsoft.AspNetCore.Identity;
-using static System.Net.WebRequestMethods;
 
 namespace Application.Implementations.Common;
 

@@ -1,6 +1,6 @@
 using Api;
 using Api.Profiles;
-using Application.Manager;
+using Application.AppManager;
 using Application.Middleware;
 using Application.Model.Jwt;
 using Application.ServiceConfiguration;

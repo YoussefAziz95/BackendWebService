@@ -1,9 +1,8 @@
 ﻿using Application.Contracts.Services;
-using Application.Model.Authentication;
 using Application.Features;
+using Application.Model.Authentication;
 using Google.Apis.Auth;
 using static Google.Apis.Auth.GoogleJsonWebSignature;
-
 namespace Application.Implementations
 {
     /// <summary>

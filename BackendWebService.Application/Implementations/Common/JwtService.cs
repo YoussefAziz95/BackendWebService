@@ -1,8 +1,8 @@
 ﻿using Application.Contracts.Persistence;
 using Application.Model.Jwt;
-using Application.Contracts.Persistence;
 using Application.Models.Jwt;
 using Contracts.Services;
+using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -10,7 +10,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Domain;
 
 namespace Application.Identity.Jwt;
 

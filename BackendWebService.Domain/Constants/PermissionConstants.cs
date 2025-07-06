@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Security.Claims;
 
 namespace Domain.Constants;
 
@@ -64,7 +63,7 @@ public static class PermissionConstants
     }
     public static string[] GetCustomerPermissions()
     {
-        return  new[]
+        return new[]
         {
                 CUSTOMERUSER,
                 CUSTOMERROLE,

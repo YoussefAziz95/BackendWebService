@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Manager;
+﻿using Application.Contracts.AppManager;
 using Application.Features;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

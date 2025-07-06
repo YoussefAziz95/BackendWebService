@@ -39,7 +39,7 @@ namespace Persistence.Repositories.Identity
         {
             var role = _context.Roles.First(r => r.Id == id);
             var roleResponse = _context.RoleClaims.Where(r => r.RoleId == id)
-                .Select(c => new ClaimResponse( c.Id, c.ClaimValue )).ToList();
+                .Select(c => new ClaimResponse(c.Id, c.ClaimValue)).ToList();
             return roleResponse;
         }
 
@@ -48,7 +48,7 @@ namespace Persistence.Repositories.Identity
             var query = from r in _context.Roles
                         join rc in _context.RoleClaims on r.Id equals rc.RoleId into rcs
                         where r.Id == id
-                        select new RoleResponse(r.Id, r.Name, rcs.Select(rc => new ClaimResponse(rc.Id,rc.ClaimValue)).ToList());
+                        select new RoleResponse(r.Id, r.Name, rcs.Select(rc => new ClaimResponse(rc.Id, rc.ClaimValue)).ToList());
             return query.FirstOrDefault();
         }
     }

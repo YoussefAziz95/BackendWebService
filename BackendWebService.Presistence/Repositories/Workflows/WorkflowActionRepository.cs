@@ -3,7 +3,6 @@ using Application.Features;
 using Application.Model.EAVEngine;
 using Application.Model.Notifications;
 using Domain;
-using Domain;
 using Domain.Enums;
 using Persistence.Data;
 using Persistence.Repositories.Common;
@@ -16,7 +15,7 @@ namespace Persistence.Repositories.Workflows
 
         // DbContext instance
         protected readonly ApplicationDbContext _context;
-        private IWorkflowReviewRepositoryFactory<Case,WorkflowCycle> _actionObjectRepositoryFactory;
+        private IWorkflowReviewRepositoryFactory<Case, WorkflowCycle> _actionObjectRepositoryFactory;
         private readonly string WORKFLOW_CYCLE = "WorkflowCycle";
         private readonly string WORKFLOW_ACTION = "CaseAction";
         public CaseActionRepository(ApplicationDbContext context) : base(context)
@@ -62,7 +61,7 @@ namespace Persistence.Repositories.Workflows
                     var action = _context.Set<CaseAction>().First(a => a.Id == actionModel.Id);
                     var actionObject = _context.Set<ActionObject>().First(wr => wr.ActionId == action.Id && wr.ActionType == WORKFLOW_ACTION);
                     actionModel.Id = actionObject.ObjectId;
-                    _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory<Case,WorkflowCycle>(_context, actionObject.ObjectType);
+                    _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory<Case, WorkflowCycle>(_context, actionObject.ObjectType);
                     var wcase = _context.Set<Case>().First(c => c.Id == action.CaseId);
                     int CycleCount = _context.Set<WorkflowCycle>().Count(c => c.WorkflowId == wcase.WorkflowId);
 
@@ -173,15 +172,15 @@ namespace Persistence.Repositories.Workflows
             {
                 _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory<Case, WorkflowCycle>(_context, action.CaseType);
                 var actionReponse = new CaseActionsResponse(
-                    Id : action.Id,
-                    AssignedOnName : action.AssignedOnId.ToString(),
-                    AssignedOnType : action.AssignedOnType,
-                    RequesterName : action.RequesterName,
-                    OrganizationName : action.CompanySupplierName,
-                    CaseId : action.CaseId,
-                    CaseType : action.CaseType,
-                    CaseName : _actionObjectRepositoryFactory.GetObjectModel(action.CaseName).ObjectName,
-                    ActionType : action.ActionType,
+                    Id: action.Id,
+                    AssignedOnName: action.AssignedOnId.ToString(),
+                    AssignedOnType: action.AssignedOnType,
+                    RequesterName: action.RequesterName,
+                    OrganizationName: action.CompanySupplierName,
+                    CaseId: action.CaseId,
+                    CaseType: action.CaseType,
+                    CaseName: _actionObjectRepositoryFactory.GetObjectModel(action.CaseName).ObjectName,
+                    ActionType: action.ActionType,
                     ActionName: action.ActionType // ????????????????
                 );
                 actionsResponse.Add(actionReponse);
@@ -228,37 +227,37 @@ namespace Persistence.Repositories.Workflows
 
 
             var actionsResponse = new ActionResponse(
-                Id : id,
-                WorkflowId : action.cycle.WorkflowId,
+                Id: id,
+                WorkflowId: action.cycle.WorkflowId,
                 RequesterId: action.requester.Id,
-                CaseId : action.wcase.Id,
-                RequesterCompany : _context.Set<Organization>().First(key => key.Id == action.requester.OrganizationId).Name,
-                RequesterDepartment : action.requester.Department,
-                RequesterEmail : action.requester.Email,
-                RequesterFullname : action.requester.FirstName + " " + action.requester.LastName,
-                RequesterUsername : action.requester.UserName,
-                AssignedOnId : assignee.Id,
-                AssignedOnCompany : _context.Set<Organization>().First(key => key.Id == assignee.OrganizationId).Name,
-                AssignedOnDepartment : assignee.Department,
-                AssignedOnEmail : assignee.Email,
-                AssignedOnFullname : assignee.FirstName + " " + assignee.LastName,
-                AssignedOnUsername : assignee.UserName,
-                AssignedAt : action.act.CreatedDate,
-                ActionStatus : Enum.GetName(typeof(ActionEnum), action.act.StatusId),
-                CaseStatus : action.wcase.StatusId,
-                Comment : objectModel.ObjectName, // ??????????????????????,
-                ActionType : action.cycle.ActionType,
-                ObjectName : objectModel.ObjectName,
+                CaseId: action.wcase.Id,
+                RequesterCompany: _context.Set<Organization>().First(key => key.Id == action.requester.OrganizationId).Name,
+                RequesterDepartment: action.requester.Department,
+                RequesterEmail: action.requester.Email,
+                RequesterFullname: action.requester.FirstName + " " + action.requester.LastName,
+                RequesterUsername: action.requester.UserName,
+                AssignedOnId: assignee.Id,
+                AssignedOnCompany: _context.Set<Organization>().First(key => key.Id == assignee.OrganizationId).Name,
+                AssignedOnDepartment: assignee.Department,
+                AssignedOnEmail: assignee.Email,
+                AssignedOnFullname: assignee.FirstName + " " + assignee.LastName,
+                AssignedOnUsername: assignee.UserName,
+                AssignedAt: action.act.CreatedDate,
+                ActionStatus: Enum.GetName(typeof(ActionEnum), action.act.StatusId),
+                CaseStatus: action.wcase.StatusId,
+                Comment: objectModel.ObjectName, // ??????????????????????,
+                ActionType: action.cycle.ActionType,
+                ObjectName: objectModel.ObjectName,
                 FileId: objectModel.FileId,
-                ObjectType : action.wreview.ObjectType,
-                ObjectId : objectModel.ObjectId
+                ObjectType: action.wreview.ObjectType,
+                ObjectId: objectModel.ObjectId
 
 
             );
             return actionsResponse;
         }
 
-      
+
         List<CaseActionsResponse> ICaseActionRepository.GetActionsByUserId(int userId)
         {
             throw new NotImplementedException();

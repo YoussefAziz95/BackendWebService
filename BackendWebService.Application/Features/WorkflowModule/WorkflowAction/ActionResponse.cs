@@ -1,0 +1,2 @@
+﻿namespace Application.Features;
+public record ActionResponse(int Id, int WorkflowId, int CaseId, int RequesterId, string? RequesterUsername, string? RequesterFullname, string? RequesterEmail, string? RequesterCompany, string? RequesterDepartment, int? AssignedOnId, string? AssignedOnUsername, string? AssignedOnFullname, string? AssignedOnEmail, string? AssignedOnCompany, string? AssignedOnDepartment, DateTime? AssignedAt, string? ActionStatus, int? CaseStatus, string? Comment, int ObjectId, string ObjectType, string ObjectName, int FileId, string ActionType);

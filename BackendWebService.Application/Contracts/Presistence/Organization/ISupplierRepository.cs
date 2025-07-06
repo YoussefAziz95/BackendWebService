@@ -1,6 +1,4 @@
-﻿
-using Application.Features;
-using Domain;
+﻿using Application.Features;
 using Domain;
 
 namespace Application.Contracts.Persistence;

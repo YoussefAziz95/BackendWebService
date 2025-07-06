@@ -1,6 +1,5 @@
 ﻿using Api.Base;
 using Application.Contracts.Persistence;
-using Application.Features.Common;
 using Application.Features;
 using Domain;
 using Domain.Enums;

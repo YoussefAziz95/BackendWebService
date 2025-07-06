@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Application.Model.Notifications;
+﻿namespace Application.Model.Notifications;
 
 public class ConnectionMapping
 {

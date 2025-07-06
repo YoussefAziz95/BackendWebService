@@ -1,6 +1,4 @@
 ﻿using Application.Features;
-using Domain;
-
 namespace Application.Contracts.Persistence;
 
 public interface IFileRepository

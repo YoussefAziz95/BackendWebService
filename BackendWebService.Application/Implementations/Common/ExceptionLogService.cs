@@ -2,7 +2,6 @@
 using Application.Contracts.Services;
 using Application.Features;
 using Application.Wrappers;
-using AutoMapper;
 using Domain;
 
 
@@ -10,10 +9,10 @@ namespace Application.Implementations.Common;
 
 public class ExceptionLogService : ResponseHandler, IExceptionLogService
 {
-    
+
     private readonly IUnitOfWork _unitOfWork;
 
-    public ExceptionLogService( IUnitOfWork unitOfWork)
+    public ExceptionLogService(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }

@@ -96,7 +96,9 @@ namespace Persistence.Repositories.Organizations
                                             c.Organization.Type) ?? "Unknown",
                                             c.IsActive ?? false,
                                             c.CreatedDate ?? DateTime.UnixEpoch,
-                                            c.UpdateDate);
+                                            c.UpdatedDate,
+                                            c.Organization.Addresses.Select(a => new AddressResponse(a.Id, a.IsAdministration, a.FullAddress, a.Street, a.Zone, a.Street, a.City)).ToList(),
+                                            c.Organization.Contacts.Select(c => new ContactResponse(c.Id, c.Type, c.Value)).ToList());
             return companyResponse.FirstOrDefault();
         }
 

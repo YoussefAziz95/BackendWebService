@@ -53,7 +53,7 @@ public class Offer : BaseEntity, IEntity, ITimeModification
     public string? RichText { get; set; }
 
     // Navigation
-    public virtual List<Criteria> Criterias { get; set; } 
-    public virtual List<OfferItem> OfferItems { get; set; } 
-    public virtual List<OfferObject> OfferObjects { get; set; } 
+    public virtual List<Criteria> Criterias { get; set; }
+    public virtual List<OfferItem> OfferItems { get; set; }
+    public virtual List<OfferObject> OfferObjects { get; set; }
 }

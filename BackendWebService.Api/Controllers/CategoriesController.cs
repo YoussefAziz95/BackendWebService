@@ -2,13 +2,11 @@
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
 using Application.Features;
-using Application.Features.Common;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
 namespace Api.Controllers;
 
 [Route("api/[controller]")]
@@ -53,7 +51,7 @@ public class CategoriesController : AppControllerBase
             return NotFound("File not found");
         var result = new Response<CategoryResponse>()
         {
-            Data = new CategoryResponse(category.Id, category.Name, category.ParentId,  await FileToLink(category.FileId??1), category.IsActive),
+            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, await FileToLink(category.FileId ?? 1), category.IsActive),
             StatusCode = ApiResultStatusCode.Success,
             Succeeded = true,
             Message = "Category found"
@@ -81,7 +79,7 @@ public class CategoriesController : AppControllerBase
 
         _unitOfWork.GenericRepository<Category>().Update(category);
         var result = _unitOfWork.Save();
-      
+
         var response = new Response<CategoryResponse>()
         {
             StatusCode = ApiResultStatusCode.Success,
@@ -103,7 +101,7 @@ public class CategoriesController : AppControllerBase
         var categoriesReponse = new List<CategoryWithFileResponse>();
         foreach (var c in categories)
         {
-            var categoryResponse =  new CategoryWithFileResponse(c.Id, c.Name, c.ParentId, await FileToLink(c.FileId ?? 1), c.IsActive);
+            var categoryResponse = new CategoryWithFileResponse(c.Id, c.Name, c.ParentId, await FileToLink(c.FileId ?? 1), c.IsActive);
             categoriesReponse.Add(categoryResponse);
         }
         var result = new Response<List<CategoryWithFileResponse>>()
@@ -127,7 +125,7 @@ public class CategoriesController : AppControllerBase
         var response = new List<CategoryHasChildResponse>();
         foreach (var c in hasChildCategories)
         {
-            var r =  new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, await FileToLink(c.c.FileId ?? 1), c.hasChild, c.c.IsActive); 
+            var r = new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, await FileToLink(c.c.FileId ?? 1), c.hasChild, c.c.IsActive);
         }
         var result = new Response<List<CategoryHasChildResponse>>()
         {

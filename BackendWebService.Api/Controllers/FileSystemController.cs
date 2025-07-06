@@ -1,9 +1,7 @@
 ﻿using Api.Base;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.Features.Common;
 using Application.Features;
-using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -59,7 +57,7 @@ public class FileSystemController : AppControllerBase
         var response = new Response<FileResponse>();
         response.StatusCode = ApiResultStatusCode.Success;
         response.Succeeded = true;
-        response.Data =  new FileResponse(
+        response.Data = new FileResponse(
                             fileLog.FileName,
                             fileLog.FullPath,
                             fileLog.Extention,
@@ -118,6 +116,6 @@ public class FileSystemController : AppControllerBase
 
         return NewResult(response);
     }
-    
+
 
 }

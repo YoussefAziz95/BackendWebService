@@ -1,16 +1,15 @@
 ﻿using Api.Base;
+using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
 using Application.Features;
-using Application.Features.Common;
-using Domain;
+using BackendWebService.Domain.Entities.AdminstratorModule.Organizations;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
-
 namespace Api.Controllers;
 
 [Route("api/[controller]")]
@@ -21,59 +20,173 @@ public class CompaniesController : AppControllerBase
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICompanyService _companyService;
 
-    public CompaniesController(IUnitOfWork unitOfWork, ICompanyService companyService)
+    public CompaniesController(IUnitOfWork unitOfWork,
+        ICompanyService companyService,
+        IMediator mediator)
     {
         _unitOfWork = unitOfWork;
         _companyService = companyService;
     }
 
     [HttpPost]
+    [HttpPost]
     public async Task<IActionResult> AddCompany([FromBody] AddCompanyRequest request)
     {
-        var company = new Company
+        try
         {
-            CompanyName = request.CompanyName,
-            ContactEmail = request.Email,
-            ContactPhone = request.Phone,
-            RegistrationNumber = request.RegistrationNumber,
-            Status = StatusEnum.Active,
-            IsActive = true,
-        };
-        var organization = new Organization
-        {
-            Name = request.CompanyName,
-            Email = request.Email,
-            Phone = request.Phone,
-            City = request.City,
-            Country = request.Country,
-            StreetAddress = request.StreetAddress,
-            TaxNo = request.TaxNo,
-            Type = OrganizationEnum.Company,
-        };
-        _unitOfWork.GenericRepository<Company>().Add(company);
-        await _unitOfWork.SaveAsync();
+            await _unitOfWork.BeginTransactionAsync();
 
-        var result = new Response<int>
-        {
-            Data = company.Id,
-            Succeeded = true,
-            StatusCode = ApiResultStatusCode.Success,
-            Message = "Company added successfully"
-        };
+            var user = _unitOfWork.GetUserInfo();
+            var createdBy = user?.Username ?? "System";
 
-        return NewResult(result);
+            var organization = new Organization
+            {
+                Name = request.CompanyName,
+                Email = request.Email,
+                Phone = request.Phone,
+                City = request.City,
+                Country = request.Country,
+                StreetAddress = request.StreetAddress,
+                TaxNo = request.TaxNo,
+                Type = OrganizationEnum.Company,
+                FileId = request.FileId ?? 1,
+                CreatedDate = DateTime.UtcNow,
+                CreatedBy = createdBy
+            };
+            _unitOfWork.GenericRepository<Organization>().Add(organization);
+
+            var company = new Company
+            {
+                CompanyName = request.CompanyName,
+                ContactEmail = request.Email,
+                ContactPhone = request.Phone,
+                RegistrationNumber = request.RegistrationNumber,
+                Status = StatusEnum.Active,
+                IsActive = true,
+                OrganizationId = organization.Id,
+                CreatedDate = DateTime.UtcNow,
+                CreatedBy = createdBy
+            };
+            _unitOfWork.GenericRepository<Company>().Add(company);
+
+            if (request.Addresses?.Any() == true)
+            {
+                foreach (var addr in request.Addresses)
+                {
+                    _unitOfWork.GenericRepository<Address>().Add(new Address
+                    {
+                        FullAddress = addr.FullAddress,
+                        Street = addr.Street,
+                        Zone = addr.Zone,
+                        State = addr.State,
+                        City = addr.City,
+                        IsAdministration = addr.IsAdministration,
+                        OrganizationId = organization.Id,
+                        CreatedDate = DateTime.UtcNow,
+                        CreatedBy = createdBy
+                    });
+                }
+            }
+
+            if (request.Contacts?.Any() == true)
+            {
+                foreach (var contact in request.Contacts)
+                {
+                    _unitOfWork.GenericRepository<Contact>().Add(new Contact
+                    {
+                        OrganizationId = organization.Id,
+                        Type = contact.Type,
+                        Value = contact.Value,
+                        CreatedDate = DateTime.UtcNow,
+                        CreatedBy = createdBy
+                    });
+                }
+            }
+
+            await _unitOfWork.SaveAsync();
+            await _unitOfWork.CommitAsync();
+
+            var result = new Response<int>
+            {
+                Data = company.Id,
+                Succeeded = true,
+                StatusCode = ApiResultStatusCode.Success,
+                Message = "Company added successfully"
+            };
+
+            return NewResult(result);
+        }
+        catch (Exception ex)
+        {
+            await _unitOfWork.RollbackAsync();
+
+            var result = new Response<string>
+            {
+                Data = null,
+                Succeeded = false,
+                StatusCode = ApiResultStatusCode.ServerError,
+                Message = "Failed to add company. " + ex.Message
+            };
+
+            return NewResult(result);
+        }
     }
+
+
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCompany([FromRoute] int id)
     {
-        var company = await _unitOfWork.GenericRepository<Company>().GetByIdAsync(id);
+        var company = _unitOfWork.GenericRepository<Company>()
+            .Get(
+                company => company.Id == id,
+                include: company => company
+                    .Include(c => c.Organization)
+                        .ThenInclude(o => o.Addresses)
+                    .Include(c => c.Organization)
+                        .ThenInclude(o => o.Contacts)
+            );
+
         if (company == null)
             return NotFound("Company not found");
 
-        var result = new Response<Company>
+        var org = company.Organization;
+
+        var response = new CompanyResponse(
+            Id: company.Id,
+            Name: company.CompanyName ?? string.Empty,
+            Country: org?.Country ?? string.Empty,
+            City: org?.City ?? string.Empty,
+            StreetAddress: org?.StreetAddress ?? string.Empty,
+            Email: org?.Email ?? string.Empty,
+            TaxNo: org?.TaxNo ?? string.Empty,
+            Phone: org?.Phone,
+            FileId: org?.FileId,
+            ImageUrl: org?.File?.FullPath, // optional if you include File
+            Fax: org?.FaxNo,
+            RoleType: org?.Type.ToString() ?? string.Empty,
+            IsActive: company.IsActive,
+            CreatedDate: company.CreatedDate,
+            UpdateDate: company.UpdatedDate,
+            Addresses: company.Organization.Addresses?.Select(a => new AddressResponse(
+                Id: a.Id,
+                FullAddress: a.FullAddress ?? "",
+                Street: a.Street ?? "",
+                Zone: a.Zone ?? "",
+                State: a.State ?? "",
+                City: a.City ?? "",
+                IsAdministration: a.IsAdministration
+            )).ToList() ?? new(),
+            Contacts: company.Organization.Contacts?.Select(c => new ContactResponse(
+                Id: c.Id,
+                Type: c.Type ?? "",
+                Value: c.Value
+            )).ToList() ?? new()
+        );
+
+        var result = new Response<CompanyResponse>
         {
-            Data = company,
+            Data = response,
             Succeeded = true,
             StatusCode = ApiResultStatusCode.Success,
             Message = "Company retrieved successfully"

@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Persistence;
-using Domain;
 using Persistence.Data;
 
 namespace Persistence.Repositories.Notifications

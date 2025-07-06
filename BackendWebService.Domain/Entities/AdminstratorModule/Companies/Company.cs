@@ -22,7 +22,5 @@ public class Company : BaseEntity, IEntity, ITimeModification
     public string? ViceChairman { get; set; }
     public string? ProductType { get; set; }
     public ICollection<CompanyCategory>? Activity { get; set; }
-    public ICollection<Address>? Addresses { get; set; }
-    public ICollection<Contact>? Contacts { get; set; }
     public ICollection<Manager>? Manager { get; set; }
 }

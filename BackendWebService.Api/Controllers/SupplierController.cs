@@ -1,13 +1,11 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
 using Application.Features;
-using Application.Features.Common;
 using Domain;
 using Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
 namespace Api.Controllers;
 
 [Route("api/[controller]")]

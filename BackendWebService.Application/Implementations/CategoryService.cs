@@ -1,12 +1,11 @@
 ﻿using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
+using Application.Features;
 using Application.Wrappers;
 using AutoMapper;
-using Application.Features;
 using Domain;
 using Microsoft.EntityFrameworkCore;
-using Domain;
 
 namespace Application.Implementations
 {

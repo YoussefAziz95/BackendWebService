@@ -1,11 +1,10 @@
 ﻿using Application.Contracts.Services;
-using Application.Model.Authentication;
 using Application.Features;
+using Application.Model.Authentication;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-
 namespace Application.Implementations
 {
     /// <summary>

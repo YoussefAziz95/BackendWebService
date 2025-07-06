@@ -1,7 +1,5 @@
-﻿using Application.Features.Common;
+﻿using Application.Features;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Application.Wrappers;
 

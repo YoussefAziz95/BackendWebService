@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.Features;
-using Application.Features.Common;
+using Application.Features;
 using Domain.Enums;
 
 namespace Application.Wrappers;

@@ -1,7 +1,4 @@
-﻿using Application.Features;
-using Domain;
-
-namespace Application.Profiles
+﻿namespace Application.Profiles
 {
 
 }

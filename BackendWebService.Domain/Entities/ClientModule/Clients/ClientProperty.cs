@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using BackendWebService.Domain.Entities.AdminstratorModule.Organizations;
+using Domain;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

@@ -1,5 +1,5 @@
 ﻿using Application.Model.Notifications;
-using Domain;
+using BackendWebService.Domain.Entities.AdminstratorModule.Organizations;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -155,7 +155,7 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
                     Suggestion = null,
                     LogType = LogTypeEnum.Info,
                     Timestamp = DateTime.UtcNow,
-                    SourceLayer = entry.Entity.GetType().Namespace?? "",
+                    SourceLayer = entry.Entity.GetType().Namespace ?? "",
                     SourceClass = entry.Entity.GetType().Name,
                     SourceLineNumber = 0
                 };
@@ -167,7 +167,7 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
             }
         }
     }
-    private void log( string logMessage)
+    private void log(string logMessage)
     {
         var log = new Logging
         {
@@ -229,13 +229,13 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int, UserClaim
             {
                 if (pInfo.Name == "UpdateDate" && pInfo.CanWrite) pInfo.SetValue(entity, DateTime.UtcNow);
                 if (pInfo.Name == "UpdatedBy" && pInfo.CanWrite) pInfo.SetValue(entity, userId);
-                else if (pInfo.Name == "IsDeleted" && (pInfo.GetValue(entity)?.Equals(true)??false) && pInfo.CanWrite)
+                else if (pInfo.Name == "IsDeleted" && (pInfo.GetValue(entity)?.Equals(true) ?? false) && pInfo.CanWrite)
                     setDeletedValue(entity, userId);
             }
             catch (Exception e)
             {
                 log($"Error setting {pInfo.Name} value: {e.Message}");
-            }            
+            }
         }
     }
 

@@ -11,7 +11,7 @@ public class OfferObject : BaseEntity, IEntity, ITimeModification
 
     [ForeignKey(nameof(OfferId))]
     public virtual Offer Offer { get; set; }
-   
+
     [Required]
     public int ObjectId { get; set; }
 

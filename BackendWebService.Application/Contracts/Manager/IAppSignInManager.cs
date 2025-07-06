@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 
-namespace Application.Contracts.Manager;
+namespace Application.Contracts.AppManager;
 
 public interface IAppSignInManager
 {

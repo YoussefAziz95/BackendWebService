@@ -2,14 +2,9 @@
 using Application.Contracts.Persistence;
 using Application.Model.EmailDto;
 using Application.Wrappers;
-using Domain;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 namespace Application.Utilities
 {
     /// <summary>

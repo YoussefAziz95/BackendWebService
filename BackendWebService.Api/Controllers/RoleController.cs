@@ -1,10 +1,9 @@
-﻿using Application.Features;
-using Application.Contracts.Manager;
+﻿using Application.Contracts.AppManager;
+using Application.Features;
+using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Domain;
-
 namespace Controllers;
 
 [Route("api/[controller]")]

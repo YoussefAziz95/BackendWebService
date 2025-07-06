@@ -41,6 +41,6 @@ public class Deal : BaseEntity, IEntity, ITimeModification
     [ForeignKey(nameof(OrganizationId))]
     public Organization Organization { get; set; }
 
-    public ICollection<DealDocument> DealDocuments { get; set; } 
-    public ICollection<DealDetails> DealDetails { get; set; } 
+    public ICollection<DealDocument> DealDocuments { get; set; }
+    public ICollection<DealDetails> DealDetails { get; set; }
 }

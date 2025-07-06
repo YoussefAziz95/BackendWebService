@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Services;
 using Application.Features;
-using Application.Features;
 using Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
@@ -52,23 +51,23 @@ namespace Application.Middleware
             var userId = context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var log = new Logger
             (
-                UserId : null,
-                Message : ex.Message,
-                Suggestion : ex.InnerException?.Message ?? null,
-                ExceptionCode : exceptionCode,
+                UserId: null,
+                Message: ex.Message,
+                Suggestion: ex.InnerException?.Message ?? null,
+                ExceptionCode: exceptionCode,
                 KeyExceptionMessage: ex.InnerException?.Message ?? null,
                 LogType: LogTypeEnum.Error,
-                Timestamp : DateTime.UtcNow,
-                SourceLayer : sourceLayer ?? "UnknownNamespace",
-                SourceClass : sourceClass ?? "UnknownClass",
-                SourceLineNumber : sourceLineNumber > 0 ? sourceLineNumber : 0
+                Timestamp: DateTime.UtcNow,
+                SourceLayer: sourceLayer ?? "UnknownNamespace",
+                SourceClass: sourceClass ?? "UnknownClass",
+                SourceLineNumber: sourceLineNumber > 0 ? sourceLineNumber : 0
             );
 
             _loggingService.Log(log);
             var exception = new ExceptionDto
             (
-                KeyExceptionMessage : ex.GetType().Name,
-                ExceptionCode : (int)exceptionCode
+                KeyExceptionMessage: ex.GetType().Name,
+                ExceptionCode: (int)exceptionCode
             );
             _exceptionLogService.Add(exception);
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;

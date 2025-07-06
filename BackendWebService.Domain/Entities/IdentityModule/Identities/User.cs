@@ -59,6 +59,6 @@ public class User : IdentityUser<int>, IEntity, ITimeModification
     public ICollection<UserToken> Tokens { get; set; }
     public ICollection<UserRefreshToken> UserRefreshTokens { get; set; }
     public string? CreatedBy { get; set; }
-    public DateTime? UpdateDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
     public string? UpdatedBy { get; set; }
 }

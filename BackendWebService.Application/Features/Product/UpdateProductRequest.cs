@@ -1,3 +1,0 @@
-﻿namespace Application.Features;
-
-public record UpdateProductRequest(int Id, string Number, string Name, string Description, int? FileId, string Code, string PartNumber, string Manufacturer, int CategoryId);

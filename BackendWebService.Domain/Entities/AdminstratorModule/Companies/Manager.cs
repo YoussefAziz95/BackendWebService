@@ -8,15 +8,13 @@ namespace Domain;
 public class Manager : BaseEntity, IEntity, ITimeModification
 {
     [Required]
-    public int CompanyId { get; set; }
-    [ForeignKey(nameof(CompanyId))]
-    public Company Company { get; set; }
+    public new int OrganizationId { get; set; }
 
     [Required]
     [MaxLength(150)]
     public string Name { get; set; }
     [NotMapped]
-    public RoleEnum? ManagerType => Enum.TryParse<RoleEnum>(Position, out var parsedType) ? parsedType : null; 
+    public RoleEnum? ManagerType => Enum.TryParse<RoleEnum>(Position, out var parsedType) ? parsedType : null;
 
     [Required]
     public string Position { get; set; }

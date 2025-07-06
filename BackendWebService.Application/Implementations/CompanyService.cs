@@ -3,17 +3,12 @@ using Application.Contracts.Infrastructures;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
 using Application.Features;
-using Application.Features.Common;
 using Application.Model.EmailDto;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
-using Domain;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-
-
 
 namespace Application.Implementations
 {
@@ -88,8 +83,8 @@ namespace Application.Implementations
             .Select(c => new CompanyAllResponse(
                 c.Id,
                 c.CompanyName,
-                c.Addresses.FirstOrDefault().FullAddress,
-                c.Addresses.FirstOrDefault().Zone,
+                c.Organization.Addresses.FirstOrDefault().FullAddress,
+                c.Organization.Addresses.FirstOrDefault().Zone,
                 Enum.GetName(typeof(OrganizationEnum), c.Organization.Type))).AsQueryable();
             var result = query.ToPaginatedList((int)request.PageNumber!, (int)request.PageSize!);
             return result;
@@ -127,7 +122,7 @@ namespace Application.Implementations
                 var user = _unitOfWork.GenericRepository<User>().Get(b => b.Email == oldsupplier.Organization.Email);
 
 
-               
+
                 _unitOfWork.GenericRepository<User>().Update(user);
                 _unitOfWork.Save();
                 return oldsupplier.Id > 0 ? Success(oldsupplier.Id)

@@ -4,7 +4,6 @@ using Application.Contracts.Proxy;
 using Application.Features;
 using Application.Wrappers;
 using AutoMapper;
-using Domain;
 
 namespace Api.HubServices;
 

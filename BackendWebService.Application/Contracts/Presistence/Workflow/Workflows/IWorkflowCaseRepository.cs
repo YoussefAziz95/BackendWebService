@@ -1,6 +1,4 @@
-﻿using Domain;
-
-namespace Application.Contracts.Persistence
+﻿namespace Application.Contracts.Persistence
 {
     public interface ICaseRepository
     {

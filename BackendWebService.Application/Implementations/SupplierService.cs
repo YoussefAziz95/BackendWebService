@@ -3,17 +3,12 @@ using Application.Contracts.Infrastructures;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
 using Application.Features;
-using Application.Features.Common;
 using Application.Model.EmailDto;
 using Application.Wrappers;
 using AutoMapper;
 using Domain;
-using Domain;
 using Domain.Constants;
-using System.Diagnostics.Metrics;
-using System.Numerics;
 using System.Security.Cryptography;
-
 namespace Application.Implementations
 {
     /// <summary>
@@ -105,7 +100,7 @@ namespace Application.Implementations
                 return BadRequest<int>("EmailDto Already Exist!");
             var result = await AddAsync(request);
             var id = result.Data;
-            var response =  _supplierRepository.Register(id);
+            var response = _supplierRepository.Register(id);
             return response.Status > 0 ? Success(id) : BadRequest<int>("Failed to Add Registered Account");
 
         }

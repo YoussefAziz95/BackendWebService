@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 
-namespace Application.Features.Commons;
-
+namespace Application.Features;
 public class Mediator : IMediator
 {
     private readonly IServiceProvider _serviceProvider;

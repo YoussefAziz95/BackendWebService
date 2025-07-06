@@ -3,7 +3,7 @@ using Domain;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-namespace Application.Contracts.Manager
+namespace Application.Contracts.AppManager
 {
     public interface IAppUserManager
     {

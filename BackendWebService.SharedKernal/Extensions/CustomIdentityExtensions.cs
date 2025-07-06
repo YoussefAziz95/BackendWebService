@@ -8,7 +8,7 @@ namespace SharedKernel.Extensions;
 public class DataProtectionTokenProviderOptions
 {
     public string Name { get; set; } = "DataProtectorTokenProvider";
-    public TimeSpan TokenLifespan { get; set; } 
+    public TimeSpan TokenLifespan { get; set; }
 }
 
 public static class CustomIdentityExtensions
@@ -49,7 +49,7 @@ public class PasswordlessLoginTokenProviderOptions : DataProtectionTokenProvider
 public class PasswordlessLoginTokenProvider<TUser> : DataProtectorTokenProvider<TUser>
     where TUser : class
 {
-    public PasswordlessLoginTokenProvider(IDataProtectionProvider dataProtectionProvider, IOptions<Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions> options, ILogger<DataProtectorTokenProvider<TUser>> logger) : base(dataProtectionProvider, options,logger)
+    public PasswordlessLoginTokenProvider(IDataProtectionProvider dataProtectionProvider, IOptions<Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions> options, ILogger<DataProtectorTokenProvider<TUser>> logger) : base(dataProtectionProvider, options, logger)
     {
     }
 }

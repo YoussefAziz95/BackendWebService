@@ -1,7 +1,7 @@
-﻿using SharedKernel.ValidationBase;
-using SharedKernel.ValidationBase.Contracts;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using SharedKernel.ValidationBase;
+using SharedKernel.ValidationBase.Contracts;
 
 namespace SharedKernel.Extensions
 {

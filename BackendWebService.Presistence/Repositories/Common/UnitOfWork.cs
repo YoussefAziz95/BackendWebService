@@ -27,20 +27,20 @@ namespace Persistence.Repositories.Common
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
-            if (httpContextAccessor is not null )
+            if (httpContextAccessor is not null)
             {
                 if (httpContextAccessor?.HttpContext?.User.Claims.Count() > 0)
-                if (httpContextAccessor.HttpContext?.User?.Claims.Any(c => c.Type == "name")??false)
-                {
-                    var username = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
-                    var user = _context.Users.FirstOrDefault(u => u.UserName == username);
+                    if (httpContextAccessor.HttpContext?.User?.Claims.Any(c => c.Type == "name") ?? false)
+                    {
+                        var username = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
+                        var user = _context.Users.FirstOrDefault(u => u.UserName == username);
 
-                    _context.userInfo.UserId = user.Id;
-                    _context.userInfo.OrganizationId = user.OrganizationId ?? 0;
-                    _context.userInfo.RoleParentId = (int)user.MainRole;
+                        _context.userInfo.UserId = user.Id;
+                        _context.userInfo.OrganizationId = user.OrganizationId ?? 0;
+                        _context.userInfo.RoleParentId = (int)user.MainRole;
 
-                    Access = AccessEnum.Private;
-                }
+                        Access = AccessEnum.Private;
+                    }
             }
 
         }

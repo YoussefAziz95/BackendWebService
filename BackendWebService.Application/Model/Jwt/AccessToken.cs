@@ -1,5 +1,4 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 
 namespace Application.Models.Jwt;
 
@@ -10,7 +9,7 @@ public class AccessToken
     public string token_type { get; set; }
     public int expires_in { get; set; }
 
-    public AccessToken(JwtSecurityToken securityToken,string refreshToken="")
+    public AccessToken(JwtSecurityToken securityToken, string refreshToken = "")
     {
         access_token = new JwtSecurityTokenHandler().WriteToken(securityToken);
         token_type = "Bearer";

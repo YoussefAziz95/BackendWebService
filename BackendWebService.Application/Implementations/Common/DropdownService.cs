@@ -1,10 +1,9 @@
 ﻿using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
-using Application.Features.Common;
+using Application.Features;
 using Application.Model.Notifications;
 using Application.Wrappers;
-using Domain;
 using Domain;
 
 namespace Application.Implementations.Common

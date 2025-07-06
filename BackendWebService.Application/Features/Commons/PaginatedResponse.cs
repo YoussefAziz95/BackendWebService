@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Domain.Enums;
-namespace Application.Features.Common;
-public class PaginatedResponse<T> : IResponse<List<T>>
+namespace Application.Features; public class PaginatedResponse<T> : IResponse<List<T>>
 {
     public PaginatedResponse(List<T> data = default!, int currentPage = 1, int totalCount = 0, int pageSize = 10, bool succeeded = true)
     {

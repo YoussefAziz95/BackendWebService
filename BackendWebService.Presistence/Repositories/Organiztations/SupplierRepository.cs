@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Persistence;
 using Application.Features;
 using Domain;
-using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -138,7 +137,7 @@ namespace Persistence.Repositories.Organizations
                          from cv in cvs.DefaultIfEmpty()
                          join o in _context.Organizations on v.OrganizationId equals o.Id
                          //where cv.CompanyId == company.Id || cv.CompanyId == null
-                         select new GetPaginatedSupplier (v.Id, cv.Id, o.Name, o.Country, o.City, o.StreetAddress, o.Email, o.TaxNo);
+                         select new GetPaginatedSupplier(v.Id, cv.Id, o.Name, o.Country, o.City, o.StreetAddress, o.Email, o.TaxNo);
 
             return result?.ToList() ?? new List<GetPaginatedSupplier>();
         }

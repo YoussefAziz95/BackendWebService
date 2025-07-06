@@ -1,9 +1,5 @@
 ﻿using Application.Contracts.Features;
-using Application.Features.Common;
 using Application.Features;
-using Application.Features;
-using Application.Features;
-
 namespace Application.Contracts.Services;
 
 public interface ICompanyService

@@ -1,5 +1,4 @@
-﻿using Domain.Constants;
-using Domain.Enums;
+﻿using Domain.Enums;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable

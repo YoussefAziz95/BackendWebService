@@ -1,7 +1,5 @@
-﻿using Domain;
-using Application.Features;
+﻿using Application.Features;
 using Application.Model.EAVEngine;
-
 namespace Application.Contracts;
 
 public interface IWorkflowCycleRepository

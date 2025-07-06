@@ -1,5 +1,4 @@
-﻿using Application.Features.Common;
-using Microsoft.EntityFrameworkCore.Query;
+﻿using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
 namespace Application.Contracts.Persistence;

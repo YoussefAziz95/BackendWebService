@@ -1,14 +1,12 @@
 ﻿using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
+using Application.Features;
 using Application.Wrappers;
 using AutoMapper;
-using Application.Features;
-
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
-
 namespace Application.Implementations
 {
     public sealed class UserService : ResponseHandler, IUserService
