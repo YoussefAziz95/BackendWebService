@@ -245,110 +245,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.ToTable("Attachment");
                 });
 
-            modelBuilder.Entity("BackendWebService.Domain.Entities.AdminstratorModule.Organizations.Address", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FullAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsAdministration")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsSystem")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Zone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.ToTable("Address");
-                });
-
-            modelBuilder.Entity("BackendWebService.Domain.Entities.AdminstratorModule.Organizations.Contact", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool?>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsSystem")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.ToTable("Contact");
-                });
-
             modelBuilder.Entity("Case", b =>
                 {
                     b.Property<int>("Id")
@@ -807,6 +703,64 @@ namespace BackendWebService.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Customer");
+                });
+
+            modelBuilder.Entity("Domain.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsAdministration")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsSystem")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Zone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("Domain.Administrator", b =>
@@ -1494,6 +1448,9 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ConsumerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -1515,9 +1472,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -1528,7 +1482,7 @@ namespace BackendWebService.Persistence.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("SupplierId");
+                    b.HasIndex("ConsumerId");
 
                     b.ToTable("ConsumerAccount");
                 });
@@ -1542,6 +1496,9 @@ namespace BackendWebService.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ConsumerId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -1562,9 +1519,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -1575,9 +1529,55 @@ namespace BackendWebService.Persistence.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("SupplierId");
+                    b.HasIndex("ConsumerId");
 
                     b.ToTable("ConsumerCustomer");
+                });
+
+            modelBuilder.Entity("Domain.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsSystem")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("Contact");
                 });
 
             modelBuilder.Entity("Domain.Criteria", b =>
@@ -5404,9 +5404,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ConsumerAccountId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -5444,8 +5441,6 @@ namespace BackendWebService.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ConsumerAccountId");
 
                     b.HasIndex("PreDocumentId");
 
@@ -5603,24 +5598,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.Navigation("FileFieldValidator");
                 });
 
-            modelBuilder.Entity("BackendWebService.Domain.Entities.AdminstratorModule.Organizations.Address", b =>
-                {
-                    b.HasOne("Organization", null)
-                        .WithMany("Addresses")
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BackendWebService.Domain.Entities.AdminstratorModule.Organizations.Contact", b =>
-                {
-                    b.HasOne("Organization", null)
-                        .WithMany("Contacts")
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Case", b =>
                 {
                     b.HasOne("Domain.ConsumerAccount", "CompanySupplier")
@@ -5668,7 +5645,7 @@ namespace BackendWebService.Persistence.Migrations
 
             modelBuilder.Entity("ClientProperty", b =>
                 {
-                    b.HasOne("BackendWebService.Domain.Entities.AdminstratorModule.Organizations.Address", "Address")
+                    b.HasOne("Domain.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -5733,7 +5710,7 @@ namespace BackendWebService.Persistence.Migrations
             modelBuilder.Entity("ConsumerDocument", b =>
                 {
                     b.HasOne("Domain.ConsumerAccount", "ConsumerAccount")
-                        .WithMany()
+                        .WithMany("ConsumerDocuments")
                         .HasForeignKey("ConsumerAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -5758,6 +5735,15 @@ namespace BackendWebService.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Address", b =>
+                {
+                    b.HasOne("Organization", null)
+                        .WithMany("Addresses")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Administrator", b =>
@@ -5939,15 +5925,15 @@ namespace BackendWebService.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Consumer", "Supplier")
+                    b.HasOne("Domain.Consumer", "Consumer")
                         .WithMany("ConsumerAccounts")
-                        .HasForeignKey("SupplierId")
+                        .HasForeignKey("ConsumerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
 
-                    b.Navigation("Supplier");
+                    b.Navigation("Consumer");
                 });
 
             modelBuilder.Entity("Domain.ConsumerCustomer", b =>
@@ -5958,15 +5944,24 @@ namespace BackendWebService.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Consumer", "Supplier")
+                    b.HasOne("Domain.Consumer", "Consumer")
                         .WithMany("ConsumerCustomers")
-                        .HasForeignKey("SupplierId")
+                        .HasForeignKey("ConsumerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
 
-                    b.Navigation("Supplier");
+                    b.Navigation("Consumer");
+                });
+
+            modelBuilder.Entity("Domain.Contact", b =>
+                {
+                    b.HasOne("Organization", null)
+                        .WithMany("Contacts")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Criteria", b =>
@@ -6783,10 +6778,6 @@ namespace BackendWebService.Persistence.Migrations
 
             modelBuilder.Entity("SupplierDocument", b =>
                 {
-                    b.HasOne("Domain.ConsumerAccount", null)
-                        .WithMany("SupplierDocuments")
-                        .HasForeignKey("ConsumerAccountId");
-
                     b.HasOne("Domain.PreDocument", "PreDocument")
                         .WithMany()
                         .HasForeignKey("PreDocumentId")
@@ -6883,7 +6874,7 @@ namespace BackendWebService.Persistence.Migrations
 
             modelBuilder.Entity("Domain.ConsumerAccount", b =>
                 {
-                    b.Navigation("SupplierDocuments");
+                    b.Navigation("ConsumerDocuments");
                 });
 
             modelBuilder.Entity("Domain.Deal", b =>

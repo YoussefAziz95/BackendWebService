@@ -1509,7 +1509,7 @@ namespace BackendWebService.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
-                    SupplierId = table.Column<int>(type: "int", nullable: false),
+                    ConsumerId = table.Column<int>(type: "int", nullable: false),
                     ApprovedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
@@ -1531,8 +1531,8 @@ namespace BackendWebService.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ConsumerAccount_Consumer_SupplierId",
-                        column: x => x.SupplierId,
+                        name: "FK_ConsumerAccount_Consumer_ConsumerId",
+                        column: x => x.ConsumerId,
                         principalTable: "Consumer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -1544,7 +1544,7 @@ namespace BackendWebService.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierId = table.Column<int>(type: "int", nullable: false),
+                    ConsumerId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
@@ -1565,8 +1565,8 @@ namespace BackendWebService.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ConsumerCustomer_Consumer_SupplierId",
-                        column: x => x.SupplierId,
+                        name: "FK_ConsumerCustomer_Consumer_ConsumerId",
+                        column: x => x.ConsumerId,
                         principalTable: "Consumer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -2357,7 +2357,6 @@ namespace BackendWebService.Persistence.Migrations
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FileId = table.Column<int>(type: "int", nullable: true),
-                    ConsumerAccountId = table.Column<int>(type: "int", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -2370,11 +2369,6 @@ namespace BackendWebService.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SupplierDocument", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SupplierDocument_ConsumerAccount_ConsumerAccountId",
-                        column: x => x.ConsumerAccountId,
-                        principalTable: "ConsumerAccount",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_SupplierDocument_PreDocument_PreDocumentId",
                         column: x => x.PreDocumentId,
@@ -3408,9 +3402,9 @@ namespace BackendWebService.Persistence.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConsumerAccount_SupplierId",
+                name: "IX_ConsumerAccount_ConsumerId",
                 table: "ConsumerAccount",
-                column: "SupplierId");
+                column: "ConsumerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ConsumerCustomer_CategoryId",
@@ -3418,9 +3412,9 @@ namespace BackendWebService.Persistence.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ConsumerCustomer_SupplierId",
+                name: "IX_ConsumerCustomer_ConsumerId",
                 table: "ConsumerCustomer",
-                column: "SupplierId");
+                column: "ConsumerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ConsumerDocument_ConsumerAccountId",
@@ -3843,11 +3837,6 @@ namespace BackendWebService.Persistence.Migrations
                 name: "IX_SupplierCategory_SupplierId",
                 table: "SupplierCategory",
                 column: "SupplierId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SupplierDocument_ConsumerAccountId",
-                table: "SupplierDocument",
-                column: "ConsumerAccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SupplierDocument_PreDocumentId",

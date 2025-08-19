@@ -1,5 +1,5 @@
 ﻿namespace Application.Features;
-public record UpdateAddressRequest(
+public record UpdateAdministratorRequest(
 int Id,
 string FullAddress,
 string Street,

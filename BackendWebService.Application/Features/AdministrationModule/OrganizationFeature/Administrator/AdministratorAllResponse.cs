@@ -1,3 +1,3 @@
 ﻿namespace Application.Features;
-public record AddressAllResponse(
+public record AdministratorAllResponse(
 string FullAddress);

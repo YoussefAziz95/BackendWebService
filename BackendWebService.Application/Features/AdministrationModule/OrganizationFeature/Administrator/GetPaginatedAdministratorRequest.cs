@@ -1,5 +1,5 @@
 ﻿namespace Application.Features;
-public record GetPaginatedAddressRequest(
+public record GetPaginatedAddministratorRequest(
 AddressAllResponse AddressAllResponse,
 int PageNumber = 1,
 int PageSize = 100,
