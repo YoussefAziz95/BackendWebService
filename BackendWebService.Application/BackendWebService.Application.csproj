@@ -8,57 +8,66 @@
 
   <ItemGroup>
     <Compile Remove="Contracts\HubServices\**" />
+    <Compile Remove="Contracts\Presistence\WorkflowReviewRepositories\**" />
     <Compile Remove="Contracts\Presistence\Workflows\**" />
     <Compile Remove="Contracts\Services\**" />
-    <Compile Remove="Features\AdministrationModule\OrganizationFeature\Address\AddAddress\**" />
-    <Compile Remove="Features\Auths\**" />
-    <Compile Remove="Features\Categories\**" />
-    <Compile Remove="Features\SystemModule\Commons\Category\AddCategory\**" />
-    <Compile Remove="Features\AdministrationModule\CompanyFeature\CompanyCategory\AddCompanyCategory\**" />
-    <Compile Remove="Features\AdministrationModule\CompanyFeature\Companies\AddCompany\**" />
-    <Compile Remove="Features\AdministrationModule\OrganizationFeature\Contact\AddContact\**" />
-    <Compile Remove="Features\EmployeeModule\OfferFeature\Criteria\AddCriteria\**" />
-    <Compile Remove="Features\FileTypes\**" />
-    <Compile Remove="Features\AdministrationModule\CompanyFeature\Manager\AddManager\**" />
-    <Compile Remove="Features\AdministrationModule\OrganizationFeature\AddOrganization\**" />
-    <Compile Remove="Features\Utilities\**" />
+    <Compile Remove="DTOs\**" />
     <Compile Remove="Implementations\**" />
+    <Compile Remove="Validators\Category\**" />
+    <Compile Remove="Validators\Common\**" />
+    <Compile Remove="Validators\Company\**" />
+    <Compile Remove="Validators\Permission\**" />
+    <Compile Remove="Validators\PreDocument\**" />
+    <Compile Remove="Validators\Roles\**" />
+    <Compile Remove="Validators\Service\**" />
+    <Compile Remove="Validators\SupplierCategory\**" />
+    <Compile Remove="Validators\SupplierDocument\**" />
+    <Compile Remove="Validators\Supplier\**" />
+    <Compile Remove="Validators\Users\**" />
+    <Compile Remove="Validators\Utility\**" />
     <EmbeddedResource Remove="Contracts\HubServices\**" />
+    <EmbeddedResource Remove="Contracts\Presistence\WorkflowReviewRepositories\**" />
     <EmbeddedResource Remove="Contracts\Presistence\Workflows\**" />
     <EmbeddedResource Remove="Contracts\Services\**" />
-    <EmbeddedResource Remove="Features\AdministrationModule\OrganizationFeature\Address\AddAddress\**" />
-    <EmbeddedResource Remove="Features\Auths\**" />
-    <EmbeddedResource Remove="Features\Categories\**" />
-    <EmbeddedResource Remove="Features\SystemModule\Commons\Category\AddCategory\**" />
-    <EmbeddedResource Remove="Features\AdministrationModule\CompanyFeature\CompanyCategory\AddCompanyCategory\**" />
-    <EmbeddedResource Remove="Features\AdministrationModule\CompanyFeature\Companies\AddCompany\**" />
-    <EmbeddedResource Remove="Features\AdministrationModule\OrganizationFeature\Contact\AddContact\**" />
-    <EmbeddedResource Remove="Features\EmployeeModule\OfferFeature\Criteria\AddCriteria\**" />
-    <EmbeddedResource Remove="Features\FileTypes\**" />
-    <EmbeddedResource Remove="Features\AdministrationModule\CompanyFeature\Manager\AddManager\**" />
-    <EmbeddedResource Remove="Features\AdministrationModule\OrganizationFeature\AddOrganization\**" />
-    <EmbeddedResource Remove="Features\Utilities\**" />
+    <EmbeddedResource Remove="DTOs\**" />
     <EmbeddedResource Remove="Implementations\**" />
+    <EmbeddedResource Remove="Validators\Category\**" />
+    <EmbeddedResource Remove="Validators\Common\**" />
+    <EmbeddedResource Remove="Validators\Company\**" />
+    <EmbeddedResource Remove="Validators\Permission\**" />
+    <EmbeddedResource Remove="Validators\PreDocument\**" />
+    <EmbeddedResource Remove="Validators\Roles\**" />
+    <EmbeddedResource Remove="Validators\Service\**" />
+    <EmbeddedResource Remove="Validators\SupplierCategory\**" />
+    <EmbeddedResource Remove="Validators\SupplierDocument\**" />
+    <EmbeddedResource Remove="Validators\Supplier\**" />
+    <EmbeddedResource Remove="Validators\Users\**" />
+    <EmbeddedResource Remove="Validators\Utility\**" />
     <None Remove="Contracts\HubServices\**" />
+    <None Remove="Contracts\Presistence\WorkflowReviewRepositories\**" />
     <None Remove="Contracts\Presistence\Workflows\**" />
     <None Remove="Contracts\Services\**" />
-    <None Remove="Features\AdministrationModule\OrganizationFeature\Address\AddAddress\**" />
-    <None Remove="Features\Auths\**" />
-    <None Remove="Features\Categories\**" />
-    <None Remove="Features\SystemModule\Commons\Category\AddCategory\**" />
-    <None Remove="Features\AdministrationModule\CompanyFeature\CompanyCategory\AddCompanyCategory\**" />
-    <None Remove="Features\AdministrationModule\CompanyFeature\Companies\AddCompany\**" />
-    <None Remove="Features\AdministrationModule\OrganizationFeature\Contact\AddContact\**" />
-    <None Remove="Features\EmployeeModule\OfferFeature\Criteria\AddCriteria\**" />
-    <None Remove="Features\FileTypes\**" />
-    <None Remove="Features\AdministrationModule\CompanyFeature\Manager\AddManager\**" />
-    <None Remove="Features\AdministrationModule\OrganizationFeature\AddOrganization\**" />
-    <None Remove="Features\Utilities\**" />
+    <None Remove="DTOs\**" />
     <None Remove="Implementations\**" />
+    <None Remove="Validators\Category\**" />
+    <None Remove="Validators\Common\**" />
+    <None Remove="Validators\Company\**" />
+    <None Remove="Validators\Permission\**" />
+    <None Remove="Validators\PreDocument\**" />
+    <None Remove="Validators\Roles\**" />
+    <None Remove="Validators\Service\**" />
+    <None Remove="Validators\SupplierCategory\**" />
+    <None Remove="Validators\SupplierDocument\**" />
+    <None Remove="Validators\Supplier\**" />
+    <None Remove="Validators\Users\**" />
+    <None Remove="Validators\Utility\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Middlewares\FileDownloadMiddleware.cs" />
+    <Compile Remove="Profiles\GroupMapper.cs" />
+    <Compile Remove="Profiles\PreDocumentMapper.cs" />
+    <Compile Remove="Profiles\UserMapper.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,8 +90,6 @@
     <Compile Include="Contracts\Services\ISupplierDocumentService.cs" />
     <Compile Include="Contracts\Services\ISupplierService.cs" />
     <Compile Include="Contracts\Services\IUserService.cs" />
-    <Compile Include="Implementations\AuthenticationFactory.cs" />
-    <Compile Include="Implementations\CategoryService.cs" />
     <Compile Include="Implementations\Common\DropdownService.cs" />
     <Compile Include="Implementations\Common\ExceptionLogService.cs" />
     <Compile Include="Implementations\Common\FileSystemService.cs" />
@@ -90,17 +97,6 @@
     <Compile Include="Implementations\Common\LoggingService.cs" />
     <Compile Include="Implementations\Common\OtpService.cs" />
     <Compile Include="Implementations\Common\ValidateCommandBehavior.cs" />
-    <Compile Include="Implementations\CompanyService.cs" />
-    <Compile Include="Implementations\GoogleAuthenticationService.cs" />
-    <Compile Include="Implementations\JwtProvider.cs" />
-    <Compile Include="Implementations\MicrosoftAuthenticationService.cs" />
-    <Compile Include="Implementations\OrganizationService.cs" />
-    <Compile Include="Implementations\PermissionService.cs" />
-    <Compile Include="Implementations\PreDocumentService.cs" />
-    <Compile Include="Implementations\ServiceImplementation.cs" />
-    <Compile Include="Implementations\SupplierDocumentService.cs" />
-    <Compile Include="Implementations\SupplierService.cs" />
-    <Compile Include="Implementations\UserService.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -123,12 +119,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\AdministrationModule\newAdministrator\" />
-    <Folder Include="Features\AdministrationModule\ConsumerFeature\newConsumerCustomer\" />
-    <Folder Include="Features\AdministrationModule\ConsumerFeature\newConsumerAccounts\" />
-    <Folder Include="Features\AdministrationModule\ConsumerFeature\newConsumers\" />
-    <Folder Include="Features\AdministrationModule\ConsumerFeature\" />
-    <Folder Include="Features\ClientModule\newClients\" />
+    <Folder Include="Validators\Company\" />
   </ItemGroup>
 
 </Project>

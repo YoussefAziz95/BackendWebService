@@ -1,4 +1,4 @@
-﻿namespace Application.Features;
+﻿namespace BackendWebService.Application.Features.InventoryModule.Products.Part;
 public record AddPartRequest(
     string Name,
     string Description,

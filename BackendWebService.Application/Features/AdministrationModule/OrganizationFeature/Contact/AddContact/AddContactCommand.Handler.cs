@@ -11,7 +11,7 @@ public class AddContactCommandHandler(IUnitOfWork unitOfWork) : ResponseHandler,
     {
         var contact = new Contact
         {
-            CompanyId = request.CompanyId,
+            //CompanyId = request.CompanyId,
             Value = request.Value,
             Type = request.Type,
             CreatedDate = DateTime.UtcNow,

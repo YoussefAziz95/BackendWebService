@@ -1,6 +1,7 @@
 ﻿using Api.Base;
 using Application.Contracts.Persistence;
 using Application.Features;
+using BackendWebService.Application.Features.InventoryModule.Products.Part;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;

@@ -1,5 +1,5 @@
 ﻿using Application.Model.Notifications;
-using BackendWebService.Domain.Entities.AdminstratorModule.Organizations;
+using Domain;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

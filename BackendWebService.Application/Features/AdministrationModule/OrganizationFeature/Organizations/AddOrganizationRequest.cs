@@ -12,5 +12,7 @@ public record AddOrganizationRequest(
     string Phone,
     string Email,
     string TaxNo,
-    int FileId
+    int FileId,
+    List<AddAddressRequest>? Addresses,
+    List<AddContactRequest>? Contacts
 );

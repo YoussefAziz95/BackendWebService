@@ -1,6 +1,6 @@
 ﻿namespace Application.Features;
 public record AddManagerRequest(
-    int CompanyId,
+    int OrganizationId,
     string Name,
     string Position
 );

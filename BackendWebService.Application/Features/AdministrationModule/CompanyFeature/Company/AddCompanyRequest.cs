@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace Application.Features;
 public record AddCompanyRequest(
@@ -13,6 +14,6 @@ public record AddCompanyRequest(
     string? Fax,
     string? Phone,
     int? RoleId,
-    List<AddAddressRequest>? Addresses,
-    List<AddContactRequest>? Contacts
+    List<Contact> Contacts,
+    List<Address> Addresses
 );

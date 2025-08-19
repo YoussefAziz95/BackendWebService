@@ -1,0 +1,15 @@
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+namespace BackendWebService.Application.Features.AdministrationModule.ConsumerFeature.Consumer;
+public record UpdateConsumerRequest([property: Required] int Id,
+[property: Required] string CompanyName,
+ string Country,
+ string City,
+ string StreetAddress,
+ string RegistrationNumber,
+ string TaxNo,
+ string Email,
+ string? ImageUrl,
+ string? Fax,
+ string? Phone,
+ int? RoleId);

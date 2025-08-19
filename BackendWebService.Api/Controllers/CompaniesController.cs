@@ -3,7 +3,7 @@ using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
 using Application.Features;
-using BackendWebService.Domain.Entities.AdminstratorModule.Organizations;
+using Domain;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
