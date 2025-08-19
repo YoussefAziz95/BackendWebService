@@ -12,7 +12,7 @@ using Persistence.Data;
 namespace BackendWebService.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250819094127_InitialCreate")]
+    [Migration("20250819094840_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -716,6 +716,9 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ConsumerAccountId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -743,9 +746,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<int>("PreDocumentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SupplierAccountId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -754,9 +754,9 @@ namespace BackendWebService.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PreDocumentId");
+                    b.HasIndex("ConsumerAccountId");
 
-                    b.HasIndex("SupplierAccountId");
+                    b.HasIndex("PreDocumentId");
 
                     b.ToTable("ConsumerDocument");
                 });
@@ -5735,15 +5735,15 @@ namespace BackendWebService.Persistence.Migrations
 
             modelBuilder.Entity("ConsumerDocument", b =>
                 {
-                    b.HasOne("Domain.PreDocument", "PreDocument")
+                    b.HasOne("Domain.ConsumerAccount", "ConsumerAccount")
                         .WithMany()
-                        .HasForeignKey("PreDocumentId")
+                        .HasForeignKey("ConsumerAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.ConsumerAccount", "ConsumerAccount")
+                    b.HasOne("Domain.PreDocument", "PreDocument")
                         .WithMany()
-                        .HasForeignKey("SupplierAccountId")
+                        .HasForeignKey("PreDocumentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

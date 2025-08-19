@@ -2313,7 +2313,7 @@ namespace BackendWebService.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierAccountId = table.Column<int>(type: "int", nullable: false),
+                    ConsumerAccountId = table.Column<int>(type: "int", nullable: false),
                     PreDocumentId = table.Column<int>(type: "int", nullable: false),
                     ApprovedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
@@ -2332,8 +2332,8 @@ namespace BackendWebService.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_ConsumerDocument", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ConsumerDocument_ConsumerAccount_SupplierAccountId",
-                        column: x => x.SupplierAccountId,
+                        name: "FK_ConsumerDocument_ConsumerAccount_ConsumerAccountId",
+                        column: x => x.ConsumerAccountId,
                         principalTable: "ConsumerAccount",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -3423,14 +3423,14 @@ namespace BackendWebService.Persistence.Migrations
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ConsumerDocument_ConsumerAccountId",
+                table: "ConsumerDocument",
+                column: "ConsumerAccountId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ConsumerDocument_PreDocumentId",
                 table: "ConsumerDocument",
                 column: "PreDocumentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ConsumerDocument_SupplierAccountId",
-                table: "ConsumerDocument",
-                column: "SupplierAccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contact_OrganizationId",
