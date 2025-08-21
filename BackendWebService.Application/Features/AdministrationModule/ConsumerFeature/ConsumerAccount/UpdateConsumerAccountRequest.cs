@@ -1,15 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 namespace Application.Features;
-public record UpdateConsumerAccountRequest([property: Required] int Id,
-[property: Required] string CompanyName,
- string Country,
- string City,
- string StreetAddress,
- string RegistrationNumber,
- string TaxNo,
- string Email,
- string? ImageUrl,
- string? Fax,
- string? Phone,
- int? RoleId);
+public record UpdateConsumerAccountRequest(
+   int CompanyId,
+    int ConsumerId,
+    bool IsApproved,
+    DateTime? ApprovedDate,
+    List<AddConsumerDocumentRequest> ConsumerDocument
+    );

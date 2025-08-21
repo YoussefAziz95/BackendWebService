@@ -2,12 +2,10 @@
 
 namespace Application.Features;
 public record CustomerResponse(
-int Id,
-string FirstName,
-string LastName,
-string Email,
-string PhoneNumber,
-bool MFAEnabled,
+int UserId,
 RoleEnum Role,
 StatusEnum Status,
-DateTime? CreatedDate);
+List<AddCustomerServiceRequest> CustomerServiceRequest,
+List<AddCustomerPaymentMethodRequest> CustomerPaymentMethodRequest,
+bool MFAEnabled = false
+    );

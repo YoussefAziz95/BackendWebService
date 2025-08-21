@@ -1,2 +1,5 @@
 ﻿namespace Application.Features;
-public record SupplierCategoryResponse(int SupplierId, int CategoryId);
+public record SupplierCategoryResponse(
+    int SupplierId,
+    int CategoryId
+    );

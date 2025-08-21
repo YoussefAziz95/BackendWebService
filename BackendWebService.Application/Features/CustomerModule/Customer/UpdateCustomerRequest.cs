@@ -2,10 +2,10 @@
 
 namespace Application.Features;
 public record UpdateCustomerRequest(
-int Id,
-string FirstName,
-string LastName,
-string Email,
-string PhoneNumber,
-bool MFAEnabled,
-StatusEnum Status);
+int UserId,
+RoleEnum Role,
+StatusEnum Status,
+List<AddCustomerServiceRequest> CustomerServiceRequests,
+List<AddCustomerPaymentMethodRequest> CustomerPaymentMethodRequest,
+bool MFAEnabled = false
+ );

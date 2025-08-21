@@ -1,4 +1,4 @@
-﻿namespace BackendWebService.Application.Features.AdministrationModule.ConsumerFeature.Consumer;
+﻿namespace Application.Features;
 public record GetPaginatedConsumerRequest(
 ConsumerAllResponse ConsumerAllResponse,
 int PageNumber = 1,

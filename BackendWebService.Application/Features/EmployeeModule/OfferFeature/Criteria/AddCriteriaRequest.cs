@@ -1,8 +1,7 @@
 ﻿namespace Application.Features;
 public record AddCriteriaRequest(
-    string Term,
-    int FileTypeId,
-    bool? IsRequired,
-    int Weight,
-    int OfferId
-);
+string Term,
+bool IsRequired,
+int OfferId,
+int Weight,
+int FileTypeId);

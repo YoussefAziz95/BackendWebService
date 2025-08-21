@@ -1,3 +1,16 @@
-﻿namespace Application.Features;
+﻿using Domain;
 
-public record GetPaginatedProperty(int Id, string Name, string ContactName, string ContactNumber, string ZoneName, double Latitude, double Longitude);
+namespace Application.Features;
+
+public record GetPaginatedProperty(
+    int UserId,
+   string Name,
+    string? ContactName,
+   string ContactNumber,
+    int? ZoneId,
+   Zone? Zone,
+    double Latitude,
+    double Longitude,
+    DateTimeOffset CreatedAt,
+    DateTimeOffset? DeletedAt,
+    bool IsDeleted);

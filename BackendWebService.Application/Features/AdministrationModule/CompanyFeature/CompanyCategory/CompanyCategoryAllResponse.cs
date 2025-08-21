@@ -1,6 +1,6 @@
 ﻿namespace Application.Features;
 
 public record CompanyCategoryAllResponse(
-       int CompanyId,
-    int CategoryId
+ int CompanyId,
+ int CategoryId
 );

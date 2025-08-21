@@ -1,10 +1,10 @@
 ﻿using Application.Features;
 
-namespace BackendWebService.Application.Features.AdministrationModule.ConsumerFeature.Consumer;
+namespace Application.Features;
 
 public record ConsumerAccountAllResponse(
-    AddOrganizationRequest Organization,
-    string BankAccount, 
-    decimal? Rating
-    // consumer account all response
+   int CompanyId,
+    int ConsumerId,
+    bool IsApproved,
+    DateTime? ApprovedDate
 );

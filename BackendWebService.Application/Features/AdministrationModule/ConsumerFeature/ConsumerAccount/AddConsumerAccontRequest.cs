@@ -1,8 +1,8 @@
 ﻿namespace Application.Features;
 public record AddConsumerAccountRequest(
     int CompanyId,
-    int SupplierId,
+    int ConsumerId,
     bool IsApproved,
     DateTime? ApprovedDate,
-    List<AddSupplierDocumentRequest> SupplierDocuments
+    List<AddConsumerDocumentRequest> ConsumerDocument
 );

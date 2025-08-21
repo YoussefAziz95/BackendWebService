@@ -1,3 +1,9 @@
-﻿namespace Application.Features;
+﻿using Domain.Enums;
+
+namespace Application.Features;
 public record CustomerAllResponse(
-    string FullAddress);
+int UserId,
+RoleEnum Role,
+StatusEnum Status,
+bool MFAEnabled = false
+  );

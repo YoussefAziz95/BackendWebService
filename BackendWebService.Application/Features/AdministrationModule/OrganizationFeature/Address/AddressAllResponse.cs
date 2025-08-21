@@ -1,3 +1,10 @@
 ﻿namespace Application.Features;
 public record AddressAllResponse(
-string FullAddress);
+ int OrganizationId,
+bool IsAdministration,
+string FullAddress,
+string Street,
+string Zone,
+string State,
+string City
+    );

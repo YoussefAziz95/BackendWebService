@@ -1,36 +1,30 @@
-﻿using Domain.Enums;
+﻿using Domain;
+using Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Application.Features;
-public class AddOfferRequest
-{
-    public string Name { get; set; }
+public record AddOfferRequest(
+int OrganizationId,
+string Name,
+string? Description,
+DateTime StartDate,
+DateTime EndDate,
+string? Extention,
+string Code,
+bool IsMultiple,
+bool IsLocal,
+AccessEnum AccessType,
+CurrencyEnum Currency,
+int StatusId,
+int CompanyId,
+int CustomerId,
+int SpecificationsFileId,
+string? RichText,
+List<AddCriteriaRequest> Criterias,
+List<AddOfferItemRequest> OfferItems,
+List<AddOfferObjectRequest> OfferObjects);
 
-    public string Description { get; set; }
-
-    public string? Extention { get; set; }
-
-    public int OffererId { get; set; }
-
-    public string Code { get; set; }
-
-    public int? CompanyId { get; set; }
-    public int? StatusId { get; set; }
-    public AccessEnum AccessType { get; set; }
-    public CurrencyEnum Currency { get; set; }
+  
 
 
-
-    public int SpecificationsFileId { get; set; }
-
-    public DateTime StartDate { get; set; }
-
-    public DateTime EndDate { get; set; }
-
-    public List<AddCriteriaRequest> Criterias { get; set; }
-
-    public List<AddOfferItemRequest> OfferItems { get; set; }
-
-    public List<AddOfferObjectRequest> OfferObjects { get; set; }
-
-}
 

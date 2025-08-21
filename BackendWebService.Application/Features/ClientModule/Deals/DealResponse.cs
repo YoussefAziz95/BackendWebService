@@ -1,14 +1,15 @@
 ﻿namespace Application.Features;
 
 public record DealResponse(
-int Id,
+int OrganizationId,
+int OfferId,
+int UserId,
+int CompanyVendorId,
+int Vat,
+int Quantity,
+int Discount,
+int StatusId,
 decimal? TotalPrice,
 decimal? FinalPrice,
-int? Quantity,
-int? Vat,
-int? Discount,
-int OfferId,
-int CompanyVendorId,
-int StatusId,
-List<DealDocumentResponse> DealDocuments,
-List<DealDetailsResponse> DealDetails);
+List<AddDealDocumentRequest> DealDocuments,
+List<AddDealDetailsRequest> DealDetails);

@@ -2,5 +2,6 @@
 public record AddManagerRequest(
     int OrganizationId,
     string Name,
-    string Position
+    string Position,
+    List<AddManagerRequest> Manager
 );

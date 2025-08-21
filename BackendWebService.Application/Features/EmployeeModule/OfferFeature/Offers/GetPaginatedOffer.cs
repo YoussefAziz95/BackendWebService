@@ -1,15 +1,25 @@
-﻿namespace Application.Features;
-public class GetPaginatedOffer
-{
-    public required int Id { get; set; }
+﻿using Domain.Enums;
 
+namespace Application.Features;
+public record GetPaginatedOffer(
+int OrganizationId,
+string Name,
+string? Description,
+DateTime StartDate,
+DateTime EndDate,
+string? Extention,
+string Code,
+bool IsMultiple,
+bool IsLocal,
+AccessEnum AccessType,
+CurrencyEnum Currency,
+int StatusId,
+int CompanyId,
+int CustomerId,
+int SpecificationsFileId,
+string? RichText,
+List<AddCriteriaRequest> Criterias,
+List<AddOfferItemRequest> OfferItems,
+List<AddOfferObjectRequest> OfferObjects);
 
-    public string Name { get; set; }
-
-    public string Description { get; set; }
-
-    public DateTime? StartDate { get; set; }
-
-    public DateTime? EndDate { get; set; }
-}
 

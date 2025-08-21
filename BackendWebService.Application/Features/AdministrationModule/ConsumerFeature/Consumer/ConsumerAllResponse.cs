@@ -1,10 +1,12 @@
 ﻿using Application.Features;
+using Domain.Enums;
 
-namespace BackendWebService.Application.Features.AdministrationModule.ConsumerFeature.Consumer;
+namespace Application.Features;
 
 public record ConsumerAllResponse(
-    AddOrganizationRequest Organization,
-    string BankAccount, 
-    decimal? Rating
-    // consumer account all response
+   int OrganizationId,
+    string BankAccount,
+    decimal? Rating,
+    StatusEnum Status
+
 );

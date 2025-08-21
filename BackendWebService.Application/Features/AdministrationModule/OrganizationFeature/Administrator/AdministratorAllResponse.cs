@@ -1,3 +1,10 @@
-﻿namespace Application.Features;
+﻿using Domain.Enums;
+
+namespace Application.Features;
 public record AdministratorAllResponse(
-string FullAddress);
+int UserId,
+string Attributes,
+OrganizationEnum organizationId,
+StatusEnum Status,
+RoleEnum MainRole
+ );

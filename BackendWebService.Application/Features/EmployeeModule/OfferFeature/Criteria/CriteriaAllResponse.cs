@@ -1,3 +1,7 @@
 ﻿namespace Application.Features;
 public record CriteriaAllResponse(
-string FullAddress);
+string Term,
+bool IsRequired,
+int OfferId,
+int Weight,
+int FileTypeId);

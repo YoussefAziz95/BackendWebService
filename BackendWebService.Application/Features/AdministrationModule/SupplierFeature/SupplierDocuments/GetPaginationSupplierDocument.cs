@@ -1,2 +1,13 @@
-﻿namespace Application.Features;
-public record GetPaginatedSupplierDocument(int Id, string PreDocumentName, int SupplierId, string SupplierName, int PreDocumentId, string DocUrl);
+﻿using Domain;
+
+namespace Application.Features;
+public record GetPaginatedSupplierDocument(
+      int SupplierAccountId,
+    int PreDocumentId,
+    int FileId,
+    DateTime? ApprovedDate,
+    bool IsApproved,
+    string? Comment,
+    PreDocument PreDocument,
+    SupplierAccount SupplierAccount
+    );

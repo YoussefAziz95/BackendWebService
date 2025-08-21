@@ -1,8 +1,7 @@
 ﻿namespace Application.Features;
 public record CriteriaResponse(
-int Id,
 string Term,
-int FileTypeId,
-bool? IsRequired,
+bool IsRequired,
+int OfferId,
 int Weight,
-int OfferId);
+int FileTypeId);

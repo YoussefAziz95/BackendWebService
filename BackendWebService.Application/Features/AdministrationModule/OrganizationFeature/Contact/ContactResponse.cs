@@ -1,6 +1,9 @@
-﻿namespace Application.Features;
+﻿using Domain.Enums;
+
+namespace Application.Features;
 public record ContactResponse(
-    int Id,
-    string Type,
-    string? Value
+ int OrganizationId,
+ string? Value,
+ string? Type,
+ ContactEnum? ContactType
 );

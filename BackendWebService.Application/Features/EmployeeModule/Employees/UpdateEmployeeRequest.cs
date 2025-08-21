@@ -2,9 +2,10 @@
 
 namespace Application.Features;
 public record UpdateEmployeeRequest(
-int Id,
-string FirstName,
-string LastName,
-string Email,
-string PhoneNumber,
-StatusEnum Status);
+int UserId,
+ DateTime RegistrationDate,
+StatusEnum AccountStatus,
+bool IsAvailable,
+RoleEnum Role,
+List<AddEmployeeAssignmentRequest> Assignments,
+List<AddEmployeeJobRequest> Jobs);

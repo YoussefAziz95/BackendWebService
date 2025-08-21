@@ -1,14 +1,16 @@
 ﻿namespace Application.Features;
 
 public record UpdateDealRequest(
-int Id,
+int OrganizationId,
 int OfferId,
+int UserId,
+int CompanyVendorId,
+int Vat,
+int Quantity,
+int Discount,
+int StatusId,
 decimal? TotalPrice,
 decimal? FinalPrice,
-int? Vat,
-int? Discount,
-int? Quantity,
-int? UserId,
-int StatusId,
-List<UpdateDealDocumentRequest> DealDocuments,
-List<UpdateDealDetailsRequest> DealDetails);
+List<AddDealDocumentRequest> DealDocuments,
+List<AddDealDetailsRequest> DealDetails
+    );

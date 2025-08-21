@@ -1,19 +1,19 @@
-﻿using Domain;
+﻿
+using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Application.Features;
 public record AddCompanyRequest(
-    [property: Required] string CompanyName,
-    string Country,
-    string City,
-    string StreetAddress,
-    string RegistrationNumber,
-    string TaxNo,
-    string Email,
-    int? FileId,
-    string? Fax,
-    string? Phone,
-    int? RoleId,
-    List<Contact> Contacts,
-    List<Address> Addresses
+ int OrganizationId,
+string? CompanyName,
+ string? RegistrationNumber,
+string? ContactEmail,
+string? ContactPhone,
+string? Chairman,
+ string? QualityCertificates,
+ string? ViceChairman,
+ string? ProductType,
+ StatusEnum Status,
+ List<AddCompanyCategoryRequest> Category,
+ List<AddManagerRequest> Manager
 );

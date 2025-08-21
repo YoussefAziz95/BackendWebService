@@ -1,8 +1,11 @@
-﻿namespace Application.Features;
+﻿using Domain.Enums;
+
+namespace Application.Features;
 public record AddCustomerRequest(
-string FirstName,
-string LastName,
-string Email,
-string Password,
-string PhoneNumber,
-bool MFAEnabled = false);
+int UserId,
+RoleEnum Role,
+StatusEnum Status,
+List<AddCustomerServiceRequest> CustomerServiceRequest,
+List<AddCustomerPaymentMethodRequest> CustomerPaymentMethodRequest,
+bool MFAEnabled = false
+ );

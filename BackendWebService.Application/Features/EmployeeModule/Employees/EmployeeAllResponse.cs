@@ -1,9 +1,10 @@
-﻿namespace Application.Features;
+﻿using Domain.Enums;
+
+namespace Application.Features;
 public record EmployeeAllResponse(
-int Id,
-string FirstName,
-string LastName,
-string Email,
-string PhoneNumber,
-string Role,
-DateTime? CreatedDate);
+int UserId,
+DateTime RegistrationDate,
+StatusEnum AccountStatus,
+bool IsAvailable,
+RoleEnum Role
+);

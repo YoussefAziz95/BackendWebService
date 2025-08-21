@@ -1,10 +1,8 @@
 ﻿using Application.Features;
 
-namespace BackendWebService.Application.Features.AdministrationModule.ConsumerFeature.Consumer;
+namespace Application.Features;
 
 public record ConsumerCustomerAllResponse(
-    AddOrganizationRequest Organization,
     int SupplierId,
     int CategoryId
-// consumer customer all response
 );

@@ -1,4 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Application.Features;
-public record UpdateSupplierRequest(int Id, [property: Required] string Name, string Country, string City, string StreetAddress, [property: Required] string TaxNo, [property: Required] string Email, string? ImageUrl, string? Fax, string? Phone, string? Department, string? Title, List<UpdateSupplierCategoryRequest>? Categories);
+public record UpdateSupplierRequest(
+ int OrganizationId,
+ decimal? Rating,
+ string? BankAccount,
+ StatusEnum Status,
+ List<AddSupplierCategoryRequest> SupplierCategories
+    );

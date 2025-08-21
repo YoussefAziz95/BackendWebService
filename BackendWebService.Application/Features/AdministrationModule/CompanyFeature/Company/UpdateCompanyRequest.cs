@@ -1,15 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using Domain.Enums;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 namespace Application.Features;
-public record UpdateCompanyRequest([property: Required] int Id,
-[property: Required] string CompanyName,
- string Country,
- string City,
- string StreetAddress,
- string RegistrationNumber,
- string TaxNo,
- string Email,
- string? ImageUrl,
- string? Fax,
- string? Phone,
- int? RoleId);
+public record UpdateCompanyRequest(
+ int OrganizationId,
+string? CompanyName,
+ string? RegistrationNumber,
+string? ContactEmail,
+string? ContactPhone,
+string? Chairman,
+ string? QualityCertificates,
+ string? ViceChairman,
+ string? ProductType,
+ StatusEnum Status,
+ List<AddCompanyCategoryRequest> Category,
+ List<AddManagerRequest> Manager
+    );

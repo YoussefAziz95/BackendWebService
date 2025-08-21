@@ -1,8 +1,10 @@
-﻿namespace Application.Features;
+﻿using Domain.Enums;
+
+namespace Application.Features;
 public record UpdateAdministratorRequest(
-int Id,
-string FullAddress,
-string Street,
-string Zone,
-string State,
-string? City);
+int UserId,
+string Attributes,
+OrganizationEnum organizationId,
+StatusEnum Status,
+RoleEnum MainRole
+    );

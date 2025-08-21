@@ -1,8 +1,11 @@
-﻿namespace Application.Features;
+﻿using Domain.Enums;
+
+namespace Application.Features;
 public record AddEmployeeRequest(
-string FirstName,
-string LastName,
-string Email,
-string Password,
-string PhoneNumber,
-bool MFAEnabled = false);
+int UserId,
+ DateTime RegistrationDate,
+StatusEnum AccountStatus,
+bool IsAvailable,
+RoleEnum Role,
+List<AddEmployeeAssignmentRequest> Assignments,
+List<AddEmployeeJobRequest> Jobs);

@@ -1,9 +1,7 @@
 ﻿namespace Application.Features;
-public class AddOfferItemRequest
-{
-    public int Quantity { get; set; }
-    public int MaterialId { get; set; }
-    public int RequiredAmount { get; set; }
-    public int DealId { get; set; }
-}
+public record AddOfferItemRequest(
+    int Quantity,
+    int? RequiredAmount,
+    int ServiceId,
+    int OfferId);
 
