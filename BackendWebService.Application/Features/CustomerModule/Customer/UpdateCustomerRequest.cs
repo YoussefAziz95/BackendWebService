@@ -5,7 +5,6 @@ public record UpdateCustomerRequest(
 int UserId,
 RoleEnum Role,
 StatusEnum Status,
-List<AddCustomerServiceRequest> CustomerServiceRequests,
-List<AddCustomerPaymentMethodRequest> CustomerPaymentMethodRequest,
-bool MFAEnabled = false
- );
+List<UpdateCustomerServiceRequest> CustomerServiceRequests,
+List<UpdateCustomerPaymentMethodRequest> CustomerPaymentMethodRequest,
+bool MFAEnabled = false);

@@ -1,2 +1,6 @@
 ﻿namespace Application.Features;
-public record ServiceResponse(int Id, string Name, string Code, string CategoryName);
+public record ServiceResponse(
+string Name,
+string Description,
+string Code,
+int CategoryId);

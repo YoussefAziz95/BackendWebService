@@ -1,2 +1,7 @@
 ﻿namespace Application.Features;
-public record GetPaginatedProduct(int Id, string Number, string Name, string Description, string Code, string PartNumber, string Manufacturer, int CategoryId);
+public record GetPaginatedProduct(
+ ProductAllResponse ProductAllResponse,
+int PageNumber = 1,
+int PageSize = 100,
+string FilterBy = "none",
+string? SortBy = "asc");

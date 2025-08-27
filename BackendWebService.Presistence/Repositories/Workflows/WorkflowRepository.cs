@@ -165,7 +165,7 @@ namespace Persistence.Repositories.Workflows
             return updatedWorkflow.Id;
         }
 
-        public List<WorkflowAllResponse> GetPaginated(GetPaginatedRequest request)
+        public List<WorkflowAllResponse> GetPaginated(GetPaginatedCommon request)
         {
             var workflowResponses = new List<WorkflowAllResponse>();
             var workflows = _context.Set<Workflow>()

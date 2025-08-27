@@ -1,4 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Application.Features;
-public record NotificationResponse(int NotificationId, [property: Required] string MessageTitle, [property: Required] string MessageBody, int UserId, string Status, DateTime ResponseTimestamp, string ResponseChannel, string Notifier, string NotificationType, string NotificationObjectType);
+public record NotificationResponse(
+string KeyMessageTitle,
+string KeyMessageBody,
+NotificationPriorityEnum Priority,
+DateTime ExpiryDate,
+int NotifierId,
+int NotifiedId,
+string NotifiedType,
+int? NotificationTypeId,
+string? NotificationType,
+int? NotificationObjectId,
+string? NotificationObjectType,
+List<NotificationDetailResponse> Details);

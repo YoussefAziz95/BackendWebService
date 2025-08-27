@@ -1,5 +1,7 @@
 ﻿namespace Application.Features;
 public record GetPaginatedSupplierCategory(
-   int SupplierId,
-    int CategoryId
-    );
+SupplierCategoryAllResponse SupplierCategoryAllResponse,
+int PageNumber = 1,
+int PageSize = 100,
+string FilterBy = "none",
+string? SortBy = "asc");

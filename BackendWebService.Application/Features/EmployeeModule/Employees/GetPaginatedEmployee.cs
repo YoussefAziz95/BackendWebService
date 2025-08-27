@@ -2,10 +2,8 @@
 
 namespace Application.Features;
 public record GetPaginatedEmployee(
-int UserId,
- DateTime RegistrationDate,
-StatusEnum AccountStatus,
-bool IsAvailable,
-RoleEnum Role,
-List<AddEmployeeAssignmentRequest> Assignments,
-List<AddEmployeeJobRequest> Jobs);
+EmployeeAllResponse EmployeeAllResponse,
+int PageNumber = 1,
+int PageSize = 100,
+string FilterBy = "none",
+string? SortBy = "asc");

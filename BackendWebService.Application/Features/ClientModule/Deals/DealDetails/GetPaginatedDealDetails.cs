@@ -4,11 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.Features;
 public record GetPaginatedDealDetails(
-int DealId,
-int OfferItemId,
-int Quantity,
-decimal DetailPrice,
-decimal ItemPrice,
-Deal Deal,
-OfferItem OfferItem
-    );
+DealDetailsAllResponse DealDetailsAllResponse,
+int PageNumber = 1,
+int PageSize = 100,
+string FilterBy = "none",
+string? SortBy = "asc");

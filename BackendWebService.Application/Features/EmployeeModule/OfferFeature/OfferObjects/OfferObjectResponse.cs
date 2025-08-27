@@ -1,9 +1,8 @@
 ﻿namespace Application.Features;
-public class OfferObjectResponse
-{
-    public int Id { get; set; }
-    public int OfferId { get; set; }
-    public int ObjectId { get; set; }
-    public string ObjectType { get; set; }
-}
+public record OfferObjectResponse(
+int OfferId,
+int ObjectId,
+string ObjectType,
+string? Notes);
+
 

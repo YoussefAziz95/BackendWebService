@@ -7,5 +7,4 @@ int ConfigurationId,
  string TenantId,
 string Audience,
 string Instance,
-ConfigurationEnum ConfigurationType
- );
+ConfigurationEnum ConfigurationTyp);

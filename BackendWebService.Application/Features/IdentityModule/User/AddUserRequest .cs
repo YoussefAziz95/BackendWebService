@@ -1,2 +1,24 @@
 ﻿namespace Application.Features;
-public record AddUserRequest(string FirstName, string LastName, string UserName, string Email, string PhoneNumber, string? Department, string? Title, string MainRole);
+public record UpdateUserRequest
+(string FirstName, 
+string LastName,
+string UserName,
+string Email,
+string PhoneNumber, 
+string? Department,
+string? Title,
+string MainRole,
+int? OrganizationId,
+string? CreatedBy,
+DateTime? CreatedDate,
+DateTime? UpdatedDate,
+string? UpdatedBy,
+bool? IsActive,
+bool? IsDeleted,
+bool? IsSystem,
+List<AddUserRoleRequest> UserRoles,
+List<AddUserGroupsRequest> UserGroups,
+List<AddUserLoginRequest> Logins,
+List<AddUserClaimRequest> Claims,
+List<AddUserTokenRequest> Tokens,
+List<AddUserRefreshTokenRequest> UserRefreshTokens);

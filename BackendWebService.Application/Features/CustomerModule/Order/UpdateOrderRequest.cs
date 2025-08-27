@@ -10,4 +10,4 @@ decimal Service,
 DateTime CreatedAt,
 int UserId,
 string OrderName,
-List<AddOrderItemRequest> OrderItem);
+List<UpdateOrderItemRequest> OrderItem);

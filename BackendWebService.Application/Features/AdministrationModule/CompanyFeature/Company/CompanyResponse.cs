@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 namespace Application.Features;
 public record CompanyResponse(
@@ -12,6 +14,22 @@ string? Chairman,
  string? ViceChairman,
  string? ProductType,
  StatusEnum Status,
- List<CompanyCategoryResponse> Category,
+ List<CompanyCategoryResponse> CompanyCategory,
  List<ManagerResponse> ManagerResponses
-);
+) : IConvertibleFromEntity<Company, CompanyResponse>
+{
+    public static CompanyResponse FromEntity(Company company) =>
+        new CompanyResponse(
+            company.OrganizationId,
+            company.CompanyName,
+            company.RegistrationNumber,
+            company.ContactEmail,
+            company.ContactPhone,
+            company.Chairman,
+            company.QualityCertificates,
+            company.ViceChairman,
+            company.ProductType,
+            company.Status,
+            company.Activity.Select(CompanyCategoryResponse.FromEntity).ToList(),
+            company.Manager.Select(ManagerResponse.FromEntity).ToList());
+}

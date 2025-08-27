@@ -1,7 +1,10 @@
-﻿namespace Application.Features;
+﻿using Domain;
+
+namespace Application.Features;
 public record CategoryResponse(
-int? Id,
 string Name,
 int? ParentId,
-string? FileLink,
-bool? IsActive);
+int? FileId,
+FileLog? File,
+Category? ParentCategory,
+List<CategoryResponse> SubCategories);

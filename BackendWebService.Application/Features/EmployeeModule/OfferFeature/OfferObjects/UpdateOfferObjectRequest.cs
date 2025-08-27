@@ -1,9 +1,7 @@
 ﻿namespace Application.Features;
-public class UpdateOfferObjectRequest
-{
-    public int Id { get; set; }
-    public int OfferId { get; set; }
-    public int ObjectId { get; set; }
-    public string ObjectType { get; set; }
-}
+public record UpdateOfferObjectRequest(
+int OfferId,
+int ObjectId,
+string ObjectType,
+string? Notes);
 

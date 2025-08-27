@@ -8,4 +8,4 @@ string Name,
  DateTime EndDate,
  DateTime? ExpirationTime,
  bool IsVerified,
- List<AddEmployeeAssignmentRequest> EmployeeAssignments);
+ List<UpdateEmployeeAssignmentRequest> EmployeeAssignments);

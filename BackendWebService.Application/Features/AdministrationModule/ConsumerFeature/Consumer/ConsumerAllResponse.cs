@@ -4,9 +4,7 @@ using Domain.Enums;
 namespace Application.Features;
 
 public record ConsumerAllResponse(
-   int OrganizationId,
-    string BankAccount,
-    decimal? Rating,
-    StatusEnum Status
-
-);
+int OrganizationId,
+string BankAccount,
+decimal? Rating,
+StatusEnum Status);

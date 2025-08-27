@@ -9,5 +9,4 @@ int Quantity,
 decimal DetailPrice,
 decimal ItemPrice,
 Deal Deal,
-OfferItem OfferItem
- );
+OfferItem OfferItem);

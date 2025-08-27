@@ -8,6 +8,6 @@ public interface IServiceImplementation
     Task<IResponse<ServiceResponse>> GetAsync(int id);
     Task<IResponse<string>> DeleteAsync(int id);
     Task<IResponse<int>> UpdateAsync(UpdateServiceRequest request);
-    Task<PaginatedResponse<GetPaginatedService>> GetPaginated(GetPaginatedRequest request);
+    Task<PaginatedResponse<GetPaginatedService>> GetPaginated(GetPaginatedCommon request);
 
 }

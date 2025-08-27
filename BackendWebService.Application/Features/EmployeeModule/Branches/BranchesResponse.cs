@@ -9,5 +9,5 @@ public record BranchesResponse(
     string? WebsiteUrl,
     List<AddBranchesRequest> Cafes,
     List<AddStorageUnitRequest> StorageUnits,
-    List<AddUserRequest> Customers
+    List<UpdateUserRequest> Customers
     );

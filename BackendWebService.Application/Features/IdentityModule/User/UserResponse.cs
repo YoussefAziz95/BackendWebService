@@ -1,2 +1,24 @@
 ﻿namespace Application.Features;
-public record UserResponse(int Id, string Username, string Email, string FirstName, string LastName, string? Department, string? Title, List<string> Roles, bool IsActive, DateTime CreatedDate, DateTime? UpdateDate, int? CompanyId, string MainRole);
+public record UserResponse(
+string FirstName,
+string LastName,
+string UserName,
+string Email,
+string PhoneNumber,
+string? Department,
+string? Title,
+string MainRole,
+int? OrganizationId,
+string? CreatedBy,
+DateTime? CreatedDate,
+DateTime? UpdatedDate,
+string? UpdatedBy,
+bool? IsActive,
+bool? IsDeleted,
+bool? IsSystem,
+List<UserRoleResponse> UserRoles,
+List<UserGroupResponse> UserGroups,
+List<UserLoginResponse> Logins,
+List<UserClaimResponse> Claims,
+List<UserTokenResponse> Tokens,
+List<UserRefreshTokenResponse> UserRefreshTokens);

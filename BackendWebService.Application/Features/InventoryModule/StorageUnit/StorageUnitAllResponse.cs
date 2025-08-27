@@ -5,5 +5,4 @@ public record StorageUnitAllResponse(
 int InventoryId,
 int? PortionTypeId,
 int FullQuantity,
-UnitEnum Unit
-    );
+UnitEnum Unit);

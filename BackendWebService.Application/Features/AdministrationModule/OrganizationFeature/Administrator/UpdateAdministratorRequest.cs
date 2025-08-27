@@ -6,5 +6,4 @@ int UserId,
 string Attributes,
 OrganizationEnum organizationId,
 StatusEnum Status,
-RoleEnum MainRole
-    );
+RoleEnum MainRole);

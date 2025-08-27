@@ -13,5 +13,4 @@ string Description,
 DateTime RequestedDate,
 DateTime? ScheduledDate,
 DateTime? CompletedDate,
-int? HandledByUserId
-    );
+int? HandledByUserId);

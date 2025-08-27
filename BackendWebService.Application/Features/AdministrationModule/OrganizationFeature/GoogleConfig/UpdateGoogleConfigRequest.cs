@@ -2,8 +2,7 @@
 
 namespace Application.Features;
 public record UpdateGoogleConfigRequest(
-    int ConfigurationId,
-    string ClientId,
-    string ClientSecret,
-    ConfigurationEnum ConfigurationType
- );
+int ConfigurationId,
+string ClientId,
+string ClientSecret,
+ConfigurationEnum ConfigurationType);

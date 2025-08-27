@@ -1,2 +1,7 @@
 ﻿namespace Application.Features;
-public record GetPaginatedService(int Id, string Name, string Code);
+public record GetPaginatedService(
+ServiceAllResponse ServiceAllResponse,
+int PageNumber = 1,
+int PageSize = 100,
+string FilterBy = "none",
+string? SortBy = "asc");

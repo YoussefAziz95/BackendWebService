@@ -1,2 +1,7 @@
 ﻿namespace Application.Features;
-public record GetPaginatedRoleClaim(int Id, string? ClaimType, string? ClaimValue, int RoleId);
+public record GetPaginatedRoleClaim(
+RoleClaimAllResponse RoleClaimAllResponse,
+int PageNumber = 1,
+int PageSize = 100,
+string FilterBy = "none",
+string? SortBy = "asc");

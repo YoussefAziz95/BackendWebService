@@ -5,5 +5,4 @@ public record UpdateRecieptRequest(
 int PaymentMethodId,
 DateTime IssuedAt,
 decimal TotalPaid,
-List<AddOrderRequest> OrderRequests
-    );
+List<UpdateOrderRequest> OrderRequests);

@@ -1,6 +1,7 @@
 ﻿namespace Application.Features;
-public class UserGroupResponse
-{
-    public List<UserResponse> Users { get; set; }
-}
+public record UserGroupResponse(
+int GroupId,
+int UserId);
+
+
 

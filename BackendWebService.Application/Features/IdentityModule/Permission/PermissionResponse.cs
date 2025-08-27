@@ -1,4 +1,6 @@
-﻿namespace Application.Features;
+﻿using Application.Features;
+
+namespace Application.Features;
 public class PermissionResponse
 {
     public int RoleId { get; set; }

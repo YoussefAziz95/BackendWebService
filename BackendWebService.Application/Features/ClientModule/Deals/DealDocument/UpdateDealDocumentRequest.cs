@@ -14,5 +14,4 @@ int FileFieldValidatorId,
 Deal Deal,
 Criteria Criteria,
 FileLog File,
-FileFieldValidator FileFieldValidator
-    );
+FileFieldValidator FileFieldValidator);

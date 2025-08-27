@@ -1,2 +1,2 @@
 ﻿namespace Application.Features;
-public record AddCaseActionRequest(int CaseId, int AssignedOn, int ActionOrder, string ActionType);
+public record AddWorkflowActionRequest(int CaseId, int AssignedOn, int ActionOrder, string ActionType);

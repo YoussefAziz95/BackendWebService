@@ -3,9 +3,9 @@
 namespace Application.Features;
 public record UpdateEmployeeRequest(
 int UserId,
- DateTime RegistrationDate,
+DateTime RegistrationDate,
 StatusEnum AccountStatus,
 bool IsAvailable,
 RoleEnum Role,
-List<AddEmployeeAssignmentRequest> Assignments,
-List<AddEmployeeJobRequest> Jobs);
+List<UpdateEmployeeAssignmentRequest> Assignments,
+List<UpdateEmployeeJobRequest> Jobs);

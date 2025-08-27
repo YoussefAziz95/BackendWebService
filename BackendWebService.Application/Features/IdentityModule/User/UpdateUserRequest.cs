@@ -1,2 +1,24 @@
 ﻿namespace Application.Features;
-public record UpdateUserRequest(string? FirstName, string? LastName, string? Email, string? MainRole, int? CompanyId, string? Department, string? Title, List<string> Roles);
+public record UpdateUserRequeststring(
+string FirstName,
+string LastName,
+string UserName,
+string Email,
+string PhoneNumber,
+string? Department,
+string? Title,
+string MainRole,
+int? OrganizationId,
+string? CreatedBy,
+DateTime? CreatedDate,
+DateTime? UpdatedDate,
+string? UpdatedBy,
+bool? IsActive,
+bool? IsDeleted,
+bool? IsSystem,
+List<UpdateUserRoleRequest> UserRoles,
+List<UpdateUserGroupsRequest> UserGroups,
+List<UpdateUserLoginRequest> Logins,
+List<UpdateUserClaimRequest> Claims,
+List<UpdateUserTokenRequest> Tokens,
+List<UpdateUserRefreshTokenRequest> UserRefreshTokens);

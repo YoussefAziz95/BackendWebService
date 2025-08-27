@@ -1,2 +1,14 @@
 ﻿namespace Application.Features;
-public record UpdateRoleRequest(int Id, string Role, List<UpdateRoleClaimRequest> Claims);
+public record UpdateRoleRequest(
+int? OrganizationId,
+bool? IsActive,
+bool? IsDeleted,
+bool? IsSystem,
+DateTime? CreatedDate,
+string? CreatedBy,
+DateTime? UpdatedDate,
+string? UpdatedBy,
+int? ParentId,
+string DisplayName,
+List<UpdateRoleClaimRequest> Claims,
+List<UpdateUserRoleRequest> Users);

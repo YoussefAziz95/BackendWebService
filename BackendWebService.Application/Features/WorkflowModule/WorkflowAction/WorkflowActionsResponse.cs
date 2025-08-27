@@ -1,2 +1,2 @@
 ﻿namespace Application.Features;
-public record CaseActionsResponse(int Id, int CaseId, string OrganizationName, string RequesterName, string AssignedOnType, string AssignedOnName, string CaseName, string? CaseType, string? ActionType, string? ActionName);
+public record WorkflowActionResponse(int Id, int CaseId, string OrganizationName, string RequesterName, string AssignedOnType, string AssignedOnName, string CaseName, string? CaseType, string? ActionType, string? ActionName);

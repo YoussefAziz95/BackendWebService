@@ -1,6 +1,7 @@
 ﻿namespace Application.Features;
 public record GetPaginatedEmployeeAccount(
-int EmployeeId,
-bool IsActive,
-DateTime CreatedAt,
-DateTime? UpdatedAt);
+EmployeeAccountAllResponse EmployeeAccountAllResponse,
+int PageNumber = 1,
+int PageSize = 100,
+string FilterBy = "none",
+string? SortBy = "asc");

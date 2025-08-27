@@ -2,10 +2,8 @@
 
 namespace Application.Features;
 public record GetPaginatedEmployeeCertification(
-int EmployeeId,
-string CertificationName,
-string IssuingAuthority,
-DateTime IssuedDate,
-DateTime? ExpirationDate,
-StatusEnum Status,
-string? VerificationNotes);
+EmployeeCertificationAllResponse EmployeeCertificationAllResponse,
+int PageNumber = 1,
+int PageSize = 100,
+string FilterBy = "none",
+string? SortBy = "asc");

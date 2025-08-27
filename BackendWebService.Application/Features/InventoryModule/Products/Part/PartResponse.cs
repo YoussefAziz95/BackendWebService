@@ -1,2 +1,12 @@
-﻿namespace BackendWebService.Application.Features.InventoryModule.Products.Part;
-public record PartResponse(int? Id, string Name, string Description, string Code, string Image, string PartNumber, string Manufacturer, int ProductId, bool? IsActive);
+﻿using Domain;
+
+namespace BackendWebService.Application.Features.InventoryModule.Products.Part;
+public record PartResponse(
+string Name,
+string Description,
+string Code,
+string Image,
+string PartNumber,
+string Manufacturer,
+int ProductId,
+Product Product);

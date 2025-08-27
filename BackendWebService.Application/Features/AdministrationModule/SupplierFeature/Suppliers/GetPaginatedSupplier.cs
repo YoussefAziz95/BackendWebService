@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.Features;
 public record GetPaginatedSupplier(
-  int OrganizationId,
- decimal? Rating,
- string? BankAccount,
- StatusEnum Status,
- List<AddSupplierCategoryRequest> SupplierCategories
-    );
+ SupplierAllResponse SupplierAllResponse,
+int PageNumber = 1,
+int PageSize = 100,
+string FilterBy = "none",
+string? SortBy = "asc");

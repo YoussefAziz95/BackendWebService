@@ -1,6 +1,10 @@
-﻿namespace Application.Features;
+﻿using Domain;
+
+namespace Application.Features;
 public record UpdateCategoryRequest(
-int Id,
 string Name,
 int? ParentId,
-int FileId);
+int? FileId,
+FileLog? File,
+Category? ParentCategory,
+List<UpdateCategoryRequest> SubCategories);

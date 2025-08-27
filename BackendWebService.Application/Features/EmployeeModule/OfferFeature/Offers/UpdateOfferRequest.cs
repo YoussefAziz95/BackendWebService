@@ -20,8 +20,8 @@ int CompanyId,
 int CustomerId,
 int SpecificationsFileId,
 string? RichText,
-List<AddCriteriaRequest> Criterias,
-List<AddOfferItemRequest> OfferItems,
-List<AddOfferObjectRequest> OfferObjects);
+List<UpdateCriteriaRequest> Criterias,
+List<UpdateOfferItemRequest> OfferItems,
+List<UpdateOfferObjectRequest> OfferObjects);
 
 

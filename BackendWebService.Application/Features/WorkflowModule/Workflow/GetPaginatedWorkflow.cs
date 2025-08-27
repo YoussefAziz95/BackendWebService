@@ -1,2 +1,7 @@
 ﻿namespace Application.Features;
-public record GetPaginatedWorkflow(int Id, string Name, string Description, string? WorkflowType, string? ObjectType);
+public record GetPaginatedWorkflow(
+ WorkflowAllResponse WorkflowAllResponse,
+int PageNumber = 1,
+int PageSize = 100,
+string FilterBy = "none",
+string? SortBy = "asc");

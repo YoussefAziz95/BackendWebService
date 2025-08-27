@@ -7,6 +7,5 @@ int OrganizationId,
  string BankAccount,
  decimal? Rating,
  StatusEnum Status,
- List<AddConsumerCustomerRequest> AddConsumerCustomer,
- List<AddConsumerAccountRequest> ConsumerAccounts
-    );
+ List<UpdateConsumerCustomerRequest> AddConsumerCustomer,
+ List<UpdateConsumerAccountRequest> ConsumerAccounts);

@@ -1,9 +1,7 @@
 ﻿namespace Application.Features;
 public record GetPaginatedPreDocument(
-    int Id,
-    string Name,
-    int FileTypeId,
-    bool? IsRequired,
-    bool? IsMultiple,
-    bool? IsLocal
-    );
+PreDocumentAllResponse PreDocumentAllResponse,
+int PageNumber = 1,
+int PageSize = 100,
+string FilterBy = "none",
+string? SortBy = "asc");

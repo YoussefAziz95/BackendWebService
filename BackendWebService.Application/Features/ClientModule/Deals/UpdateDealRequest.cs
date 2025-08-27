@@ -11,6 +11,5 @@ int Discount,
 int StatusId,
 decimal? TotalPrice,
 decimal? FinalPrice,
-List<AddDealDocumentRequest> DealDocuments,
-List<AddDealDetailsRequest> DealDetails
-    );
+List<UpdateDealDocumentRequest> DealDocuments,
+List<UpdateDealDetailsRequest> DealDetails);
