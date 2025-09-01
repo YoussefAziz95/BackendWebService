@@ -1,5 +1,5 @@
 ﻿namespace Application.Features;
-public record UpdateUserRequeststring(
+public record UpdateUserRequest(
 string FirstName,
 string LastName,
 string UserName,

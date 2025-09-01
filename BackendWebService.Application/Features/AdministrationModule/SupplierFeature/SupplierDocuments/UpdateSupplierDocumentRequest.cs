@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
 namespace Application.Features;
 public record UpdateSupplierDocumentRequest(
@@ -9,4 +10,17 @@ DateTime? ApprovedDate,
 bool IsApproved,
 string? Comment,
 PreDocument PreDocument,
-SupplierAccount SupplierAccount );
+SupplierAccount SupplierAccount):IConvertibleToEntity<SupplierDocument>
+{
+public SupplierDocument ToEntity() => new SupplierDocument
+{
+SupplierAccountId = SupplierAccountId,
+PreDocumentId = PreDocumentId,
+FileId = FileId,
+ApprovedDate = ApprovedDate,
+IsApproved = IsApproved,
+Comment = Comment,
+PreDocument = PreDocument,
+SupplierAccount = SupplierAccount
+};
+}

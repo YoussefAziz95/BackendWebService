@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
 namespace Application.Features;
 
@@ -14,5 +15,20 @@ int FileFieldValidatorId,
 Deal Deal,
 Criteria Criteria,
 FileLog File,
-FileFieldValidator FileFieldValidator
-    );
+FileFieldValidator FileFieldValidator):IConvertibleToEntity<DealDocument>
+{
+public DealDocument ToEntity() => new DealDocument
+{
+Score = Score,
+Comment = Comment,
+RichText = RichText,
+StatusId = StatusId,
+DealId = DealId,
+CriteriaId = CriteriaId,
+FileId= FileId,
+FileFieldValidatorId = FileFieldValidatorId,
+Deal = Deal,
+Criteria = Criteria,
+File= File,
+};
+}

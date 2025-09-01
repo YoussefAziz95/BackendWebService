@@ -1,8 +1,21 @@
-﻿namespace Application.Features;
+﻿using Application.Profiles;
+using Domain;
+
+namespace Application.Features;
 public record AddConsumerAccountRequest(
-    int CompanyId,
-    int ConsumerId,
-    bool IsApproved,
-    DateTime? ApprovedDate,
-    List<AddConsumerDocumentRequest> ConsumerDocument
-);
+int CompanyId,
+int ConsumerId,
+bool IsApproved,
+DateTime? ApprovedDate,
+List<AddConsumerDocumentRequest> ConsumerDocuments): IConvertibleToEntity<ConsumerAccount>
+{
+public ConsumerAccount ToEntity() => new ConsumerAccount
+{
+
+ConsumerId = ConsumerId,
+CompanyId = CompanyId,
+IsApproved = IsApproved,
+ApprovedDate = ApprovedDate,
+ConsumerDocuments = ConsumerDocuments.Select(x => x.ToEntity()).ToList()
+};
+}

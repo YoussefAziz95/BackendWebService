@@ -1,12 +1,19 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
 namespace Application.Features;
 public record BranchEmployeeResponse(
- int BranchId,
-    int UserId,
-   string? JobTitle,
-   string PhoneNumber,
-    string? WebsiteUrl,
-    bool IsActive,
-    DateTime AssignedAt
-    );
+int BranchId,
+int UserId,
+string? JobTitle,
+bool IsActive,
+DateTime AssignedAt): IConvertibleFromEntity<BranchEmployee, BranchEmployeeResponse>
+{
+public static BranchEmployeeResponse FromEntity(BranchEmployee BranchEmployee) =>
+new BranchEmployeeResponse(
+BranchEmployee.BranchId,
+BranchEmployee.UserId,
+BranchEmployee.JobTitle,
+BranchEmployee.IsActive,
+BranchEmployee.AssignedAt);
+}

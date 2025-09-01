@@ -46,9 +46,9 @@ public class SupplierDocumentController : AppControllerBase
 
     [HttpPost("GetAll/{id}")]
     [Authorize(PermissionConstants.SUPPLIERDOCUMENT)]
-    public async Task<IActionResult> GetAll([FromRoute] int id, [FromBody] GetPaginatedCommon request)
+    public async Task<IActionResult> GetAll([FromRoute] int id, [FromBody] GetPaginatedSupplierDocument request)
     {
-        var result = await _supplierdocumentService.GetPaginated(id);
+        var result = await _supplierdocumentService.GetPaginated(request);
         return Ok(result);
     }
 }

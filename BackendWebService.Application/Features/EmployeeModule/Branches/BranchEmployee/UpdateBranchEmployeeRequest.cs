@@ -1,11 +1,20 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
 namespace Application.Features;
 public record UpdateBranchEmployeeRequest(
 int BranchId,
 int UserId,
 string? JobTitle,
-string PhoneNumber,
-string? WebsiteUrl,
 bool IsActive,
-DateTime AssignedAt );
+DateTime AssignedAt ) : IConvertibleToEntity<BranchEmployee>
+{
+public BranchEmployee ToEntity() => new BranchEmployee
+{
+BranchId = BranchId,
+UserId = UserId,
+JobTitle = JobTitle,
+IsActive = IsActive,
+AssignedAt = AssignedAt
+};
+}

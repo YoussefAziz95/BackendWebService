@@ -1,4 +1,6 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Application.Features;
 
@@ -13,4 +15,19 @@ double Latitude,
 double Longitude,
 DateTimeOffset CreatedAt,
 DateTimeOffset? DeletedAt,
-bool IsDeleted);
+bool IsDeleted):IConvertibleToEntity<Property>
+{
+public Property ToEntity() => new Property
+{
+UserId = UserId,
+Name = Name,
+ContactName = ContactName,
+ContactNumber = ContactNumber,
+ZoneId = ZoneId,
+Zone = Zone,
+Latitude = Latitude,
+Longitude = Longitude,
+CreatedAt = CreatedAt,
+DeletedAt = DeletedAt,
+};
+}

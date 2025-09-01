@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
 namespace Application.Features;
 
@@ -9,5 +10,15 @@ int Quantity,
 decimal DetailPrice,
 decimal ItemPrice,
 Deal Deal,
-OfferItem OfferItem
-    );
+OfferItem OfferItem):IConvertibleFromEntity<DealDetails, DealDetailsResponse>        
+{
+public static DealDetailsResponse FromEntity(DealDetails DealDetails) =>
+new DealDetailsResponse(
+DealDetails.DealId,
+DealDetails.OfferItemId,
+DealDetails.Quantity,
+DealDetails.DetailPrice,
+DealDetails.Deal,
+DealDetails.ItemPrice,
+DealDetails.OfferItem);
+}

@@ -1,6 +1,6 @@
 ﻿namespace Application.Features;
-public record GetPaginatedRecieptRequest(
-RecieptAllResponse RecieptAllResponse,
+public record GetPaginatedReceiptRequest(
+ReceiptAllResponse ReceiptAllResponse,
 int PageNumber = 1,
 int PageSize = 100,
 string FilterBy = "none",

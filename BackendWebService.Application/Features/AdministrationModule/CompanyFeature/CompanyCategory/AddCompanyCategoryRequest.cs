@@ -4,12 +4,12 @@ using System.ComponentModel.Design;
 
 namespace Application.Features;
 public record AddCompanyCategoryRequest(
-    int CompanyId,
-    int CategoryId): IConvertibleToEntity<CompanyCategory>
+int CompanyId,
+int CategoryId): IConvertibleToEntity<CompanyCategory>
 {
-    public CompanyCategory ToEntity() => new CompanyCategory
-    {
-        CompanyId = CompanyId,
-        CategoryId = CategoryId.Select(x => x.ToEntity()).ToList()
-    };
+public CompanyCategory ToEntity() => new CompanyCategory
+{
+CompanyId = CompanyId,
+CategoryId = CategoryId
+};
 }

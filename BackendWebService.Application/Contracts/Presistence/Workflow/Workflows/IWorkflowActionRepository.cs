@@ -6,7 +6,7 @@ namespace Application.Contracts.Persistence
     {
         int AddNeactionActor(Case wcase);
         int TakeAction(TakeActionModel reviewObjectModel);
-        List<CaseActionsResponse> GetActionsByUserId(int userId);
+        List<CaseActionAllResponse> GetActionsByUserId(int userId);
         ActionResponse GetAsync(int id, int userId);
     }
 }

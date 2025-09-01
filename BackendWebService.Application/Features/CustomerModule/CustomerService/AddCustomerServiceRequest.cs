@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 namespace Application.Features;
 public record AddCustomerServiceRequest(
@@ -13,5 +15,20 @@ string Description,
 DateTime RequestedDate,
 DateTime? ScheduledDate,
 DateTime? CompletedDate,
-int? HandledByUserId
-    );
+int? HandledByUserId):IConvertibleToEntity<CustomerService>
+{
+public CustomerService ToEntity() => new CustomerService
+{
+CustomerId = CustomerId,
+ServiceId = ServiceId,
+PropertyId = PropertyId,
+Notes = Notes,
+VoiceNoteId = VoiceNoteId,
+FilesId = FilesId,
+Status= Status,
+Description = Description,
+RequestedDate = RequestedDate,
+ScheduledDate = ScheduledDate,
+CompletedDate = CompletedDate,
+HandledByUserId = HandledByUserId};
+}

@@ -1,8 +1,20 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
+using Org.BouncyCastle.Asn1.Cms;
 
 namespace Application.Features;
 public record UpdateContactRequest(
 int OrganizationId,
 string? Value,
 string? Type,
-ContactEnum? ContactType);
+ContactEnum? ContactType):IConvertibleToEntity<Contact>
+{
+public Contact ToEntity() => new Contact
+{
+OrganizationId = OrganizationId,
+Value = Value,
+Type = Type,
+ContactType = ContactType
+};
+}

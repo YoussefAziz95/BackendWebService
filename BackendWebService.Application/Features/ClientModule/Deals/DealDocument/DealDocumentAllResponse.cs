@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 using Domain.Enums;
 using Newtonsoft.Json;
 using System.Diagnostics.Metrics;
@@ -15,6 +16,20 @@ int FileId,
 int FileFieldValidatorId,
 Deal Deal,
 Criteria Criteria,
-FileLog File,
-FileFieldValidator FileFieldValidator
- );
+FileLog File):IConvertibleFromEntity<DealDocument, DealDocumentAllResponse>        
+{
+public static DealDocumentAllResponse FromEntity(DealDocument DealDocument) =>
+new DealDocumentAllResponse(
+DealDocument.Score,
+DealDocument.Comment,
+DealDocument.RichText,
+DealDocument.StatusId,
+DealDocument.DealId,
+DealDocument.CriteriaId,
+DealDocument.FileId,
+DealDocument.FileFieldValidatorId,
+DealDocument.Deal,
+DealDocument.Criteria,
+DealDocument.File
+);
+}

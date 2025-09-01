@@ -21,9 +21,4 @@ public class Branch : BaseEntity, IEntity, ITimeModification
     [Url]
     public string? WebsiteUrl { get; set; }
 
-    public virtual List<Branch> Cafes { get; set; }
-
-    public virtual List<StorageUnit> StorageUnits { get; set; }
-
-    public virtual List<User> Customers { get; set; }
 }

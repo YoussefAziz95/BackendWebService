@@ -54,7 +54,7 @@ public class PreDocumentsController : AppControllerBase
 
     [HttpPost("GetAll")]
     [Authorize(PermissionConstants.PREDOCUMENT)]
-    public async Task<IActionResult> GetAll([FromBody] GetPaginatedCommon request)
+    public async Task<IActionResult> GetAll([FromBody] GetPaginatedPreDocument request)
     {
         var result = await _preDocumentService.GetPaginated(request);
         return Ok(result);

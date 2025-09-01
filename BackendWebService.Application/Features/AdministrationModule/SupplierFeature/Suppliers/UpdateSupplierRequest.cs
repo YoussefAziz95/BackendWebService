@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Application.Features;
@@ -7,4 +9,14 @@ int OrganizationId,
 decimal? Rating,
 string? BankAccount,
 StatusEnum Status,
-List<UpdateSupplierCategoryRequest> SupplierCategories);
+List<UpdateSupplierCategoryRequest> SupplierCategories):IConvertibleToEntity<Supplier>
+{
+public Supplier ToEntity() => new Supplier
+{
+OrganizationId = OrganizationId,
+Rating = Rating,
+BankAccount = BankAccount,
+Status = Status,
+SupplierCategories = SupplierCategories.Select(x => x.ToEntity()).ToList()
+};
+}

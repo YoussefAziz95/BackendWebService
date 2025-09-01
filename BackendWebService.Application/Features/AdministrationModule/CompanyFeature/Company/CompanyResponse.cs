@@ -4,32 +4,31 @@ using Domain.Enums;
 
 namespace Application.Features;
 public record CompanyResponse(
-  int OrganizationId,
+int OrganizationId,
 string? CompanyName,
- string? RegistrationNumber,
+string? RegistrationNumber,
 string? ContactEmail,
 string? ContactPhone,
 string? Chairman,
- string? QualityCertificates,
- string? ViceChairman,
- string? ProductType,
- StatusEnum Status,
- List<CompanyCategoryResponse> CompanyCategory,
- List<ManagerResponse> ManagerResponses
-) : IConvertibleFromEntity<Company, CompanyResponse>
+string? QualityCertificates,
+string? ViceChairman,
+string? ProductType,
+StatusEnum Status,
+List<CompanyCategoryResponse> CompanyCategory,
+List<ManagerResponse> ManagerResponses) : IConvertibleFromEntity<Company, CompanyResponse>
 {
-    public static CompanyResponse FromEntity(Company company) =>
-        new CompanyResponse(
-            company.OrganizationId,
-            company.CompanyName,
-            company.RegistrationNumber,
-            company.ContactEmail,
-            company.ContactPhone,
-            company.Chairman,
-            company.QualityCertificates,
-            company.ViceChairman,
-            company.ProductType,
-            company.Status,
-            company.Activity.Select(CompanyCategoryResponse.FromEntity).ToList(),
-            company.Manager.Select(ManagerResponse.FromEntity).ToList());
+public static CompanyResponse FromEntity(Company company) =>
+new CompanyResponse(
+company.OrganizationId,
+company.CompanyName,
+company.RegistrationNumber,
+company.ContactEmail,
+company.ContactPhone,
+company.Chairman,
+company.QualityCertificates,
+company.ViceChairman,
+company.ProductType,
+company.Status,
+company.Activity.Select(CompanyCategoryResponse.FromEntity).ToList(),
+company.Manager.Select(ManagerResponse.FromEntity).ToList());
 }

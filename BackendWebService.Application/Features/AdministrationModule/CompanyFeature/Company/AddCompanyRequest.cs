@@ -17,19 +17,19 @@ StatusEnum Status,
 List<AddCompanyCategoryRequest> Category,
 List<AddManagerRequest> Manager) : IConvertibleToEntity<Company>
 {
-    public Company ToEntity() => new Company
-    {
-        OrganizationId = OrganizationId,
-        CompanyName = CompanyName,
-        RegistrationNumber = RegistrationNumber,
-        ContactEmail = ContactEmail,
-        ContactPhone = ContactPhone,
-        Chairman = Chairman,
-        QualityCertificates = QualityCertificates,
-        ViceChairman = ViceChairman,
-        ProductType = ProductType,
-        Status = Status,
-        Manager = Manager.Select(x => x.ToEntity()).ToList()
-    };
+public Company ToEntity() => new Company
+{
+OrganizationId = OrganizationId,
+CompanyName = CompanyName,
+RegistrationNumber = RegistrationNumber,
+ContactEmail = ContactEmail,
+ContactPhone = ContactPhone,
+Chairman = Chairman,
+QualityCertificates = QualityCertificates,
+ViceChairman = ViceChairman,
+ProductType = ProductType,
+Status = Status,
+Manager = Manager.Select(x => x.ToEntity()).ToList()
+};
 }
 

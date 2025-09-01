@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
 namespace Application.Features;
 public record BranchLocationResponse(
@@ -10,5 +11,17 @@ public record BranchLocationResponse(
    string? PostalCode,
    double Latitude,
    double Longitude,
-   string? Notes
-    );
+   string? Notes) : IConvertibleFromEntity<BranchLocation, BranchLocationResponse>
+{
+    public static BranchLocationResponse FromEntity(BranchLocation BranchLocation) =>
+    new BranchLocationResponse(
+    BranchLocation.BranchId,
+    BranchLocation.Street,
+    BranchLocation.City,
+    BranchLocation.State,
+    BranchLocation.Country,
+    BranchLocation.PostalCode,
+    BranchLocation.Latitude,
+    BranchLocation.Longitude,
+    BranchLocation.Notes);
+}

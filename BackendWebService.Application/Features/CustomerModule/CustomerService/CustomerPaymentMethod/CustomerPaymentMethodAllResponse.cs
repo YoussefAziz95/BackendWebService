@@ -1,8 +1,10 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 namespace Application.Features;
 public record CustomerPaymentMethodAllResponse(
-   int CustomerId,
+int CustomerId,
 int PaymentMethodId,
 int ServiceId,
 int? PropertyId,
@@ -14,4 +16,21 @@ string Description,
 DateTime RequestedDate,
 DateTime? ScheduledDate,
 DateTime? CompletedDate,
-int? UpdatedByUserId);
+int? UpdatedByUserId): IConvertibleFromEntity<CustomerPaymentMethod, CustomerPaymentMethodAllResponse>        
+{
+public static CustomerPaymentMethodAllResponse FromEntity(CustomerPaymentMethod CustomerPaymentMethod) =>
+new CustomerPaymentMethodAllResponse(
+CustomerPaymentMethod.CustomerId,
+CustomerPaymentMethod.PaymentMethodId,
+CustomerPaymentMethod.ServiceId,
+CustomerPaymentMethod.PropertyId,
+CustomerPaymentMethod.Notes,
+CustomerPaymentMethod.VoiceNoteId,
+CustomerPaymentMethod.FilesId,
+CustomerPaymentMethod.Status,
+CustomerPaymentMethod.Description,
+CustomerPaymentMethod.RequestedDate,
+CustomerPaymentMethod.ScheduledDate,
+CustomerPaymentMethod.CompletedDate,
+CustomerPaymentMethod.UpdatedByUserId);
+}
