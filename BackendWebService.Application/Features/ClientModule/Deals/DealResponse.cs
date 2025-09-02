@@ -6,16 +6,16 @@ namespace Application.Features;
 public record DealResponse(
 int OrganizationId,
 int OfferId,
-int UserId,
+int? UserId,
 int CompanyVendorId,
-int Vat,
-int Quantity,
-int Discount,
-int StatusId,
+int? Vat,
+int? Quantity,
+int? Discount,
+int? StatusId,
 decimal? TotalPrice,
 decimal? FinalPrice,
-List<AddDealDocumentRequest> DealDocuments,
-List<AddDealDetailsRequest> DealDetails):IConvertibleFromEntity<Deal, DealResponse>        
+List<DealDocumentResponse>? DealDocuments,
+List<DealDetailsResponse>? DealDetails):IConvertibleFromEntity<Deal, DealResponse>        
 {
 public static DealResponse FromEntity(Deal Deal) =>
 new DealResponse(
@@ -29,6 +29,6 @@ Deal.Discount,
 Deal.StatusId,
 Deal.TotalPrice,
 Deal.FinalPrice,
-Deal.DealDocument.Select(x => x.ToEntity()).ToList(),
-Deal.DealDetail.Select(x => x.ToEntity()).ToList());
+Deal.DealDocuments.Select(DealDocumentResponse.FromEntity).ToList(),
+Deal.DealDetails.Select(DealDetailsResponse.FromEntity).ToList());
 }

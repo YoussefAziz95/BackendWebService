@@ -11,7 +11,7 @@ int? OrganizationId,
 int? BranchId,
 string? Code,
 bool IsActive,
-List<AddDepartmentRequest>? Department):IConvertibleToEntity<Department>
+List<AddDepartmentRequest>? SubDepartments) :IConvertibleToEntity<Department>
 {
 public Department ToEntity() => new Department
 {
@@ -23,6 +23,6 @@ OrganizationId = OrganizationId,
 BranchId = BranchId,
 Code = Code,
 IsActive = IsActive,
-Department = Department.Select(x => x.ToEntity()).ToList()
+SubDepartments = SubDepartments.Select(x => x.ToEntity()).ToList()
 };
 }

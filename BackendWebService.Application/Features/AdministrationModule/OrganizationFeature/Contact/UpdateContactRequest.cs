@@ -14,7 +14,6 @@ public Contact ToEntity() => new Contact
 {
 OrganizationId = OrganizationId,
 Value = Value,
-Type = Type,
-ContactType = ContactType
+Type = Type
 };
 }

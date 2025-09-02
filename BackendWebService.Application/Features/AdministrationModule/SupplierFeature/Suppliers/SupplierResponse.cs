@@ -9,13 +9,13 @@ int OrganizationId,
 decimal? Rating,
 string? BankAccount,
 StatusEnum Status,
-List<AddSupplierCategoryRequest> SupplierCategories): IConvertibleFromEntity<Supplier, SupplierAllResponse>        
+List<SupplierCategoryResponse> SupplierCategories): IConvertibleFromEntity<Supplier, SupplierResponse>        
 {
-public static SupplierAllResponse FromEntity(Supplier Supplier) =>
-new SupplierAllResponse(
+public static SupplierResponse FromEntity(Supplier Supplier) =>
+new SupplierResponse(
 Supplier.OrganizationId,
 Supplier.Rating,
 Supplier.BankAccount,
 Supplier.Status,
-Supplier.SupplierCategories.Select(x => x.ToEntity()).ToList());
+Supplier.SupplierCategories.Select(SupplierCategoryResponse.FromEntity).ToList());
 }

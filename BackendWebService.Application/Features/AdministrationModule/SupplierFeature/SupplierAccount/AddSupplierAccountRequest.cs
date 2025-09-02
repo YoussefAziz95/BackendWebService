@@ -8,7 +8,7 @@ int CompanyId,
 int SupplierId,
 bool IsApproved,
 DateTime? ApprovedDate,
-List<AddSupplierDocumentRequest> SupplierDocument):IConvertibleToEntity<SupplierAccount>
+List<AddSupplierDocumentRequest> SupplierDocuments):IConvertibleToEntity<SupplierAccount>
 {
 public SupplierAccount ToEntity() => new SupplierAccount
 {
@@ -16,6 +16,6 @@ CompanyId = CompanyId,
 SupplierId = SupplierId,
 IsApproved = IsApproved,
 ApprovedDate = ApprovedDate,
-SupplierDocument = SupplierDocument.Select(x => x.ToEntity()).ToList()
+SupplierDocuments = SupplierDocuments.Select(x => x.ToEntity()).ToList()
 };
 }

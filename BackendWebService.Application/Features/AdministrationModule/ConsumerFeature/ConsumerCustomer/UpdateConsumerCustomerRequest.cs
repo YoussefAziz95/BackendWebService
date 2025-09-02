@@ -4,12 +4,12 @@ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 namespace Application.Features;
 public record UpdateConsumerCustomerRequest(
-int SupplierId,
+int ConsumerId,
 int CategoryId): IConvertibleToEntity<ConsumerCustomer>
 {
 public ConsumerCustomer ToEntity() => new ConsumerCustomer
 {
-SupplierId = SupplierId,
+ConsumerId = ConsumerId,
 CategoryId = CategoryId,   
 };
 }

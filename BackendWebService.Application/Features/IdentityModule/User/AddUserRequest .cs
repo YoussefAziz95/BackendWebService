@@ -1,4 +1,8 @@
-﻿namespace Application.Features;
+﻿using Application.Profiles;
+using Domain;
+using Org.BouncyCastle.Asn1.Cms;
+
+namespace Application.Features;
 public record AddUserRequest
 (string FirstName, 
 string LastName,
@@ -21,4 +25,7 @@ List<AddUserGroupsRequest> UserGroups,
 List<AddUserLoginRequest> Logins,
 List<AddUserClaimRequest> Claims,
 List<AddUserTokenRequest> Tokens,
-List<AddUserRefreshTokenRequest> UserRefreshTokens);
+List<AddUserRefreshTokenRequest> UserRefreshTokens) : IConvertibleToEntity<User>
+{
+    public User ToEntity() => throw new NotImplementedException();
+}

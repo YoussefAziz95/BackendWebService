@@ -4,11 +4,11 @@ using Domain;
 
 namespace Application.Features;
 public record ConsumerCustomerResponse(
-int SupplierId,
+int ConsumerId,
 int CategoryId): IConvertibleFromEntity<ConsumerCustomer, ConsumerCustomerResponse>
 {
 public static ConsumerCustomerResponse FromEntity(ConsumerCustomer ConsumerCustomer) =>
 new ConsumerCustomerResponse(
-ConsumerCustomer.SupplierId,
+ConsumerCustomer.ConsumerId,
 ConsumerCustomer.CategoryId);
 }

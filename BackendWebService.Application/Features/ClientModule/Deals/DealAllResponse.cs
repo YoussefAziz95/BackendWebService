@@ -8,12 +8,12 @@ namespace Application.Features;
 public record DealAllResponse(
 int OrganizationId,
 int OfferId,
-int UserId,
+int? UserId,
 int CompanyVendorId,
-int Vat,
-int Quantity,
-int Discount,
-int StatusId,
+int? Vat,
+int? Quantity,
+int? Discount,
+int? StatusId,
 decimal? TotalPrice,
 decimal? FinalPrice):IConvertibleFromEntity<Deal, DealAllResponse>        
 {

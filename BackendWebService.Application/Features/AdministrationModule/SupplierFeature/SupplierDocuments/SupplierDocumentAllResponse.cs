@@ -6,7 +6,7 @@ namespace Application.Features;
 public record SupplierDocumentAllResponse(
 int SupplierAccountId,
 int PreDocumentId,
-int FileId,
+int? FileId,
 DateTime? ApprovedDate,
 bool IsApproved,
 string? Comment,

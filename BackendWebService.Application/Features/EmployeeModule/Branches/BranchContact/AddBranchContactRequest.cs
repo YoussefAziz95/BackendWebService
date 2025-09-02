@@ -13,6 +13,5 @@ public BranchContact ToEntity() => new BranchContact
 {
 BranchId = BranchId,
 Type = Type,
-Value = Value,
-ContactType = ContactType};
+Value = Value};
 }

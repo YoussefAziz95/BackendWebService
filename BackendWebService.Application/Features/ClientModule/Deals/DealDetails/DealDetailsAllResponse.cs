@@ -9,8 +9,8 @@ public record DealDetailsAllResponse(
 int DealId,
 int OfferItemId,
 int Quantity,
-decimal DetailPrice,
-decimal ItemPrice,
+decimal? DetailPrice,
+decimal? ItemPrice,
 Deal Deal,
 OfferItem OfferItem):IConvertibleFromEntity<DealDetails, DealDetailsAllResponse>        
 {
@@ -20,7 +20,7 @@ DealDetails.DealId,
 DealDetails.OfferItemId,
 DealDetails.Quantity,
 DealDetails.DetailPrice,
-DealDetails.Deal,
 DealDetails.ItemPrice,
+DealDetails.Deal,
 DealDetails.OfferItem);
 }

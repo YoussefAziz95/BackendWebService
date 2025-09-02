@@ -29,8 +29,8 @@ public Deal ToEntity() => new Deal
     StatusId = StatusId,
     TotalPrice = TotalPrice,
     FinalPrice = FinalPrice,
-    DealDocument = DealDocument.Select(x => x.ToEntity()).ToList(),
-    DealDetail = DealDetail.Select(x => x.ToEntity()).ToList()
+    DealDocuments = DealDocuments.Select(x => x.ToEntity()).ToList(),
+    DealDetails = DealDetails.Select(x => x.ToEntity()).ToList()
 };
 } 
 

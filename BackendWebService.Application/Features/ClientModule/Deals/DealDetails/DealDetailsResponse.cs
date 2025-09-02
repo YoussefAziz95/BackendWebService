@@ -18,7 +18,7 @@ DealDetails.DealId,
 DealDetails.OfferItemId,
 DealDetails.Quantity,
 DealDetails.DetailPrice,
-DealDetails.Deal,
 DealDetails.ItemPrice,
+DealDetails.Deal,
 DealDetails.OfferItem);
 }

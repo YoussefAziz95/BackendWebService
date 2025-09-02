@@ -6,7 +6,7 @@ namespace Application.Features;
 public record AdministratorAllResponse(
 int UserId,
 string Attributes,
-OrganizationEnum organizationId,
+OrganizationEnum OrganizationType,
 StatusEnum Status,
 RoleEnum MainRole): IConvertibleFromEntity<Administrator, AdministratorAllResponse>
 {
@@ -14,7 +14,7 @@ public static AdministratorAllResponse FromEntity(Administrator Administrator) =
 new AdministratorAllResponse(
 Administrator.UserId,
 Administrator.Attributes,
-Administrator.organizationId,
+Administrator.OrganizationType,
 Administrator.Status,
 Administrator.MainRole
 );

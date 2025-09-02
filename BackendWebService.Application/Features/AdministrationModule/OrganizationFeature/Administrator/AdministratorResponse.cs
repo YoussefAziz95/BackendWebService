@@ -6,7 +6,7 @@ namespace Application.Features;
 public record AdministratorResponse(
 int UserId,
 string Attributes,
-OrganizationEnum organizationId,
+OrganizationEnum OrganizationType,
 StatusEnum Status,
 RoleEnum MainRole) :IConvertibleFromEntity<Administrator, AdministratorResponse>
 {
@@ -14,7 +14,7 @@ public static AdministratorResponse FromEntity(Administrator Administrator) =>
 new AdministratorResponse(
 Administrator.UserId,
 Administrator.Attributes,
-Administrator.organizationId,
+Administrator.OrganizationType,
 Administrator.Status,
 Administrator.MainRole
 );

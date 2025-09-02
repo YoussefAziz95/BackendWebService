@@ -1,4 +1,7 @@
-﻿namespace Application.Features;
+﻿using Application.Profiles;
+using Domain;
+
+namespace Application.Features;
 public record UpdateUserRequest(
 string FirstName,
 string LastName,
@@ -21,4 +24,7 @@ List<UpdateUserGroupsRequest> UserGroups,
 List<UpdateUserLoginRequest> Logins,
 List<UpdateUserClaimRequest> Claims,
 List<UpdateUserTokenRequest> Tokens,
-List<UpdateUserRefreshTokenRequest> UserRefreshTokens);
+List<UpdateUserRefreshTokenRequest> UserRefreshTokens) : IConvertibleToEntity<User>
+{
+    public User ToEntity() => throw new NotImplementedException();
+};

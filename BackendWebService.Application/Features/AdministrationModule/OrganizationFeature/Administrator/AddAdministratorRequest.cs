@@ -16,7 +16,7 @@ public Administrator ToEntity() => new Administrator
 {
 
 UserId = UserId,
-User = User,
+User = User.ToEntity(),
 Attributes = Attributes,
 OrganizationType = OrganizationType,
 Status = Status

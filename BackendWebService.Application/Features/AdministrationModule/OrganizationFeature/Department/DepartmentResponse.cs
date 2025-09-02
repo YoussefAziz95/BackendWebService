@@ -6,23 +6,22 @@ public record DepartmentResponse(
 string Name,
 string? Description,
 int? ParentDepartmentId,
-Department? ParentDepartment,
+DepartmentResponse? ParentDepartment,
 int? OrganizationId,
 int? BranchId,
 string? Code,
 bool IsActive,
-List<DepartmentResponse>? Department) : IConvertibleFromEntity<Department, DepartmentResponse>
+List<DepartmentResponse>? SubDepartments) : IConvertibleFromEntity<Department, DepartmentResponse>
 {
-public static DepartmentResponse FromEntity(Department Department) =>
-new DepartmentResponse(
+public static DepartmentResponse FromEntity(Department Department) => new DepartmentResponse(
 Department.Name,
 Department.Description,
 Department.ParentDepartmentId,
-Department.ParentDepartment,
+FromEntity(Department.ParentDepartment),
 Department.OrganizationId,
 Department.BranchId,
 Department.Code,
 Department.IsActive,
-Department.Department.Select(x => x.ToEntity()).ToList()
+Department.SubDepartments.Select(FromEntity).ToList()
 );
 }
