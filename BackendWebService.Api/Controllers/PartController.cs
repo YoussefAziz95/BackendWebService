@@ -47,22 +47,23 @@ public class PartController : AppControllerBase
         var part = await _unitOfWork.GenericRepository<Part>().GetByIdAsync(id);
         if (part == null)
             return NotFound("Part not found");
+        throw new NotImplementedException();
 
-        var response = new Response<PartResponse>()
-        {
-            StatusCode = ApiResultStatusCode.Success,
-            Message = "Part found",
-            Succeeded = true,
-            Data = new PartResponse(part.Id, part.Name, part.Description, part.Code, part.Image, part.PartNumber, part.Manufacturer, part.ProductId, part.IsActive)
-        };
+        //var response = new Response<PartResponse>()
+        //{
+        //    StatusCode = ApiResultStatusCode.Success,
+        //    Message = "Part found",
+        //    Succeeded = true,
+        //    Data = new PartResponse(part.Id, part.Name, part.Description, part.Code, part.Image, part.PartNumber, part.Manufacturer, part.ProductId, part.IsActive)
+        //};
 
-        return NewResult(response);
+        //return NewResult(response);
     }
 
     [HttpPut]
     public async Task<IActionResult> UpdatePart([FromBody] UpdatePartRequest request)
     {
-        var part = await _unitOfWork.GenericRepository<Part>().GetByIdAsync(request.Id);
+        var part = await _unitOfWork.GenericRepository<Part>().GetByIdAsync(request.id);
         if (part == null)
             return NotFound("Part not found");
 
@@ -77,15 +78,16 @@ public class PartController : AppControllerBase
         _unitOfWork.GenericRepository<Part>().Update(part);
         var result = _unitOfWork.Save();
 
-        var response = new Response<PartResponse>()
-        {
-            StatusCode = ApiResultStatusCode.Success,
-            Message = "Part updated successfully",
-            Succeeded = true,
-            Data = new PartResponse(part.Id, part.Name, part.Description, part.Code, part.Image, part.PartNumber, part.Manufacturer, part.ProductId, part.IsActive)
-        };
+        throw new NotImplementedException();
+        //var response = new Response<PartResponse>()
+        //{
+        //    StatusCode = ApiResultStatusCode.Success,
+        //    Message = "Part updated successfully",
+        //    Succeeded = true,
+        //    Data = new PartResponse(part.Id, part.Name, part.Description, part.Code, part.Image, part.PartNumber, part.Manufacturer, part.ProductId, part.IsActive)
+        //};
 
-        return NewResult(response);
+        //return NewResult(response);
     }
 
     [HttpGet("GetAll")]
@@ -95,15 +97,16 @@ public class PartController : AppControllerBase
         if (parts == null || !parts.Any())
             return NotFound("Parts not found");
 
-        var result = new Response<List<PartResponse>>()
-        {
-            StatusCode = ApiResultStatusCode.Success,
-            Message = "Parts found",
-            Succeeded = true,
-            Data = parts.Select(part =>
-                new PartResponse(part.Id, part.Name, part.Description, part.Code, part.Image, part.PartNumber, part.Manufacturer, part.ProductId, part.IsActive)).ToList()
-        };
+        throw new NotImplementedException();
+        //var result = new Response<List<PartResponse>>()
+        //{
+        //    StatusCode = ApiResultStatusCode.Success,
+        //    Message = "Parts found",
+        //    Succeeded = true,
+        //    Data = parts.Select(part =>
+        //        new PartResponse(part.Id, part.Name, part.Description, part.Code, part.Image, part.PartNumber, part.Manufacturer, part.ProductId, part.IsActive)).ToList()
+        //};
 
-        return NewResult(result);
+        //return NewResult(result);
     }
 }

@@ -27,67 +27,73 @@ public class CategoriesController : AppControllerBase
     [HttpPost]
     public async Task<IActionResult> AddCategory([FromBody] AddCategoryRequest request)
     {
-        var category = new Category
-        {
-            Name = request.Name,
-            ParentId = request.ParentId
-        };
-        if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
-            return NotFound("Product not found");
-        category.File = _unitOfWork.GenericRepository<FileLog>().GetById(request.FileId);
-        category.FileId = request.FileId;
-        _unitOfWork.GenericRepository<Category>().Add(category);
-        var result = _unitOfWork.Save();
-        return Ok(category.Id);
+
+        throw new NotImplementedException();
+        //var category = new Category
+        //{
+        //    Name = request.Name,
+        //    ParentId = request.ParentId
+        //};
+        //if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
+        //    return NotFound("Product not found");
+        //category.File = _unitOfWork.GenericRepository<FileLog>().GetById(request.FileId);
+        //category.FileId = request.FileId;
+        //_unitOfWork.GenericRepository<Category>().Add(category);
+        //var result = _unitOfWork.Save();
+        //return Ok(category.Id);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCategory([FromRoute] int id)
     {
-        var category = _unitOfWork.GenericRepository<Category>().Get(c => c.Id == id, include: f => f.Include(l => l.File));
-        if (category is null)
-            return NotFound("Category not found");
-        if (category.File is null)
-            return NotFound("File not found");
-        var result = new Response<CategoryResponse>()
-        {
-            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, await FileToLink(category.FileId ?? 1), category.IsActive),
-            StatusCode = ApiResultStatusCode.Success,
-            Succeeded = true,
-            Message = "Category found"
-        };
-        return NewResult(result);
+
+        throw new NotImplementedException();
+        //var category = _unitOfWork.GenericRepository<Category>().Get(c => c.Id == id, include: f => f.Include(l => l.File));
+        //if (category is null)
+        //    return NotFound("Category not found");
+        //if (category.File is null)
+        //    return NotFound("File not found");
+        //var result = new Response<CategoryResponse>()
+        //{
+        //    Data = new CategoryResponse(category.Id, category.Name, category.ParentId, await FileToLink(category.FileId ?? 1), category.IsActive),
+        //    StatusCode = ApiResultStatusCode.Success,
+        //    Succeeded = true,
+        //    Message = "Category found"
+        //};
+        //return NewResult(result);
     }
 
     [HttpPut]
     public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryRequest request)
     {
-        var category = await _unitOfWork.GenericRepository<Category>().GetByIdAsync(request.Id);
-        if (category is null)
-            return NotFound("Category not found");
-        category.Name = request.Name;
-        category.ParentId = request.ParentId;
-        if (category.FileId is not null && category.FileId != request.FileId)
-        {
-            if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
-                _fileSystemService.DeleteFile(category.File.FileName);
-        }
-        if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
-            return NotFound("File not found");
-        category.File = _unitOfWork.GenericRepository<FileLog>().GetById(request.FileId);
-        category.FileId = request.FileId;
 
-        _unitOfWork.GenericRepository<Category>().Update(category);
-        var result = _unitOfWork.Save();
+        throw new NotImplementedException();
+        //var category = await _unitOfWork.GenericRepository<Category>().GetByIdAsync(request.Id);
+        //if (category is null)
+        //    return NotFound("Category not found");
+        //category.Name = request.Name;
+        //category.ParentId = request.ParentId;
+        //if (category.FileId is not null && category.FileId != request.FileId)
+        //{
+        //    if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
+        //        _fileSystemService.DeleteFile(category.File.FileName);
+        //}
+        //if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
+        //    return NotFound("File not found");
+        //category.File = _unitOfWork.GenericRepository<FileLog>().GetById(request.FileId);
+        //category.FileId = request.FileId;
 
-        var response = new Response<CategoryResponse>()
-        {
-            StatusCode = ApiResultStatusCode.Success,
-            Message = "Category updated successfully",
-            Succeeded = true,
-            Data = new CategoryResponse(category.Id, category.Name, category.ParentId, await FileToLink(category.FileId ?? 1), category.IsActive)
-        };
-        return NewResult(response);
+        //_unitOfWork.GenericRepository<Category>().Update(category);
+        //var result = _unitOfWork.Save();
+
+        //var response = new Response<CategoryResponse>()
+        //{
+        //    StatusCode = ApiResultStatusCode.Success,
+        //    Message = "Category updated successfully",
+        //    Succeeded = true,
+        //    Data = new CategoryResponse(category.Id, category.Name, category.ParentId, await FileToLink(category.FileId ?? 1), category.IsActive)
+        //};
+        //return NewResult(response);
     }
 
     [HttpGet("GetAll")]

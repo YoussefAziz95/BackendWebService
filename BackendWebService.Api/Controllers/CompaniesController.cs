@@ -32,105 +32,107 @@ public class CompaniesController : AppControllerBase
     [HttpPost]
     public async Task<IActionResult> AddCompany([FromBody] AddCompanyRequest request)
     {
-        try
-        {
-            await _unitOfWork.BeginTransactionAsync();
+        //try
+        //{
+        //    await _unitOfWork.BeginTransactionAsync();
 
-            var user = _unitOfWork.GetUserInfo();
-            var createdBy = user?.Username ?? "System";
+        //    var user = _unitOfWork.GetUserInfo();
+        //    var createdBy = user?.Username ?? "System";
 
-            var organization = new Organization
-            {
-                Name = request.CompanyName,
-                Email = request.Email,
-                Phone = request.Phone,
-                City = request.City,
-                Country = request.Country,
-                StreetAddress = request.StreetAddress,
-                TaxNo = request.TaxNo,
-                Type = OrganizationEnum.Company,
-                FileId = request.FileId ?? 1,
-                CreatedDate = DateTime.UtcNow,
-                CreatedBy = createdBy
-            };
-            _unitOfWork.GenericRepository<Organization>().Add(organization);
+        //    var organization = new Organization
+        //    {
+        //        Name = request.CompanyName,
+        //        Email = request.Email,
+        //        Phone = request.Phone,
+        //        City = request.City,
+        //        Country = request.Country,
+        //        StreetAddress = request.StreetAddress,
+        //        TaxNo = request.TaxNo,
+        //        Type = OrganizationEnum.Company,
+        //        FileId = request.FileId ?? 1,
+        //        CreatedDate = DateTime.UtcNow,
+        //        CreatedBy = createdBy
+        //    };
+        //    _unitOfWork.GenericRepository<Organization>().Add(organization);
 
-            var company = new Company
-            {
-                CompanyName = request.CompanyName,
-                ContactEmail = request.Email,
-                ContactPhone = request.Phone,
-                RegistrationNumber = request.RegistrationNumber,
-                Status = StatusEnum.Active,
-                IsActive = true,
-                OrganizationId = organization.Id,
-                CreatedDate = DateTime.UtcNow,
-                CreatedBy = createdBy
-            };
-            _unitOfWork.GenericRepository<Company>().Add(company);
+        //    var company = new Company
+        //    {
+        //        CompanyName = request.CompanyName,
+        //        ContactEmail = request.Email,
+        //        ContactPhone = request.Phone,
+        //        RegistrationNumber = request.RegistrationNumber,
+        //        Status = StatusEnum.Active,
+        //        IsActive = true,
+        //        OrganizationId = organization.Id,
+        //        CreatedDate = DateTime.UtcNow,
+        //        CreatedBy = createdBy
+        //    };
+        //    _unitOfWork.GenericRepository<Company>().Add(company);
 
-            if (request.Addresses?.Any() == true)
-            {
-                foreach (var addr in request.Addresses)
-                {
-                    _unitOfWork.GenericRepository<Address>().Add(new Address
-                    {
-                        FullAddress = addr.FullAddress,
-                        Street = addr.Street,
-                        Zone = addr.Zone,
-                        State = addr.State,
-                        City = addr.City,
-                        IsAdministration = addr.IsAdministration,
-                        OrganizationId = organization.Id,
-                        CreatedDate = DateTime.UtcNow,
-                        CreatedBy = createdBy
-                    });
-                }
-            }
+        //    if (request.Addresses?.Any() == true)
+        //    {
+        //        foreach (var addr in request.Addresses)
+        //        {
+        //            _unitOfWork.GenericRepository<Address>().Add(new Address
+        //            {
+        //                FullAddress = addr.FullAddress,
+        //                Street = addr.Street,
+        //                Zone = addr.Zone,
+        //                State = addr.State,
+        //                City = addr.City,
+        //                IsAdministration = addr.IsAdministration,
+        //                OrganizationId = organization.Id,
+        //                CreatedDate = DateTime.UtcNow,
+        //                CreatedBy = createdBy
+        //            });
+        //        }
+        //    }
 
-            if (request.Contacts?.Any() == true)
-            {
-                foreach (var contact in request.Contacts)
-                {
-                    _unitOfWork.GenericRepository<Contact>().Add(new Contact
-                    {
-                        OrganizationId = organization.Id,
-                        Type = contact.Type,
-                        Value = contact.Value,
-                        CreatedDate = DateTime.UtcNow,
-                        CreatedBy = createdBy
-                    });
-                }
-            }
+        //    if (request.Contacts?.Any() == true)
+        //    {
+        //        foreach (var contact in request.Contacts)
+        //        {
+        //            _unitOfWork.GenericRepository<Contact>().Add(new Contact
+        //            {
+        //                OrganizationId = organization.Id,
+        //                Type = contact.Type,
+        //                Value = contact.Value,
+        //                CreatedDate = DateTime.UtcNow,
+        //                CreatedBy = createdBy
+        //            });
+        //        }
+        //    }
 
-            await _unitOfWork.SaveAsync();
-            await _unitOfWork.CommitAsync();
+        //    await _unitOfWork.SaveAsync();
+        //    await _unitOfWork.CommitAsync();
 
-            var result = new Response<int>
-            {
-                Data = company.Id,
-                Succeeded = true,
-                StatusCode = ApiResultStatusCode.Success,
-                Message = "Company added successfully"
-            };
+        //    var result = new Response<int>
+        //    {
+        //        Data = company.Id,
+        //        Succeeded = true,
+        //        StatusCode = ApiResultStatusCode.Success,
+        //        Message = "Company added successfully"
+        //    };
 
-            return NewResult(result);
-        }
-        catch (Exception ex)
-        {
-            await _unitOfWork.RollbackAsync();
+        //    return NewResult(result);
+        //}
+        //catch (Exception ex)
+        //{
+        //    await _unitOfWork.RollbackAsync();
 
-            var result = new Response<string>
-            {
-                Data = null,
-                Succeeded = false,
-                StatusCode = ApiResultStatusCode.ServerError,
-                Message = "Failed to add company. " + ex.Message
-            };
+        //    var result = new Response<string>
+        //    {
+        //        Data = null,
+        //        Succeeded = false,
+        //        StatusCode = ApiResultStatusCode.ServerError,
+        //        Message = "Failed to add company. " + ex.Message
+        //    };
 
-            return NewResult(result);
-        }
+        //    return NewResult(result);
+
+        throw new NotImplementedException();
     }
+    
 
 
 
@@ -152,83 +154,87 @@ public class CompaniesController : AppControllerBase
 
         var org = company.Organization;
 
-        var response = new CompanyResponse(
-            Id: company.Id,
-            Name: company.CompanyName ?? string.Empty,
-            Country: org?.Country ?? string.Empty,
-            City: org?.City ?? string.Empty,
-            StreetAddress: org?.StreetAddress ?? string.Empty,
-            Email: org?.Email ?? string.Empty,
-            TaxNo: org?.TaxNo ?? string.Empty,
-            Phone: org?.Phone,
-            FileId: org?.FileId,
-            ImageUrl: org?.File?.FullPath, // optional if you include File
-            Fax: org?.FaxNo,
-            RoleType: org?.Type.ToString() ?? string.Empty,
-            IsActive: company.IsActive,
-            CreatedDate: company.CreatedDate,
-            UpdateDate: company.UpdatedDate,
-            Addresses: company.Organization.Addresses?.Select(a => new AddressResponse(
-                Id: a.Id,
-                FullAddress: a.FullAddress ?? "",
-                Street: a.Street ?? "",
-                Zone: a.Zone ?? "",
-                State: a.State ?? "",
-                City: a.City ?? "",
-                IsAdministration: a.IsAdministration
-            )).ToList() ?? new(),
-            Contacts: company.Organization.Contacts?.Select(c => new ContactResponse(
-                Id: c.Id,
-                Type: c.Type ?? "",
-                Value: c.Value
-            )).ToList() ?? new()
-        );
+        //var response = new CompanyResponse(
+        //    Id: company.Id,
+        //    Name: company.CompanyName ?? string.Empty,
+        //    Country: org?.Country ?? string.Empty,
+        //    City: org?.City ?? string.Empty,
+        //    StreetAddress: org?.StreetAddress ?? string.Empty,
+        //    Email: org?.Email ?? string.Empty,
+        //    TaxNo: org?.TaxNo ?? string.Empty,
+        //    Phone: org?.Phone,
+        //    FileId: org?.FileId,
+        //    ImageUrl: org?.File?.FullPath, // optional if you include File
+        //    Fax: org?.FaxNo,
+        //    RoleType: org?.Type.ToString() ?? string.Empty,
+        //    IsActive: company.IsActive,
+        //    CreatedDate: company.CreatedDate,
+        //    UpdateDate: company.UpdatedDate,
+        //    Addresses: company.Organization.Addresses?.Select(a => new AddressResponse(
+        //        Id: a.Id,
+        //        FullAddress: a.FullAddress ?? "",
+        //        Street: a.Street ?? "",
+        //        Zone: a.Zone ?? "",
+        //        State: a.State ?? "",
+        //        City: a.City ?? "",
+        //        IsAdministration: a.IsAdministration
+        //    )).ToList() ?? new(),
+        //    Contacts: company.Organization.Contacts?.Select(c => new ContactResponse(
+        //        Id: c.Id,
+        //        Type: c.Type ?? "",
+        //        Value: c.Value
+        //    )).ToList() ?? new()
+        //);
 
-        var result = new Response<CompanyResponse>
-        {
-            Data = response,
-            Succeeded = true,
-            StatusCode = ApiResultStatusCode.Success,
-            Message = "Company retrieved successfully"
-        };
+        //var result = new Response<CompanyResponse>
+        //{
+        //    Data = response,
+        //    Succeeded = true,
+        //    StatusCode = ApiResultStatusCode.Success,
+        //    Message = "Company retrieved successfully"
+        //};
 
-        return NewResult(result);
+        //return NewResult(result);
+
+        throw new NotImplementedException();
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateCompany([FromBody] UpdateCompanyRequest request)
     {
         var company = await _unitOfWork.GenericRepository<Company>().GetByIdAsync(request.Id);
-        if (company == null)
-            return NotFound("Company not found");
+        //if (company == null)
+        //    return NotFound("Company not found");
 
-        company.Organization.StreetAddress = request.StreetAddress;
-        company.CompanyName = request.CompanyName;
-        company.ContactEmail = request.Email;
-        company.ContactPhone = request.Phone;
-        company.RegistrationNumber = request.RegistrationNumber;
-        company.Status = StatusEnum.Active;
-        company.IsActive = true;
-        company.Organization.Email = request.Email;
-        company.Organization.Phone = request.Phone;
-        company.Organization.City = request.City;
-        company.Organization.Country = request.Country;
-        company.Organization.StreetAddress = request.StreetAddress;
-        company.Organization.TaxNo = request.TaxNo;
-        company.Organization.Type = OrganizationEnum.Company;
+        //company.Organization.StreetAddress = request.StreetAddress;
+        //company.CompanyName = request.CompanyName;
+        //company.ContactEmail = request.Email;
+        //company.ContactPhone = request.Phone;
+        //company.RegistrationNumber = request.RegistrationNumber;
+        //company.Status = StatusEnum.Active;
+        //company.IsActive = true;
+        //company.Organization.Email = request.Email;
+        //company.Organization.Phone = request.Phone;
+        //company.Organization.City = request.City;
+        //company.Organization.Country = request.Country;
+        //company.Organization.StreetAddress = request.StreetAddress;
+        //company.Organization.TaxNo = request.TaxNo;
+        //company.Organization.Type = OrganizationEnum.Company;
 
-        _unitOfWork.GenericRepository<Company>().Update(company);
-        await _unitOfWork.SaveAsync();
+        //_unitOfWork.GenericRepository<Company>().Update(company);
+        //await _unitOfWork.SaveAsync();
 
-        var result = new Response<string>
-        {
-            Data = "Updated",
-            Succeeded = true,
-            StatusCode = ApiResultStatusCode.Success,
-            Message = "Company updated successfully"
-        };
+        //var result = new Response<string>
+        //{
+        //    Data = "Updated",
+        //    Succeeded = true,
+        //    StatusCode = ApiResultStatusCode.Success,
+        //    Message = "Company updated successfully"
+        //};
 
-        return NewResult(result);
+        //return NewResult(result);
+
+        throw new NotImplementedException();
     }
 
     [HttpPost("GetAll")]

@@ -46,11 +46,13 @@ namespace Persistence.Repositories.Identity
 
         public RoleResponse? getRole(int id)
         {
-            var query = from r in _context.Roles
-                        join rc in _context.RoleClaims on r.Id equals rc.RoleId into rcs
-                        where r.Id == id
-                        select new RoleResponse(r.Id, r.Name, rcs.Select(rc => new ClaimResponse(rc.Id, rc.ClaimValue)).ToList());
-            return query.FirstOrDefault();
+
+            throw new NotImplementedException();
+            //var query = from r in _context.Roles
+            //            join rc in _context.RoleClaims on r.Id equals rc.RoleId into rcs
+            //            where r.Id == id
+            //            select new RoleResponse(r.Id, r.Name, rcs.Select(rc => new ClaimResponse(rc.Id, rc.ClaimValue)).ToList());
+            //return query.FirstOrDefault();
         }
     }
 }

@@ -130,7 +130,7 @@ namespace Persistence.Repositories.Workflows
                         };
             return users;
         }
-        public List<CaseActionsResponse> GetActionsByUserId(int userId)
+        public List<CaseActionAllResponse> GetActionsByUserId(int userId)
         {
             var userClient = GetUsers().Where(u => u.UserId == _context.userInfo.UserId).Distinct().First();
             var user = _context.Users.Where(u => u.Id == _context.userInfo.UserId).First();
@@ -166,29 +166,30 @@ namespace Persistence.Repositories.Workflows
             var actionsList = userActions.ToList();
             actionsList.AddRange(groupActions.ToList());
             actionsList.AddRange(roleActions.ToList());
-            List<CaseActionsResponse> actionsResponse = new List<CaseActionsResponse>();
+            List<CaseActionResponse> actionsResponse = new List<CaseActionResponse>();
 
-            foreach (var action in actionsList.Distinct())
-            {
-                _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory<Case, WorkflowCycle>(_context, action.CaseType);
-                var actionReponse = new CaseActionsResponse(
-                    Id: action.Id,
-                    AssignedOnName: action.AssignedOnId.ToString(),
-                    AssignedOnType: action.AssignedOnType,
-                    RequesterName: action.RequesterName,
-                    OrganizationName: action.CompanySupplierName,
-                    CaseId: action.CaseId,
-                    CaseType: action.CaseType,
-                    CaseName: _actionObjectRepositoryFactory.GetObjectModel(action.CaseName).ObjectName,
-                    ActionType: action.ActionType,
-                    ActionName: action.ActionType // ????????????????
-                );
-                actionsResponse.Add(actionReponse);
+            throw new NotImplementedException();
+            //foreach (var action in actionsList.Distinct())
+            //{
+            //    _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory<Case, WorkflowCycle>(_context, action.CaseType);
+            //    var actionReponse = new CaseActionResponse(
+            //        Id: action.Id,
+            //        AssignedOnName: action.AssignedOnId.ToString(),
+            //        AssignedOnType: action.AssignedOnType,
+            //        RequesterName: action.RequesterName,
+            //        OrganizationName: action.CompanySupplierName,
+            //        CaseId: action.CaseId,
+            //        CaseType: action.CaseType,
+            //        CaseName: _actionObjectRepositoryFactory.GetObjectModel(action.CaseName).ObjectName,
+            //        ActionType: action.ActionType,
+            //        ActionName: action.ActionType // ????????????????
+            //    );
+            //    actionsResponse.Add(actionReponse);
 
-            }
+            //}
 
 
-            return actionsResponse;
+            //return actionsResponse;
 
         }
         public record CaseActionRecord(
@@ -257,16 +258,6 @@ namespace Persistence.Repositories.Workflows
             return actionsResponse;
         }
 
-
-        List<CaseActionsResponse> ICaseActionRepository.GetActionsByUserId(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        ActionResponse ICaseActionRepository.GetAsync(int id, int userId)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }
