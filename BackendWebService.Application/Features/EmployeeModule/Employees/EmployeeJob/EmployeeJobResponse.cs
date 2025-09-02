@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain.Enums;
 
 namespace Application.Features;
 public record EmployeeJobResponse(
@@ -7,4 +8,14 @@ int JobId,
 DateTime AssignedDate,
 StatusEnum Status,
 DateTime? CompletionDate,
-string? Notes);
+string? Notes):IConvertibleFromEntity<EmployeeJob, EmployeeJobResponse>
+{
+public static EmployeeJobResponse FromEntity(EmployeeJob EmployeeJob) =>
+new EmployeeJobResponse(
+EmployeeJob.EmployeeId,
+EmployeeJob.JobId,
+EmployeeJob.AssignedDate,
+EmployeeJob.Status,
+EmployeeJob.CompletionDate,
+EmployeeJob.Notes);
+}

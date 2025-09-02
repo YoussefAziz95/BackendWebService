@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 namespace Application.Features;
 public record OfferAllResponse(
@@ -17,5 +19,26 @@ int StatusId,
 int CompanyId,
 int CustomerId,
 int SpecificationsFileId,
-string? RichText);
+string? RichText):IConvertibleFromEntity<Offer, OfferAllResponse>
+{
+public static OfferAllResponse FromEntity(Offer Offer) =>
+new OfferAllResponse(
+Offer.OrganizationId,
+Offer.Name,
+Offer.Description,
+Offer.StartDate,
+Offer.EndDate,
+Offer.Extention,
+Offer.Code,
+Offer.IsMultiple,
+Offer.IsLocal,
+Offer.AccessType,
+Offer.Currency,
+Offer.StatusId,
+Offer.CompanyId,
+Offer.CustomerId,
+Offer.SpecificationsFileId,
+Offer.RichText
+);
+}
 

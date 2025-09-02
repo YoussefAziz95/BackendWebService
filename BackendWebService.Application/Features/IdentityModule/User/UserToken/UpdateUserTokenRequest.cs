@@ -1,8 +1,10 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Application.Features;
 public record UpdateUserTokenRequest(
-User User,
+UpdateUserRequest User,
 DateTime GeneratedTime,
 int Id,
 int? OrganizationId,
@@ -12,4 +14,20 @@ bool? IsSystem,
 DateTime? CreatedDate,
 string? CreatedBy,
 DateTime? UpdatedDate,
-string? UpdatedBy);
+string? UpdatedBy):IConvertibleToEntity<UserToken>
+{
+public UserToken ToEntity() => new UserToken
+{
+    User = User.ToEntity(),
+    GeneratedTime = GeneratedTime,
+    Id = Id,
+    OrganizationId = OrganizationId,
+    IsActive = IsActive,
+    IsDeleted = IsDeleted,
+    IsSystem = IsSystem,
+    CreatedDate = CreatedDate,
+    CreatedBy = CreatedBy,
+    UpdatedDate = UpdatedDate,
+    UpdatedBy = UpdatedBy,
+};
+}

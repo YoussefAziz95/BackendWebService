@@ -2,4 +2,4 @@
 public record UpdateGroupRequest(
 string Name,
 int? ActorId,
-List<UpdateUserGroupsRequest> UserGroups);
+List<UpdateUserGroupRequest> UserGroups);

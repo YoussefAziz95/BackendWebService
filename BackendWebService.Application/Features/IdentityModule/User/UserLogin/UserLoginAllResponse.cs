@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 namespace Application.Features;
 public record UserLoginAllResponse(
@@ -10,5 +12,19 @@ bool? IsSystem,
 DateTime? CreatedDate,
 string? CreatedBy,
 DateTime? UpdatedDate,
-string? UpdatedBy);
+string? UpdatedBy):IConvertibleFromEntity<UserLogin, UserLoginAllResponse>
+{
+public static UserLoginAllResponse FromEntity(UserLogin UserLogin) =>
+new UserLoginAllResponse(
+UserLogin.OrganizationId,
+UserLogin.LoggedOn,
+UserLogin.IsActive,
+UserLogin.IsDeleted,
+UserLogin.IsSystem,
+UserLogin.CreatedDate,
+UserLogin.CreatedBy,
+UserLogin.UpdatedDate,
+UserLogin.UpdatedBy);
+       
+}
 

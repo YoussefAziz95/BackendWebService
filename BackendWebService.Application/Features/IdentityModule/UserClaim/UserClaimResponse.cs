@@ -1,10 +1,27 @@
-﻿namespace Application.Features;
+﻿using Application.Profiles;
+using Domain;
+
+namespace Application.Features;
 public record UserClaimResponse(
 int? OrganizationId,
+UserResponse User,
 bool? IsActive,
 bool? IsDeleted,
 bool? IsSystem,
 DateTime? CreatedDate,
 string? CreatedBy,
 DateTime? UpdatedDate,
-string? UpdatedBy);
+string? UpdatedBy):IConvertibleFromEntity<UserClaim, UserClaimResponse>        
+{
+public static UserClaimResponse FromEntity(UserClaim UserClaim) =>
+new UserClaimResponse(
+UserClaim.OrganizationId,
+UserClaim.User,
+UserClaim.IsActive,
+UserClaim.IsDeleted,
+UserClaim.IsSystem,
+UserClaim.CreatedDate,
+UserClaim.CreatedBy,
+UserClaim.UpdatedDate,
+UserClaim.UpdatedBy);
+}

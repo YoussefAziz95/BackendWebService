@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 
 namespace Application.Features;
@@ -19,8 +21,32 @@ int CompanyId,
 int CustomerId,
 int SpecificationsFileId,
 string? RichText,
-List<AddCriteriaRequest> Criterias,
-List<AddOfferItemRequest> OfferItems,
-List<AddOfferObjectRequest> OfferObjects);
+List<CriteriaResponse> Criterias,
+List<OfferItemResponse> OfferItems,
+List<OfferObjectResponse> OfferObjects) : IConvertibleFromEntity<Offer, OfferResponse>
+{
+public static OfferResponse FromEntity(Offer Offer) =>
+new OfferResponse(
+Offer.OrganizationId,
+Offer.Name,
+Offer.Description,
+Offer.StartDate,
+Offer.EndDate,
+Offer.Extention,
+Offer.Code,
+Offer.IsMultiple,
+Offer.IsLocal,
+Offer.AccessType,
+Offer.Currency,
+Offer.StatusId,
+Offer.CompanyId,
+Offer.CustomerId,
+Offer.SpecificationsFileId,
+Offer.RichText,
+Offer.Criterias.Select(CriteriaResponse.FromEntity).ToList(),
+Offer.OfferItems.Select(OfferItemResponse.FromEntity).ToList(),
+Offer.OfferObjects.Select(OfferObjectResponse.FromEntity).ToList());
+}
+
 
 

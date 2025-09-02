@@ -2,9 +2,9 @@
 using Domain.Enums;
 
 namespace Application.Features;
-public record GetPaginatedJobVerification(
-int EmployeeId,
-VerificationEnum Verification,
-string VerificationCode,
-DateTime ExpirationTime,
-bool IsVerified);
+public record GetPaginatedJobVerificationRequest(
+JobVerificationAllResponse JobVerificationAllResponse,
+int PageNumber = 1,
+int PageSize = 100,
+string FilterBy = "none",
+string? SortBy = "asc");

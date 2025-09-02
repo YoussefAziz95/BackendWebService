@@ -1,8 +1,9 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
 namespace Application.Features;
 public record UserTokenResponse(
-User User,
+UserResponse User,
 DateTime GeneratedTime,
 int Id,
 int? OrganizationId,
@@ -12,4 +13,20 @@ bool? IsSystem,
 DateTime? CreatedDate,
 string? CreatedBy,
 DateTime? UpdatedDate,
-string? UpdatedBy);
+string? UpdatedBy): IConvertibleFromEntity<UserToken, UserTokenResponse>        
+{
+public static UserTokenResponse FromEntity(UserToken UserToken) =>
+new UserTokenResponse(
+UserToken.User,
+UserToken.GeneratedTime,
+UserToken.Id,
+UserToken.OrganizationId,
+UserToken.IsActive,
+UserToken.IsDeleted,
+UserToken.IsSystem,
+UserToken.CreatedDate,
+UserToken.CreatedBy,
+UserToken.UpdatedDate,
+UserToken.UpdatedBy
+);
+}

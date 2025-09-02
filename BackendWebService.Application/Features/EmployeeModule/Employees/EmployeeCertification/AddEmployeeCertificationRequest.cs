@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 namespace Application.Features;
 public record AddEmployeeCertificationRequest(
@@ -8,4 +10,16 @@ string IssuingAuthority,
 DateTime IssuedDate,
 DateTime? ExpirationDate,
 StatusEnum Status,
-string? VerificationNotes);
+string? VerificationNotes):IConvertibleToEntity<EmployeeCertification>
+{
+public EmployeeCertification ToEntity() => new EmployeeCertification
+{
+EmployeeId = EmployeeId,
+CertificationName = CertificationName,
+IssuingAuthority = IssuingAuthority,
+IssuedDate = IssuedDate,
+ExpirationDate = ExpirationDate,
+Status = Status,
+VerificationNotes=VerificationNotes
+};
+}

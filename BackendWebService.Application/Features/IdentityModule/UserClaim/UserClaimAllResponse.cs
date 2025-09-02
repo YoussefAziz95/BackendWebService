@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 namespace Application.Features;
 public record UserClaimAllResponse(
@@ -9,5 +11,17 @@ bool? IsSystem,
 DateTime? CreatedDate,
 string? CreatedBy,
 DateTime? UpdatedDate,
-string? UpdatedBy);
+string? UpdatedBy):IConvertibleFromEntity<UserClaim, UserClaimAllResponse>        
+{
+public static UserClaimAllResponse FromEntity(UserClaim UserClaim) =>
+new UserClaimAllResponse(
+UserClaim.OrganizationId,
+UserClaim.IsActive,
+UserClaim.IsDeleted,
+UserClaim.IsSystem,
+UserClaim.CreatedDate,
+UserClaim.CreatedBy,
+UserClaim.UpdatedDate,
+UserClaim.UpdatedBy);
+}
 

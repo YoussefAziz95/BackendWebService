@@ -1,5 +1,10 @@
-﻿namespace Application.Features;
+﻿using Application.Profiles;
+using Domain;
+
+namespace Application.Features;
 public record AddUserLoginRequest(
+AddUserLoginRequest UserLogin,
+AddUserRequest User,
 int? OrganizationId,
 DateTime LoggedOn,
 bool? IsActive,
@@ -8,4 +13,21 @@ bool? IsSystem,
 DateTime? CreatedDate,
 string? CreatedBy,
 DateTime? UpdatedDate,
-string? UpdatedBy);
+string? UpdatedBy):IConvertibleToEntity<UserLogin>
+{
+public UserLogin ToEntity() => new UserLogin
+{
+User = User.ToEntity(),
+OrganizationId = OrganizationId,
+LoggedOn = LoggedOn,
+IsActive = IsActive,
+IsDeleted = IsDeleted,
+IsSystem = IsSystem,
+CreatedDate = CreatedDate,
+CreatedBy = CreatedBy,
+UpdatedDate= UpdatedDate,
+UpdatedBy = UpdatedBy,
+
+
+};
+}
