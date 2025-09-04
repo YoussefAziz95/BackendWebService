@@ -1,8 +1,7 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 using Domain.Enums;
-using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 namespace Application.Features;
 public record UpdateCompanyRequest(
 int Id,
@@ -17,7 +16,7 @@ string? ViceChairman,
 string? ProductType,
 StatusEnum Status,
 List<UpdateCompanyCategoryRequest> Category,
-List<UpdateManagerRequest> Manager): IConvertibleToEntity<Company>
+List<UpdateManagerRequest> Manager) : IConvertibleToEntity<Company>, IRequest<int>
 
 {
     public Company ToEntity() => new Company

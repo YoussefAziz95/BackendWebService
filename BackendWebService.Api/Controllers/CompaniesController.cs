@@ -238,7 +238,7 @@ public class CompaniesController : AppControllerBase
     }
 
     [HttpPost("GetAll")]
-    public async Task<IActionResult> GetAll(GetPaginatedCompanyRequest request)
+    public async Task<IActionResult> GetAll(CompanyAllRequest request)
     {
         var response = await _companyService.GetPaginated(request);
         return NewResult(response);

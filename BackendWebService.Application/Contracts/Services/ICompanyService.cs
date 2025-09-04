@@ -12,7 +12,7 @@ public interface ICompanyService
 
     Task<IResponse<int>> UpdateAsync(UpdateCompanyRequest request);
 
-    Task<PaginatedResponse<CompanyAllResponse>> GetPaginated(GetPaginatedCompanyRequest request);
+    Task<PaginatedResponse<CompanyAllResponse>> GetPaginated(CompanyAllRequest request);
 
     bool CheckIdExists(int id);
 }
