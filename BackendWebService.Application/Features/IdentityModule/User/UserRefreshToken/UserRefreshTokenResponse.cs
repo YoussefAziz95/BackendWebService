@@ -19,7 +19,7 @@ string? UpdatedBy) : IConvertibleFromEntity<UserRefreshToken, UserRefreshTokenRe
     public static UserRefreshTokenResponse FromEntity(UserRefreshToken UserRefreshToken) =>
     new UserRefreshTokenResponse(
     UserRefreshToken.UserId,
-    UserRefreshToken.User,
+    UserResponse.FromEntity(UserRefreshToken.User),
     UserRefreshToken.CreatedAt,
     UserRefreshToken.IsValid,
     UserRefreshToken.OrganizationId,

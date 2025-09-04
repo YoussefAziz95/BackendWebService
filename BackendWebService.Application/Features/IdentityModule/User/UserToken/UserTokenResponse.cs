@@ -17,7 +17,7 @@ string? UpdatedBy): IConvertibleFromEntity<UserToken, UserTokenResponse>
 {
 public static UserTokenResponse FromEntity(UserToken UserToken) =>
 new UserTokenResponse(
-UserToken.User,
+UserResponse.FromEntity(UserToken.User),
 UserToken.GeneratedTime,
 UserToken.Id,
 UserToken.OrganizationId,

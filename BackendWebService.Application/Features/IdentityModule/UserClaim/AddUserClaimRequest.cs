@@ -11,17 +11,18 @@ bool? IsSystem,
 DateTime? CreatedDate,
 string? CreatedBy,
 DateTime? UpdatedDate,
-string? UpdatedBy):IConvertibleToEntity<UserClaim>
+string? UpdatedBy) : IConvertibleToEntity<UserClaim>
 {
-public UserClaim ToEntity() => new UserClaim
-{
-OrganizationId = OrganizationId,
-User =User,
-IsActive = IsActive,
-IsDeleted = IsDeleted,
-IsSystem = IsSystem,
-CreatedDate = CreatedDate,
-CreatedBy = CreatedBy,
-UpdatedDate = UpdatedDate,
-UpdatedBy = UpdatedBy};
+    public UserClaim ToEntity() => new UserClaim
+    {
+        OrganizationId = OrganizationId,
+        User = User.ToEntity(),
+        IsActive = IsActive,
+        IsDeleted = IsDeleted,
+        IsSystem = IsSystem,
+        CreatedDate = CreatedDate,
+        CreatedBy = CreatedBy,
+        UpdatedDate = UpdatedDate,
+        UpdatedBy = UpdatedBy
+    };
 }

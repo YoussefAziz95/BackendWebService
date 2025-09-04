@@ -11,17 +11,17 @@ bool? IsSystem,
 DateTime? CreatedDate,
 string? CreatedBy,
 DateTime? UpdatedDate,
-string? UpdatedBy):IConvertibleFromEntity<UserClaim, UserClaimResponse>        
+string? UpdatedBy) : IConvertibleFromEntity<UserClaim, UserClaimResponse>
 {
-public static UserClaimResponse FromEntity(UserClaim UserClaim) =>
-new UserClaimResponse(
-UserClaim.OrganizationId,
-UserClaim.User,
-UserClaim.IsActive,
-UserClaim.IsDeleted,
-UserClaim.IsSystem,
-UserClaim.CreatedDate,
-UserClaim.CreatedBy,
-UserClaim.UpdatedDate,
-UserClaim.UpdatedBy);
+    public static UserClaimResponse FromEntity(UserClaim UserClaim) =>
+    new UserClaimResponse(
+    UserClaim.OrganizationId,
+    UserResponse.FromEntity(UserClaim.User),
+    UserClaim.IsActive,
+    UserClaim.IsDeleted,
+    UserClaim.IsSystem,
+    UserClaim.CreatedDate,
+    UserClaim.CreatedBy,
+    UserClaim.UpdatedDate,
+    UserClaim.UpdatedBy);
 }

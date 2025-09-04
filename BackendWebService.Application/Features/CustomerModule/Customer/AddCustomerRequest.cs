@@ -14,7 +14,7 @@ bool MFAEnabled = false):IConvertibleToEntity<Customer>
 public Customer ToEntity() => new Customer
 {
 UserId = UserId,
-Role = Role.ToEntity(),
+Role = Role,
 Status = Status,
 MFAEnabled = MFAEnabled,
 CustomerServices = CustomerServices.Select(x => x.ToEntity()).ToList(),

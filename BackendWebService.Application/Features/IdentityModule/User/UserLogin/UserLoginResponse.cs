@@ -3,7 +3,6 @@ using Domain;
 
 namespace Application.Features;
 public record UserLoginResponse(
-UserLoginResponse UserLogin,
 UserResponse User,
 int? OrganizationId,
 DateTime LoggedOn,
@@ -17,8 +16,7 @@ string? UpdatedBy):IConvertibleFromEntity<UserLogin, UserLoginResponse>
 {
 public static UserLoginResponse FromEntity(UserLogin UserLogin) =>
 new UserLoginResponse(
-UserLogin.UserLogin,
-UserLogin.User,
+UserResponse.FromEntity(UserLogin.User),
 UserLogin.OrganizationId,
 UserLogin.LoggedOn,
 UserLogin.IsActive,

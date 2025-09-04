@@ -1,4 +1,7 @@
-﻿namespace Application.Features;
+﻿using Application.Profiles;
+using Domain;
+
+namespace Application.Features;
 public record AddRoleRequest(
 int? OrganizationId,
 bool? IsActive,
@@ -11,4 +14,8 @@ string? UpdatedBy,
 int? ParentId,
 string DisplayName,
 List<AddRoleClaimRequest> Claims,
-List<AddUserRoleRequest> Users );
+List<AddUserRoleRequest> Users ) : IConvertibleToEntity<Role>
+{
+    public Role ToEntity() => throw new NotImplementedException();
+    
+}
