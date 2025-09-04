@@ -1,10 +1,21 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
 namespace Application.Features;
 public record CategoryResponse(
 string Name,
 int? ParentId,
 int? FileId,
-FileLog? File,
-Category? ParentCategory,
-List<CategoryResponse> SubCategories);
+FileLogResponse? File,
+CategoryResponse? ParentCategory,
+List<CategoryResponse> SubCategories) : IConvertibleFromEntity<Category, CategoryResponse>
+{
+public static CategoryResponse FromEntity(Category Category) =>
+new CategoryResponse(
+Category.Name,
+Category.ParentId,
+Category.FileId,
+Category..ToEntity(),
+Category.ParentCategory.ToEntity(),
+Category.SubCategories.ToEntity());
+}

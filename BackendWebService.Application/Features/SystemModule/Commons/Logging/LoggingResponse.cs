@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 namespace Application.Features;
 public record LoggingResponse(
@@ -12,4 +14,20 @@ DateTime? Timestamp,
 string? SourceLayer,
 string? SourceClass,
 int? SourceLineNumber,
-string? CorrelationId);
+string? CorrelationId) : IConvertibleFromEntity<Logging, LoggingResponse>
+{
+public static LoggingResponse FromEntity(Logging Logging) =>
+new LoggingResponse(
+Logging.UserId,
+Logging.Message,
+Logging.ExceptionCode,
+Logging.KeyExceptionMessage,
+Logging.LogType,
+Logging.Suggestion,
+Logging.Timestamp,
+Logging.SourceLayer,
+Logging.SourceClass,
+Logging.SourceLineNumber,
+Logging.CorrelationId
+);
+}

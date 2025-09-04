@@ -1,14 +1,29 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
 public record UpdateCaseRequest(
 int ActionIndex,
 int WorkflowId,
-Workflow Workflow,
+UpdateWorkflowRequest Workflow,
 int StatusId,
 int? CompanySupplierId,
-ConsumerAccount?CompanySupplier,
+UpdateConsumerAccountRequest?CompanySupplier,
 int? UserId,
-User? User,
-List<UpdateCaseActionRequest> CaseActions);
+UpdateUserRequest? User,
+List<UpdateCaseActionRequest> CaseActions):IConvertibleToEntity<Case>
+{
+public Case ToEntity() => new Case
+{
+ActionIndex = ActionIndex,
+WorkflowId = WorkflowId,
+Workflow = Workflow.ToEntity(),
+StatusId = StatusId,
+CompanySupplierId = CompanySupplierId,
+CompanySupplier = CompanySupplier.ToEntity(),
+UserId = UserId,
+User = User.ToEntity(),
+CaseActions = CaseActions.Select(x => x.ToEntity()).ToList()
+};
+}

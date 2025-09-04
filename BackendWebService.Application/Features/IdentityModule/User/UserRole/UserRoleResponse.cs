@@ -16,8 +16,8 @@ string? UpdatedBy): IConvertibleFromEntity<UserRole, UserRoleResponse>
 {
 public static UserRoleResponse FromEntity(UserRole UserRole) =>
 new UserRoleResponse(
-UserRole.User,
-UserRole.Role,
+UserResponse.FromEntity(UserRole.User),
+RoleResponse.FromEntity(UserRole.Role),
 UserRole.OrganizationId,
 UserRole.IsActive,
 UserRole.IsDeleted,

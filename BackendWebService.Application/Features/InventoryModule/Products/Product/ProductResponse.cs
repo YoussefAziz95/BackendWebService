@@ -1,4 +1,5 @@
 ﻿using Application.Features;
+using Application.Profiles;
 using Domain;
 
 namespace Application.Features;
@@ -10,5 +11,18 @@ string Code,
 string PartNumber,
 string Manufacturer,
 int? FileId,
-Category Category,
-FileLog? File);
+CategoryResponse Category,
+FileLogResponse? File):IConvertibleFromEntity<Product, ProductResponse>
+{
+public static ProductResponse FromEntity(Product Product) =>
+new ProductResponse(
+Product.Number,
+Product.Name,
+Product.Description,
+Product.Code,
+Product.PartNumber,
+Product.Manufacturer,
+Product.FileId,
+Product.Category.ToEntity(),
+Product.File.ToEntity());
+}

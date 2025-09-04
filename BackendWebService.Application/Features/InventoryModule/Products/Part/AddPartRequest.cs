@@ -1,6 +1,7 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
-namespace BackendWebService.Application.Features.InventoryModule.Products.Part;
+namespace Application.Features;
 public record AddPartRequest(
 string Name,
 string Description,
@@ -9,4 +10,18 @@ string Image,
 string PartNumber,
 string Manufacturer,
 int ProductId,
-Product Product);
+AddProductRequest Product):IConvertibleToEntity<Part>
+{
+public Part ToEntity() => new Part
+{
+Name = Name,
+Description = Description,
+Code = Code,
+Image = Image,
+PartNumber = PartNumber,
+Manufacturer = Manufacturer,
+ProductId = ProductId,
+Product= Product.ToEntity()
+
+};
+}

@@ -1,6 +1,6 @@
 ﻿using Application.Features;
 
-namespace BackendWebService.Application.Features.InventoryModule.Products.Part;
+namespace Application.Features;
 public record GetPaginatedPart(
  PartAllResponse PartAllResponse,
 int PageNumber = 1,

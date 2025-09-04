@@ -16,7 +16,7 @@ string? UpdatedBy):IConvertibleFromEntity<UserClaim, UserClaimResponse>
 public static UserClaimResponse FromEntity(UserClaim UserClaim) =>
 new UserClaimResponse(
 UserClaim.OrganizationId,
-UserClaim.User,
+UserResponse.FromEntity(UserClaim.User),
 UserClaim.IsActive,
 UserClaim.IsDeleted,
 UserClaim.IsSystem,

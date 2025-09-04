@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
@@ -9,7 +10,16 @@ string Description,
 string Code,
 string PartNumber,
 string Manufacturer,
-int? FileId,
-Category Category,
-FileLog? File);
+int? FileId) : IConvertibleFromEntity<Product, ProductAllResponse>
+{
+public static ProductAllResponse FromEntity(Product Product) =>
+new ProductAllResponse(
+Product.Number,
+Product.Name,
+Product.Description,
+Product.Code,
+Product.PartNumber,
+Product.Manufacturer,
+Product.FileId);
+}
 

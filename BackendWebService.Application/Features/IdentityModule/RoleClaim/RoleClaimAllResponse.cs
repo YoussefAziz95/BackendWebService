@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 namespace Application.Features;
 public record RoleClaimAllResponse(
@@ -11,5 +13,19 @@ bool? IsDeleted,
 bool? IsSystem,
 string? CreatedBy,
 DateTime? UpdatedDate,
-string? UpdatedBy);
+string? UpdatedBy): IConvertibleFromEntity<RoleClaim, RoleClaimAllResponse>        
+{
+public static RoleClaimAllResponse FromEntity(RoleClaim RoleClaim) =>
+new RoleClaimAllResponse(
+RoleClaim.ClaimType,
+RoleClaim.ClaimValue,
+RoleClaim.CreatedDate,
+RoleClaim.OrganizationId,
+RoleClaim.IsActive,
+RoleClaim.IsDeleted,
+RoleClaim.IsSystem,
+RoleClaim.CreatedBy,
+RoleClaim.UpdatedDate,
+RoleClaim.UpdatedBy);
+}
 

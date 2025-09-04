@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 using System.ComponentModel.DataAnnotations;
 
 namespace Application.Features;
@@ -7,6 +8,17 @@ int ActionOrder,
 string? ActionType,
 bool Mandatory,
 int WorkflowId,
-Workflow Workflow,
+WorkflowResponse Workflow,
 int? WorkflowReviewerId,
-User? WorkflowReviewer);
+UserResponse? WorkflowReviewer): IConvertibleFromEntity<WorkflowCycle, WorkflowCycleResponse>
+{
+public static WorkflowCycleResponse FromEntity(WorkflowCycle WorkflowCycle) =>
+new WorkflowCycleResponse(
+WorkflowCycle.ActionOrder,
+WorkflowCycle.ActionType,
+WorkflowCycle.Mandatory,
+WorkflowCycle.WorkflowId,
+WorkflowCycle.Workflow.ToEntity(),
+WorkflowCycle.WorkflowReviewerId,
+WorkflowCycle.WorkflowReviewer.ToEntity());
+}

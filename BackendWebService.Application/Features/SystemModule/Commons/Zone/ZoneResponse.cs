@@ -1,9 +1,20 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
 namespace Application.Features;
 public record ZoneResponse(
 string Name,
 string? Description,
 int? ParentZoneId,
-Zone? ParentZone,
-List<ZoneResponse> SubZones);
+ZoneResponse? ParentZone,
+List<ZoneResponse> SubZones): IConvertibleFromEntity<Zone, ZoneResponse>        
+{
+public static ZoneResponse FromEntity(Zone Zone) =>
+new ZoneResponse(
+Zone.Name,
+Zone.Description,
+Zone.ParentZoneId,
+Zone.ParentZone.ToEntity(),
+Zone.SubZones.Select(ZoneResponse.FromEntity).ToList()
+);
+}

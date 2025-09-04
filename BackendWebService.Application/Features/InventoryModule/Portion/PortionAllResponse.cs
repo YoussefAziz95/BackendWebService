@@ -1,12 +1,19 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
 public record PortionAllResponse(
 int Quantity,
 int StorageUnitId,
-StorageUnit StorageUnit,
 int PortionTypeId,
-PortionType PortionType,
-SizeEnum Size);
+SizeEnum Size): IConvertibleFromEntity<Portion, PortionAllResponse>        
+{
+public static PortionAllResponse FromEntity(Portion Portion) =>
+new PortionAllResponse(
+Portion.Quantity,
+Portion.StorageUnitId,
+Portion.PortionTypeId,
+Portion.Size);
+}
 

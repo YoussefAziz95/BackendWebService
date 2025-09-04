@@ -18,8 +18,8 @@ UserId = UserId,
 RegistrationDate = RegistrationDate,
 AccountStatus = AccountStatus,
 IsAvailable = IsAvailable,
-Role = Role.ToEntity(),
-EmployeeAssignments = Assignments.Select(x => x.ToEntity()).ToList(),
-EmployeeJobs = Jobs.Select(x => x.ToEntity()).ToList()
+Role = Role,
+Assignments = Assignments.Select(x => x.ToEntity()).ToList(),
+Jobs = Jobs.Select(x => x.ToEntity()).ToList()
 };
 }

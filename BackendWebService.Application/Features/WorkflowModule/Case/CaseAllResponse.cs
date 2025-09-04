@@ -1,14 +1,21 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
 public record CaseAllResponse(
 int ActionIndex,
 int WorkflowId,
-Workflow Workflow,
 int StatusId,
 int? CompanySupplierId,
-ConsumerAccount? CompanySupplier,
-int? UserId,
- User? User);
+int? UserId) : IConvertibleFromEntity<Case, CaseAllResponse>
+{
+public static CaseAllResponse FromEntity(Case Case) =>
+new CaseAllResponse(
+Case.ActionIndex,
+Case.WorkflowId,
+Case.StatusId,
+Case.CompanySupplierId,
+Case.UserId);
+}
 

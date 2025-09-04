@@ -1,4 +1,7 @@
-﻿namespace Application.Features;
+﻿using Application.Profiles;
+using Domain;
+
+namespace Application.Features;
 public record AddRoleClaimRequest(
 string? ClaimType,
 string? ClaimValue,
@@ -9,4 +12,19 @@ bool? IsDeleted,
 bool? IsSystem,
 string? CreatedBy,
 DateTime? UpdatedDate,
-string? UpdatedBy);
+string? UpdatedBy):IConvertibleToEntity<RoleClaim>
+{
+public RoleClaim ToEntity() => new RoleClaim
+{
+ClaimType = ClaimType,
+ClaimValue = ClaimValue,
+CreatedDate = CreatedDate,
+OrganizationId = OrganizationId,
+IsActive = IsActive,
+IsDeleted = IsDeleted,
+IsSystem = IsSystem,
+CreatedBy = CreatedBy,
+UpdatedDate = UpdatedDate,
+UpdatedBy = UpdatedBy,
+};
+}

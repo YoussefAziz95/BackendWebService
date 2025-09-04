@@ -16,7 +16,7 @@ string? UpdatedBy):IConvertibleToEntity<UserClaim>
 public UserClaim ToEntity() => new UserClaim
 {
 OrganizationId = OrganizationId,
-User =User,
+User = User.ToEntity(),
 IsActive = IsActive,
 IsDeleted = IsDeleted,
 IsSystem = IsSystem,

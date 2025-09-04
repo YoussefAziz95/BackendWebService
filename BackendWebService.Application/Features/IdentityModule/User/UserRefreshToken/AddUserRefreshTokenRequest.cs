@@ -19,7 +19,7 @@ string? UpdatedBy):IConvertibleToEntity<UserRefreshToken>
 public UserRefreshToken ToEntity() => new UserRefreshToken
 {
 UserId = UserId,
-User= User,
+User= User.ToEntity(),
 CreatedAt = CreatedAt,
 IsValid=IsValid,
 OrganizationId = OrganizationId,
