@@ -1,18 +1,18 @@
 ﻿using Api.Base;
 using Application.Contracts.Persistence;
 using Application.Features;
-using Application.Features;
 using Domain;
-using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+namespace Api.Controllers.v2;
 
-[Route("api/[controller]")]
+
 [ApiController]
 [AllowAnonymous]
+[ApiVersion("2.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
 public class EmployeeController : AppControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
