@@ -4,12 +4,12 @@ using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-namespace Api.Controllers.v2;
+namespace Api.Controllers.v1;
 
 
 [ApiController]
 [Authorize]
-[ApiVersion("2.0")]
+[ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
 public class RoleController : ControllerBase
 {

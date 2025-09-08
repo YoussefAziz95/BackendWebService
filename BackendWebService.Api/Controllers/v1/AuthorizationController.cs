@@ -9,11 +9,11 @@ using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers.v2;
+namespace Api.Controllers.v1;
 
 [ApiController]
 [AllowAnonymous]
-[ApiVersion("2.0")]
+[ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
 public class AuthorizationController : AppControllerBase
 {
@@ -21,6 +21,7 @@ public class AuthorizationController : AppControllerBase
     private readonly IJwtService _jwtService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IOtpService _otpService;
+    private readonly AddCompanyRequestHandler _handler;
 
     public AuthorizationController(IAppUserManager userManager, IJwtService jwtService, IUnitOfWork unitOfWork, IOtpService otpService)
     {

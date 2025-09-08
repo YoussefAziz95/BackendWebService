@@ -1,15 +1,18 @@
 ﻿using Api.Base;
 using Application.Contracts.Persistence;
 using Application.Features;
+using Domain;
+using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace Api.Controllers.v2;
+namespace Api.Controllers.v1;
 
 
 [ApiController]
 [AllowAnonymous]
-[ApiVersion("2.0")]
+[ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
 public class ServiceController : AppControllerBase
 {

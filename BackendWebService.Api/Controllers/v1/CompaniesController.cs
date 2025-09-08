@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
-namespace Api.Controllers.v2;
+namespace Api.Controllers.v1;
 
 
 [ApiController]
 [AllowAnonymous]
-[ApiVersion("2.0")]
+[ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
 public class CompaniesController : AppControllerBase
 {
@@ -240,7 +240,7 @@ public class CompaniesController : AppControllerBase
     }
 
     [HttpPost("GetAll")]
-    public async Task<IActionResult> GetAll(GetPaginatedCompanyRequest request)
+    public async Task<IActionResult> GetAll(CompanyAllRequest request)
     {
         var response = await _companyService.GetPaginated(request);
         return NewResult(response);

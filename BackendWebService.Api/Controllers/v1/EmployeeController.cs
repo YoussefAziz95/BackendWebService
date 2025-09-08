@@ -2,33 +2,32 @@
 using Application.Contracts.Persistence;
 using Application.Features;
 using Domain;
-using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers.v2;
+namespace Api.Controllers.v1;
 
 
 [ApiController]
 [AllowAnonymous]
-[ApiVersion("2.0")]
+[ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
-public class CustomerController : AppControllerBase
+public class EmployeeController : AppControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly UserManager<User> _userManager;
 
-    public CustomerController(IUnitOfWork unitOfWork, UserManager<User> userManager)
+    public EmployeeController(IUnitOfWork unitOfWork, UserManager<User> userManager)
     {
         _unitOfWork = unitOfWork;
         _userManager = userManager;
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCustomer([FromBody] AddCustomerRequest request)
+    public async Task<IActionResult> AddEmployee([FromBody] AddEmployeeRequest request)
     {
-        //// Create User  
+        // Create User  
         //var user = new User
         //{
         //    FirstName = request.FirstName,
@@ -39,6 +38,7 @@ public class CustomerController : AppControllerBase
         //    IsActive = true,
         //    IsDeleted = false,
         //    CreatedDate = DateTime.UtcNow,
+        //    MainRole = RoleEnum.Employee
         //};
 
         //// Create user with Identity  
@@ -54,19 +54,13 @@ public class CustomerController : AppControllerBase
         //    });
         //}
 
-        //// Create Customer  
-        //var customer = new Customer
-        //{
-        //    User = user,
-        //    UserId = user.Id, // Set UserId to link Customer with User
-        //    MFAEnabled = request.MFAEnabled,
-        //    Role = RoleEnum.Customer, // Default role for new customers
-        //    Status = StatusEnum.Active, // Default status for new customers
+        ////// Create Employee  
+        ////var employee = new Employee
+        ////{
 
+        ////};
 
-        //};
-
-        //_unitOfWork.GenericRepository<Customer>().Add(customer);
+        ////_unitOfWork.GenericRepository<Employee>().Add(employee);
         //var saveResult = _unitOfWork.Save();
 
         //if (saveResult <= 0)
@@ -81,21 +75,19 @@ public class CustomerController : AppControllerBase
         //    });
         //}
 
-        //var response = new Response<CustomerResponse>
+        //var response = new Response<EmployeeResponse>
         //{
-        //    Data = new CustomerResponse(
-        //        customer.Id,
+        //    Data = new EmployeeResponse(
+        //        user.Id,
         //        user.FirstName,
         //        user.LastName,
         //        user.Email,
         //        user.PhoneNumber,
-        //        customer.MFAEnabled,
-        //        customer.Role,
-        //        customer.Status,
+        //        user.MainRole.ToString(),
         //        user.CreatedDate
         //    ),
         //    StatusCode = ApiResultStatusCode.Success,
-        //    Message = "Customer created successfully",
+        //    Message = "Employee created successfully",
         //    Succeeded = true
         //};
 
@@ -105,36 +97,33 @@ public class CustomerController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetCustomer([FromRoute] int id)
+    public async Task<IActionResult> GetEmployee([FromRoute] int id)
     {
-        //var customer = _unitOfWork.GenericRepository<Customer>()
-        //    .Get(c => c.Id == id);
-        //if (customer == null)
+        //var employee = _unitOfWork.GenericRepository<Employee>().Get(c => c.Id == id);
+        //if (employee == null)
         //{
         //    return NotFound(new Response<object>
         //    {
         //        StatusCode = ApiResultStatusCode.NotFound,
-        //        Message = "Customer not found",
+        //        Message = "Employee not found",
         //        Succeeded = false
         //    });
         //}
 
-        //var response = new Response<CustomerResponse>
+        //var response = new Response<EmployeeResponse>
         //{
-        //    Data = new CustomerResponse
+        //    Data = new EmployeeResponse
         //    (
-        //        customer.Id,
-        //        customer.User.FirstName,
-        //        customer.User.LastName,
-        //        customer.User.Email,
-        //        customer.User.PhoneNumber,
-        //        customer.MFAEnabled,
-        //        customer.Role,
-        //        customer.Status,
-        //        customer.CreatedDate
+        //        employee.Id,
+        //        employee.User.FirstName,
+        //        employee.User.LastName,
+        //        employee.User.Email,
+        //        employee.User.PhoneNumber,
+        //        employee.User.MainRole.ToString(),
+        //        employee.CreatedDate
         //    ),
         //    StatusCode = ApiResultStatusCode.Success,
-        //    Message = "Customer found",
+        //    Message = "Employee found",
         //    Succeeded = true
         //};
 
@@ -144,32 +133,29 @@ public class CustomerController : AppControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateCustomer([FromBody] UpdateCustomerRequest request)
+    public async Task<IActionResult> UpdateEmployee([FromBody] UpdateEmployeeRequest request)
     {
-        //var customer = _unitOfWork.GenericRepository<Customer>()
+        //var employee = _unitOfWork.GenericRepository<Employee>()
         //    .Get(c => c.Id == request.Id);
-        //if (customer == null)
+        //if (employee == null)
         //{
         //    return NotFound(new Response<object>
         //    {
         //        StatusCode = ApiResultStatusCode.NotFound,
-        //        Message = "Customer not found",
+        //        Message = "Employee not found",
         //        Succeeded = false
         //    });
         //}
 
         //// Update User
-        //customer.User.FirstName = request.FirstName;
-        //customer.User.LastName = request.LastName;
-        //customer.User.Email = request.Email;
-        //customer.User.UserName = request.Email; // Keep UserName in sync with Email
-        //customer.User.PhoneNumber = request.PhoneNumber;
+        //employee.User.FirstName = request.FirstName;
+        //employee.User.LastName = request.LastName;
+        //employee.User.Email = request.Email;
+        //employee.User.UserName = request.Email; // Keep UserName in sync with Email
+        //employee.User.PhoneNumber = request.PhoneNumber;
+        //employee.AccountStatus = request.Status;
 
-        //// Update Customer
-        //customer.MFAEnabled = request.MFAEnabled;
-        //customer.Status = request.Status;
-
-        //_unitOfWork.GenericRepository<Customer>().Update(customer);
+        //_unitOfWork.GenericRepository<Employee>().Update(employee);
         //var saveResult = _unitOfWork.Save();
 
         //if (saveResult <= 0)
@@ -182,22 +168,20 @@ public class CustomerController : AppControllerBase
         //    });
         //}
 
-        //var response = new Response<CustomerResponse>
+        //var response = new Response<EmployeeResponse>
         //{
-        //    Data = new CustomerResponse
+        //    Data = new EmployeeResponse
         //    (
-        //        customer.Id,
-        //        customer.User.FirstName,
-        //        customer.User.LastName,
-        //        customer.User.Email,
-        //        customer.User.PhoneNumber,
-        //        customer.MFAEnabled,
-        //        customer.Role,
-        //        customer.Status,
-        //        customer.CreatedDate
+        //        employee.Id,
+        //        employee.User.FirstName,
+        //        employee.User.LastName,
+        //        employee.User.Email,
+        //        employee.User.PhoneNumber,
+        //        employee.User.MainRole.ToString(),
+        //        employee.CreatedDate
         //    ),
         //    StatusCode = ApiResultStatusCode.Success,
-        //    Message = "Customer updated successfully",
+        //    Message = "Employee updated successfully",
         //    Succeeded = true
         //};
 
@@ -210,7 +194,7 @@ public class CustomerController : AppControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
-        //var customers = _unitOfWork.GenericRepository<Customer>().GetAll();
+        //var customers = _unitOfWork.GenericRepository<Employee>().GetAll();
         //if (customers == null || !customers.Any())
         //{
         //    return NotFound(new Response<object>
@@ -221,22 +205,20 @@ public class CustomerController : AppControllerBase
         //    });
         //}
 
-        //var response = new Response<List<CustomerResponse>>
+        //var response = new Response<List<EmployeeResponse>>
         //{
-        //    Data = customers.Select(c => new CustomerResponse
+        //    Data = customers.Select(c => new EmployeeResponse
         //    (
         //        c.Id,
         //        c.User.FirstName,
         //        c.User.LastName,
         //        c.User.Email,
         //        c.User.PhoneNumber,
-        //        c.MFAEnabled,
-        //        c.Role,
-        //        c.Status,
+        //        c.User.MainRole.ToString(),
         //        c.CreatedDate
-        //    )).ToList(),
+        //     )).ToList(),
         //    StatusCode = ApiResultStatusCode.Success,
-        //    Message = "Customers retrieved successfully",
+        //    Message = "Employees retrieved successfully",
         //    Succeeded = true
         //};
 

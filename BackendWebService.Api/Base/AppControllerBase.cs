@@ -5,7 +5,7 @@ using SharedKernel.Extensions;
 using System.Security.Claims;
 namespace Api.Base;
 
-[Route("api/[controller]")]
+
 [ApiController]
 public class AppControllerBase : ControllerBase
 {
