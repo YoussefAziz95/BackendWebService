@@ -17,6 +17,6 @@ ParentId = ParentId,
 FileId = FileId,
 File = File.ToEntity(),
 ParentCategory = ParentCategory.ToEntity(),
-SubCategories = SubCategories.ToEntity()
+SubCategories = SubCategories.Select(x => x.ToEntity()).ToList()
 };
 }

@@ -23,7 +23,7 @@ ActionActor.ActionType,
 ActionActor.CreatedAt,
 ActionActor.UpdatedAt,
 ActionActor.UserId,
-ActionActor.User.ToEntity(),
+UserResponse.FromEntity(ActionActor.User),
 ActionActor.TargetEntityId,
 ActionActor.TableName);
 

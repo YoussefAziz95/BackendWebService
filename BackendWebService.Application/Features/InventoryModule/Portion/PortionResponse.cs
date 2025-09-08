@@ -16,8 +16,9 @@ public static PortionResponse FromEntity(Portion Portion) =>
 new PortionResponse(
 Portion.Quantity,
 Portion.StorageUnitId,
+StorageUnitResponse.FromEntity(Portion.StorageUnit),
 Portion.PortionTypeId,
+PortionTypeResponse.FromEntity(Portion.PortionType),
 Portion.Size,
-Portion.StorageUnit.ToEntity(),
-Portion.PortionType.ToEntity());
+Portion.PortionItems.Select(PortionItemResponse.FromEntity).ToList());
 }

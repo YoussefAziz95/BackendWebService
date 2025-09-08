@@ -13,6 +13,6 @@ public static SparePartResponse FromEntity(SparePart SparePart) =>
 new SparePartResponse(
 SparePart.PartId,
 SparePart.SpareId,
-SparePart.Part.ToEntity,
-SparePart.Spare.ToEntity());
+PartResponse.FromEntity(SparePart.Part),
+SpareResponse.FromEntity(SparePart.Spare));
 }

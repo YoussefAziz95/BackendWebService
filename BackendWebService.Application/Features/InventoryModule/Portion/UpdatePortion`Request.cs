@@ -6,9 +6,9 @@ namespace Application.Features;
 public record UpdatePortionRequest(
 int Quantity,
 int StorageUnitId,
-StorageUnit StorageUnit,
+UpdateStorageUnitRequest StorageUnit,
 int PortionTypeId,
-PortionType PortionType,
+UpdatePortionTypeRequest PortionType,
 SizeEnum Size,
 List<UpdatePortionItemRequest> PortionItems):IConvertibleToEntity<Portion>
 {

@@ -16,9 +16,9 @@ new WorkflowAResponse(
 Workflow.Name,
 Workflow.Description,
 Workflow.UserId,
-Workflow.User.ToEntity(),
+UserResponse.FromEntity(Workflow.User),
 Workflow.CompanyId,
-Workflow.Company.ToEntity(),
+CompanyResponse.FromEntity(Workflow.Company),
 Workflow.WorkflowCycles.Select(WorkflowCycleResponse.FromEntity).ToList()
 );
 }

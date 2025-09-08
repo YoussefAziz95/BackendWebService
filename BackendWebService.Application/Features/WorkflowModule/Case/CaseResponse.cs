@@ -18,11 +18,11 @@ public static CaseResponse FromEntity(Case Case) =>
 new CaseResponse(
 Case.ActionIndex,
 Case.WorkflowId,
-Case.Workflow.ToEntity(),
+WorkflowResponse.FromEntity(Case.Workflow),
 Case.StatusId,
 Case.CompanySupplierId,
-Case.CompanySupplier.ToEntity(),
+ConsumerAccountResponse.FromEntity(Case.CompanySupplier),
 Case.UserId,
-Case.User.ToEntity(),
+UserResponse.FromEntity(Case.User),
 Case.CaseActions.Select(CaseActionResponse.FromEntity).ToList());
 }

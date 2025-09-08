@@ -1,6 +1,5 @@
 ﻿using Application.Profiles;
 using Domain;
-using System.ComponentModel.DataAnnotations;
 
 namespace Application.Features;
 public record RoleResponse(
@@ -15,7 +14,7 @@ string? UpdatedBy,
 int? ParentId,
 string DisplayName,
 List<RoleClaimResponse> Claims,
-List<UserRoleResponse> Users):IConvertibleFromEntity<Role, RoleResponse>
+List<UserRoleResponse> Users): IConvertibleFromEntity<Role, RoleResponse>
 {
 public static RoleResponse FromEntity(Role Role) =>
 new RoleResponse(

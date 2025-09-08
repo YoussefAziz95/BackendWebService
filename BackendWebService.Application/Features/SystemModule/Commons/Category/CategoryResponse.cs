@@ -15,7 +15,7 @@ new CategoryResponse(
 Category.Name,
 Category.ParentId,
 Category.FileId,
-Category..ToEntity(),
-Category.ParentCategory.ToEntity(),
-Category.SubCategories.ToEntity());
+FileLogResponse.FromEntity(Category.File),
+CategoryResponse.FromEntity(Category.ParentCategory),
+Category.SubCategories.Select(CategoryResponse.FromEntity).ToList());
 }

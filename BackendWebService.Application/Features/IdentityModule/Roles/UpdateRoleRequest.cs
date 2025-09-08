@@ -1,7 +1,5 @@
 ﻿using Application.Profiles;
 using Domain;
-using Microsoft.AspNetCore.Http.HttpResults;
-using System.Security.Claims;
 
 namespace Application.Features;
 public record UpdateRoleRequest(

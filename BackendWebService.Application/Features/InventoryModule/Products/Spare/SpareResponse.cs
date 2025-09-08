@@ -16,5 +16,5 @@ Spare.IsAvailable,
 Spare.RequiredAmount,
 Spare.AvailableAmount,
 Spare.ProductId,
-Spare.Product.ToEntity());
+ProductResponse.FromEntity(Spare.Product));
 }

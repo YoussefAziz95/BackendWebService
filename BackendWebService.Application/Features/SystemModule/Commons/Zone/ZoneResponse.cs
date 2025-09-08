@@ -7,14 +7,14 @@ string Name,
 string? Description,
 int? ParentZoneId,
 ZoneResponse? ParentZone,
-List<ZoneResponse> SubZones): IConvertibleFromEntity<Zone, ZoneResponse>        
+List<ZoneResponse> SubZones) : IConvertibleFromEntity<Zone, ZoneResponse>
 {
-public static ZoneResponse FromEntity(Zone Zone) =>
-new ZoneResponse(
-Zone.Name,
-Zone.Description,
-Zone.ParentZoneId,
-Zone.ParentZone.ToEntity(),
-Zone.SubZones.Select(ZoneResponse.FromEntity).ToList()
-);
+    public static ZoneResponse FromEntity(Zone Zone) =>
+    new ZoneResponse(
+    Zone.Name,
+    Zone.Description,
+    Zone.ParentZoneId,
+    ZoneResponse.FromEntity(Zone.ParentZone),
+    Zone.SubZones.Select(ZoneResponse.FromEntity).ToList()
+    );
 }

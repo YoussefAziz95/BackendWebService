@@ -10,16 +10,16 @@ string Image,
 string PartNumber,
 string Manufacturer,
 int ProductId,
-ProductResponse Product):IConvertibleFromEntity<Part, PartResponse>
+ProductResponse Product) : IConvertibleFromEntity<Part, PartResponse>
 {
-public static PartResponse FromEntity(Part Part) =>
-new PartResponse(
-Part.Name,
-Part.Description,
-Part.Code,
-Part.Image,
-Part.PartNumber,
-Part.Manufacturer,
-Part.ProductId,
-Part.Product.ToEntity());
+    public static PartResponse FromEntity(Part Part) =>
+    new PartResponse(
+    Part.Name,
+    Part.Description,
+    Part.Code,
+    Part.Image,
+    Part.PartNumber,
+    Part.Manufacturer,
+    Part.ProductId,
+    ProductResponse.FromEntity(Part.Product));
 }

@@ -1,6 +1,5 @@
 ﻿using Application.Profiles;
 using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 public record CaseActionResponse(
@@ -11,16 +10,16 @@ int CaseId,
 CaseResponse Case,
 int WorkflowCycleId,
 WorkflowCycleResponse WorkflowCycle,
-int StatusId): IConvertibleFromEntity<CaseAction, CaseActionResponse>
+int StatusId) : IConvertibleFromEntity<CaseAction, CaseActionResponse>
 {
-public static CaseActionResponse FromEntity(CaseAction CaseAction) =>
-new CaseActionResponse(
-CaseAction.Order,
-CaseAction.WorkflowActorId,
-CaseAction.WorkflowActor.ToEntity(),
-CaseAction.CaseId,
-CaseAction.Case.ToEntity(),
-CaseAction.WorkflowCycleId,
-CaseAction.WorkflowCycle.ToEntity(),
-CaseAction.StatusId);
+    public static CaseActionResponse FromEntity(CaseAction CaseAction) =>
+    new CaseActionResponse(
+    CaseAction.Order,
+    CaseAction.WorkflowActorId,
+    UserResponse.FromEntity(CaseAction.WorkflowActor),
+    CaseAction.CaseId,
+    CaseResponse.FromEntity(CaseAction.Case),
+    CaseAction.WorkflowCycleId,
+    WorkflowCycleResponse.FromEntity(CaseAction.WorkflowCycle),
+    CaseAction.StatusId);
 }

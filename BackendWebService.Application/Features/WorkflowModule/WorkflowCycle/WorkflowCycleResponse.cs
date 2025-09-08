@@ -18,7 +18,7 @@ WorkflowCycle.ActionOrder,
 WorkflowCycle.ActionType,
 WorkflowCycle.Mandatory,
 WorkflowCycle.WorkflowId,
-WorkflowCycle.Workflow.ToEntity(),
+WorkflowResponse.FromEntity(WorkflowCycle.Workflow),
 WorkflowCycle.WorkflowReviewerId,
-WorkflowCycle.WorkflowReviewer.ToEntity());
+UserResponse.FromEntity(WorkflowCycle.WorkflowReviewer));
 }

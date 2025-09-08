@@ -23,6 +23,6 @@ Product.Code,
 Product.PartNumber,
 Product.Manufacturer,
 Product.FileId,
-Product.Category.ToEntity(),
-Product.File.ToEntity());
+CategoryResponse.FromEntity(Product.Category),
+FileLogResponse.FromEntity(Product.File));
 }
