@@ -16,9 +16,9 @@ internal class ManagerResponseHandler : ResponseHandler, IRequestHandler<Manager
 
     public IResponse<ManagerResponse> Handle(ManagerRequest request)
     {
-        var orders = _unitOfWork.GenericRepository<Manager>().Get();
+        var entity = _unitOfWork.GenericRepository<Manager>().Get();
 
-        var result = ManagerResponse.FromEntity(orders);
+        var result = ManagerResponse.FromEntity(entity);
 
         return Success(result);
     }

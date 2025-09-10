@@ -1,0 +1,29 @@
+﻿using Application.Contracts.Features;
+using Application.Profiles;
+using Domain;
+using Domain.Enums;
+using FluentValidation;
+using SharedKernel.ValidationBase;
+
+namespace Application.Features;
+public record AddConsumerDocumentRequest(
+int ConsumerAccountId,
+int PreDocumentId,
+DateTime? ApprovedDate,
+bool IsApproved,
+string? Comment,
+PreDocument PreDocument,
+int? FileId) : IConvertibleToEntity<ConsumerDocument>,IRequest<int>
+{
+    public ConsumerDocument ToEntity() => new ConsumerDocument
+    {
+
+        ConsumerAccountId = ConsumerAccountId,
+        PreDocumentId = PreDocumentId,
+        ApprovedDate = ApprovedDate,
+        IsApproved = IsApproved,
+        Comment = Comment,
+        PreDocument = PreDocument,
+        FileId = FileId
+    };
+}

@@ -2,7 +2,6 @@
 using Application.Contracts.Persistence;
 using Application.Wrappers;
 using Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features;
 internal class CompanyCategoryResponseHandler : ResponseHandler, IRequestHandler<CompanyCategoryRequest, CompanyCategoryResponse>
@@ -14,13 +13,13 @@ internal class CompanyCategoryResponseHandler : ResponseHandler, IRequestHandler
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<CompanyResponse> Handle(CompanyRequest request)
+    public IResponse<CompanyCategoryResponse> Handle(CompanyCategoryRequest request)
     {
-        var orders = _unitOfWork.GenericRepository<Company>().Get();
+        var entity = _unitOfWork.GenericRepository<CompanyCategory>().Get();
 
-        var result = CompanyResponse.FromEntity(orders);
+        var result = CompanyCategoryResponse.FromEntity(entity);
 
-        return Success(result);
+        return Success<CompanyCategoryResponse>(result);
     }
 }
 

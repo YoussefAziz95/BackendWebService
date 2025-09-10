@@ -9,7 +9,7 @@ string? Description,
 int UserId,
 AddUserRequest? User,
 int CompanyId,
-AddCompanyCategoryRequest? Company,
+AddCompanyRequest? Company,
 List<AddWorkflowCycleRequest> WorkflowCycles):IConvertibleToEntity<Workflow>
 {
 public Workflow ToEntity() => new Workflow

@@ -9,8 +9,8 @@ int OfferItemId,
 int Quantity,
 decimal DetailPrice,
 decimal ItemPrice,
-Deal Deal,
-OfferItem OfferItem):IConvertibleToEntity<DealDetails>
+UpdateDealRequest Deal,
+UpdateOfferItemRequest OfferItem):IConvertibleToEntity<DealDetails>
 {
 public DealDetails ToEntity() => new DealDetails
 {
@@ -19,7 +19,7 @@ OfferItemId = OfferItemId,
 Quantity = Quantity,
 DetailPrice = DetailPrice,
 ItemPrice = ItemPrice,
-Deal = Deal,
-OfferItem = OfferItem
+Deal = Deal.ToEntity(),
+OfferItem = OfferItem.ToEntity()
 };
 }

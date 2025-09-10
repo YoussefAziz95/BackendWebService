@@ -12,7 +12,7 @@ public interface ISupplierDocumentService
 
     Task<IResponse<int>> UpdateAsync(UpdateSupplierDocumentRequest request);
 
-    Task<IResponse<List<SupplierDocumentResponse>>> GetPaginated(GetPaginatedSupplierDocument supplierId);
+    Task<IResponse<List<SupplierDocumentResponse>>> GetPaginated(SupplierDocumentAllRequest supplierId);
 
     bool CheckIdExists(int id);
 }

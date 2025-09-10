@@ -15,9 +15,9 @@ internal class ManagerAllResponseHandler : ResponseHandler, IRequestHandler<Mana
 
     public IResponse<List<ManagerAllResponse>> Handle(ManagerAllRequest request)
     {
-        var orders = _unitOfWork.GenericRepository<Company>().GetAll();
+        var entity = _unitOfWork.GenericRepository<Manager>().GetAll();
 
-        var result = orders.Select(ManagerAllResponse.FromEntity).ToList();
+        var result = entity.Select(ManagerAllResponse.FromEntity).ToList();
 
         return Success(result);
     }

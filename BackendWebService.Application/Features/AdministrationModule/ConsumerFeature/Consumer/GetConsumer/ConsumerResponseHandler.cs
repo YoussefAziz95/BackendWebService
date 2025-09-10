@@ -16,9 +16,9 @@ internal class ConsumerResponseHandler : ResponseHandler, IRequestHandler<Consum
 
     public IResponse<ConsumerResponse> Handle(ConsumerRequest request)
     {
-        var orders = _unitOfWork.GenericRepository<Consumer>().Get();
+        var entity = _unitOfWork.GenericRepository<Consumer>().Get();
 
-        var result = ConsumerResponse.FromEntity(orders);
+        var result = ConsumerResponse.FromEntity(entity);
 
         return Success(result);
     }

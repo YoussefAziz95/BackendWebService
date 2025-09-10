@@ -16,9 +16,9 @@ internal class CompanyResponseHandler : ResponseHandler, IRequestHandler<Company
 
     public IResponse<CompanyResponse> Handle(CompanyRequest request)
     {
-        var orders = _unitOfWork.GenericRepository<Company>().Get();
+        var entity = _unitOfWork.GenericRepository<Company>().Get();
 
-        var result = CompanyResponse.FromEntity(orders);
+        var result = CompanyResponse.FromEntity(entity);
 
         return Success(result);
     }

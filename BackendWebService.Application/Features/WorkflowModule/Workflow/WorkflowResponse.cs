@@ -5,14 +5,14 @@ namespace Application.Features;
 public record WorkflowResponse(
 string? Name,
 string? Description,
-int UserId,
+int? UserId,
 UserResponse? User,
-int CompanyId,
+int? CompanyId,
 CompanyResponse? Company,
 List<WorkflowCycleResponse> WorkflowCycles): IConvertibleFromEntity<Workflow, WorkflowResponse>
 {
 public static WorkflowResponse FromEntity(Workflow Workflow) =>
-new WorkflowAResponse(
+new WorkflowResponse(
 Workflow.Name,
 Workflow.Description,
 Workflow.UserId,

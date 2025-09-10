@@ -15,9 +15,9 @@ internal class ConsumerAllResponseHandler : ResponseHandler, IRequestHandler<Con
 
     public IResponse<List<ConsumerAllResponse>> Handle(ConsumerAllRequest request)
     {
-        var orders = _unitOfWork.GenericRepository<Consumer>().GetAll();
+        var entity = _unitOfWork.GenericRepository<Consumer>().GetAll();
 
-        var result = orders.Select(ConsumerAllResponse.FromEntity).ToList();
+        var result = entity.Select(ConsumerAllResponse.FromEntity).ToList();
 
         return Success(result);
     }

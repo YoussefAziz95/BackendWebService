@@ -58,7 +58,7 @@ public class SupplierController : AppControllerBase
 
     [HttpPost("GetAll")]
     [Authorize(PermissionConstants.SUPPLIER)]
-    public async Task<IActionResult> GetAll([FromBody] GetPaginatedSupplier request)
+    public async Task<IActionResult> GetAll([FromBody] SupplierAllRequest request)
     {
         var result = await _supplierService.GetPaginated(request);
         return Ok(result);
@@ -66,7 +66,7 @@ public class SupplierController : AppControllerBase
 
     [HttpPost("GetRegisterSuppliers")]
     [Authorize(PermissionConstants.SUPPLIER)]
-    public async Task<IActionResult> GetRegisterSuppliers([FromBody] GetPaginatedSupplier request)
+    public async Task<IActionResult> GetRegisterSuppliers([FromBody] SupplierAllRequest request)
     {
         var result = await _supplierService.GetRegisterSuppliers(request);
         return Ok(result);

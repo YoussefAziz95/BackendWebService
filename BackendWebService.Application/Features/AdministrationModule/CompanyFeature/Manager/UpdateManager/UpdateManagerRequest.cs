@@ -1,13 +1,11 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
-using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
 namespace Application.Features;
 public record UpdateManagerRequest(
 int OrganizationId,
 string Name,
-string Position) : IConvertibleToEntity<Manager>
-
+string Position) : IConvertibleToEntity<Manager>, IRequest<int>
 {
     public Manager ToEntity() => new Manager
     {

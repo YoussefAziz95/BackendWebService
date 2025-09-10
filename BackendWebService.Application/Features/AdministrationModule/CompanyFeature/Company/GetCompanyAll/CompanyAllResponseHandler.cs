@@ -13,11 +13,11 @@ internal class CompanyAllResponseHandler : ResponseHandler, IRequestHandler<Comp
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<List<CompanyCategoryAllResponse>> Handle(CompanyAllRequest request)
+    public IResponse<List<CompanyAllResponse>> Handle(CompanyAllRequest request)
     {
-        var orders = _unitOfWork.GenericRepository<Company>().GetAll();
+        var entity = _unitOfWork.GenericRepository<Company>().GetAll();
 
-        var result = orders.Select(CompanyCategoryAllResponse.FromEntity).ToList();
+        var result = entity.Select(CompanyAllResponse.FromEntity).ToList();
 
         return Success(result);
     }
