@@ -266,7 +266,7 @@ public class AuthorizationController : AppControllerBase
     }
 
     [HttpPost("otp/verify")]
-    public async Task<IActionResult> VerifyOtp([FromBody] OtpVerify request)
+    public async Task<IActionResult> VerifyOtp([FromBody] OtpVerifyRequest request)
     {
         var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
         if (user == null) return BadRequest("User not found.");
