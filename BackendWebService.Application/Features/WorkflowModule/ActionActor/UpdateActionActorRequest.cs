@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 namespace Application.Features;
 public record UpdateActionActorRequest(
@@ -9,5 +11,20 @@ ActionEnum ActionType,
 DateTime CreatedAt,
 DateTime? UpdatedAt,
 int? UserId,
+UpdateUserRequest? User,
 int? TargetEntityId,
-TableNameEnum? TableName);
+TableNameEnum? TableName):IConvertibleToEntity<ActionActor>
+{
+public ActionActor ToEntity() => new ActionActor
+{
+Name = Name,
+Description = Description,
+StatusId = StatusId,
+ActionType = ActionType,
+CreatedAt = CreatedAt,
+UpdatedAt = UpdatedAt,
+UserId = UserId,
+User = User.ToEntity(),
+TableName = TableName
+};
+}

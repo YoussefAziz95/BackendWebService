@@ -125,7 +125,7 @@ namespace Persistence.Repositories.Organizations
             throw new NotImplementedException();
         }
 
-        public List<GetPaginatedSupplier> GetPaginated()
+        public List<SupplierAllResponse> GetPaginated()
         {
 
             throw new NotImplementedException();
@@ -200,7 +200,7 @@ namespace Persistence.Repositories.Organizations
             return supplier.Id;
         }
 
-        public List<GetPaginatedSupplier> GetRegisteredSupplier()
+        public List<SupplierAllResponse> GetRegisteredSupplier()
         {
             throw new NotImplementedException();
         }

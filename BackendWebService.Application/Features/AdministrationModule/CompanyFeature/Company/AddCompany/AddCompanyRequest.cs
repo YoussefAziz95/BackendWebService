@@ -20,7 +20,7 @@ StatusEnum Status,
 List<AddCompanyCategoryRequest> Category,
 List<AddManagerRequest> Manager) : IConvertibleToEntity<Company>, IRequest<int>
 {
-    public IValidator<AddCompanyRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<AddCompanyRequest> validator)
+    public IValidator<AddCompanyCategoryRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<AddCompanyCategoryRequest> validator)
     {
         throw new NotImplementedException();
     }

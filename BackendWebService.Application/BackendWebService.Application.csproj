@@ -12,6 +12,7 @@
     <Compile Remove="Contracts\Presistence\Workflows\**" />
     <Compile Remove="Contracts\Services\**" />
     <Compile Remove="DTOs\**" />
+    <Compile Remove="Features\InventoryModule\SystemModule\FilesSystem\**" />
     <Compile Remove="Implementations\**" />
     <Compile Remove="Validators\Category\**" />
     <Compile Remove="Validators\Common\**" />
@@ -30,6 +31,7 @@
     <EmbeddedResource Remove="Contracts\Presistence\Workflows\**" />
     <EmbeddedResource Remove="Contracts\Services\**" />
     <EmbeddedResource Remove="DTOs\**" />
+    <EmbeddedResource Remove="Features\InventoryModule\SystemModule\FilesSystem\**" />
     <EmbeddedResource Remove="Implementations\**" />
     <EmbeddedResource Remove="Validators\Category\**" />
     <EmbeddedResource Remove="Validators\Common\**" />
@@ -48,6 +50,7 @@
     <None Remove="Contracts\Presistence\Workflows\**" />
     <None Remove="Contracts\Services\**" />
     <None Remove="DTOs\**" />
+    <None Remove="Features\InventoryModule\SystemModule\FilesSystem\**" />
     <None Remove="Implementations\**" />
     <None Remove="Validators\Category\**" />
     <None Remove="Validators\Common\**" />

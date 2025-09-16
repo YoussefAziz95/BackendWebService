@@ -1,4 +1,7 @@
-﻿namespace Application.Features;
+﻿using Application.Profiles;
+using Domain;
+
+namespace Application.Features;
 public record RoleClaimResponse(
 string? ClaimType,
 string? ClaimValue,
@@ -9,4 +12,18 @@ bool? IsDeleted,
 bool? IsSystem,
 string? CreatedBy,
 DateTime? UpdatedDate,
-string? UpdatedBy);
+string? UpdatedBy) : IConvertibleFromEntity<RoleClaim, RoleClaimResponse>
+{
+public static RoleClaimResponse FromEntity(RoleClaim RoleClaim) =>
+new RoleClaimResponse(
+RoleClaim.ClaimType,
+RoleClaim.ClaimValue,
+RoleClaim.CreatedDate,
+RoleClaim.OrganizationId,
+RoleClaim.IsActive,
+RoleClaim.IsDeleted,
+RoleClaim.IsSystem,
+RoleClaim.CreatedBy,
+RoleClaim.UpdatedDate,
+RoleClaim.UpdatedBy);
+}

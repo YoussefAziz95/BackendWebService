@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 namespace Application.Features;
 public record AddPaymentMethodRequest(
@@ -12,4 +14,20 @@ bool IsDefault,
 bool IsVerified,
 DateTime? ExpiryDate,
 DateTime CreatedAt,
-DateTime? UpdatedAt);
+DateTime? UpdatedAt):IConvertibleToEntity<PaymentMethod>
+{
+public PaymentMethod ToEntity() => new PaymentMethod
+{
+UserId = UserId,
+MethodType = MethodType,
+Provider = Provider,
+AccountNumber = AccountNumber,
+Name = Name,
+Type = Type,
+IsDefault = IsDefault,
+IsVerified = IsVerified,
+ExpiryDate= ExpiryDate,
+CreatedAt= CreatedAt,
+UpdatedAt= UpdatedAt
+};
+}

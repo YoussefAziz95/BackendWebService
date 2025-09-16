@@ -1,5 +1,6 @@
 ﻿using Api.Base;
 using Application.Contracts.AppManager;
+using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
 using Application.Features;
@@ -21,56 +22,31 @@ public class AuthorizationController : AppControllerBase
     private readonly IJwtService _jwtService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IOtpService _otpService;
+    private readonly IMediator _mediator;
 
-    public AuthorizationController(IAppUserManager userManager, IJwtService jwtService, IUnitOfWork unitOfWork, IOtpService otpService)
+    public AuthorizationController(IAppUserManager userManager,
+        IJwtService jwtService,
+        IUnitOfWork unitOfWork,
+        IOtpService otpService,
+        IMediator mediator)
     {
         _userManager = userManager;
         _jwtService = jwtService;
         _unitOfWork = unitOfWork;
         _otpService = otpService;
+        _mediator = mediator;
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginPhoneRequest request)
     {
-        var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
-
-        if (user == null)
-            return Unauthorized("Invalid phone number or password");
-
-        //if (!user.PhoneNumberConfirmed)
-        //    return Forbid("Phone Number not confirmed");
-
-        var result = await _userManager.CheckPasswordAsync(user, request.Password);
-
-
-        if (!result)
-            return Unauthorized("Invalid phone number or password");
-
-
-        var roles = await _userManager.GetRolesAsync(user);
-
-        var accessToken = await _jwtService.GenerateAsync(user);
         var response = new Response<LoginResponse>()
         {
             StatusCode = ApiResultStatusCode.Success,
             Message = "Login successful",
             Succeeded = true,
-            Data = new LoginResponse(
-               Id: user.Id,
-               FullName: $"{user.FirstName} {user.LastName}",
-               PhoneNumber: user.PhoneNumber!,
-               Email: user.Email,
-               Token: accessToken.access_token,
-               TokenExpiry: DateTime.UtcNow.AddMinutes(30),
-               MainRole: user.MainRole.ToString(), // Convert RoleEnum to string  
-               Department: user.Department,
-               Title: user.Title,
-               IsActive: user.IsActive ?? true
-           )
+            Data = _mediator.Send(request)
         };
-
-
         return NewResult(response);
     }
     [HttpPost("login-email")]
@@ -265,7 +241,7 @@ public class AuthorizationController : AppControllerBase
     }
 
     [HttpPost("otp/verify")]
-    public async Task<IActionResult> VerifyOtp([FromBody] OtpVerify request)
+    public async Task<IActionResult> VerifyOtp([FromBody] OtpVerifyRequest request)
     {
         var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
         if (user == null) return BadRequest("User not found.");

@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
 namespace Application.Features;
 public record PartResponse(
@@ -9,4 +10,16 @@ string Image,
 string PartNumber,
 string Manufacturer,
 int ProductId,
-Product Product);
+ProductResponse Product) : IConvertibleFromEntity<Part, PartResponse>
+{
+    public static PartResponse FromEntity(Part Part) =>
+    new PartResponse(
+    Part.Name,
+    Part.Description,
+    Part.Code,
+    Part.Image,
+    Part.PartNumber,
+    Part.Manufacturer,
+    Part.ProductId,
+    ProductResponse.FromEntity(Part.Product));
+}

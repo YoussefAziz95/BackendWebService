@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Contracts.Features;
+using Application.Features;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api;
 
@@ -21,7 +23,12 @@ public static class Startup
         });
         return services;
     }
-
+    public static IServiceCollection ConfigureCQRS(this IServiceCollection services)
+    {
+        services.AddScoped<IMediator, Mediator>();
+        services.AddScoped<IRequestHandlerAsync<LoginPhoneRequest, LoginResponse>, LoginPhoneRequestHandler>();
+        return services;
+    }
     public static void ConfigureGrpcPipeline(this WebApplication app)
     {
 

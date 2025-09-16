@@ -14,7 +14,7 @@ string? QualityCertificates,
 string? ViceChairman,
 string? ProductType) : IRequest<CompanyResponse>
 {
-    public IValidator<AddCompanyRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<AddCompanyRequest> validator)
+    public IValidator<CompanyRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<CompanyRequest> validator)
     {
         throw new NotImplementedException();
     }

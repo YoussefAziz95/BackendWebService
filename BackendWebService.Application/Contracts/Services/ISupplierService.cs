@@ -7,12 +7,12 @@ namespace Application.Contracts.Services
         Task<IResponse<int>> AddUnregisteredAsync(AddSupplierRequest request);
         Task<IResponse<SupplierResponse>> GetAsync(int id);
         Task<IResponse<int>> UpdateAsync(UpdateSupplierRequest request);
-        Task<PaginatedResponse<GetPaginatedSupplier>> GetPaginated(GetPaginatedSupplier request);
+        Task<PaginatedResponse<SupplierAllResponse>> GetPaginated(SupplierAllRequest request);
         bool CheckIdExists(int id);
         Task<IResponse<int>> AddRegisteredAsync(AddSupplierRequest request);
         Task<IResponse<int>> RegisterAsync(int supplierId);
         Task<IResponse<string>> DeleteAsync(int id);
-        Task<PaginatedResponse<GetPaginatedSupplier>> GetRegisterSuppliers(GetPaginatedSupplier request);
+        Task<PaginatedResponse<SupplierAllResponse>> GetRegisterSuppliers(SupplierAllRequest request);
         Task<IResponse<int>> AddSupplierTOCompany(AddSupplierToCompany request);
 
     }

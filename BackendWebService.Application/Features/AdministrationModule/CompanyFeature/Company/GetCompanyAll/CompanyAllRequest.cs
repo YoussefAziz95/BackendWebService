@@ -18,7 +18,7 @@ int PageSize = 100,
 string FilterBy = "none",
 string? SortBy = "asc") : IRequest<List<CompanyAllResponse>>
 {
-    public IValidator<AddCompanyRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<AddCompanyRequest> validator)
+    public IValidator<CompanyAllRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<CompanyAllRequest> validator)
     {
         throw new NotImplementedException();
     }

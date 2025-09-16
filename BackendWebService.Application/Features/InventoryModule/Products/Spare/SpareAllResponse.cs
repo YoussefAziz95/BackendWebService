@@ -1,12 +1,19 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
 public record SpareAllResponse(
-string Number,
 bool? IsAvailable,
 int? RequiredAmount,
 int? AvailableAmount,
-int? ProductId,
-Product Product);
+int? ProductId): IConvertibleFromEntity<Spare, SpareAllResponse>        
+{
+public static SpareAllResponse FromEntity(Spare Spare) =>
+new SpareAllResponse(
+Spare.IsAvailable,
+Spare.RequiredAmount,
+Spare.AvailableAmount,
+Spare.ProductId);
+}
 

@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain;
+using Domain.Enums;
 
 namespace Application.Features;
 public record AddTransactionRequest(
@@ -11,4 +13,18 @@ StatusEnum Status,
 string ReferenceNumber,
 string? Notes,
 DateTime TransactionDate,
-DateTime? UpdatedAt);
+DateTime? UpdatedAt):IConvertibleToEntity<Transaction>
+{
+public Transaction ToEntity() => new Transaction
+{
+UserId = UserId,
+PaymentMethod = PaymentMethod,
+Type = Type,
+Amount = Amount,
+Currency = Currency,
+Status = Status,
+ReferenceNumber = ReferenceNumber,
+Notes = Notes,
+TransactionDate = TransactionDate,
+UpdatedAt = UpdatedAt};  
+}

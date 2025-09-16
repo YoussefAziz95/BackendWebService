@@ -15,9 +15,9 @@ internal class CompanyAllResponseHandler : ResponseHandler, IRequestHandler<Comp
 
     public IResponse<List<CompanyAllResponse>> Handle(CompanyAllRequest request)
     {
-        var orders = _unitOfWork.GenericRepository<Company>().GetAll();
+        var entity = _unitOfWork.GenericRepository<Company>().GetAll();
 
-        var result = orders.Select(CompanyAllResponse.FromEntity).ToList();
+        var result = entity.Select(CompanyAllResponse.FromEntity).ToList();
 
         return Success(result);
     }

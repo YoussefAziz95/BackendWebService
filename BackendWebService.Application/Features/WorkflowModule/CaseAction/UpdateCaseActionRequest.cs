@@ -1,13 +1,28 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
 public record UpdateCaseActionRequest(
 int? Order,
 int? WorkflowActorId,
-User? WorkflowActor,
+UpdateUserRequest? WorkflowActor,
 int CaseId,
-Case Case,
+UpdateCaseRequest Case,
 int WorkflowCycleId,
-WorkflowCycle WorkflowCycle,
-int StatusId);
+UpdateWorkflowCycleRequest WorkflowCycle,
+int StatusId) : IConvertibleToEntity<CaseAction>
+{
+public CaseAction ToEntity() => new CaseAction
+{
+Order = Order,
+WorkflowActorId = WorkflowActorId,
+WorkflowActor = WorkflowActor.ToEntity(),
+CaseId = CaseId,
+Case = Case.ToEntity(),
+WorkflowCycleId = WorkflowCycleId,
+WorkflowCycle = WorkflowCycle.ToEntity(),
+StatusId = StatusId
+
+};
+}

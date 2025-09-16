@@ -1,10 +1,21 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
 namespace Application.Features;
 public record AddSpareRequest(
-string Number,
 bool? IsAvailable,
 int? RequiredAmount,
 int? AvailableAmount,
 int? ProductId,
-Product Product);
+AddProductRequest Product):IConvertibleToEntity<Spare>
+{
+public Spare ToEntity() => new Spare
+{
+IsAvailable = IsAvailable,
+RequiredAmount = RequiredAmount,
+AvailableAmount = AvailableAmount,
+ProductId = ProductId,
+Product= Product.ToEntity()
+
+};
+}

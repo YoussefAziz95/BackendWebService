@@ -1,4 +1,6 @@
-﻿using Domain.Enums;
+﻿using Application.Profiles;
+using Domain.Enums;
+using Domain;
 
 namespace Application.Features;
 public record TransactionResponse(
@@ -11,4 +13,18 @@ StatusEnum Status,
 string ReferenceNumber,
 string? Notes,
 DateTime TransactionDate,
-DateTime? UpdatedAt);
+DateTime? UpdatedAt):IConvertibleFromEntity<Transaction, TransactionResponse>
+{
+public static TransactionResponse FromEntity(Transaction Transaction) =>
+new TransactionResponse(
+Transaction.UserId,
+Transaction.PaymentMethod,
+Transaction.Type,
+Transaction.Amount,
+Transaction.Currency,
+Transaction.Status,
+Transaction.ReferenceNumber,
+Transaction.Notes,
+Transaction.TransactionDate,
+Transaction.UpdatedAt);
+}

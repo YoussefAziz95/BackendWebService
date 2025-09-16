@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Application.Profiles;
+using Domain;
 
 namespace Application.Features;
 public record AddPartRequest(
@@ -9,4 +10,18 @@ string Image,
 string PartNumber,
 string Manufacturer,
 int ProductId,
-Product Product);
+AddProductRequest Product):IConvertibleToEntity<Part>
+{
+public Part ToEntity() => new Part
+{
+Name = Name,
+Description = Description,
+Code = Code,
+Image = Image,
+PartNumber = PartNumber,
+Manufacturer = Manufacturer,
+ProductId = ProductId,
+Product= Product.ToEntity()
+
+};
+}
