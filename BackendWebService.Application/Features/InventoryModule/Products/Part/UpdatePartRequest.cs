@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace BackendWebService.Application.Features.InventoryModule.Products.Part;
+namespace Application.Features;
 public record UpdatePartRequest(
     int id,
 string Name,

@@ -1,13 +1,16 @@
 ﻿using Application.Contracts.Persistence;
+using Application.Features;
 using Application.Model.Jwt;
 using Application.Models.Jwt;
 using Contracts.Services;
 using Domain;
+using Domain.Constants;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 
@@ -130,5 +133,50 @@ public class JwtService : IJwtService
             return null;
 
         return await RefreshToken(refreshTokenId);
+    }
+    /// <summary>
+    /// Retrieves the pages accessible to a user.
+    /// </summary>
+    /// <param name="id">The ID of the user.</param>
+    /// <returns>A response containing the pages accessible to the user.</returns>
+    public async Task<IEnumerable<UserPagesResponse>> GetUserPages(int id)
+    {
+        // Get all roles with their claims for the user
+        var userRoles = _unitOfWork.GenericRepository<UserRole>()
+            .GetAll(ur => ur.UserId == id, include: ur => ur.Include(ur => ur.Role).ThenInclude(r => r.Claims))
+            .First();
+
+
+        var claims = userRoles.Role.Claims
+            .Select(parts => new UserPagesResponse
+            (
+                parts.Id,
+                parts.ClaimType?.Split('.')[0],
+                parts.ClaimType?.Split('.')[1],
+                parts.ClaimType?.Split('.')[2],
+                parts.ClaimType?.Split('.')[3],
+                parts.ClaimType
+            ))
+            .ToList();
+
+        return claims;
+    }
+
+
+    private List<string> GetAllPermissions()
+    {
+        Type permissionsType = typeof(PermissionConstants);
+        FieldInfo[] fields = permissionsType.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+
+        List<string> permissionsList = new List<string>();
+        foreach (FieldInfo field in fields)
+        {
+            if (field.FieldType == typeof(string))
+            {
+                string value = (string)field.GetValue(null)!;
+                permissionsList.Add(value);
+            }
+        }
+        return permissionsList;
     }
 }

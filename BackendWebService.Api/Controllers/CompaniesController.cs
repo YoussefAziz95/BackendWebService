@@ -31,111 +31,52 @@ public class CompaniesController : AppControllerBase
     }
 
     [HttpPost]
-    [HttpPost]
     public async Task<IActionResult> AddCompany([FromBody] AddCompanyRequest request)
     {
-        //try
-        //{
-        //    await _unitOfWork.BeginTransactionAsync();
+        try
+        {
+            await _unitOfWork.BeginTransactionAsync();
 
-        //    var user = _unitOfWork.GetUserInfo();
-        //    var createdBy = user?.Username ?? "System";
+            var user = _unitOfWork.GetUserInfo();
+            var createdBy = user?.Username ?? "System";
 
-        //    var organization = new Organization
-        //    {
-        //        Name = request.CompanyName,
-        //        Email = request.Email,
-        //        Phone = request.Phone,
-        //        City = request.City,
-        //        Country = request.Country,
-        //        StreetAddress = request.StreetAddress,
-        //        TaxNo = request.TaxNo,
-        //        Type = OrganizationEnum.Company,
-        //        FileId = request.FileId ?? 1,
-        //        CreatedDate = DateTime.UtcNow,
-        //        CreatedBy = createdBy
-        //    };
-        //    _unitOfWork.GenericRepository<Organization>().Add(organization);
+            var company = request.ToEntity();
 
-        //    var company = new Company
-        //    {
-        //        CompanyName = request.CompanyName,
-        //        ContactEmail = request.Email,
-        //        ContactPhone = request.Phone,
-        //        RegistrationNumber = request.RegistrationNumber,
-        //        Status = StatusEnum.Active,
-        //        IsActive = true,
-        //        OrganizationId = organization.Id,
-        //        CreatedDate = DateTime.UtcNow,
-        //        CreatedBy = createdBy
-        //    };
-        //    _unitOfWork.GenericRepository<Company>().Add(company);
+            _unitOfWork.GenericRepository<Company>().Add(company);
 
-        //    if (request.Addresses?.Any() == true)
-        //    {
-        //        foreach (var addr in request.Addresses)
-        //        {
-        //            _unitOfWork.GenericRepository<Address>().Add(new Address
-        //            {
-        //                FullAddress = addr.FullAddress,
-        //                Street = addr.Street,
-        //                Zone = addr.Zone,
-        //                State = addr.State,
-        //                City = addr.City,
-        //                IsAdministration = addr.IsAdministration,
-        //                OrganizationId = organization.Id,
-        //                CreatedDate = DateTime.UtcNow,
-        //                CreatedBy = createdBy
-        //            });
-        //        }
-        //    }
 
-        //    if (request.Contacts?.Any() == true)
-        //    {
-        //        foreach (var contact in request.Contacts)
-        //        {
-        //            _unitOfWork.GenericRepository<Contact>().Add(new Contact
-        //            {
-        //                OrganizationId = organization.Id,
-        //                Type = contact.Type,
-        //                Value = contact.Value,
-        //                CreatedDate = DateTime.UtcNow,
-        //                CreatedBy = createdBy
-        //            });
-        //        }
-        //    }
 
-        //    await _unitOfWork.SaveAsync();
-        //    await _unitOfWork.CommitAsync();
+            await _unitOfWork.SaveAsync();
+            await _unitOfWork.CommitAsync();
 
-        //    var result = new Response<int>
-        //    {
-        //        Data = company.Id,
-        //        Succeeded = true,
-        //        StatusCode = ApiResultStatusCode.Success,
-        //        Message = "Company added successfully"
-        //    };
+            var result = new Response<int>
+            {
+                Data = company.Id,
+                Succeeded = true,
+                StatusCode = ApiResultStatusCode.Success,
+                Message = "Company added successfully"
+            };
 
-        //    return NewResult(result);
-        //}
-        //catch (Exception ex)
-        //{
-        //    await _unitOfWork.RollbackAsync();
+            return NewResult(result);
+        }
+        catch (Exception ex)
+        {
+            await _unitOfWork.RollbackAsync();
 
-        //    var result = new Response<string>
-        //    {
-        //        Data = null,
-        //        Succeeded = false,
-        //        StatusCode = ApiResultStatusCode.ServerError,
-        //        Message = "Failed to add company. " + ex.Message
-        //    };
+            var result = new Response<string>
+            {
+                Data = null,
+                Succeeded = false,
+                StatusCode = ApiResultStatusCode.ServerError,
+                Message = "Failed to add company. " + ex.Message
+            };
 
-        //    return NewResult(result);
+            return NewResult(result);
 
-        throw new NotImplementedException();
+            throw new NotImplementedException();
+        }
+
     }
-    
-
 
 
     [HttpGet("{id}")]

@@ -7,7 +7,6 @@ namespace Application.Contracts.AppManager
 {
     public interface IAppUserManager
     {
-        Task<IEnumerable<UserPagesResponse>> GetUserPages(int id);
         Task<IdentityResult> AccessFailedAsync(User user);
         Task<IdentityResult> AddClaimAsync(User user, Claim claim);
         Task<IdentityResult> AddClaimsAsync(User user, IEnumerable<Claim> claims);

@@ -204,7 +204,7 @@ public class AuthorizationController : AppControllerBase
     }
 
     [HttpPost("resetPassword")]
-    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordByPhoneRequest request)
     {
         var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
         if (user == null) return BadRequest("User not found.");
@@ -293,7 +293,7 @@ public class AuthorizationController : AppControllerBase
     [HttpGet("GetUserPages/{id}")]
     public async Task<IActionResult> GetUserPages(int id)
     {
-        var result = await _userManager.GetUserPages(id);
+        var result = await _jwtService.GetUserPages(id);
         return Ok(result);
     }
 

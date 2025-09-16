@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace BackendWebService.Application.Features.InventoryModule.Products.Part;
+namespace Application.Features;
 public record AddPartRequest(
 string Name,
 string Description,

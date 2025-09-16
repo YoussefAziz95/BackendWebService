@@ -9,11 +9,11 @@ using Persistence.Data;
 
 #nullable disable
 
-namespace BackendWebService.Persistence.Migrations
+namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250819100025_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250907062950_SD_Insert_Roles_Roleclaims")]
+    partial class SD_Insert_Roles_Roleclaims
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -826,9 +826,6 @@ namespace BackendWebService.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("BranchId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -875,8 +872,6 @@ namespace BackendWebService.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
 
                     b.ToTable("Branch");
                 });
@@ -3961,9 +3956,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BranchId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -4057,8 +4049,6 @@ namespace BackendWebService.Persistence.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -5243,9 +5233,6 @@ namespace BackendWebService.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("BranchId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -5283,8 +5270,6 @@ namespace BackendWebService.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
 
                     b.HasIndex("InventoryId");
 
@@ -5758,13 +5743,6 @@ namespace BackendWebService.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Branch", b =>
-                {
-                    b.HasOne("Domain.Branch", null)
-                        .WithMany("Cafes")
-                        .HasForeignKey("BranchId");
                 });
 
             modelBuilder.Entity("Domain.BranchContact", b =>
@@ -6464,10 +6442,6 @@ namespace BackendWebService.Persistence.Migrations
 
             modelBuilder.Entity("Domain.User", b =>
                 {
-                    b.HasOne("Domain.Branch", null)
-                        .WithMany("Customers")
-                        .HasForeignKey("BranchId");
-
                     b.HasOne("Organization", "Organization")
                         .WithMany()
                         .HasForeignKey("OrganizationId");
@@ -6722,10 +6696,6 @@ namespace BackendWebService.Persistence.Migrations
 
             modelBuilder.Entity("StorageUnit", b =>
                 {
-                    b.HasOne("Domain.Branch", null)
-                        .WithMany("StorageUnits")
-                        .HasForeignKey("BranchId");
-
                     b.HasOne("Inventory", "Inventory")
                         .WithMany("StorageUnits")
                         .HasForeignKey("InventoryId")
@@ -6845,15 +6815,6 @@ namespace BackendWebService.Persistence.Migrations
                     b.Navigation("CustomerPaymentMethods");
 
                     b.Navigation("CustomerServices");
-                });
-
-            modelBuilder.Entity("Domain.Branch", b =>
-                {
-                    b.Navigation("Cafes");
-
-                    b.Navigation("Customers");
-
-                    b.Navigation("StorageUnits");
                 });
 
             modelBuilder.Entity("Domain.Category", b =>

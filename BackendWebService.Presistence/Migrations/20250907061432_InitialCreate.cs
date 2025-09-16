@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BackendWebService.Persistence.Migrations
+namespace Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -70,7 +70,6 @@ namespace BackendWebService.Persistence.Migrations
                     LogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     WebsiteUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BranchId = table.Column<int>(type: "int", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -83,11 +82,6 @@ namespace BackendWebService.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Branch", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Branch_Branch_BranchId",
-                        column: x => x.BranchId,
-                        principalTable: "Branch",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1201,7 +1195,6 @@ namespace BackendWebService.Persistence.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BranchId = table.Column<int>(type: "int", nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
@@ -1217,11 +1210,6 @@ namespace BackendWebService.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Branch_BranchId",
-                        column: x => x.BranchId,
-                        principalTable: "Branch",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Users_Organization_OrganizationId",
                         column: x => x.OrganizationId,
@@ -1276,7 +1264,6 @@ namespace BackendWebService.Persistence.Migrations
                     PortionTypeId = table.Column<int>(type: "int", nullable: true),
                     FullQuantity = table.Column<int>(type: "int", nullable: false),
                     Unit = table.Column<int>(type: "int", nullable: false),
-                    BranchId = table.Column<int>(type: "int", nullable: true),
                     OrganizationId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
@@ -1289,11 +1276,6 @@ namespace BackendWebService.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StorageUnit", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_StorageUnit_Branch_BranchId",
-                        column: x => x.BranchId,
-                        principalTable: "Branch",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_StorageUnit_Inventory_InventoryId",
                         column: x => x.InventoryId,
@@ -3246,11 +3228,6 @@ namespace BackendWebService.Persistence.Migrations
                 column: "FileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Branch_BranchId",
-                table: "Branch",
-                column: "BranchId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BranchContact_BranchId",
                 table: "BranchContact",
                 column: "BranchId");
@@ -3799,11 +3776,6 @@ namespace BackendWebService.Persistence.Migrations
                 column: "SpareId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StorageUnit_BranchId",
-                table: "StorageUnit",
-                column: "BranchId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_StorageUnit_InventoryId",
                 table: "StorageUnit",
                 column: "InventoryId");
@@ -3888,11 +3860,6 @@ namespace BackendWebService.Persistence.Migrations
                 name: "EmailIndex",
                 table: "Users",
                 column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_BranchId",
-                table: "Users",
-                column: "BranchId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_OrganizationId",
@@ -4202,6 +4169,9 @@ namespace BackendWebService.Persistence.Migrations
                 name: "Zone");
 
             migrationBuilder.DropTable(
+                name: "Branch");
+
+            migrationBuilder.DropTable(
                 name: "PaymentMethod");
 
             migrationBuilder.DropTable(
@@ -4209,9 +4179,6 @@ namespace BackendWebService.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "PortionType");
-
-            migrationBuilder.DropTable(
-                name: "Branch");
 
             migrationBuilder.DropTable(
                 name: "Organization");

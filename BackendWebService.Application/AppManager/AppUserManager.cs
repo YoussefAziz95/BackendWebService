@@ -3,12 +3,14 @@ using Application.Contracts.Persistence;
 using Application.Features;
 using Dapper;
 using Domain;
+using Domain.Constants;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Data;
+using System.Reflection;
 namespace Application.AppManager;
 
 public class AppUserManager : UserManager<User>, IAppUserManager
@@ -53,13 +55,8 @@ public class AppUserManager : UserManager<User>, IAppUserManager
         user.PhoneNumberConfirmed = true;
         return await UpdateAsync(user);
     }
-    public async Task<IEnumerable<UserPagesResponse>> GetUserPages(int id)
-    {
-        var dbParams = new DynamicParameters();
-        dbParams.Add("@UserId ", id, DbType.Int32);
-        var responses = _sp_call.List<UserPagesResponse>("dbo.sp_GetUserPages", dbParams);
-        return responses.AsEnumerable();
-    }
+    
+
 
 
 }
