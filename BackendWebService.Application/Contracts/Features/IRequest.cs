@@ -2,6 +2,10 @@
 
 public interface IRequest<TResponse> { }
 
+public interface IRequestByIdHandler<TResponse>
+{
+    IResponse<TResponse> Handle(int request);
+}
 public interface IRequestHandler<in TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {

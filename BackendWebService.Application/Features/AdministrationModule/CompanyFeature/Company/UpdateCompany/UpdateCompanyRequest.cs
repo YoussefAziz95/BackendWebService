@@ -2,6 +2,8 @@
 using Application.Profiles;
 using Domain;
 using Domain.Enums;
+using FluentValidation;
+using SharedKernel.ValidationBase;
 namespace Application.Features;
 public record UpdateCompanyRequest(
 int Id,
@@ -15,10 +17,13 @@ string? QualityCertificates,
 string? ViceChairman,
 string? ProductType,
 StatusEnum Status,
-List<UpdateCompanyCategoryRequest> Category,
-List<UpdateManagerRequest> Manager) : IConvertibleToEntity<Company>, IRequest<int>
-
+List<UpdateCompanyCategoryRequest> CompanyCategories,
+List<UpdateManagerRequest> Managers) : IConvertibleToEntity<Company>, IRequest<int>
 {
+    public IValidator<AddManagerRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<AddManagerRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
     public Company ToEntity() => new Company
     {
         Id = Id,
@@ -32,7 +37,8 @@ List<UpdateManagerRequest> Manager) : IConvertibleToEntity<Company>, IRequest<in
         ViceChairman = ViceChairman,
         ProductType = ProductType,
         Status = Status,
-        Manager = Manager.Select(x => x.ToEntity()).ToList()
+        CompanyCategories = CompanyCategories.Select(x => x.ToEntity()).ToList(),
+        Managers = Managers.Select(x => x.ToEntity()).ToList()
     };
 
 }

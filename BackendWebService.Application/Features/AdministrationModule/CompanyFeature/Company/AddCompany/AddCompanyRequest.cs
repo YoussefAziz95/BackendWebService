@@ -17,8 +17,8 @@ string? QualityCertificates,
 string? ViceChairman,
 string? ProductType,
 StatusEnum Status,
-List<AddCompanyCategoryRequest> Category,
-List<AddManagerRequest> Manager) : IConvertibleToEntity<Company>, IRequest<int>
+List<AddCompanyCategoryRequest> CompanyCategories,
+List<AddManagerRequest> Managers) : IConvertibleToEntity<Company>, IRequest<int>
 {
     public IValidator<AddCompanyCategoryRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<AddCompanyCategoryRequest> validator)
     {
@@ -36,7 +36,8 @@ List<AddManagerRequest> Manager) : IConvertibleToEntity<Company>, IRequest<int>
         ViceChairman = ViceChairman,
         ProductType = ProductType,
         Status = Status,
-        Manager = Manager.Select(x => x.ToEntity()).ToList()
+        CompanyCategories = CompanyCategories.Select(x => x.ToEntity()).ToList(),
+        Managers = Managers.Select(x => x.ToEntity()).ToList()
     };
 
 }
