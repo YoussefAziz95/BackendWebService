@@ -1,0 +1,20 @@
+﻿using Application.Contracts.Features;
+using Application.Profiles;
+using Domain;
+namespace Application.Features;
+public record UpdateFileLogRequest(
+string FileName,
+string FullPath,
+string Extention,
+int FileTypeId,
+UpdateFileTypeRequest FileType) : IConvertibleToEntity<FileLog>,IRequest<int>
+{
+    public FileLog ToEntity() => new FileLog
+    {
+        FileName = FileName,
+        FullPath = FullPath,
+        Extention = Extention,
+        FileTypeId = FileTypeId,
+        FileType = FileType.ToEntity()
+    };
+}

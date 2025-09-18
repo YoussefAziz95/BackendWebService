@@ -5,18 +5,11 @@ using Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features;
-internal class CompanyResponseHandler : ResponseHandler, IRequestHandler<CompanyRequest, CompanyResponse>
+internal class CompanyResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<CompanyResponse>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
-    public CompanyResponseHandler(IUnitOfWork unitOfWork)
+    public IResponse<CompanyResponse> Handle(int id)
     {
-        _unitOfWork = unitOfWork;
-    }
-
-    public IResponse<CompanyResponse> Handle(CompanyRequest request)
-    {
-        var entity = _unitOfWork.GenericRepository<Company>().Get();
+        var entity = unitOfWork.GenericRepository<Company>().GetById(id);
 
         var result = CompanyResponse.FromEntity(entity);
 

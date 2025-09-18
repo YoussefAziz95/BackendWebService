@@ -10,7 +10,7 @@ public interface IWorkflowRepository
 
     Workflow GetById(int id);
 
-    List<WorkflowAllResponse> GetPaginated(GetPaginatedWorkflow request);
+    List<WorkflowAllResponse> GetPaginated(WorkflowAllRequest request);
 
     WorkflowResponse GetWorkflowById(int id);
 }
