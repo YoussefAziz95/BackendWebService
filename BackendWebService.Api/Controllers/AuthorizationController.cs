@@ -178,16 +178,16 @@ public class AuthorizationController : AppControllerBase
         });
     }
 
-    [HttpPost("resetPassword")]
-    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordByPhoneRequest request)
-    {
-        var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
-        if (user == null) return BadRequest("User not found.");
+    //[HttpPost("resetPassword")]
+    //public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordByPhoneRequest request)
+    //{
+    //    var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
+    //    if (user == null) return BadRequest("User not found.");
 
-        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-        // Send token via email or SMS here
-        return Ok(new { message = "Password reset instructions sent. " + token });
-    }
+    //    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+    //    // Send token via email or SMS here
+    //    return Ok(new { message = "Password reset instructions sent. " + token });
+    //}
     [HttpPost("resetPasswordAuth")]
     public async Task<IActionResult> ResetPasswordAuth([FromBody] ResetPasswordAuthRequest request)
     {
