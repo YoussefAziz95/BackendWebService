@@ -25,7 +25,7 @@ public static class Startup
     }
     public static IServiceCollection ConfigureCQRS(this IServiceCollection services)
     {
-        services.AddScoped<IMediator, Mediator>();
+        services.AddScoped<ICustomMediator, Mediator>();
         services.AddScoped<IRequestHandlerAsync<LoginPhoneRequest, LoginResponse>, LoginPhoneRequestHandler>();
         return services;
     }

@@ -2,4 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 
 namespace Application.Features;
-public record ConfirmPhoneNumberRequest(string PhoneNumber, string Code) : IRequest<IdentityResult>;
+
+public class CustomIdentityResult : IdentityResult, IRequest<int>
+{
+}

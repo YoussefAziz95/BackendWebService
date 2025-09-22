@@ -204,7 +204,7 @@ public class AuthorizationController : AppControllerBase
     }
 
     [HttpPost("resetPassword")]
-    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordByPhoneRequest request)
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
     {
         var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
         if (user == null) return BadRequest("User not found.");

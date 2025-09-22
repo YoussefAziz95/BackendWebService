@@ -24,7 +24,7 @@ public class CompaniesController : AppControllerBase
 
     public CompaniesController(IUnitOfWork unitOfWork,
         ICompanyService companyService,
-        IMediator mediator)
+        ICustomMediator mediator)
     {
         _unitOfWork = unitOfWork;
         _companyService = companyService;

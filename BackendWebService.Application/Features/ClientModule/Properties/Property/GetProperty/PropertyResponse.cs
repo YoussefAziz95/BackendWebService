@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Features;
+using Application.Profiles;
 using Domain;
 using Domain.Enums;
 

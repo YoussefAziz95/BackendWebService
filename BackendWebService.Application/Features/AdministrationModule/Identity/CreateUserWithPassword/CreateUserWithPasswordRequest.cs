@@ -9,4 +9,4 @@ string Password,
 string PhoneNumber,
 string MainRole,
 string? Department,
-string? Title) : IRequest<int>;
+string? Title) : IRequest<LoginResponse>;
