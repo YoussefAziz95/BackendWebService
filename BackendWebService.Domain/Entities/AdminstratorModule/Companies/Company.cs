@@ -21,6 +21,6 @@ public class Company : BaseEntity, IEntity, ITimeModification
     public string? QualityCertificates { get; set; }
     public string? ViceChairman { get; set; }
     public string? ProductType { get; set; }
-    public ICollection<CompanyCategory>? Activity { get; set; }
-    public ICollection<Manager>? Manager { get; set; }
+    public ICollection<CompanyCategory>? CompanyCategories { get; set; }
+    public ICollection<Manager>? Managers { get; set; }
 }
