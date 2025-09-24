@@ -1,4 +1,5 @@
 ﻿using Api.Base;
+using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Features;
 using Domain;
@@ -13,218 +14,202 @@ namespace Api.Controllers.v2;
 [AllowAnonymous]
 [ApiVersion("2.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
-public class EmployeeController : AppControllerBase
+public class EmployeeController(IMediator mediator) : AppControllerBase
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly UserManager<User> _userManager;
 
-    public EmployeeController(IUnitOfWork unitOfWork, UserManager<User> userManager)
-    {
-        _unitOfWork = unitOfWork;
-        _userManager = userManager;
-    }
-
-    [HttpPost]
+    //-------------------------------
+    #region Employee APIs
+    //-------------------------------
+    [HttpPost("add-employee")]
     public async Task<IActionResult> AddEmployee([FromBody] AddEmployeeRequest request)
     {
-        // Create User  
-        //var user = new User
-        //{
-        //    FirstName = request.FirstName,
-        //    LastName = request.LastName,
-        //    UserName = request.Email, // Use email as username  
-        //    Email = request.Email,
-        //    PhoneNumber = request.PhoneNumber,
-        //    IsActive = true,
-        //    IsDeleted = false,
-        //    CreatedDate = DateTime.UtcNow,
-        //    MainRole = RoleEnum.Employee
-        //};
-
-        //// Create user with Identity  
-        //var identityResult = await _userManager.CreateAsync(user, request.Password);
-        //if (!identityResult.Succeeded)
-        //{
-        //    var errors = string.Join(", ", identityResult.Errors.Select(e => e.Description));
-        //    return BadRequest(new Response<object>
-        //    {
-        //        StatusCode = ApiResultStatusCode.BadRequest,
-        //        Message = $"Failed to create user: {errors}",
-        //        Succeeded = false
-        //    });
-        //}
-
-        ////// Create Employee  
-        ////var employee = new Employee
-        ////{
-
-        ////};
-
-        ////_unitOfWork.GenericRepository<Employee>().Add(employee);
-        //var saveResult = _unitOfWork.Save();
-
-        //if (saveResult <= 0)
-        //{
-        //    // Rollback user creation if customer save fails  
-        //    await _userManager.DeleteAsync(user);
-        //    return BadRequest(new Response<object>
-        //    {
-        //        StatusCode = ApiResultStatusCode.BadRequest,
-        //        Message = "Failed to create customer",
-        //        Succeeded = false
-        //    });
-        //}
-
-        //var response = new Response<EmployeeResponse>
-        //{
-        //    Data = new EmployeeResponse(
-        //        user.Id,
-        //        user.FirstName,
-        //        user.LastName,
-        //        user.Email,
-        //        user.PhoneNumber,
-        //        user.MainRole.ToString(),
-        //        user.CreatedDate
-        //    ),
-        //    StatusCode = ApiResultStatusCode.Success,
-        //    Message = "Employee created successfully",
-        //    Succeeded = true
-        //};
-
-        //return NewResult(response);
-
-        throw new NotImplementedException();
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("get-employee/{id}")]
     public async Task<IActionResult> GetEmployee([FromRoute] int id)
     {
-        //var employee = _unitOfWork.GenericRepository<Employee>().Get(c => c.Id == id);
-        //if (employee == null)
-        //{
-        //    return NotFound(new Response<object>
-        //    {
-        //        StatusCode = ApiResultStatusCode.NotFound,
-        //        Message = "Employee not found",
-        //        Succeeded = false
-        //    });
-        //}
-
-        //var response = new Response<EmployeeResponse>
-        //{
-        //    Data = new EmployeeResponse
-        //    (
-        //        employee.Id,
-        //        employee.User.FirstName,
-        //        employee.User.LastName,
-        //        employee.User.Email,
-        //        employee.User.PhoneNumber,
-        //        employee.User.MainRole.ToString(),
-        //        employee.CreatedDate
-        //    ),
-        //    StatusCode = ApiResultStatusCode.Success,
-        //    Message = "Employee found",
-        //    Succeeded = true
-        //};
-
-        //return NewResult(response);
-
-        throw new NotImplementedException();
+        var response = mediator.HandleById<EmployeeResponse>(id);
+        return NewResult(response);
     }
 
-    [HttpPut]
+    [HttpPut("update-employee")]
     public async Task<IActionResult> UpdateEmployee([FromBody] UpdateEmployeeRequest request)
     {
-        //var employee = _unitOfWork.GenericRepository<Employee>()
-        //    .Get(c => c.Id == request.Id);
-        //if (employee == null)
-        //{
-        //    return NotFound(new Response<object>
-        //    {
-        //        StatusCode = ApiResultStatusCode.NotFound,
-        //        Message = "Employee not found",
-        //        Succeeded = false
-        //    });
-        //}
-
-        //// Update User
-        //employee.User.FirstName = request.FirstName;
-        //employee.User.LastName = request.LastName;
-        //employee.User.Email = request.Email;
-        //employee.User.UserName = request.Email; // Keep UserName in sync with Email
-        //employee.User.PhoneNumber = request.PhoneNumber;
-        //employee.AccountStatus = request.Status;
-
-        //_unitOfWork.GenericRepository<Employee>().Update(employee);
-        //var saveResult = _unitOfWork.Save();
-
-        //if (saveResult <= 0)
-        //{
-        //    return BadRequest(new Response<object>
-        //    {
-        //        StatusCode = ApiResultStatusCode.BadRequest,
-        //        Message = "Failed to update customer",
-        //        Succeeded = false
-        //    });
-        //}
-
-        //var response = new Response<EmployeeResponse>
-        //{
-        //    Data = new EmployeeResponse
-        //    (
-        //        employee.Id,
-        //        employee.User.FirstName,
-        //        employee.User.LastName,
-        //        employee.User.Email,
-        //        employee.User.PhoneNumber,
-        //        employee.User.MainRole.ToString(),
-        //        employee.CreatedDate
-        //    ),
-        //    StatusCode = ApiResultStatusCode.Success,
-        //    Message = "Employee updated successfully",
-        //    Succeeded = true
-        //};
-
-        //return NewResult(response);
-
-        throw new NotImplementedException();
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
     }
 
-    [HttpGet("GetAll")]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetAll()
+    [HttpPost("get-all-employee")]
+    public IActionResult GetAll(EmployeeAllRequest request)
     {
-        //var customers = _unitOfWork.GenericRepository<Employee>().GetAll();
-        //if (customers == null || !customers.Any())
-        //{
-        //    return NotFound(new Response<object>
-        //    {
-        //        StatusCode = ApiResultStatusCode.NotFound,
-        //        Message = "No customers found",
-        //        Succeeded = false
-        //    });
-        //}
-
-        //var response = new Response<List<EmployeeResponse>>
-        //{
-        //    Data = customers.Select(c => new EmployeeResponse
-        //    (
-        //        c.Id,
-        //        c.User.FirstName,
-        //        c.User.LastName,
-        //        c.User.Email,
-        //        c.User.PhoneNumber,
-        //        c.User.MainRole.ToString(),
-        //        c.CreatedDate
-        //     )).ToList(),
-        //    StatusCode = ApiResultStatusCode.Success,
-        //    Message = "Employees retrieved successfully",
-        //    Succeeded = true
-        //};
-
-        //return NewResult(response);
-
-        throw new NotImplementedException();
+        var response = mediator.Handle(request);
+        return NewResult(response);
     }
+
+    [HttpPost("delete-employee")]
+    public async Task<IActionResult> DeleteEmployee([FromBody] DeleteEmployeeRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+    #endregion
+
+    //-------------------------------
+    #region EmployeeAccount APIs
+    //-------------------------------
+    [HttpPost("add-employee-account")]
+    public async Task<IActionResult> AddEmployeeAccount([FromBody] AddEmployeeAccountRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpGet("get-employee-account/{id}")]
+    public async Task<IActionResult> GetEmployeeAccount([FromRoute] int id)
+    {
+        var response = mediator.HandleById<EmployeeAccountResponse>(id);
+        return NewResult(response);
+    }
+
+    [HttpPut("update-employee-account")]
+    public async Task<IActionResult> UpdateEmployeeAccount([FromBody] UpdateEmployeeAccountRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("get-all-employee-account")]
+    public IActionResult GetAll(EmployeeAccountAllRequest request)
+    {
+        var response = mediator.Handle(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("delete-employee-account")]
+    public async Task<IActionResult> DeleteEmployeeAccount([FromBody] DeleteEmployeeAccountRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+    #endregion
+
+    //-------------------------------
+    #region EmployeeAssignment APIs
+    //-------------------------------
+    [HttpPost("add-employee-assignment")]
+    public async Task<IActionResult> AddEmployeeAssignment([FromBody] AddEmployeeAssignmentRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpGet("get-employee-assignment/{id}")]
+    public async Task<IActionResult> GetEmployeeAssignment([FromRoute] int id)
+    {
+        var response = mediator.HandleById<EmployeeAssignmentResponse>(id);
+        return NewResult(response);
+    }
+
+    [HttpPut("update-employee-assignment")]
+    public async Task<IActionResult> UpdateEmployeeAssignment([FromBody] UpdateEmployeeAssignmentRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("get-all-employee-assignment")]
+    public IActionResult GetAll(EmployeeAssignmentAllRequest request)
+    {
+        var response = mediator.Handle(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("delete-employee-assignment")]
+    public async Task<IActionResult> DeleteEmployeeAssignment([FromBody] DeleteEmployeeAssignmentRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+    #endregion
+
+    //-------------------------------
+    #region EmployeeCertification APIs
+    //-------------------------------
+    [HttpPost("add-employee-certification")]
+    public async Task<IActionResult> AddEmployeeCertification([FromBody] AddEmployeeCertificationRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpGet("get-employee-certification/{id}")]
+    public async Task<IActionResult> GetEmployeeCertification([FromRoute] int id)
+    {
+        var response = mediator.HandleById<EmployeeCertificationResponse>(id);
+        return NewResult(response);
+    }
+
+    [HttpPut("update-employee-certification")]
+    public async Task<IActionResult> UpdateEmployeeCertification([FromBody] UpdateEmployeeCertificationRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("get-all-employee-certification")]
+    public IActionResult GetAll(EmployeeCertificationAllRequest request)
+    {
+        var response = mediator.Handle(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("delete-employee-certification")]
+    public async Task<IActionResult> DeleteEmployeeCertification([FromBody] DeleteEmployeeCertificationRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+    #endregion
+
+    //-------------------------------
+    #region EmployeeJob APIs
+    //-------------------------------
+    [HttpPost("add-employee-job")]
+    public async Task<IActionResult> AddEmployeeJob([FromBody] AddEmployeeJobRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpGet("get-employee-job/{id}")]
+    public async Task<IActionResult> GetEmployeeJob([FromRoute] int id)
+    {
+        var response = mediator.HandleById<EmployeeJobResponse>(id);
+        return NewResult(response);
+    }
+
+    [HttpPut("update-employee-job")]
+    public async Task<IActionResult> UpdateEmployeeJob([FromBody] UpdateEmployeeJobRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("get-all-employee-job")]
+    public IActionResult GetAll(EmployeeJobAllRequest request)
+    {
+        var response = mediator.Handle(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("delete-employee-job")]
+    public async Task<IActionResult> DeleteEmployeeJob([FromBody] DeleteEmployeeJobRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+    #endregion
 
 }

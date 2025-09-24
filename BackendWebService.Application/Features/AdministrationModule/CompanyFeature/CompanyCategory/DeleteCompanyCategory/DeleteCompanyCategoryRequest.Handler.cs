@@ -10,12 +10,12 @@ internal class DeleteCompanyCategoryRequestHandler(IUnitOfWork unitOfWork) : Res
     public async Task<IResponse<string>> HandleAsync(DeleteCompanyCategoryRequest request)
     {
         unitOfWork.BeginTransactionAsync();
-        var company = await unitOfWork.GenericRepository<CompanyCategory>().GetByIdAsync(request.Id);
-        if (company == null)
-            return NotFound<string>("Company not found");
+        var entity = await unitOfWork.GenericRepository<CompanyCategory>().GetByIdAsync(request.Id);
+        if (entity == null)
+            return NotFound<string>("CompanyCategory not found");
         try
         {
-            unitOfWork.GenericRepository<CompanyCategory>().Delete(company);
+            unitOfWork.GenericRepository<CompanyCategory>().Delete(entity);
             unitOfWork.CommitAsync();
             await unitOfWork.SaveAsync();
         }

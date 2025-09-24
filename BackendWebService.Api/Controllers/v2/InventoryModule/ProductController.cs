@@ -1,4 +1,5 @@
 ﻿using Api.Base;
+using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Contracts.Services;
 using Application.Features;
@@ -12,124 +13,162 @@ namespace Api.Controllers.v2;
 [AllowAnonymous]
 [ApiVersion("2.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
-public class ProductController : AppControllerBase
+public class ProductController(IMediator mediator) : AppControllerBase
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IFileSystemService _fileSystemService;
 
-    public ProductController(IUnitOfWork unitOfWork,
-        IFileSystemService fileSystemService)
+    //-------------------------------
+    #region Part APIs
+    //-------------------------------
+    [HttpPost("add-part")]
+    public async Task<IActionResult> AddPart([FromBody] AddPartRequest request)
     {
-        _unitOfWork = unitOfWork;
-        _fileSystemService = fileSystemService;
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
     }
 
-    [HttpPost]
+    [HttpGet("get-part/{id}")]
+    public async Task<IActionResult> GetPart([FromRoute] int id)
+    {
+        var response = mediator.HandleById<PartResponse>(id);
+        return NewResult(response);
+    }
+
+    [HttpPut("update-part")]
+    public async Task<IActionResult> UpdatePart([FromBody] UpdatePartRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("get-all-part")]
+    public IActionResult GetAll(PartAllRequest request)
+    {
+        var response = mediator.Handle(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("delete-part")]
+    public async Task<IActionResult> DeletePart([FromBody] DeletePartRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+    #endregion
+
+    //-------------------------------
+    #region Product APIs
+    //-------------------------------
+    [HttpPost("add-product")]
     public async Task<IActionResult> AddProduct([FromBody] AddProductRequest request)
     {
-        //var product = new Product
-        //{
-        //    Number = request.Number,
-        //    Name = request.Name,
-        //    Description = request.Description,
-        //    Code = request.Code,
-        //    PartNumber = request.PartNumber,
-        //    Manufacturer = request.Manufacturer,
-        //    CategoryId = request.CategoryId
-        //};
-        //if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
-        //    return NotFound("File not found");
-        //product.File = _unitOfWork.GenericRepository<FileLog>().Get(f => f.Id == request.FileId);
-        //product.FileId = request.FileId;
-        //_unitOfWork.GenericRepository<Product>().Add(product);
-        //var result = _unitOfWork.Save();
-
-        //return Ok(product.Id);
-
-        throw new NotImplementedException();
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("get-product/{id}")]
     public async Task<IActionResult> GetProduct([FromRoute] int id)
     {
-        //var product = await _unitOfWork.GenericRepository<Product>().GetByIdAsync(id);
-        //if (product == null)
-        //    return NotFound("Product not found");
-
-        //var response = new Response<ProductResponse>()
-        //{
-        //    StatusCode = ApiResultStatusCode.Success,
-        //    Message = "Product found",
-        //    Succeeded = true,
-        //    Data = new ProductResponse(product.Id, product.Number, product.Name, product.Description, _fileSystemService.DownloadFileResponse(product.File.FileName), product.Code, product.PartNumber, product.Manufacturer, product.CategoryId, product.IsActive)
-        //};
-
-        //return NewResult(response);
-
-        throw new NotImplementedException();
+        var response = mediator.HandleById<ProductResponse>(id);
+        return NewResult(response);
     }
 
-    [HttpPut]
+    [HttpPut("update-product")]
     public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductRequest request)
     {
-        //var product = await _unitOfWork.GenericRepository<Product>().GetByIdAsync(request.Id);
-        //if (product == null)
-        //    return NotFound("Product not found");
-
-        //product.Number = request.Number;
-        //product.Name = request.Name;
-        //product.Description = request.Description;
-        //if ((product.FileId ?? 0) != request.FileId)
-        //{
-        //    if (product.FileId as int? != null)
-        //    {
-        //        var fileLog = _unitOfWork.GenericRepository<FileLog>().Get(f => f.Id == request.FileId, disableTracking: true);
-        //        _fileSystemService.DeleteFile(fileLog.FileName);
-        //    }
-        //}
-        //if (!_unitOfWork.GenericRepository<FileLog>().Exists(f => f.Id == request.FileId))
-        //    return NotFound("Product not found");
-        //product.File = _unitOfWork.GenericRepository<FileLog>().Get(f => f.Id == request.FileId);
-        //product.FileId = request.FileId;
-        //product.Code = request.Code;
-        //product.PartNumber = request.PartNumber;
-        //product.Manufacturer = request.Manufacturer;
-        //product.CategoryId = request.CategoryId;
-
-        //_unitOfWork.GenericRepository<Product>().Update(product);
-        //var result = _unitOfWork.Save();
-
-        //var response = new Response<ProductResponse>()
-        //{
-        //    StatusCode = ApiResultStatusCode.Success,
-        //    Message = "Product updated successfully",
-        //    Succeeded = true,
-        //    Data = new ProductResponse(product.Id, product.Number, product.Name, product.Description, _fileSystemService.DownloadFileResponse(product.File.FileName), product.Code, product.PartNumber, product.Manufacturer, product.CategoryId, product.IsActive)
-        //};
-
-        //return NewResult(response);
-
-        throw new NotImplementedException();
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
     }
 
-    [HttpGet("GetAll")]
-    public IActionResult GetAll()
+    [HttpPost("get-all-product")]
+    public IActionResult GetAll(ProductAllRequest request)
     {
-        //var products = _unitOfWork.GenericRepository<Product>().GetAll(include: c => c.Include(u => u.File));
-        //if (products == null || !products.Any())
-        //    return NotFound("Products not found");
-
-        //var result = new Response<List<ProductResponse>>()
-        //{
-        //    StatusCode = ApiResultStatusCode.Success,
-        //    Message = "Products found",
-        //    Succeeded = true,
-        //    Data = products.Select(p =>
-        //        new ProductResponse(p.Id, p.Number, p.Name, p.Description, _fileSystemService.DownloadFileResponse(p.File.FileName), p.Code, p.PartNumber, p.Manufacturer, p.CategoryId, p.IsActive)).ToList()
-        //};
-
-        //return NewResult(result);
-
-        throw new NotImplementedException();
+        var response = mediator.Handle(request);
+        return NewResult(response);
     }
+
+    [HttpPost("delete-product")]
+    public async Task<IActionResult> DeleteProduct([FromBody] DeleteProductRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+    #endregion
+
+    //-------------------------------
+    #region Spare APIs
+    //-------------------------------
+    [HttpPost("add-spare")]
+    public async Task<IActionResult> AddSpare([FromBody] AddSpareRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpGet("get-spare/{id}")]
+    public async Task<IActionResult> GetSpare([FromRoute] int id)
+    {
+        var response = mediator.HandleById<SpareResponse>(id);
+        return NewResult(response);
+    }
+
+    [HttpPut("update-spare")]
+    public async Task<IActionResult> UpdateSpare([FromBody] UpdateSpareRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("get-all-spare")]
+    public IActionResult GetAll(SpareAllRequest request)
+    {
+        var response = mediator.Handle(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("delete-spare")]
+    public async Task<IActionResult> DeleteSpare([FromBody] DeleteSpareRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+    #endregion
+
+    //-------------------------------
+    #region SparePart APIs
+    //-------------------------------
+    [HttpPost("add-spare-part")]
+    public async Task<IActionResult> AddSparePart([FromBody] AddSparePartRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpGet("get-spare-part/{id}")]
+    public async Task<IActionResult> GetSparePart([FromRoute] int id)
+    {
+        var response = mediator.HandleById<SparePartResponse>(id);
+        return NewResult(response);
+    }
+
+    [HttpPut("update-spare-part")]
+    public async Task<IActionResult> UpdateSparePart([FromBody] UpdateSparePartRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("get-all-spare-part")]
+    public IActionResult GetAll(SparePartAllRequest request)
+    {
+        var response = mediator.Handle(request);
+        return NewResult(response);
+    }
+
+    [HttpPost("delete-spare-part")]
+    public async Task<IActionResult> DeleteSparePart([FromBody] DeleteSparePartRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+    #endregion
 }

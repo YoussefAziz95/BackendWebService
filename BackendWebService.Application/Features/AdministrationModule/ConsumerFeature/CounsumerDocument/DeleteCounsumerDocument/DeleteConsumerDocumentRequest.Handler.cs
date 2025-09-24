@@ -9,12 +9,12 @@ internal class DeleteConsumerDocumentRequestHandler(IUnitOfWork unitOfWork) : Re
     public async Task<IResponse<string>> HandleAsync(DeleteConsumerDocumentRequest request)
     {
         unitOfWork.BeginTransactionAsync();
-        var company = await unitOfWork.GenericRepository<ConsumerDocument>().GetByIdAsync(request.Id);
-        if (company == null)
+        var entity = await unitOfWork.GenericRepository<ConsumerDocument>().GetByIdAsync(request.Id);
+        if (entity == null)
             return NotFound<string>("ConsumerDocument not found");
         try
         {
-            unitOfWork.GenericRepository<ConsumerDocument>().Delete(company);
+            unitOfWork.GenericRepository<ConsumerDocument>().Delete(entity);
             unitOfWork.CommitAsync();
             await unitOfWork.SaveAsync();
         }

@@ -10,12 +10,12 @@ internal class DeleteManagerRequestHandler(IUnitOfWork unitOfWork) : ResponseHan
     public async Task<IResponse<string>> HandleAsync(DeleteManagerRequest request)
     {
         unitOfWork.BeginTransactionAsync();
-        var company = await unitOfWork.GenericRepository<Manager>().GetByIdAsync(request.Id);
-        if (company == null)
+        var entity = await unitOfWork.GenericRepository<Manager>().GetByIdAsync(request.Id);
+        if (entity == null)
             return NotFound<string>("Manager not found");
         try
         {
-            unitOfWork.GenericRepository<Manager>().Delete(company);
+            unitOfWork.GenericRepository<Manager>().Delete(entity);
             unitOfWork.CommitAsync();
             await unitOfWork.SaveAsync();
         }

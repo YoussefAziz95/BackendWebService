@@ -10,12 +10,12 @@ internal class DeleteConsumerAccountRequestHandler(IUnitOfWork unitOfWork) : Res
     public async Task<IResponse<string>> HandleAsync(DeleteConsumerAccountRequest request)
     {
         unitOfWork.BeginTransactionAsync();
-        var company = await unitOfWork.GenericRepository<ConsumerAccount>().GetByIdAsync(request.Id);
-        if (company == null)
+        var entity = await unitOfWork.GenericRepository<ConsumerAccount>().GetByIdAsync(request.Id);
+        if (entity == null)
             return NotFound<string>("ConsumerAccount not found");
         try
         {
-            unitOfWork.GenericRepository<ConsumerAccount>().Delete(company);
+            unitOfWork.GenericRepository<ConsumerAccount>().Delete(entity);
             unitOfWork.CommitAsync();
             await unitOfWork.SaveAsync();
         }

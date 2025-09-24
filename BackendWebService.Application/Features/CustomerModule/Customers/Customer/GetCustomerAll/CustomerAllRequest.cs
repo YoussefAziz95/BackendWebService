@@ -12,7 +12,7 @@ bool MFAEnabled = false,
 int PageNumber = 1,
 int PageSize = 100,
 string FilterBy = "none",
-string? SortBy = "asc") : IRequest<List<CustomerAllResponse>>, IRequest<int>
+string? SortBy = "asc") : IRequest<List<CustomerAllResponse>>
 {
     public IValidator<CustomerAllRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<CustomerAllRequest> validator)
     {
