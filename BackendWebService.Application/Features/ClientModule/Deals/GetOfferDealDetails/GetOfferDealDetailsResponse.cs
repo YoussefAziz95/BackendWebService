@@ -1,4 +1,4 @@
-﻿namespace BackendWebService.Application.Features.ClientModule.Deals.GetOfferDealDetails;
+﻿namespace Application.Features;
 
 public record GetOfferDealDetailsResponse(
 int OfferItemId,

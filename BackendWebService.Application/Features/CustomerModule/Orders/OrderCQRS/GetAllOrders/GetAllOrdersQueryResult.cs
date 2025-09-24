@@ -1,2 +1,0 @@
-﻿namespace BackendWebService.Application.Features.CustomerModule.Orders.OrderCQRS.GetAllOrders;
-public record GetAllOrdersQueryResult(int OrderId, string OrderName, int OrderOwnerId, string OrderOwnerUserName);

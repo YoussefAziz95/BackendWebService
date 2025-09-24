@@ -6,12 +6,12 @@ using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers.v1;
+namespace ApiControllers.v2.AdministrationModule;
 
 
 [ApiController]
 [AllowAnonymous]
-[ApiVersion("1.0")]
+[ApiVersion("2.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
 public class PermissionsController : AppControllerBase
 {
@@ -23,6 +23,7 @@ public class PermissionsController : AppControllerBase
     }
 
     [HttpGet]
+    
     public IActionResult GetAll()
     {
         var result = _permissionService.GetAll();
@@ -30,6 +31,7 @@ public class PermissionsController : AppControllerBase
     }
 
     [HttpGet("{id}")]
+    
     public async Task<IActionResult> GetRolePermissions([FromRoute] int id)
     {
         var result = await _permissionService.GetRolePermissions(id);

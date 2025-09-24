@@ -24,7 +24,10 @@ namespace Persistence.Migrations
                 { (int)RoleEnum.SuperAdmin, (int)OrganizationEnum.Organization, "SuperAdmin", "SuperAdmin", "SUPERADMIN", Guid.NewGuid().ToString(), null, true, "System", DateTime.UtcNow, true, false },
                 { (int)RoleEnum.Admin, (int)OrganizationEnum.Company, "Admin", "Admin", "ADMIN", Guid.NewGuid().ToString(), null, true, "System", DateTime.UtcNow, true, false },
                 { (int)RoleEnum.Employee, (int)OrganizationEnum.Company, "Employee", "Employee", "EMPLOYEE", Guid.NewGuid().ToString(), null, true, "System", DateTime.UtcNow, true, false },
-                { (int)RoleEnum.Customer, (int)OrganizationEnum.Company, "Customer", "Customer", "CUSTOMER", Guid.NewGuid().ToString(), null, true, "System", DateTime.UtcNow, true, false }
+                { (int)RoleEnum.Customer, (int)OrganizationEnum.Company, "Customer", "Customer", "CUSTOMER", Guid.NewGuid().ToString(), null, true, "System", DateTime.UtcNow, true, false },
+                { (int)RoleEnum.System, (int)OrganizationEnum.Company, "System", "System", "SYSTEM", Guid.NewGuid().ToString(), null, true, "System", DateTime.UtcNow, true, false },
+                { (int)RoleEnum.Inventory, (int)OrganizationEnum.Company, "Inventory", "Inventory", "INVENTORY", Guid.NewGuid().ToString(), null, true, "System", DateTime.UtcNow, true, false },
+                { (int)RoleEnum.Identity, (int)OrganizationEnum.Company, "Identity", "Identity", "IDENTITY", Guid.NewGuid().ToString(), null, true, "System", DateTime.UtcNow, true, false }
                 }
             );
 
@@ -32,9 +35,13 @@ namespace Persistence.Migrations
 
             // ===== 3. Insert Permissions =====
             InsertRoleClaims(migrationBuilder, RoleEnum.SuperAdmin, OrganizationEnum.Organization, PermissionConstants.GetAllPermissions());
-            InsertRoleClaims(migrationBuilder, RoleEnum.Admin, OrganizationEnum.Company, PermissionConstants.GetCompanyPermissions());
+            InsertRoleClaims(migrationBuilder, RoleEnum.Admin, OrganizationEnum.Company, PermissionConstants.GetAdminPermissions());
             InsertRoleClaims(migrationBuilder, RoleEnum.Employee, OrganizationEnum.Company, PermissionConstants.GetEmployeePermissions());
             InsertRoleClaims(migrationBuilder, RoleEnum.Customer, OrganizationEnum.Company, PermissionConstants.GetCustomerPermissions());
+            InsertRoleClaims(migrationBuilder, RoleEnum.System, OrganizationEnum.Company, PermissionConstants.GetCustomerPermissions());
+            InsertRoleClaims(migrationBuilder, RoleEnum.Inventory, OrganizationEnum.Company, PermissionConstants.GetCustomerPermissions());
+            InsertRoleClaims(migrationBuilder, RoleEnum.Identity, OrganizationEnum.Company, PermissionConstants.GetCustomerPermissions());
+
 
 
 

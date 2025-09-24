@@ -1,6 +1,4 @@
-﻿using BackendWebService.Application.Features.ClientModule.Deals.GetOfferDealDetails;
-
-namespace Application.Features;
+﻿namespace Application.Features;
 
 public record GetOfferDealResponse(
 int OfferId,
