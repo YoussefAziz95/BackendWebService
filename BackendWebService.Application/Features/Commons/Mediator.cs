@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.Features;
 
 namespace Application.Features;
-public class Mediator : ICustomMediator
+public class Mediator : IMediator
 {
     private readonly IServiceProvider _serviceProvider;
 
@@ -13,7 +13,7 @@ public class Mediator : ICustomMediator
     // ----------------------
     // SYNC HANDLER
     // ----------------------
-    public IResponse<TResponse> Send<TResponse>(IRequest<TResponse> request)
+    public IResponse<TResponse> Handle<TResponse>(IRequest<TResponse> request)
     {
         var handlerType = typeof(IRequestHandler<,>)
             .MakeGenericType(request.GetType(), typeof(TResponse));
@@ -30,7 +30,7 @@ public class Mediator : ICustomMediator
     // ----------------------
     // ASYNC HANDLER
     // ----------------------
-    public async Task<IResponse<TResponse>> SendAsync<TResponse>(IRequest<TResponse> request)
+    public async Task<IResponse<TResponse>> HandleAsync<TResponse>(IRequest<TResponse> request)
     {
         var handlerType = typeof(IRequestHandlerAsync<,>)
             .MakeGenericType(request.GetType(), typeof(TResponse));
@@ -57,7 +57,7 @@ public class Mediator : ICustomMediator
     // ----------------------
     // BY ID HANDLER
     // ----------------------
-    public IResponse<TResponse> SendById<TResponse>(int id)
+    public IResponse<TResponse> HandleById<TResponse>(int id)
     {
         var handlerType = typeof(IRequestByIdHandler<>)
             .MakeGenericType(typeof(TResponse));

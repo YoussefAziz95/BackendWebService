@@ -63,6 +63,7 @@ public class AuthorizationController : AppControllerBase
                PhoneNumber: user.PhoneNumber!,
                Email: user.Email,
                Token: accessToken.access_token,
+               RefreshToken: accessToken.refresh_token,
                TokenExpiry: DateTime.UtcNow.AddMinutes(30),
                MainRole: user.MainRole.ToString(), // Convert RoleEnum to string  
                Department: user.Department,
@@ -106,6 +107,7 @@ public class AuthorizationController : AppControllerBase
                 PhoneNumber: user.PhoneNumber!,
                 Email: user.Email,
                 Token: accessToken.access_token,
+                RefreshToken: accessToken.refresh_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
                 MainRole: user.MainRole.ToString(), // Convert RoleEnum to string  
                 Department: user.Department,
@@ -119,7 +121,7 @@ public class AuthorizationController : AppControllerBase
         return NewResult(response);
     }
     [HttpPost("signup")]
-    public async Task<IActionResult> SignUp([FromBody] CreateUserWithPasswordRequest request)
+    public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
     {
         if (!Enum.TryParse<RoleEnum>(request.MainRole, out var mainRole))
         {
@@ -154,6 +156,7 @@ public class AuthorizationController : AppControllerBase
                 PhoneNumber: user.PhoneNumber!,
                 Email: user.Email,
                 Token: accessToken.access_token,
+                RefreshToken: accessToken.refresh_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
                 MainRole: user.MainRole.ToString(), // Convert RoleEnum to string  
                 Department: user.Department,
@@ -173,61 +176,49 @@ public class AuthorizationController : AppControllerBase
     [HttpPost("refresh-token")]
     public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
     {
-        var result = await _jwtService.RefreshTokenAsync(request.Token);
-        if (result == null)
-            return Unauthorized("Invalid refresh token");
+        //var result = await _jwtService.RefreshTokenAsync(request.Token);
+        //if (result == null)
+        //    return Unauthorized("Invalid refresh token");
 
-        var userInfo = _unitOfWork.GetUserInfo();
-        if (userInfo == null)
-            return Unauthorized("User not found");
+        //var userInfo = _unitOfWork.GetUserInfo();
+        //if (userInfo == null)
+        //    return Unauthorized("User not found");
 
-        var user = await _userManager.FindByIdAsync(userInfo.UserId.ToString());
+        //var user = await _userManager.FindByIdAsync(userInfo.UserId.ToString());
 
-        return NewResult(new Response<LoginResponse>
-        {
-            StatusCode = ApiResultStatusCode.Success,
-            Message = "Token refreshed",
-            Succeeded = true,
-            Data = new LoginResponse(
-                Id: user.Id,
-                FullName: $"{user.FirstName} {user.LastName}",
-                PhoneNumber: user.PhoneNumber!,
-                Email: user.Email,
-                Token: result.access_token,
-                TokenExpiry: DateTime.UtcNow.AddMinutes(30),
-                MainRole: user.MainRole.ToString(), // Convert RoleEnum to string  
-                Department: user.Department,
-                Title: user.Title,
-                IsActive: user.IsActive ?? true
-            )
-        });
+        //return NewResult(new Response<LoginResponse>
+        //{
+        //    StatusCode = ApiResultStatusCode.Success,
+        //    Message = "Token refreshed",
+        //    Succeeded = true,
+        //    Data = new LoginResponse(
+        //        Id: user.Id,
+        //        FullName: $"{user.FirstName} {user.LastName}",
+        //        PhoneNumber: user.PhoneNumber!,
+        //        Email: user.Email,
+        //        Token: result.access_token,
+        //        RefreshToken: result.refresh_token,
+        //        TokenExpiry: DateTime.UtcNow.AddMinutes(30),
+        //        MainRole: user.MainRole.ToString(), // Convert RoleEnum to string  
+        //        Department: user.Department,
+        //        Title: user.Title,
+        //        IsActive: user.IsActive ?? true
+        //    )
+        //});
+        throw new NotImplementedException();
     }
 
-    //[HttpPost("resetPassword")]
-    //public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordByPhoneRequest request)
-    //{
-    //    var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
-    //    if (user == null) return BadRequest("User not found.");
-
-    //    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-    //    // Send token via email or SMS here
-    //    return Ok(new { message = "Password reset instructions sent. " + token });
-    //}
-    //[HttpPost("resetPassword")]
-    //public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordByPhoneRequest request)
-    //{
-    //    var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
-    //    if (user == null) return BadRequest("User not found.");
     [HttpPost("resetPassword")]
     public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
     {
         var user = await _userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
         if (user == null) return BadRequest("User not found.");
 
-    //    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-    //    // Send token via email or SMS here
-    //    return Ok(new { message = "Password reset instructions sent. " + token });
-    //}
+
+        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+        // Send token via email or SMS here
+        return Ok(new { message = "Password reset instructions sent. " + token });
+    }
     [HttpPost("resetPasswordAuth")]
     public async Task<IActionResult> ResetPasswordAuth([FromBody] ResetPasswordAuthRequest request)
     {

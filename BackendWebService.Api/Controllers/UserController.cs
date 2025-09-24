@@ -32,7 +32,7 @@ public class UserController : ControllerBase
 
     [HttpPost("create-with-password")]
     [AllowAnonymous]
-    public async Task<IActionResult> CreateWithPassword([FromBody] CreateUserWithPasswordRequest request)
+    public async Task<IActionResult> CreateWithPassword([FromBody] SignUpRequest request)
     {
 
         var result = await _appUserManager.CreateAsync(request);

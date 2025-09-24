@@ -22,7 +22,7 @@ namespace Application.Contracts.AppManager
         Task<IdentityResult> ConfirmPhoneNumberAsync(User user);
         Task<int> CountRecoveryCodesAsync(User user);
         Task<IdentityResult> CreateAsync(User user, string password);
-        Task<IdentityResult> CreateAsync(CreateUserWithPasswordRequest request);
+        Task<IdentityResult> CreateAsync(SignUpRequest request);
         Task<byte[]> CreateSecurityTokenAsync(User user);
         Task<IdentityResult> DeleteAsync(User user);
         Task<User?> FindByPhoneNumberAsync(string phoneNumber);

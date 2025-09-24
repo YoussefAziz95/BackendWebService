@@ -25,8 +25,17 @@ public static class Startup
     }
     public static IServiceCollection ConfigureCQRS(this IServiceCollection services)
     {
-        services.AddScoped<ICustomMediator, Mediator>();
+        services.AddScoped<IMediator, Mediator>();
         services.AddScoped<IRequestHandlerAsync<LoginPhoneRequest, LoginResponse>, LoginPhoneRequestHandler>();
+        services.AddScoped<IRequestHandlerAsync<LoginEmailRequest, LoginResponse>, LoginEmailRequestHandler>();
+        services.AddScoped<IRequestHandlerAsync<SignUpRequest, LoginResponse>, SignUpRequestHandler>();
+        services.AddScoped<IRequestHandlerAsync<RefreshTokenRequest, RefreshTokenResponse>, RefreshTokenRequestHandler>();
+        services.AddScoped<IRequestHandlerAsync<ResetPasswordRequest, LoginResponse>, ResetPasswordRequestHandler>();
+        services.AddScoped<IRequestHandlerAsync<ConfirmResetPasswordRequest, LoginResponse>, ConfirmResetPasswordRequestHandler>();
+        //services.AddScoped<IRequestHandlerAsync<ConfirmPhoneNumberRequest, LoginResponse>, ConfirmPhoneNumberHandler>();
+        //services.AddScoped<IRequestHandlerAsync<PhoneNumberRequest, LoginResponse>, SendOtpHandler>();
+        //services.AddScoped<IRequestHandlerAsync<OtpVerifyRequest, LoginResponse>, OtpVerifyHandler>();
+
         return services;
     }
     public static void ConfigureGrpcPipeline(this WebApplication app)

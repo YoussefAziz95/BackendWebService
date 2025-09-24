@@ -28,7 +28,7 @@ public class AppUserManager : UserManager<User>, IAppUserManager
         _sp_call = sP_Call;
     }
 
-    public Task<IdentityResult> CreateAsync(CreateUserWithPasswordRequest request)
+    public Task<IdentityResult> CreateAsync(SignUpRequest request)
     {
         var user = new User
         {

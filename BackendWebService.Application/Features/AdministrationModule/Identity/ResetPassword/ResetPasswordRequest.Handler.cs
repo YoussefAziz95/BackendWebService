@@ -1,12 +1,20 @@
-﻿using Application.Contracts.Features;
+﻿using Application.Contracts.AppManager;
+using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Wrappers;
+using Microsoft.AspNetCore.Identity;
 
 namespace Application.Features;
-public class ResetPasswordRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<ResetPasswordRequest, int>
+public class ResetPasswordRequestHandler(IAppUserManager userManager) : ResponseHandler, IRequestHandlerAsync<ResetPasswordRequest, LoginResponse>
 {
-    public IResponse<int> Handle(ResetPasswordRequest request)
+    public async Task<IResponse<LoginResponse>> HandleAsync(ResetPasswordRequest request)
     {
-        throw new NotImplementedException();
+        var user = await userManager.FindByPhoneNumberAsync(request.PhoneNumber.Trim());
+        if (user == null) return BadRequest<LoginResponse>("User not found.");
+
+
+        var token = await userManager.GeneratePasswordResetTokenAsync(user);
+        // Send token via email or SMS here
+        return Ok<LoginResponse>(message : "Password reset instructions sent. " + token );
     }
 }

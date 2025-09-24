@@ -24,7 +24,7 @@ public class CompaniesController : AppControllerBase
 
     public CompaniesController(IUnitOfWork unitOfWork,
         ICompanyService companyService,
-        ICustomMediator mediator)
+        IMediator mediator)
     {
         _unitOfWork = unitOfWork;
         _companyService = companyService;
@@ -37,8 +37,8 @@ public class CompaniesController : AppControllerBase
         {
             await _unitOfWork.BeginTransactionAsync();
 
-            var user = _unitOfWork.GetUserInfo();
-            var createdBy = user?.Username ?? "System";
+            //var user = _unitOfWork.GetUserInfo();
+            //var createdBy = user?.Username ?? "System";
 
             var company = request.ToEntity();
 

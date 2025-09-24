@@ -1,10 +1,11 @@
-﻿using FluentValidation;
+﻿using Application.Contracts.Features;
+using FluentValidation;
 using FluentValidation.Results;
-using MediatR;
 
 namespace Application.ServicesImplementation.Common;
 
-public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TResponse : class where TRequest : IRequest<TResponse>
+public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, IResponse<TResponse>>
+    where TRequest : IRequest<IResponse<TResponse>>
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -13,14 +14,13 @@ public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TR
         _validators = validators;
     }
 
-    public async Task<TResponse> Handle(TRequest message, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken) // Change MessageHandlerDelegate to RequestHandlerDelegate
+    public async Task<IResponse<TResponse>> Handle(TRequest request, RequestHandlerDelegate<IResponse<TResponse>> next, CancellationToken cancellationToken = default)
     {
         var errors = new List<ValidationFailure>();
 
         foreach (var validator in _validators)
         {
-            var validationResult =
-                await validator.ValidateAsync(new ValidationContext<TRequest>(message), cancellationToken);
+            var validationResult = await validator.ValidateAsync(new ValidationContext<TRequest>(request), cancellationToken);
 
             if (!validationResult.IsValid)
                 errors.AddRange(validationResult.Errors);
@@ -31,5 +31,4 @@ public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TR
 
         return await next();
     }
-
 }

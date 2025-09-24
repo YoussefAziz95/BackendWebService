@@ -1,6 +1,6 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
-using MediatR;
 using System.ComponentModel.DataAnnotations;
 
 namespace Application.Features;

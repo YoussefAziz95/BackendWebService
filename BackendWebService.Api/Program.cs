@@ -51,7 +51,8 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddApplicationServices()
                 .AddPersistenceServices(configuration)
                 .AddCrossCuttingConcernsServices()
-                .ConfigureGrpcPluginServices(); 
+                .ConfigureGrpcPluginServices()
+                .ConfigureCQRS(); 
 builder.Services.AddSignalR();
 
 builder.Services.AddCors(options =>

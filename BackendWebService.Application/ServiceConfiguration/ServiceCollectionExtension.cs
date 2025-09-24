@@ -1,5 +1,6 @@
 ﻿using Application.AppManager;
 using Application.Contracts.AppManager;
+using Application.Contracts.Features;
 using Application.Contracts.Infrastructures;
 using Application.Contracts.Services;
 using Application.Identity.Jwt;
@@ -10,7 +11,6 @@ using Application.Permissions;
 using Application.ServicesImplementation.Common;
 using Application.Utilities;
 using Contracts.Services;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -21,15 +21,13 @@ public static class ServiceCollectionExtension
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddMediatR(Assembly.GetExecutingAssembly());
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         // Register AutoMapper with the current assembly
         //services.AddAutoMapper(typeof(MappingProfile));
 
         // Register custom pipeline behavior (if needed)
-        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
-
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
         // Add transient services
         services.AddTransient<GlobalExceptionHandler>();
 

@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.Features;
 
 namespace Application.Features;
-public record CreateUserWithPasswordRequest(
+public record SignUpRequest(
 string FirstName,
 string LastName,
 string Email,

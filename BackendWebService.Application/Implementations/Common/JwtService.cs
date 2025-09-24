@@ -66,9 +66,9 @@ public class JwtService : IJwtService
 
         var token = new UserRefreshToken { IsValid = true, UserId = user.Id };
         await _unitOfWork.GenericRepository<UserRefreshToken>().AddAsync(token);
-        var refreshToken = await _unitOfWork.SaveAsync();
-
-        return new AccessToken(securityToken, refreshToken.ToString());
+        await _unitOfWork.CommitAsync();
+        var result = await _unitOfWork.SaveAsync();
+        return new AccessToken(securityToken, token.Id.ToString());
     }
 
     public Task<ClaimsPrincipal> GetPrincipalFromExpiredToken(string token)
@@ -100,7 +100,7 @@ public class JwtService : IJwtService
         return result;
     }
 
-    public async Task<AccessToken> RefreshToken(int refreshTokenId)
+    public async Task<AccessToken> RefreshToken(Guid refreshTokenId)
     {
         var refreshToken = await _userRefreshTokenRepository.GetTokenWithInvalidation(refreshTokenId);
 
@@ -129,7 +129,7 @@ public class JwtService : IJwtService
     public async Task<AccessToken> RefreshTokenAsync(string token)
     {
         // Try parsing refreshToken ID (assuming it's an int like in your original implementation)
-        if (!int.TryParse(token, out var refreshTokenId))
+        if (!Guid.TryParse(token, out var refreshTokenId))
             return null;
 
         return await RefreshToken(refreshTokenId);
@@ -162,21 +162,4 @@ public class JwtService : IJwtService
         return claims;
     }
 
-
-    private List<string> GetAllPermissions()
-    {
-        Type permissionsType = typeof(PermissionConstants);
-        FieldInfo[] fields = permissionsType.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-
-        List<string> permissionsList = new List<string>();
-        foreach (FieldInfo field in fields)
-        {
-            if (field.FieldType == typeof(string))
-            {
-                string value = (string)field.GetValue(null)!;
-                permissionsList.Add(value);
-            }
-        }
-        return permissionsList;
-    }
 }

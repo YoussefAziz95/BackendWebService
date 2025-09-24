@@ -7,11 +7,11 @@ using Domain.Enums;
 
 namespace Application.Features;
 
-public class CreateUserWithPasswordRequestHandler(IAppUserManager userManager, IJwtService jwtService)
-    : ResponseHandler, IRequestHandlerAsync<CreateUserWithPasswordRequest, LoginResponse>
+public class SignUpRequestHandler(IAppUserManager userManager, IJwtService jwtService)
+    : ResponseHandler, IRequestHandlerAsync<SignUpRequest, LoginResponse>
 {
 
-    public async Task<IResponse<LoginResponse>> HandleAsync(CreateUserWithPasswordRequest request)
+    public async Task<IResponse<LoginResponse>> HandleAsync(SignUpRequest request)
     {
         if (!Enum.TryParse<RoleEnum>(request.MainRole, out var mainRole))
         {
@@ -41,6 +41,7 @@ public class CreateUserWithPasswordRequestHandler(IAppUserManager userManager, I
                 PhoneNumber: user.PhoneNumber!,
                 Email: user.Email,
                 Token: accessToken.access_token,
+                RefreshToken: accessToken.refresh_token,
                 TokenExpiry: DateTime.UtcNow.AddMinutes(30),
                 MainRole: user.MainRole.ToString(), // Convert RoleEnum to string  
                 Department: user.Department,

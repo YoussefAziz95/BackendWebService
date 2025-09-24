@@ -1,38 +1,57 @@
-﻿using Application.Contracts.Features;
+﻿using Application.Contracts.AppManager;
+using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Wrappers;
+using Contracts.Services;
 using Domain;
+using Domain.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace Application.Features;
 
-public class LoginEmailRequestHandler : ResponseHandler, IRequestHandler<LoginEmailRequest, int>
+public class LoginEmailRequestHandler(IAppUserManager userManager,
+                                        IJwtService jwtService) : ResponseHandler, IRequestHandlerAsync<LoginEmailRequest, LoginResponse>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
-    public LoginEmailRequestHandler(IUnitOfWork unitOfWork)
+    public async Task<IResponse<LoginResponse>> HandleAsync(LoginEmailRequest request)
     {
-        _unitOfWork = unitOfWork;
-    }
-
-    public IResponse<int> Handle(LoginEmailRequest request)
-    {
-        // 1. Get user by email
-        var user = _unitOfWork.GenericRepository<User>().Get(u => u.Email == request.Email);
+        var user = await userManager.FindByEmailAsync(request.Email.Trim());
 
         if (user == null)
-            return NotFound<int>("User not found with this email.");
+            return Unauthorized<LoginResponse>();
 
-        // 2. Verify password
-        if (!VerifyPassword(user, request.Password))
-            return Unauthorized<int>();
+        //if (!user.PhoneNumberConfirmed)
+        //    return Forbid("Phone Number not confirmed");
 
-        // 3. Return success (for now just returning user Id)
-        return Success(user.Id);
-    }
+        var result = await userManager.CheckPasswordAsync(user, request.Password);
 
-    private bool VerifyPassword(User user, string password)
-    {
-        // TODO: plug in your hashing / password manager logic
-        return user.PasswordHash == password;
+
+        if (!result)
+            return Unauthorized<LoginResponse>();
+
+        var roles = await userManager.GetRolesAsync(user);
+
+        var accessToken = await jwtService.GenerateAsync(user);
+        var response = new Response<LoginResponse>()
+        {
+            StatusCode = ApiResultStatusCode.Success,
+            Message = "Login successful",
+            Succeeded = true,
+            Data = new LoginResponse(
+               Id: user.Id,
+               FullName: $"{user.FirstName} {user.LastName}",
+               PhoneNumber: user.PhoneNumber!,
+               Email: user.Email,
+               Token: accessToken.access_token,
+                RefreshToken: accessToken.refresh_token,
+               TokenExpiry: DateTime.UtcNow.AddMinutes(30),
+               MainRole: user.MainRole.ToString(), // Convert RoleEnum to string  
+               Department: user.Department,
+               Title: user.Title,
+               IsActive: user.IsActive ?? true
+           )
+        };
+
+
+        return response;
     }
 }

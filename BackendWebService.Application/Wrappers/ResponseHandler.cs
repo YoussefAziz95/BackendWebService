@@ -52,6 +52,15 @@ public class ResponseHandler
             Succeeded = true
         };
     }
+    public IResponse<T> Ok<T>(string message = null!)
+    {
+        return new Response<T>()
+        {
+            Message = message,
+            StatusCode = ApiResultStatusCode.Ok,
+            Succeeded = true
+        };
+    }
     public IResponse<T> Success<T>(string message = null!)
     {
         return new Response<T>()
@@ -98,6 +107,15 @@ public class ResponseHandler
             StatusCode = ApiResultStatusCode.UnAuthorized,
             Succeeded = true,
             Message = "UnAuthorized",
+        };
+    }
+    public IResponse<T> Unauthorized<T>(string message = null)
+    {
+        return new Response<T>()
+        {
+            StatusCode = ApiResultStatusCode.UnAuthorized,
+            Succeeded = true,
+            Message = "UnAuthorized" + message?? " " + message, 
         };
     }
     public IResponse<T> BadRequest<T>(string message = null!)
