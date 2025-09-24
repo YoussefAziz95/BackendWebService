@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Wrappers;
-using Domain;
 
 namespace Application.Features;
 internal class RecipientAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<RecipientAllRequest, List<RecipientAllResponse>>

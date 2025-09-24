@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -12,9 +10,9 @@ int Quantity,
 decimal Total,
 DateTime ExpectedTime) : IRequest<OrderItemResponse>
 {
-public IValidator<OrderItemRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<OrderItemRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<OrderItemRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<OrderItemRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -10,9 +8,9 @@ int PaymentMethodId,
 DateTime IssuedAt,
 decimal TotalPaid) : IRequest<ReceiptResponse>
 {
-public IValidator<ReceiptRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ReceiptRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<ReceiptRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ReceiptRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

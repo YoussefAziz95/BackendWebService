@@ -2,5 +2,5 @@
 
 namespace Application.Features;
 public record LoginAuthenticatorRequest(
-    string ClientId, 
+    string ClientId,
     string AccessToken) : IRequest<int>;

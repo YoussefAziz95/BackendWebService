@@ -4,7 +4,7 @@ using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-namespace ApiControllers.v2.IdentityModule;
+namespace Api.Controllers.v2;
 
 
 [ApiController]

@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -17,9 +15,9 @@ DateTimeOffset CreatedAt,
 DateTimeOffset? DeletedAt,
 bool IsDeleted) : IRequest<PropertyResponse>
 {
-public IValidator<PropertyRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<PropertyRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<PropertyRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<PropertyRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

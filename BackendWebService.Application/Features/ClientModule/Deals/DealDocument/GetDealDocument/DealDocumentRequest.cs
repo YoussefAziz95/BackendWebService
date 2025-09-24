@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -15,9 +13,9 @@ int CriteriaId,
 int FileId,
 int FileFieldValidatorId) : IRequest<DealDocumentResponse>
 {
-public IValidator<DealDocumentRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<DealDocumentRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<DealDocumentRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<DealDocumentRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

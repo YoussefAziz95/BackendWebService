@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
 using Domain.Enums;
 namespace Application.Features;
 public record UpdateEmployeeCertificationRequest(
@@ -10,7 +9,7 @@ string IssuingAuthority,
 DateTime IssuedDate,
 DateTime? ExpirationDate,
 StatusEnum Status,
-string? VerificationNotes) : IConvertibleToEntity<EmployeeCertification>,IRequest<int>
+string? VerificationNotes) : IConvertibleToEntity<EmployeeCertification>, IRequest<int>
 {
     public EmployeeCertification ToEntity() => new EmployeeCertification
     {

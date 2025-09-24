@@ -8,9 +8,9 @@ int OrganizationId,
 string? Value,
 string? Type) : IRequest<ContactResponse>
 {
-public IValidator<ContactRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ContactRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<ContactRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ContactRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

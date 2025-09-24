@@ -1,11 +1,9 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
 using Application.Features;
-using Domain.Constants;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiControllers.v2.AdministrationModule;
+namespace Api.Controllers.v2;
 
 
 [ApiController]
@@ -30,7 +28,7 @@ public class PreDocumentsController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    
+
     public async Task<IActionResult> GetPreDocument([FromRoute] int id)
     {
         var result = await _preDocumentService.GetAsync(id);
@@ -38,7 +36,7 @@ public class PreDocumentsController : AppControllerBase
     }
 
     [HttpDelete("{id}")]
-    
+
     public async Task<IActionResult> DeletePreDocument([FromRoute] int id)
     {
         var result = await _preDocumentService.DeleteAsync(id);
@@ -55,7 +53,7 @@ public class PreDocumentsController : AppControllerBase
     }
 
     [HttpPost("GetAll")]
-    
+
     public async Task<IActionResult> GetAll([FromBody] PreDocumentAllRequest request)
     {
         var result = await _preDocumentService.GetPaginated(request);
@@ -63,7 +61,7 @@ public class PreDocumentsController : AppControllerBase
     }
 
     [HttpGet]
-    
+
     public async Task<IActionResult> GetAll()
     {
         var result = await _preDocumentService.GetAllAsync();

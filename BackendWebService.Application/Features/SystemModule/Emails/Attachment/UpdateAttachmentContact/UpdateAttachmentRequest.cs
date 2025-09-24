@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
 namespace Application.Features;
 public record UpdateAttachmentRequest(
 int EmailId,

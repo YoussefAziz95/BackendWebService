@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Persistence;
 using Application.Features;
 using Domain;
-using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 

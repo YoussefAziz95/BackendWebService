@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Wrappers;
-using Domain;
 
 namespace Application.Features;
 internal class CustomerAllResponseHandler : ResponseHandler, IRequestHandler<CustomerAllRequest, List<CustomerAllResponse>>

@@ -1,13 +1,12 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
 namespace Application.Features;
 public record UpdateFileLogRequest(
 string FileName,
 string FullPath,
 string Extention,
 int FileTypeId,
-UpdateFileTypeRequest FileType) : IConvertibleToEntity<FileLog>,IRequest<int>
+UpdateFileTypeRequest FileType) : IConvertibleToEntity<FileLog>, IRequest<int>
 {
     public FileLog ToEntity() => new FileLog
     {

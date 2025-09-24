@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -14,9 +13,9 @@ DateTime? ExpirationDate,
 StatusEnum Status,
 string? VerificationNotes) : IRequest<EmployeeCertificationResponse>
 {
-public IValidator<EmployeeCertificationRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<EmployeeCertificationRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<EmployeeCertificationRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<EmployeeCertificationRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

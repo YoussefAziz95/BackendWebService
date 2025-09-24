@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -11,9 +9,9 @@ string Description,
 string Code,
 int CategoryId) : IRequest<ServiceResponse>
 {
-public IValidator<ServiceRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ServiceRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<ServiceRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ServiceRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
 using Domain.Enums;
 namespace Application.Features;
 public record UpdateCustomerRequest(
@@ -9,7 +8,7 @@ RoleEnum Role,
 StatusEnum Status,
 List<UpdateCustomerServiceRequest> CustomerServices,
 List<UpdateCustomerPaymentMethodRequest> CustomerPaymentMethods,
-bool MFAEnabled = false) : IConvertibleToEntity<Customer>,IRequest<int>
+bool MFAEnabled = false) : IConvertibleToEntity<Customer>, IRequest<int>
 {
     public Customer ToEntity() => new Customer
     {

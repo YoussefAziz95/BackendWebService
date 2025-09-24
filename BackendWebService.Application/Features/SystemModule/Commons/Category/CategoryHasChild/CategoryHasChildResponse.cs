@@ -7,4 +7,4 @@ int? Id,
  int? ParentId,
 string? FileLink,
  bool? HasChild,
- bool? IsActive): IRequest<int>;
+ bool? IsActive) : IRequest<int>;

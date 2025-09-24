@@ -1,7 +1,4 @@
-﻿using Application.Contracts.Features;
-using Application.Profiles;
-using Domain;
-using Domain.Enums;
+﻿using Application.Profiles;
 
 namespace Application.Features;
 public record InventoryResponse(

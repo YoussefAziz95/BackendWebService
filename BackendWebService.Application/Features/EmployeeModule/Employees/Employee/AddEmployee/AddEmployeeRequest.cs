@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
@@ -12,7 +11,7 @@ StatusEnum AccountStatus,
 bool IsAvailable,
 RoleEnum Role,
 List<AddEmployeeAssignmentRequest> Assignments,
-List<AddEmployeeJobRequest> Jobs) : IConvertibleToEntity<Employee>,IRequest<int>
+List<AddEmployeeJobRequest> Jobs) : IConvertibleToEntity<Employee>, IRequest<int>
 {
     public Employee ToEntity() => new Employee
     {

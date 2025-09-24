@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
 using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 
@@ -17,7 +16,7 @@ int FileFieldValidatorId,
 AddDealRequest Deal,
 AddCriteriaRequest Criteria,
 AddFileLogRequest File,
-AddFileFieldValidatorRequest FileFieldValidator) : IConvertibleToEntity<DealDocument>,IRequest<int>
+AddFileFieldValidatorRequest FileFieldValidator) : IConvertibleToEntity<DealDocument>, IRequest<int>
 {
     public DealDocument ToEntity() => new DealDocument
     {

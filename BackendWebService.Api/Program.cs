@@ -7,7 +7,6 @@ using Application.ServiceConfiguration;
 using CrossCuttingConcerns;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using nfrastructure.Persistence.ServiceConfiguration;
 using Persistence.Data;
@@ -52,7 +51,7 @@ builder.Services.AddApplicationServices()
                 .AddPersistenceServices(configuration)
                 .AddCrossCuttingConcernsServices()
                 .ConfigureGrpcPluginServices()
-                .ConfigureCQRS(); 
+                .ConfigureCQRS();
 builder.Services.AddSignalR();
 
 builder.Services.AddCors(options =>

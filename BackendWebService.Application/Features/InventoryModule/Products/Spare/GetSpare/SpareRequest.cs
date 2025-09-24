@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -11,9 +9,9 @@ int? RequiredAmount,
 int? AvailableAmount,
 int? ProductId) : IRequest<SpareResponse>
 {
-public IValidator<SpareRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<SpareRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<SpareRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<SpareRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

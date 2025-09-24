@@ -19,7 +19,7 @@ public class RefreshTokenRequestHandler(IUnitOfWork unitOfWork,
         if (result == null)
             return Unauthorized<RefreshTokenResponse>("Invalid refresh token");
 
-        var user = unitOfWork.GenericRepository<UserRefreshToken>().GetAll(include: ur=> ur.Include(u=> u.User)).Select(u=>u.User).First();
+        var user = unitOfWork.GenericRepository<UserRefreshToken>().GetAll(include: ur => ur.Include(u => u.User)).Select(u => u.User).First();
 
         return new Response<RefreshTokenResponse>
         {

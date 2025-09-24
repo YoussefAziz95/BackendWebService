@@ -14,9 +14,9 @@ int? BranchId,
 string? Code,
 bool IsActive) : IRequest<DepartmentResponse>
 {
-public IValidator<DepartmentRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<DepartmentRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<DepartmentRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<DepartmentRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

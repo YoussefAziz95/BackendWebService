@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -23,9 +22,9 @@ int CustomerId,
 int SpecificationsFileId,
 string? RichText) : IRequest<OfferResponse>
 {
-public IValidator<OfferRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<OfferRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<OfferRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<OfferRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Application.Features;
 
 namespace Application.Features;
 

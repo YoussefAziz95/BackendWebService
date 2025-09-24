@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace ApiControllers.v2.CustomerModule;
+namespace Api.Controllers.v2;
+
 
 
 [ApiController]

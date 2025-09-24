@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
 using Domain;
-using Domain.Enums;
 namespace Application.Features;
 public record UpdateDealRequest(
 int OrganizationId,
@@ -15,7 +14,7 @@ int StatusId,
 decimal? TotalPrice,
 decimal? FinalPrice,
 List<UpdateDealDocumentRequest> DealDocuments,
-List<UpdateDealDetailsRequest> DealDetails) : IConvertibleToEntity<Deal>,IRequest<int>
+List<UpdateDealDetailsRequest> DealDetails) : IConvertibleToEntity<Deal>, IRequest<int>
 {
     public Deal ToEntity() => new Deal
     {

@@ -4,7 +4,7 @@ using Application.Features;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
- 
+
 namespace Api.Controllers.v1;
 
 

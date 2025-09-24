@@ -1,16 +1,12 @@
 ﻿using Application.Contracts.AppManager;
 using Application.Contracts.Persistence;
 using Application.Features;
-using Dapper;
 using Domain;
-using Domain.Constants;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Data;
-using System.Reflection;
 namespace Application.AppManager;
 
 public class AppUserManager : UserManager<User>, IAppUserManager
@@ -55,7 +51,7 @@ public class AppUserManager : UserManager<User>, IAppUserManager
         user.PhoneNumberConfirmed = true;
         return await UpdateAsync(user);
     }
-    
+
 
 
 

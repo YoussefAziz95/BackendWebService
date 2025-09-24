@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
@@ -11,7 +10,7 @@ int JobId,
 DateTime AssignedDate,
 StatusEnum Status,
 DateTime? EmployeeResponseDate,
-string? AdminNotes) : IConvertibleToEntity<EmployeeAssignment>,IRequest<int>
+string? AdminNotes) : IConvertibleToEntity<EmployeeAssignment>, IRequest<int>
 {
     public EmployeeAssignment ToEntity() => new EmployeeAssignment
     {

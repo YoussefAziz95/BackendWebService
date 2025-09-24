@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
 using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 
@@ -12,7 +11,7 @@ int Quantity,
 decimal DetailPrice,
 decimal ItemPrice,
 AddDealRequest Deal,
-AddOfferItemRequest OfferItem) : IConvertibleToEntity<DealDetails>,IRequest<int>
+AddOfferItemRequest OfferItem) : IConvertibleToEntity<DealDetails>, IRequest<int>
 {
     public DealDetails ToEntity() => new DealDetails
     {

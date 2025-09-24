@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -12,9 +10,9 @@ decimal UnitPrice,
 int CategoryId,
 int PreparationTimeMinutes) : IRequest<ItemResponse>
 {
-public IValidator<ItemRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ItemRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<ItemRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ItemRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

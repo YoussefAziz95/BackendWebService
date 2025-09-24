@@ -5,7 +5,7 @@ using Application.Features;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-namespace ApiControllers.v2.SystemModule;
+namespace Api.Controllers.v2;
 
 
 [ApiController]

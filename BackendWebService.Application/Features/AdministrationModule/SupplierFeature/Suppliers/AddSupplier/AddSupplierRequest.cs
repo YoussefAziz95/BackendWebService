@@ -10,7 +10,7 @@ public record AddSupplierRequest(
  decimal? Rating,
  string? BankAccount,
  StatusEnum Status,
- List<AddSupplierCategoryRequest> SupplierCategories) : IConvertibleToEntity<Supplier>,IRequest<int>
+ List<AddSupplierCategoryRequest> SupplierCategories) : IConvertibleToEntity<Supplier>, IRequest<int>
 {
     public Supplier ToEntity() => new Supplier
     {

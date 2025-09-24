@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -11,9 +9,9 @@ int ObjectId,
 string Notes,
 string ObjectType) : IRequest<OfferObjectResponse>
 {
-public IValidator<OfferObjectRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<OfferObjectRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<OfferObjectRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<OfferObjectRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

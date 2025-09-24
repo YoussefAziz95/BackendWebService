@@ -1,11 +1,9 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
 using Application.Features;
-using Domain.Constants;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiControllers.v2.AdministrationModule;
+namespace Api.Controllers.v2;
 
 
 [ApiController]
@@ -21,7 +19,7 @@ public class SupplierDocumentController : AppControllerBase
     }
 
     [HttpPost]
-    
+
 
     public async Task<IActionResult> AddSupplierDocument([FromBody] AddSupplierDocumentRequest request)
     {
@@ -30,7 +28,7 @@ public class SupplierDocumentController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    
+
     public async Task<IActionResult> GetSupplierDocument([FromRoute] int id)
     {
         var result = await _supplierdocumentService.GetAsync(id);
@@ -38,7 +36,7 @@ public class SupplierDocumentController : AppControllerBase
     }
 
     [HttpPut]
-    
+
 
     public async Task<IActionResult> UpdateSupplierDocument([FromBody] UpdateSupplierDocumentRequest request)
     {
@@ -47,7 +45,7 @@ public class SupplierDocumentController : AppControllerBase
     }
 
     [HttpPost("GetAll/{id}")]
-    
+
     public async Task<IActionResult> GetAll([FromRoute] int id, [FromBody] SupplierDocumentAllRequest request)
     {
         var result = await _supplierdocumentService.GetPaginated(request);

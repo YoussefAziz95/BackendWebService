@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -11,9 +10,9 @@ public record ClientRequest(
  RoleEnum Role,
  StatusEnum Status) : IRequest<ClientResponse>
 {
-public IValidator<ClientRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ClientRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<ClientRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ClientRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

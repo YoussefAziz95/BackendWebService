@@ -1,8 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Application.Features;
-using Domain;
-using Domain.Enums;
 namespace Application.Features;
 public record UpdateClientPropertyRequest(
 int CustomerId,

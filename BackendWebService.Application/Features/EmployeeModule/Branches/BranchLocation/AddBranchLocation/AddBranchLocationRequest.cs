@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
 using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 
@@ -28,4 +27,4 @@ string? Notes) : IConvertibleToEntity<BranchLocation>, IRequest<int>
         Longitude = Longitude,
         Notes = Notes
     };
-} 
+}

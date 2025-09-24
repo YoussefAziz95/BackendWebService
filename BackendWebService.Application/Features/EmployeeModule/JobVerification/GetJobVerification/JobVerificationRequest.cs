@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -12,9 +11,9 @@ string VerificationCode,
 DateTime ExpirationTime,
 bool IsVerified) : IRequest<JobVerificationResponse>
 {
-public IValidator<JobVerificationRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<JobVerificationRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<JobVerificationRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<JobVerificationRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

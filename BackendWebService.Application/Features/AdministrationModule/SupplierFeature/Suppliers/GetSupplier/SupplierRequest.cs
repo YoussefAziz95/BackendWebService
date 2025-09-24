@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -11,9 +10,9 @@ public record SupplierRequest(
  string? BankAccount,
  StatusEnum Status) : IRequest<SupplierResponse>
 {
-public IValidator<SupplierRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<SupplierRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<SupplierRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<SupplierRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

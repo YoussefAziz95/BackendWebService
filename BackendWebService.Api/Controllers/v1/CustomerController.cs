@@ -2,7 +2,6 @@
 using Application.Contracts.Persistence;
 using Application.Features;
 using Domain;
-using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

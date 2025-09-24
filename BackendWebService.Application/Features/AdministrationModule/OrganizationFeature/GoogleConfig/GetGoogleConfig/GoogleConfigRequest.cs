@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -11,9 +10,9 @@ string ClientId,
 string ClientSecret,
 ConfigurationEnum ConfigurationType) : IRequest<GoogleConfigResponse>
 {
-public IValidator<GoogleConfigRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<GoogleConfigRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<GoogleConfigRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<GoogleConfigRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

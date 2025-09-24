@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -23,9 +22,9 @@ bool? IsActive,
 bool? IsDeleted,
 bool? IsSystem) : IRequest<UserResponse>
 {
-public IValidator<UserRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<UserRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<UserRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<UserRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

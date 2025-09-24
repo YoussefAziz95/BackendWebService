@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -12,9 +10,9 @@ TimeSpan OpenTime,
 TimeSpan CloseTime,
 bool IsClosed) : IRequest<BranchWorkingHourResponse>
 {
-public IValidator<BranchWorkingHourRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<BranchWorkingHourRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<BranchWorkingHourRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<BranchWorkingHourRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

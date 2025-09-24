@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -9,9 +7,9 @@ public record SparePartRequest(
 int PartId,
 int? SpareId) : IRequest<SparePartResponse>
 {
-public IValidator<SparePartRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<SparePartRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<SparePartRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<SparePartRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

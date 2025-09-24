@@ -1,7 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 
@@ -20,7 +18,7 @@ int AccessFailedCount,
 string AccountStatus,
 string? AccountStatusReason,
 DateTime CreatedDate,
-DateTime? UpdatedDate) : IConvertibleToEntity<ClientAccount>,IRequest<int>
+DateTime? UpdatedDate) : IConvertibleToEntity<ClientAccount>, IRequest<int>
 {
     public ClientAccount ToEntity() => new ClientAccount
     {

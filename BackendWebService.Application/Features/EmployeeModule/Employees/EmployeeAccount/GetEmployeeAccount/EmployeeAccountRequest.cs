@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -11,9 +9,9 @@ bool IsActive,
 DateTime CreatedAt,
 DateTime? UpdatedAt) : IRequest<EmployeeAccountResponse>
 {
-public IValidator<EmployeeAccountRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<EmployeeAccountRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<EmployeeAccountRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<EmployeeAccountRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

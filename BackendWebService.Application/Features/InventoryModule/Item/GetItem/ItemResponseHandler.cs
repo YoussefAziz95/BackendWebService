@@ -2,12 +2,11 @@
 using Application.Contracts.Persistence;
 using Application.Wrappers;
 using Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features;
 internal class ItemResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<ItemRequest, ItemResponse>
 {
- 
+
     public IResponse<ItemResponse> Handle(ItemRequest request)
     {
         var entity = unitOfWork.GenericRepository<Item>().Get();

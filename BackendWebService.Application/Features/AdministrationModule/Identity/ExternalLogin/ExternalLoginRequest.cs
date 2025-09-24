@@ -2,5 +2,5 @@
 
 namespace Application.Features;
 public record ExternalLoginRequest(
-    string Provider, 
+    string Provider,
     string ProviderKey) : IRequest<int>;

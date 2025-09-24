@@ -1,13 +1,11 @@
 ﻿using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Wrappers;
-using Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features;
 internal class InventoryResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<InventoryRequest, InventoryResponse>
 {
- 
+
     public IResponse<InventoryResponse> Handle(InventoryRequest request)
     {
         var entity = unitOfWork.GenericRepository<Inventory>().Get();

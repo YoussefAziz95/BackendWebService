@@ -2,7 +2,6 @@
 using Application.Contracts.Persistence;
 using Application.Wrappers;
 using Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features;
 internal class ConsumerResponseHandler : ResponseHandler, IRequestHandler<ConsumerRequest, ConsumerResponse>

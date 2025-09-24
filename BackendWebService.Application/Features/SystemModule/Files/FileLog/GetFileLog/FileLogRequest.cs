@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -11,9 +9,9 @@ string FullPath,
 string Extention,
 int FileTypeId) : IRequest<FileLogResponse>
 {
-public IValidator<FileLogRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<FileLogRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<FileLogRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<FileLogRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

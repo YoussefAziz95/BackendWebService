@@ -1,6 +1,5 @@
 ﻿using Application.Model.Notifications;
 using Domain;
-using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

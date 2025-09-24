@@ -5,7 +5,7 @@ using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiControllers.v2.InventoryModule;
+namespace Api.Controllers.v2;
 
 
 [ApiController]

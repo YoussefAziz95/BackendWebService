@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -11,9 +9,9 @@ string ActorType,
 int OwnerId,
 string OwnerType) : IRequest<ActorResponse>
 {
-public IValidator<ActorRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ActorRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<ActorRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ActorRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

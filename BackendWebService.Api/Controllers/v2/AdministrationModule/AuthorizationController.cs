@@ -5,7 +5,7 @@ using Contracts.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers.v2.AdministrationModule;
+namespace Api.Controllers.v2;
 
 [ApiController]
 [AllowAnonymous]

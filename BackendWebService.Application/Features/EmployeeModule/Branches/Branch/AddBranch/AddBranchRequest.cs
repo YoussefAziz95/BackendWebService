@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
 using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 
@@ -10,7 +9,7 @@ string FranchiseName,
 string? FranchiseSlogan,
 string LogoUrl,
 string PhoneNumber,
-string? WebsiteUrl) : IConvertibleToEntity<Branch>,IRequest<int>
+string? WebsiteUrl) : IConvertibleToEntity<Branch>, IRequest<int>
 {
     public Branch ToEntity() => new Branch
     {

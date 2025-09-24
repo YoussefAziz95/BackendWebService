@@ -1,7 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 
@@ -13,7 +11,7 @@ DateTime? ApprovedDate,
 bool IsApproved,
 string? Comment,
 AddPreDocumentRequest PreDocument,
-AddSupplierAccountRequest SupplierAccount) : IConvertibleToEntity<SupplierDocument>,IRequest<int>
+AddSupplierAccountRequest SupplierAccount) : IConvertibleToEntity<SupplierDocument>, IRequest<int>
 {
     public SupplierDocument ToEntity() => new SupplierDocument
     {

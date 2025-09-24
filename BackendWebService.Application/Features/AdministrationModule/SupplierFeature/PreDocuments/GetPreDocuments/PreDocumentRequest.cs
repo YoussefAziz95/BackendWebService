@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -12,9 +10,9 @@ bool IsMultiple,
 bool IsLocal,
 int FileTypeId) : IRequest<PreDocumentResponse>
 {
-public IValidator<PreDocumentRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<PreDocumentRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<PreDocumentRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<PreDocumentRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

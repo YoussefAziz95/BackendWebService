@@ -9,7 +9,7 @@ string ClientId,
 string TenantId,
 string Audience,
 string Instance,
-ConfigurationEnum ConfigurationType) : IConvertibleToEntity<MicrosoftConfig>,IRequest<int>
+ConfigurationEnum ConfigurationType) : IConvertibleToEntity<MicrosoftConfig>, IRequest<int>
 {
     public MicrosoftConfig ToEntity() => new MicrosoftConfig
     {

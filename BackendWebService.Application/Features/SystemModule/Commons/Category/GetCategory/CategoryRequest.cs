@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -10,9 +8,9 @@ string Name,
 int? ParentId,
 int? FileId) : IRequest<CategoryResponse>
 {
-public IValidator<CategoryRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<CategoryRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<CategoryRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<CategoryRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

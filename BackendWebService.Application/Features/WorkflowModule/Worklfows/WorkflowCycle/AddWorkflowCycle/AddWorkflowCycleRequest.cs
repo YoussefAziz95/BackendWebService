@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
 
 namespace Application.Features;
 public record AddWorkflowCycleRequest(
@@ -10,16 +9,16 @@ bool Mandatory,
 int WorkflowId,
 AddWorkflowRequest Workflow,
 int? WorkflowReviewerId,
-AddUserRequest? WorkflowReviewer):IConvertibleToEntity<WorkflowCycle> , IRequest<int>
+AddUserRequest? WorkflowReviewer) : IConvertibleToEntity<WorkflowCycle>, IRequest<int>
 {
-public WorkflowCycle ToEntity() => new WorkflowCycle
-{
-ActionOrder = ActionOrder,
-ActionType = ActionType,
-Mandatory = Mandatory,
-WorkflowId = WorkflowId,
-Workflow = Workflow.ToEntity(),
-WorkflowReviewerId = WorkflowReviewerId,
-WorkflowReviewer= WorkflowReviewer.ToEntity()
-};
+    public WorkflowCycle ToEntity() => new WorkflowCycle
+    {
+        ActionOrder = ActionOrder,
+        ActionType = ActionType,
+        Mandatory = Mandatory,
+        WorkflowId = WorkflowId,
+        Workflow = Workflow.ToEntity(),
+        WorkflowReviewerId = WorkflowReviewerId,
+        WorkflowReviewer = WorkflowReviewer.ToEntity()
+    };
 }

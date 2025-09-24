@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Persistence;
-using Application.Model.Notifications;
 using Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Storage;

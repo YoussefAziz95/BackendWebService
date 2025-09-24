@@ -13,5 +13,5 @@ public class ConsumerDocument : BaseEntity, IEntity, ITimeModification
     [ForeignKey(nameof(PreDocumentId))]
     public PreDocument PreDocument { get; set; }
     [ForeignKey(nameof(ConsumerAccountId))]
-    public ConsumerAccount ConsumerAccount { get; set; } 
+    public ConsumerAccount ConsumerAccount { get; set; }
 }

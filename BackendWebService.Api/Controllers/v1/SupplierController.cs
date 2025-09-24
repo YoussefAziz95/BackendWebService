@@ -2,8 +2,6 @@
 using Application.Contracts.Services;
 using Application.Features;
 using Domain;
-using Domain.Constants;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers.v1;
@@ -24,7 +22,7 @@ public class SupplierController : AppControllerBase
     }
 
     [HttpPost("add")]
-    
+
 
     public async Task<IActionResult> AddSupplier([FromBody] AddSupplierRequest request)
     {
@@ -32,7 +30,7 @@ public class SupplierController : AppControllerBase
         return NewResult(result);
     }
     [HttpPut("Register/{id}")]
-    
+
 
     public async Task<IActionResult> AddSupplier([FromRoute] int id)
     {
@@ -40,7 +38,7 @@ public class SupplierController : AppControllerBase
         return NewResult(result);
     }
     [HttpGet("{id}")]
-    
+
     public async Task<IActionResult> GetSupplier([FromRoute] int id)
     {
         var result = await _supplierService.GetAsync(id);
@@ -48,7 +46,7 @@ public class SupplierController : AppControllerBase
     }
 
     [HttpPut("{id}")]
-    
+
 
     public async Task<IActionResult> UpdateSupplier([FromBody] UpdateSupplierRequest request)
     {
@@ -57,7 +55,7 @@ public class SupplierController : AppControllerBase
     }
 
     [HttpPost("GetAll")]
-    
+
     public async Task<IActionResult> GetAll([FromBody] SupplierAllRequest request)
     {
         var result = await _supplierService.GetPaginated(request);
@@ -65,7 +63,7 @@ public class SupplierController : AppControllerBase
     }
 
     [HttpPost("GetRegisterSuppliers")]
-    
+
     public async Task<IActionResult> GetRegisterSuppliers([FromBody] SupplierAllRequest request)
     {
         var result = await _supplierService.GetRegisterSuppliers(request);
@@ -73,7 +71,7 @@ public class SupplierController : AppControllerBase
     }
 
     [HttpPost("{id}")]
-    
+
     public async Task<IActionResult> DeleteSupplier([FromRoute] int id, [FromBody] DeleteSuperPasswordRequest deleteSuperPasswordRequest)
     {
         if (deleteSuperPasswordRequest.SuperPassword == "")
@@ -88,7 +86,7 @@ public class SupplierController : AppControllerBase
     }
 
     [HttpPost("addSupplierToCompany")]
-    
+
 
     public async Task<IActionResult> AddSupplierToCompany([FromBody] AddSupplierToCompany request)
     {

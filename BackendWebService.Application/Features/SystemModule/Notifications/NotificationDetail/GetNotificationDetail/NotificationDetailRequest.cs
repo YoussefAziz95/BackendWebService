@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -12,9 +10,9 @@ int UserId,
 bool IsRead,
 DateTime ExpiryDate) : IRequest<NotificationDetailResponse>
 {
-public IValidator<NotificationDetailRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<NotificationDetailRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<NotificationDetailRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<NotificationDetailRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

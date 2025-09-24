@@ -4,8 +4,6 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 using Domain;
 using Domain.Enums;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features;
 public class ConfirmResetPasswordRequestHandler(IAppUserManager userManager, IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<ConfirmResetPasswordRequest, LoginResponse>

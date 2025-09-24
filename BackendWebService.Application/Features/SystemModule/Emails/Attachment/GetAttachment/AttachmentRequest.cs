@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -10,9 +8,9 @@ int EmailId,
 int FileId,
 int FileFieldValidatorId) : IRequest<AttachmentResponse>
 {
-public IValidator<AttachmentRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<AttachmentRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<AttachmentRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<AttachmentRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

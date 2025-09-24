@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -11,9 +9,9 @@ int SupplierId,
 bool IsApproved,
 DateTime? ApprovedDate) : IRequest<SupplierAccountResponse>
 {
-public IValidator<SupplierAccountRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<SupplierAccountRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<SupplierAccountRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<SupplierAccountRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

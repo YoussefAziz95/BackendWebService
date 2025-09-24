@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
 using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 
@@ -12,7 +11,7 @@ DateTime StartDate,
 DateTime EndDate,
 DateTime? ExpirationTime,
 bool IsVerified,
-List<AddEmployeeAssignmentRequest> EmployeeAssignments) : IConvertibleToEntity<Job>,IRequest<int>
+List<AddEmployeeAssignmentRequest> EmployeeAssignments) : IConvertibleToEntity<Job>, IRequest<int>
 {
     public Job ToEntity() => new Job
     {

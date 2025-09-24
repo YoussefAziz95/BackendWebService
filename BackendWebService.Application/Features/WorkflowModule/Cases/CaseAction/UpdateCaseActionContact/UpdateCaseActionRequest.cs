@@ -10,7 +10,7 @@ int CaseId,
 UpdateCaseRequest Case,
 int WorkflowCycleId,
 UpdateWorkflowCycleRequest WorkflowCycle,
-int StatusId) : IConvertibleToEntity<CaseAction>,IRequest<int>
+int StatusId) : IConvertibleToEntity<CaseAction>, IRequest<int>
 {
     public CaseAction ToEntity() => new CaseAction
     {

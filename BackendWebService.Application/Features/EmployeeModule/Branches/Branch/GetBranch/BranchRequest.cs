@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -12,9 +10,9 @@ string LogoUrl,
 string PhoneNumber,
 string? WebsiteUrl) : IRequest<BranchResponse>
 {
-public IValidator<BranchRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<BranchRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<BranchRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<BranchRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

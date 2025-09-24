@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -11,9 +9,9 @@ DateTime StartTime,
 DateTime EndTime,
 int UserId) : IRequest<TimeSlotResponse>
 {
-public IValidator<TimeSlotRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<TimeSlotRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<TimeSlotRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<TimeSlotRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

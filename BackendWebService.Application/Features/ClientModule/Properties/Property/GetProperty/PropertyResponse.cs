@@ -1,7 +1,5 @@
-﻿using Application.Features;
-using Application.Profiles;
+﻿using Application.Profiles;
 using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 public record PropertyResponse(

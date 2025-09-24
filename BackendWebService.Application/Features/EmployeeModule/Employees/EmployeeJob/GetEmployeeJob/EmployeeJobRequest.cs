@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -13,9 +12,9 @@ StatusEnum Status,
 DateTime? CompletionDate,
 string? Notes) : IRequest<EmployeeJobResponse>
 {
-public IValidator<EmployeeJobRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<EmployeeJobRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<EmployeeJobRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<EmployeeJobRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

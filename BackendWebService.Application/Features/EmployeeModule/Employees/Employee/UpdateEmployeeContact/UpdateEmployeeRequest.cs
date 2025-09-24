@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
 using Domain.Enums;
 namespace Application.Features;
 public record UpdateEmployeeRequest(
@@ -10,7 +9,7 @@ StatusEnum AccountStatus,
 bool IsAvailable,
 RoleEnum Role,
 List<UpdateEmployeeAssignmentRequest> Assignments,
-List<UpdateEmployeeJobRequest> Jobs) : IConvertibleToEntity<Employee>,IRequest<int>
+List<UpdateEmployeeJobRequest> Jobs) : IConvertibleToEntity<Employee>, IRequest<int>
 {
     public Employee ToEntity() => new Employee
     {

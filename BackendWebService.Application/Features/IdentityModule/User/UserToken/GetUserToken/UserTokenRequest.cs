@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -17,9 +15,9 @@ string? CreatedBy,
 DateTime? UpdatedDate,
 string? UpdatedBy) : IRequest<UserTokenResponse>
 {
-public IValidator<UserTokenRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<UserTokenRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<UserTokenRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<UserTokenRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

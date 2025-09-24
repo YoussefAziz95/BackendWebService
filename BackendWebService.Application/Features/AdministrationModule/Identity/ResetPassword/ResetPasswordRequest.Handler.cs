@@ -1,8 +1,6 @@
 ﻿using Application.Contracts.AppManager;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Wrappers;
-using Microsoft.AspNetCore.Identity;
 
 namespace Application.Features;
 public class ResetPasswordRequestHandler(IAppUserManager userManager) : ResponseHandler, IRequestHandlerAsync<ResetPasswordRequest, LoginResponse>
@@ -15,6 +13,6 @@ public class ResetPasswordRequestHandler(IAppUserManager userManager) : Response
 
         var token = await userManager.GeneratePasswordResetTokenAsync(user);
         // Send token via email or SMS here
-        return Ok<LoginResponse>(message : "Password reset instructions sent. " + token );
+        return Ok<LoginResponse>(message: "Password reset instructions sent. " + token);
     }
 }

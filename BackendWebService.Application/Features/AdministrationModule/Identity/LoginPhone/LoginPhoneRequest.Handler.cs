@@ -1,16 +1,13 @@
-﻿using Application.AppManager;
-using Application.Contracts.AppManager;
+﻿using Application.Contracts.AppManager;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Wrappers;
 using Contracts.Services;
 using Domain.Enums;
-using Microsoft.AspNetCore.Identity;
 
 namespace Application.Features;
 
 public class LoginPhoneRequestHandler(IAppUserManager userManager,
-                                        IJwtService jwtService) 
+                                        IJwtService jwtService)
     : ResponseHandler, IRequestHandlerAsync<LoginPhoneRequest, LoginResponse>
 {
     public async Task<IResponse<LoginResponse>> HandleAsync(LoginPhoneRequest request)

@@ -2,12 +2,11 @@
 using Application.Contracts.Persistence;
 using Application.Wrappers;
 using Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features;
 internal class CaseActionResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<CaseActionRequest, CaseActionResponse>
 {
- 
+
     public IResponse<CaseActionResponse> Handle(CaseActionRequest request)
     {
         var entity = unitOfWork.GenericRepository<CaseAction>().Get();

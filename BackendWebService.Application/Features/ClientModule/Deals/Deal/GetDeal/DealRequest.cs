@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -17,9 +15,9 @@ int? StatusId,
 decimal? TotalPrice,
 decimal? FinalPrice) : IRequest<DealResponse>
 {
-public IValidator<DealRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<DealRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<DealRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<DealRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

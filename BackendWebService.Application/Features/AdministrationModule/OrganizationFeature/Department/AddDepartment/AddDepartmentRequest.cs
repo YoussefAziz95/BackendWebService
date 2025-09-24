@@ -1,8 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
 using Domain;
-using FluentValidation;
-using SharedKernel.ValidationBase;
 
 namespace Application.Features;
 
@@ -15,7 +13,7 @@ int? OrganizationId,
 int? BranchId,
 string? Code,
 bool IsActive,
-List<AddDepartmentRequest>? SubDepartments) : IConvertibleToEntity<Department>,IRequest<int>
+List<AddDepartmentRequest>? SubDepartments) : IConvertibleToEntity<Department>, IRequest<int>
 {
     public Department ToEntity() => new Department
     {

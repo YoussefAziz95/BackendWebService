@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {
-    
+
     [ApiController]
     [AllowAnonymous]
     [ApiVersion("1.0")]

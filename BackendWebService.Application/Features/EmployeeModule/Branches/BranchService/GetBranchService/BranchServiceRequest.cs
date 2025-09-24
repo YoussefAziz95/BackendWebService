@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -11,9 +9,9 @@ int ServiceId,
 string? Notes,
 bool IsActive) : IRequest<BranchServiceResponse>
 {
-public IValidator<BranchServiceRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<BranchServiceRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<BranchServiceRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<BranchServiceRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -9,9 +7,9 @@ public record GroupRequest(
 string Name,
 int? ActorId) : IRequest<GroupResponse>
 {
-public IValidator<GroupRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<GroupRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<GroupRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<GroupRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

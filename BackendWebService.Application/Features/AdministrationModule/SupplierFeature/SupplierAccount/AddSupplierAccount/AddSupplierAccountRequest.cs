@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain.Enums;
 
 namespace Application.Features;
 
@@ -9,7 +8,7 @@ int CompanyId,
 int SupplierId,
 bool IsApproved,
 DateTime? ApprovedDate,
-List<AddSupplierDocumentRequest> SupplierDocuments) : IConvertibleToEntity<SupplierAccount>,IRequest<int>
+List<AddSupplierDocumentRequest> SupplierDocuments) : IConvertibleToEntity<SupplierAccount>, IRequest<int>
 {
     public SupplierAccount ToEntity() => new SupplierAccount
     {

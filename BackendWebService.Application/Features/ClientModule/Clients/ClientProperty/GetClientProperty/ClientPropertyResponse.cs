@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Application.Features;
 
 namespace Application.Features;
 public record ClientPropertyResponse(
@@ -25,7 +24,7 @@ DateTime? DeletedAt) : IConvertibleFromEntity<ClientProperty, ClientPropertyResp
     ClientProperty.CustomerId,
     ClientResponse.FromEntity(ClientProperty.Customer),
     ClientProperty.PropertyId,
-   PropertyResponse.FromEntity( ClientProperty.Property),
+   PropertyResponse.FromEntity(ClientProperty.Property),
     ClientProperty.AddressId,
     AddressResponse.FromEntity(ClientProperty.Address),
     ClientProperty.Description,

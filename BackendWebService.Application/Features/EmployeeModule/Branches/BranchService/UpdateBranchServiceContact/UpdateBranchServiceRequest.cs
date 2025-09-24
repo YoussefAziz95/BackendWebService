@@ -6,7 +6,7 @@ public record UpdateBranchServiceRequest(
 int BranchId,
 int ServiceId,
 string? Notes,
-bool IsActive) : IConvertibleToEntity<BranchService>,IRequest<int>
+bool IsActive) : IConvertibleToEntity<BranchService>, IRequest<int>
 {
     public BranchService ToEntity() => new BranchService
     {

@@ -115,7 +115,7 @@ public class ResponseHandler
         {
             StatusCode = ApiResultStatusCode.UnAuthorized,
             Succeeded = true,
-            Message = "UnAuthorized" + message?? " " + message, 
+            Message = "UnAuthorized" + message ?? " " + message,
         };
     }
     public IResponse<T> BadRequest<T>(string message = null!)

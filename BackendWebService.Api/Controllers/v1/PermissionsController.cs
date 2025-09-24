@@ -1,7 +1,6 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
 using Application.Features;
-using Domain.Constants;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

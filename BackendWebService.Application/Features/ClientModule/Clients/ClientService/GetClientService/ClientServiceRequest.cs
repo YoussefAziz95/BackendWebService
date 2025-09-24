@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -18,9 +17,9 @@ DateTime RequestedDate,
 DateTime? ScheduledDate,
 DateTime? CompletedDate) : IRequest<ClientServiceResponse>
 {
-public IValidator<ClientServiceRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ClientServiceRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<ClientServiceRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ClientServiceRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

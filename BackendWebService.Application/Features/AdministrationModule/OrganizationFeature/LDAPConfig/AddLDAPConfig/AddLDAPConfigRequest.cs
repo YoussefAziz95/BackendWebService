@@ -2,8 +2,6 @@
 using Application.Profiles;
 using Domain;
 using Domain.Enums;
-using FluentValidation;
-using SharedKernel.ValidationBase;
 
 namespace Application.Features;
 
@@ -12,7 +10,7 @@ int ConfigurationId,
 string ServerAddress,
 string CN,
 string DC,
-ConfigurationEnum ConfigurationType) : IConvertibleToEntity<LDAPConfig>,IRequest<int>
+ConfigurationEnum ConfigurationType) : IConvertibleToEntity<LDAPConfig>, IRequest<int>
 {
     public LDAPConfig ToEntity() => new LDAPConfig
     {

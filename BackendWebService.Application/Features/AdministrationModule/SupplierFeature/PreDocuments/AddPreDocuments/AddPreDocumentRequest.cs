@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
 using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 
@@ -10,7 +9,7 @@ string Name,
 bool IsRequired,
 bool IsMultiple,
 bool IsLocal,
-int FileTypeId) : IConvertibleToEntity<PreDocument>,IRequest<int>
+int FileTypeId) : IConvertibleToEntity<PreDocument>, IRequest<int>
 {
     public PreDocument ToEntity() => new PreDocument
     {

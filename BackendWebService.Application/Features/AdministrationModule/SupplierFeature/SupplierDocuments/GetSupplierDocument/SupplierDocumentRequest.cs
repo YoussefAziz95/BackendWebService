@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -12,9 +10,9 @@ int PreDocumentId,
  string? Comment,
  int? FileId) : IRequest<SupplierDocumentResponse>
 {
-public IValidator<SupplierDocumentRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<SupplierDocumentRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<SupplierDocumentRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<SupplierDocumentRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

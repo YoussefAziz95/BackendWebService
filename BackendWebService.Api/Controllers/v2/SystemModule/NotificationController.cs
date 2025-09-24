@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
-namespace ApiControllers.v2.SystemModule;
+namespace Api.Controllers.v2;
 
 
 [ApiController]

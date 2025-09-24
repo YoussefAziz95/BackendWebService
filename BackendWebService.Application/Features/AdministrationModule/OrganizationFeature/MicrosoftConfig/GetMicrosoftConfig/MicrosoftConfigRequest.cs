@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -13,9 +12,9 @@ string Audience,
 string Instance,
 ConfigurationEnum ConfigurationType) : IRequest<MicrosoftConfigResponse>
 {
-public IValidator<MicrosoftConfigRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<MicrosoftConfigRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<MicrosoftConfigRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<MicrosoftConfigRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

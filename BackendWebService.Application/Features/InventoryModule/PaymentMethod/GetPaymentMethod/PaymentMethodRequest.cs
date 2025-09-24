@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -18,9 +17,9 @@ DateTime? ExpiryDate,
 DateTime CreatedAt,
 DateTime? UpdatedAt) : IRequest<PaymentMethodResponse>
 {
-public IValidator<PaymentMethodRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<PaymentMethodRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<PaymentMethodRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<PaymentMethodRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

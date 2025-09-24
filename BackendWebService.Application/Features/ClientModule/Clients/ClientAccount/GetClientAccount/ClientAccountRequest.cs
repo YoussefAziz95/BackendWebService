@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -18,9 +16,9 @@ int AccessFailedCount,
 string AccountStatus,
 string? AccountStatusReason) : IRequest<ClientAccountResponse>
 {
-public IValidator<ClientAccountRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ClientAccountRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<ClientAccountRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ClientAccountRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

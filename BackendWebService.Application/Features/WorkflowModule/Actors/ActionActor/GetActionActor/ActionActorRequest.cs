@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -16,9 +15,9 @@ int? UserId,
 int? TargetEntityId,
 TableNameEnum? TableName) : IRequest<ActionActorResponse>
 {
-public IValidator<ActionActorRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ActionActorRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<ActionActorRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ActionActorRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

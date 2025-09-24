@@ -1,6 +1,4 @@
-﻿using Application.Contracts.Features;
-using Application.Profiles;
-using Domain;
+﻿using Application.Profiles;
 using Domain.Enums;
 
 namespace Application.Features;

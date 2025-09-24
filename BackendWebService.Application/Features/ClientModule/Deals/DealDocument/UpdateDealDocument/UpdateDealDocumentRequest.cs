@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
 using Domain;
-using Domain.Enums;
 namespace Application.Features;
 public record UpdateDealDocumentRequest(
 int? Score,
@@ -15,7 +14,7 @@ int FileFieldValidatorId,
 UpdateDealRequest Deal,
 UpdateCriteriaRequest Criteria,
 UpdateFileLogRequest File,
-UpdateFileFieldValidatorRequest FileFieldValidator) : IConvertibleToEntity<DealDocument>,IRequest<int>
+UpdateFileFieldValidatorRequest FileFieldValidator) : IConvertibleToEntity<DealDocument>, IRequest<int>
 {
     public DealDocument ToEntity() => new DealDocument
     {

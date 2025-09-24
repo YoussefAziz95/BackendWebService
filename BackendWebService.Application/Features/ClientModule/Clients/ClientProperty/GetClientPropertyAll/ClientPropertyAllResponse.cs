@@ -1,6 +1,4 @@
 ﻿using Application.Profiles;
-using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 
@@ -15,15 +13,15 @@ string? PostalCode,
 string? Country,
 bool IsActive) : IConvertibleFromEntity<ClientProperty, ClientPropertyAllResponse>
 {
-public static ClientPropertyAllResponse FromEntity(ClientProperty ClientProperty) =>
-new ClientPropertyAllResponse(
-ClientProperty.CustomerId,
-ClientProperty.PropertyId,
-ClientProperty.AddressId,
-ClientProperty.Description,
-ClientProperty.City,
-ClientProperty.State,
-ClientProperty.PostalCode,
-ClientProperty.Country,
-ClientProperty.IsActive);
+    public static ClientPropertyAllResponse FromEntity(ClientProperty ClientProperty) =>
+    new ClientPropertyAllResponse(
+    ClientProperty.CustomerId,
+    ClientProperty.PropertyId,
+    ClientProperty.AddressId,
+    ClientProperty.Description,
+    ClientProperty.City,
+    ClientProperty.State,
+    ClientProperty.PostalCode,
+    ClientProperty.Country,
+    ClientProperty.IsActive);
 }

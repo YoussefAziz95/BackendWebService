@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -15,9 +13,9 @@ DateTime CreatedAt,
 int UserId,
 string OrderName) : IRequest<OrderResponse>
 {
-public IValidator<OrderRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<OrderRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<OrderRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<OrderRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

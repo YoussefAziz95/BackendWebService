@@ -1,7 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Application.Features;
-using Domain;
 using Domain.Enums;
 namespace Application.Features;
 public record UpdateClientServiceRequest(
@@ -20,7 +18,7 @@ StatusEnum Status,
 string Description,
 DateTime RequestedDate,
 DateTime? ScheduledDate,
-DateTime? CompletedDate) : IConvertibleToEntity<ClientService>,IRequest<int>
+DateTime? CompletedDate) : IConvertibleToEntity<ClientService>, IRequest<int>
 {
     public ClientService ToEntity() => new ClientService
     {

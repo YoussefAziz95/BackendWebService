@@ -1,8 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
-using FluentValidation;
-using SharedKernel.ValidationBase;
 
 namespace Application.Features;
 

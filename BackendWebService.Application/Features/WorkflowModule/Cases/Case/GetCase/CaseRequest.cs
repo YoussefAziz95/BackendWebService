@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -12,9 +10,9 @@ int StatusId,
 int? CompanySupplierId,
 int? UserId) : IRequest<CaseResponse>
 {
-public IValidator<CaseRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<CaseRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<CaseRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<CaseRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

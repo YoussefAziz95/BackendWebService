@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -18,7 +17,7 @@ string? UpdatedBy,
 int PageNumber = 1,
 int PageSize = 100,
 string FilterBy = "none",
-string? SortBy = "asc") : IRequest<List<RoleClaimAllResponse>>,IRequest<int>
+string? SortBy = "asc") : IRequest<List<RoleClaimAllResponse>>, IRequest<int>
 {
     public IValidator<RoleClaimAllRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<RoleClaimAllRequest> validator)
     {

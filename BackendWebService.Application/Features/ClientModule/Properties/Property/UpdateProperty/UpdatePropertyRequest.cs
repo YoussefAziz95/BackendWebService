@@ -1,8 +1,6 @@
 ﻿using Application.Contracts.Features;
-using Application.Features;
 using Application.Profiles;
 using Domain;
-using Domain.Enums;
 namespace Application.Features;
 public record UpdatePropertyRequest(
 int UserId,
@@ -15,7 +13,7 @@ double Latitude,
 double Longitude,
 DateTimeOffset CreatedAt,
 DateTimeOffset? DeletedAt,
-bool IsDeleted) : IConvertibleToEntity<Property>,IRequest<int>
+bool IsDeleted) : IConvertibleToEntity<Property>, IRequest<int>
 {
     public Property ToEntity() => new Property
     {

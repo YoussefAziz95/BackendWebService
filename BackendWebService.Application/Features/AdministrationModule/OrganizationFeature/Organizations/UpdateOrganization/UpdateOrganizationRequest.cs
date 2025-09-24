@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
 using Domain.Enums;
 namespace Application.Features;
 public record UpdateOrganizationRequest(
@@ -14,7 +13,7 @@ string Email,
 string TaxNo,
 int FileId,
 List<UpdateAddressRequest>? Addresses,
-List<UpdateContactRequest>? Contacts) : IConvertibleToEntity<Organization>,IRequest<int>
+List<UpdateContactRequest>? Contacts) : IConvertibleToEntity<Organization>, IRequest<int>
 {
     public Organization ToEntity() => new Organization
     {

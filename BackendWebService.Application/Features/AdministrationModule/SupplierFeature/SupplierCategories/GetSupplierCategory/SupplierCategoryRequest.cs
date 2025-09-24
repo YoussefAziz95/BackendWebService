@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -9,9 +7,9 @@ public record SupplierCategoryRequest(
 int SupplierId,
 int CategoryId) : IRequest<SupplierCategoryResponse>
 {
-public IValidator<SupplierCategoryRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<SupplierCategoryRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<SupplierCategoryRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<SupplierCategoryRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

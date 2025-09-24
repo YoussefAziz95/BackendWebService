@@ -7,7 +7,7 @@ string Name,
 string Description,
 string Code,
 int CategoryId,
-UpdateCategoryRequest Category) : IConvertibleToEntity<Service>,IRequest<int>
+UpdateCategoryRequest Category) : IConvertibleToEntity<Service>, IRequest<int>
 {
     public Service ToEntity() => new Service
     {

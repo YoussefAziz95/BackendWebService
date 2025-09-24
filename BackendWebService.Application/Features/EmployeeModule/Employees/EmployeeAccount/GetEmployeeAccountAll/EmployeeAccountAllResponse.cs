@@ -1,5 +1,4 @@
 ﻿using Application.Profiles;
-using Domain;
 
 namespace Application.Features;
 public record EmployeeAccountAllResponse(

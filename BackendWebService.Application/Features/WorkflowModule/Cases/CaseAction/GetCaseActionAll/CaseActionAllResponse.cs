@@ -1,6 +1,5 @@
 ﻿using Application.Profiles;
 using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 public record CaseActionAllResponse(
@@ -16,6 +15,6 @@ int StatusId) : IConvertibleFromEntity<CaseAction, CaseActionAllResponse>
     CaseAction.WorkflowActorId,
     CaseAction.CaseId,
     CaseAction.WorkflowCycleId,
-    CaseAction.StatusId); 
+    CaseAction.StatusId);
 }
 

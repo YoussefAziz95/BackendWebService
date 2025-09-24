@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -14,9 +12,9 @@ int? FilesId,
 string Description,
 string? AdditionalPhon) : IRequest<EmployeeServiceResponse>
 {
-public IValidator<EmployeeServiceRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<EmployeeServiceRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<EmployeeServiceRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<EmployeeServiceRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

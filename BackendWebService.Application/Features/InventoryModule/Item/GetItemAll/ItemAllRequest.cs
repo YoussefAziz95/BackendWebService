@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 

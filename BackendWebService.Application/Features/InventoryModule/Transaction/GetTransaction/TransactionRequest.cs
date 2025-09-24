@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -17,9 +16,9 @@ string? Notes,
 DateTime TransactionDate,
 DateTime? UpdatedAt) : IRequest<TransactionResponse>
 {
-public IValidator<TransactionRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<TransactionRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<TransactionRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<TransactionRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

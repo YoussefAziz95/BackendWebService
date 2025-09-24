@@ -1,8 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Wrappers;
-using Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features;
 internal class GoogleConfigResponseHandler : ResponseHandler, IRequestHandler<GoogleConfigRequest, GoogleConfigResponse>

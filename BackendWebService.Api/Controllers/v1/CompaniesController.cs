@@ -4,12 +4,10 @@ using Application.Contracts.Persistence;
 using Application.Contracts.Services;
 using Application.Features;
 using Domain;
-using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Dynamic.Core;
 namespace Api.Controllers.v1;
 
 
@@ -134,7 +132,7 @@ public class CompaniesController : AppControllerBase
 
         throw new NotImplementedException();
     }
-    
+
 
 
 

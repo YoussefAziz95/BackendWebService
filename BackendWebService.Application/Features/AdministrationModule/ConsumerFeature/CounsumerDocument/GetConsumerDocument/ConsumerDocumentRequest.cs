@@ -10,9 +10,9 @@ bool IsApproved,
 string? Comment,
 int? FileId) : IRequest<ConsumerDocumentResponse>
 {
-public IValidator<ConsumerDocumentRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ConsumerDocumentRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<ConsumerDocumentRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<ConsumerDocumentRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

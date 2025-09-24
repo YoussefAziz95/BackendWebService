@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -12,9 +11,9 @@ TableNameEnum TableName,
 string Field,
 string Value) : IRequest<TranslationKeyResponse>
 {
-public IValidator<TranslationKeyRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<TranslationKeyRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<TranslationKeyRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<TranslationKeyRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

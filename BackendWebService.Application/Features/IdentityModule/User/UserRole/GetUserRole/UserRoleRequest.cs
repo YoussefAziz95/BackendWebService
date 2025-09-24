@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -15,9 +13,9 @@ string? CreatedBy,
 DateTime? UpdatedDate,
 string? UpdatedBy) : IRequest<UserRoleResponse>
 {
-public IValidator<UserRoleRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<UserRoleRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<UserRoleRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<UserRoleRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

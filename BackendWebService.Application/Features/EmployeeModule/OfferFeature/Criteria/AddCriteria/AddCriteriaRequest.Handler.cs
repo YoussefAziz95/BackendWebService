@@ -28,5 +28,5 @@ public class AddCriteriaRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler
 
         return Success(criteria.Id);
     }
-    
+
 }

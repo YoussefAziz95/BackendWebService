@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -14,9 +12,9 @@ string PartNumber,
 string Manufacturer,
 int ProductId) : IRequest<PartResponse>
 {
-public IValidator<PartRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<PartRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<PartRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<PartRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -18,9 +17,9 @@ string? NotificationType,
 int? NotificationObjectId,
 string? NotificationObjectType) : IRequest<NotificationResponse>
 {
-public IValidator<NotificationRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<NotificationRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<NotificationRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<NotificationRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

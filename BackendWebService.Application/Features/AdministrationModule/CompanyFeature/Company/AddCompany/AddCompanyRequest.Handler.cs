@@ -20,7 +20,7 @@ public class AddCompanyRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler,
         catch (Exception ex)
         {
             unitOfWork.RollbackAsync();
-            return BadRequest<int>(message:  ex.Message);
+            return BadRequest<int>(message: ex.Message);
 
         }
 

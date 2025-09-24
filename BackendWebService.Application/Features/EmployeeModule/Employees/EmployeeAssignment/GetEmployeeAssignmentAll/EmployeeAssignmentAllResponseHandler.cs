@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Wrappers;
-using Domain;
 
 namespace Application.Features;
 internal class EmployeeAssignmentAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<EmployeeAssignmentAllRequest, List<EmployeeAssignmentAllResponse>>

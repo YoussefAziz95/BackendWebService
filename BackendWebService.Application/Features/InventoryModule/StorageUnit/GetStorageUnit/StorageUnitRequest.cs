@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -11,9 +10,9 @@ int? PortionTypeId,
 int FullQuantity,
 UnitEnum Unit) : IRequest<StorageUnitResponse>
 {
-public IValidator<StorageUnitRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<StorageUnitRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<StorageUnitRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<StorageUnitRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

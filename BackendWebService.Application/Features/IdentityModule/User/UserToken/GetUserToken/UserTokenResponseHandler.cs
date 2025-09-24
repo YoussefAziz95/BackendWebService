@@ -2,12 +2,11 @@
 using Application.Contracts.Persistence;
 using Application.Wrappers;
 using Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features;
 internal class UserTokenResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<UserTokenRequest, UserTokenResponse>
 {
- 
+
     public IResponse<UserTokenResponse> Handle(UserTokenRequest request)
     {
         var entity = unitOfWork.GenericRepository<UserToken>().Get();

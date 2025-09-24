@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
 using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
@@ -12,9 +11,9 @@ string CN,
 string DC,
 ConfigurationEnum ConfigurationType) : IRequest<LDAPConfigResponse>
 {
-public IValidator<LDAPConfigRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<LDAPConfigRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<LDAPConfigRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<LDAPConfigRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

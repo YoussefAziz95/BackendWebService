@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
 using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 
@@ -9,7 +8,7 @@ public record AddBranchServiceRequest(
 int BranchId,
 int ServiceId,
 string? Notes,
-bool IsActive) : IConvertibleToEntity<BranchService>,IRequest<int>
+bool IsActive) : IConvertibleToEntity<BranchService>, IRequest<int>
 {
     public BranchService ToEntity() => new BranchService
     {

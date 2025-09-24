@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -18,9 +16,9 @@ string? CreatedBy,
 DateTime? UpdatedDate,
 string? UpdatedBy) : IRequest<UserRefreshTokenResponse>
 {
-public IValidator<UserRefreshTokenRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<UserRefreshTokenRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<UserRefreshTokenRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<UserRefreshTokenRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -17,9 +15,9 @@ string? UpdatedBy,
 int? ParentId,
 string DisplayName) : IRequest<RoleResponse>
 {
-public IValidator<RoleRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<RoleRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<RoleRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<RoleRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

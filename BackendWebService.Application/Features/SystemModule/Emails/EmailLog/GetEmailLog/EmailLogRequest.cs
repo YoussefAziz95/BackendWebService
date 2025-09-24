@@ -1,6 +1,4 @@
 ﻿using Application.Contracts.Features;
-using Domain;
-using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
@@ -11,9 +9,9 @@ string Body,
 DateTime SentAt,
 int SenderId) : IRequest<EmailLogResponse>
 {
-public IValidator<EmailLogRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<EmailLogRequest> validator)
-{
-throw new NotImplementedException();
-}
+    public IValidator<EmailLogRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<EmailLogRequest> validator)
+    {
+        throw new NotImplementedException();
+    }
 }
 

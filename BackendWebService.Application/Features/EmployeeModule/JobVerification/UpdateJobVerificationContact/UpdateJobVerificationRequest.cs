@@ -8,7 +8,7 @@ int EmployeeId,
 VerificationEnum Verification,
 string VerificationCode,
 DateTime ExpirationTime,
-bool IsVerified) : IConvertibleToEntity<JobVerification>,IRequest<int>
+bool IsVerified) : IConvertibleToEntity<JobVerification>, IRequest<int>
 {
     public JobVerification ToEntity() => new JobVerification
     {

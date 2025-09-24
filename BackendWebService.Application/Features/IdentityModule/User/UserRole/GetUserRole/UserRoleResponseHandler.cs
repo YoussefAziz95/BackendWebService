@@ -2,12 +2,11 @@
 using Application.Contracts.Persistence;
 using Application.Wrappers;
 using Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features;
 internal class UserRoleResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<UserRoleRequest, UserRoleResponse>
 {
- 
+
     public IResponse<UserRoleResponse> Handle(UserRoleRequest request)
     {
         var entity = unitOfWork.GenericRepository<UserRole>().Get();

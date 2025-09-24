@@ -1,9 +1,7 @@
 ﻿using Domain;
 using Domain.Enums;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Newtonsoft.Json.Linq;
 
 #nullable disable
 

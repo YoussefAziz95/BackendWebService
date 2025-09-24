@@ -1,11 +1,8 @@
 ﻿using Application.Contracts.AppManager;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Wrappers;
 using Contracts.Services;
-using Domain;
 using Domain.Enums;
-using Microsoft.AspNetCore.Identity;
 
 namespace Application.Features;
 

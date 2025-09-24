@@ -9,7 +9,7 @@ string Attributes,
 UpdateUserRequest User,
 OrganizationEnum OrganizationType,
 StatusEnum Status,
-RoleEnum MainRole) : IConvertibleToEntity<Administrator>,IRequest<int>
+RoleEnum MainRole) : IConvertibleToEntity<Administrator>, IRequest<int>
 {
     public Administrator ToEntity() => new Administrator
     {

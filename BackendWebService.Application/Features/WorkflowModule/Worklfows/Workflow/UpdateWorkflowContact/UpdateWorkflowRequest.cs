@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
-using Domain;
 namespace Application.Features;
 public record UpdateWorkflowRequest(
 string? Name,
@@ -9,7 +8,7 @@ int UserId,
 UpdateUserRequest? User,
 int CompanyId,
 UpdateCompanyRequest? Company,
-List<UpdateWorkflowCycleRequest> WorkflowCycles) : IConvertibleToEntity<Workflow>,IRequest<int>
+List<UpdateWorkflowCycleRequest> WorkflowCycles) : IConvertibleToEntity<Workflow>, IRequest<int>
 {
     public Workflow ToEntity() => new Workflow
     {

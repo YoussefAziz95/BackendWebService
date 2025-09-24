@@ -1,12 +1,11 @@
 ﻿using Api.Base;
 using Application.Contracts.Services;
 using Application.Features;
-using Domain.Constants;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiControllers.v2.AdministrationModule;
+namespace Api.Controllers.v2;
 
 
 [ApiController]
@@ -23,7 +22,7 @@ public class PermissionsController : AppControllerBase
     }
 
     [HttpGet]
-    
+
     public IActionResult GetAll()
     {
         var result = _permissionService.GetAll();
@@ -31,7 +30,7 @@ public class PermissionsController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    
+
     public async Task<IActionResult> GetRolePermissions([FromRoute] int id)
     {
         var result = await _permissionService.GetRolePermissions(id);

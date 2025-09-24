@@ -1,7 +1,5 @@
-﻿using Application.Contracts.Features;
-using Application.Profiles;
+﻿using Application.Profiles;
 using Domain;
-using Domain.Enums;
 
 namespace Application.Features;
 public record JobResponse(
@@ -13,13 +11,13 @@ DateTime? ExpirationTime,
 bool IsVerified,
 List<EmployeeAssignmentResponse> EmployeeAssignments) : IConvertibleFromEntity<Job, JobResponse>
 {
-public static JobResponse FromEntity(Job Job) =>
-new JobResponse(
-Job.Name,
-Job.Description,
-Job.StartDate,
-Job.EndDate,
-Job.ExpirationTime,
-Job.IsVerified,
-Job.EmployeeAssignments.Select(EmployeeAssignmentResponse.FromEntity).ToList());
+    public static JobResponse FromEntity(Job Job) =>
+    new JobResponse(
+    Job.Name,
+    Job.Description,
+    Job.StartDate,
+    Job.EndDate,
+    Job.ExpirationTime,
+    Job.IsVerified,
+    Job.EmployeeAssignments.Select(EmployeeAssignmentResponse.FromEntity).ToList());
 }

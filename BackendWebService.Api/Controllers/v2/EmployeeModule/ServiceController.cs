@@ -4,7 +4,7 @@ using Application.Features;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiControllers.v2.EmployeeModule;
+namespace Api.Controllers.v2;
 
 
 [ApiController]
