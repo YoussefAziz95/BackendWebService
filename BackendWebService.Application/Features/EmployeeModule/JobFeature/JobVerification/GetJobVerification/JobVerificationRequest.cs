@@ -3,7 +3,7 @@ using Domain.Enums;
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
-namespace Application.Features; 
+namespace Application.Features;
 public record JobVerificationRequest(
 int EmployeeId,
 VerificationEnum Verification,

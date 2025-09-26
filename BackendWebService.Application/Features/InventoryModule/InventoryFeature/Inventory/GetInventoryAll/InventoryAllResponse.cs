@@ -1,6 +1,6 @@
 ﻿using Application.Profiles;
 
-namespace Application.Features; 
+namespace Application.Features;
 public record InventoryAllResponse(
 string Name,
 int? CategoryId) : IConvertibleFromEntity<Inventory, InventoryAllResponse>

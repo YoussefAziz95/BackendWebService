@@ -1,10 +1,7 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Features;
-using Domain;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.v2;
@@ -28,7 +25,7 @@ public class EmployeeController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-employee/{id}")]
-    public async Task<IActionResult> GetEmployee([FromRoute] int id)
+    public IActionResult GetEmployee([FromRoute] int id)
     {
         var response = mediator.HandleById<EmployeeResponse>(id);
         return NewResult(response);
@@ -67,7 +64,7 @@ public class EmployeeController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-employee-account/{id}")]
-    public async Task<IActionResult> GetEmployeeAccount([FromRoute] int id)
+    public IActionResult GetEmployeeAccount([FromRoute] int id)
     {
         var response = mediator.HandleById<EmployeeAccountResponse>(id);
         return NewResult(response);
@@ -106,7 +103,7 @@ public class EmployeeController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-employee-assignment/{id}")]
-    public async Task<IActionResult> GetEmployeeAssignment([FromRoute] int id)
+    public IActionResult GetEmployeeAssignment([FromRoute] int id)
     {
         var response = mediator.HandleById<EmployeeAssignmentResponse>(id);
         return NewResult(response);
@@ -145,7 +142,7 @@ public class EmployeeController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-employee-certification/{id}")]
-    public async Task<IActionResult> GetEmployeeCertification([FromRoute] int id)
+    public IActionResult GetEmployeeCertification([FromRoute] int id)
     {
         var response = mediator.HandleById<EmployeeCertificationResponse>(id);
         return NewResult(response);
@@ -184,7 +181,7 @@ public class EmployeeController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-employee-job/{id}")]
-    public async Task<IActionResult> GetEmployeeJob([FromRoute] int id)
+    public IActionResult GetEmployeeJob([FromRoute] int id)
     {
         var response = mediator.HandleById<EmployeeJobResponse>(id);
         return NewResult(response);

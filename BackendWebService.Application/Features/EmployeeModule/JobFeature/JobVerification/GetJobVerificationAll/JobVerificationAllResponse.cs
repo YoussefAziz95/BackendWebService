@@ -2,7 +2,7 @@
 using Domain;
 using Domain.Enums;
 
-namespace Application.Features; 
+namespace Application.Features;
 public record JobVerificationAllResponse(
 int EmployeeId,
 VerificationEnum Verification,

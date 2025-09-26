@@ -42,9 +42,9 @@ public class PartController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetPart([FromRoute] int id)
+    public IActionResult GetPart([FromRoute] int id)
     {
-        var part = await _unitOfWork.GenericRepository<Part>().GetByIdAsync(id);
+        var part = _unitOfWork.GenericRepository<Part>().GetByIdAsync(id);
         if (part == null)
             return NotFound("Part not found");
         throw new NotImplementedException();

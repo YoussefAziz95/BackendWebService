@@ -1,9 +1,6 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Services;
 using Application.Features;
-using Domain;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers.v2;
 
@@ -25,7 +22,7 @@ public class SupplierController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-supplier/{id}")]
-    public async Task<IActionResult> GetSupplier([FromRoute] int id)
+    public IActionResult GetSupplier([FromRoute] int id)
     {
         var response = mediator.HandleById<SupplierResponse>(id);
         return NewResult(response);
@@ -64,7 +61,7 @@ public class SupplierController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-pre-document/{id}")]
-    public async Task<IActionResult> GetPreDocument([FromRoute] int id)
+    public IActionResult GetPreDocument([FromRoute] int id)
     {
         var response = mediator.HandleById<PreDocumentResponse>(id);
         return NewResult(response);
@@ -104,7 +101,7 @@ public class SupplierController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-supplier-account/{id}")]
-    public async Task<IActionResult> GetSupplierAccount([FromRoute] int id)
+    public IActionResult GetSupplierAccount([FromRoute] int id)
     {
         var response = mediator.HandleById<SupplierAccountResponse>(id);
         return NewResult(response);
@@ -145,7 +142,7 @@ public class SupplierController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-supplier-category/{id}")]
-    public async Task<IActionResult> GetSupplierCategory([FromRoute] int id)
+    public IActionResult GetSupplierCategory([FromRoute] int id)
     {
         var response = mediator.HandleById<SupplierCategoryResponse>(id);
         return NewResult(response);

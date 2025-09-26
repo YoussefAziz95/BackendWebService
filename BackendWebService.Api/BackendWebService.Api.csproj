@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\UtilityController.cs" />
+    <Compile Remove="Controllers\v1\PermissionsController.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,10 +40,6 @@
     <ProjectReference Include="..\BackendWebService.Domain\BackendWebService.Domain.csproj" />
     <ProjectReference Include="..\BackendWebService.Presistence\BackendWebService.Persistence.csproj" />
     <ProjectReference Include="..\BackendWebService.SharedKernal\BackendWebService.SharedKernal.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\v2\WorkflowModule\" />
   </ItemGroup>
 
 </Project>

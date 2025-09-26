@@ -25,7 +25,7 @@ public class CustomerController : AppControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCustomer([FromBody] AddCustomerRequest request)
+    public IActionResult AddCustomer([FromBody] AddCustomerRequest request)
     {
         //// Create User  
         //var user = new User
@@ -104,7 +104,7 @@ public class CustomerController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetCustomer([FromRoute] int id)
+    public IActionResult GetCustomer([FromRoute] int id)
     {
         //var customer = _unitOfWork.GenericRepository<Customer>()
         //    .Get(c => c.Id == id);
@@ -207,7 +207,7 @@ public class CustomerController : AppControllerBase
 
     [HttpGet("GetAll")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetAll()
+    public IActionResult GetAll()
     {
         //var customers = _unitOfWork.GenericRepository<Customer>().GetAll();
         //if (customers == null || !customers.Any())

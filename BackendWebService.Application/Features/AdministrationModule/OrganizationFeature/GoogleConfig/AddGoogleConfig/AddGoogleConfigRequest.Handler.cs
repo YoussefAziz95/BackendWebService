@@ -8,6 +8,23 @@ public class AddGoogleConfigRequestHandler(IUnitOfWork unitOfWork) : ResponseHan
 {
     public IResponse<int> Handle(AddGoogleConfigRequest request)
     {
-        throw new NotImplementedException();
+        unitOfWork.BeginTransactionAsync();
+
+        var entity = request.ToEntity();
+
+        try
+        {
+            unitOfWork.GenericRepository<GoogleConfig>().Add(entity);
+            var result = unitOfWork.Save();
+        }
+        catch (Exception ex)
+        {
+            unitOfWork.RollbackAsync();
+            return BadRequest<int>(message: ex.Message);
+
+        }
+
+        unitOfWork.CommitAsync();
+        return Success(entity.Id);
     }
 }

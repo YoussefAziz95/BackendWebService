@@ -1,11 +1,10 @@
 ﻿using Application.Contracts.Features;
 using Application.Contracts.Persistence;
-using Application.Features;
 using Application.Wrappers;
 using Domain;
 using Domain.Enums;
 
-namespace Application.Features; 
+namespace Application.Features;
 internal class DeleteProductRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteProductRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteProductRequest request)

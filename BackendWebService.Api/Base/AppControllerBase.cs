@@ -65,7 +65,7 @@ public class AppControllerBase : ControllerBase
         };
     }
     [NonAction]
-    public async Task<string> FileToLink(int fileId)
+    public string FileToLink(int fileId)
     {
         string imageFolderPath = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/FileSystem/file/download/1";
 

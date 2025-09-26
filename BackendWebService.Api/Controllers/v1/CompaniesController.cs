@@ -30,7 +30,7 @@ public class CompaniesController : AppControllerBase
 
     [HttpPost]
     [HttpPost]
-    public async Task<IActionResult> AddCompany([FromBody] AddCompanyRequest request)
+    public IActionResult AddCompany([FromBody] AddCompanyRequest request)
     {
         //try
         //{
@@ -137,7 +137,7 @@ public class CompaniesController : AppControllerBase
 
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetCompany([FromRoute] int id)
+    public IActionResult GetCompany([FromRoute] int id)
     {
         var company = _unitOfWork.GenericRepository<Company>()
             .Get(

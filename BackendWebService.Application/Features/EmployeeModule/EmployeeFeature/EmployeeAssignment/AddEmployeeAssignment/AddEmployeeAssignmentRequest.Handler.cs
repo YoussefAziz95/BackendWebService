@@ -8,6 +8,23 @@ public class AddEmployeeAssignmentRequestHandler(IUnitOfWork unitOfWork) : Respo
 {
     public IResponse<int> Handle(AddEmployeeAssignmentRequest request)
     {
-        throw new NotImplementedException();
+        unitOfWork.BeginTransactionAsync();
+
+        var entity = request.ToEntity();
+
+        try
+        {
+            unitOfWork.GenericRepository<EmployeeAssignment>().Add(entity);
+            var result = unitOfWork.Save();
+        }
+        catch (Exception ex)
+        {
+            unitOfWork.RollbackAsync();
+            return BadRequest<int>(message: ex.Message);
+
+        }
+
+        unitOfWork.CommitAsync();
+        return Success(entity.Id);
     }
 }

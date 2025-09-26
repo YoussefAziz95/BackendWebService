@@ -2,7 +2,7 @@
 using Application.Contracts.Persistence;
 using Application.Wrappers;
 
-namespace Application.Features; 
+namespace Application.Features;
 internal class StorageUnitResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<StorageUnitRequest, StorageUnitResponse>
 {
 

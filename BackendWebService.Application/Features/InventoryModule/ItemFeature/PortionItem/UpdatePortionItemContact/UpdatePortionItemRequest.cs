@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.Features;
 using Application.Profiles;
 using Domain;
-namespace Application.Features; 
+namespace Application.Features;
 public record UpdatePortionItemRequest(
 int PortionId,
  int ItemId,

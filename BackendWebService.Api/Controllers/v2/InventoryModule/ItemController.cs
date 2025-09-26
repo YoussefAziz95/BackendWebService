@@ -24,7 +24,7 @@ public class ItemController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-item/{id}")]
-    public async Task<IActionResult> GetItem([FromRoute] int id)
+    public IActionResult GetItem([FromRoute] int id)
     {
         var response = mediator.HandleById<ItemResponse>(id);
         return NewResult(response);
@@ -63,7 +63,7 @@ public class ItemController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-portion/{id}")]
-    public async Task<IActionResult> GetPortion([FromRoute] int id)
+    public IActionResult GetPortion([FromRoute] int id)
     {
         var response = mediator.HandleById<PortionResponse>(id);
         return NewResult(response);
@@ -102,7 +102,7 @@ public class ItemController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-portion-item/{id}")]
-    public async Task<IActionResult> GetPortionItem([FromRoute] int id)
+    public IActionResult GetPortionItem([FromRoute] int id)
     {
         var response = mediator.HandleById<PortionItemResponse>(id);
         return NewResult(response);
@@ -141,7 +141,7 @@ public class ItemController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-portion-type/{id}")]
-    public async Task<IActionResult> GetPortionType([FromRoute] int id)
+    public IActionResult GetPortionType([FromRoute] int id)
     {
         var response = mediator.HandleById<PortionTypeResponse>(id);
         return NewResult(response);

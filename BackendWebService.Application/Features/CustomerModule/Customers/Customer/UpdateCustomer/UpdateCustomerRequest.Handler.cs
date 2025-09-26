@@ -7,6 +7,21 @@ public class UpdateCustomerRequestHandler(IUnitOfWork unitOfWork) : ResponseHand
 {
     public IResponse<int> Handle(UpdateCustomerRequest request)
     {
-        throw new NotImplementedException();
+        unitOfWork.BeginTransactionAsync();
+        var entity = request.ToEntity();
+        try
+        {
+            unitOfWork.GenericRepository<Customer>().Update(entity);
+            var result = unitOfWork.Save();
+        }
+        catch (Exception ex)
+        {
+            unitOfWork.RollbackAsync();
+            return BadRequest<int>(message: ex.Message);
+
+        }
+
+        unitOfWork.CommitAsync();
+        return Success(entity.Id);
     }
 }

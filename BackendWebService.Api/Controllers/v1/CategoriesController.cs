@@ -27,7 +27,7 @@ public class CategoriesController : AppControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCategory([FromBody] AddCategoryRequest request)
+    public IActionResult AddCategory([FromBody] AddCategoryRequest request)
     {
 
         throw new NotImplementedException();
@@ -46,7 +46,7 @@ public class CategoriesController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetCategory([FromRoute] int id)
+    public IActionResult GetCategory([FromRoute] int id)
     {
 
         throw new NotImplementedException();
@@ -57,7 +57,7 @@ public class CategoriesController : AppControllerBase
         //    return NotFound("File not found");
         //var result = new Response<CategoryResponse>()
         //{
-        //    Data = new CategoryResponse(category.Id, category.Name, category.ParentId, await FileToLink(category.FileId ?? 1), category.IsActive),
+        //    Data = new CategoryResponse(category.Id, category.Name, category.ParentId, FileToLink(category.FileId ?? 1), category.IsActive),
         //    StatusCode = ApiResultStatusCode.Success,
         //    Succeeded = true,
         //    Message = "Category found"
@@ -66,7 +66,7 @@ public class CategoriesController : AppControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryRequest request)
+    public IActionResult UpdateCategory([FromBody] UpdateCategoryRequest request)
     {
 
         throw new NotImplementedException();
@@ -93,14 +93,14 @@ public class CategoriesController : AppControllerBase
         //    StatusCode = ApiResultStatusCode.Success,
         //    Message = "Category updated successfully",
         //    Succeeded = true,
-        //    Data = new CategoryResponse(category.Id, category.Name, category.ParentId, await FileToLink(category.FileId ?? 1), category.IsActive)
+        //    Data = new CategoryResponse(category.Id, category.Name, category.ParentId, FileToLink(category.FileId ?? 1), category.IsActive)
         //};
         //return NewResult(response);
     }
 
     [HttpGet("GetAll")]
     [ProducesResponseType(typeof(Response<List<CategoryWithFileResponse>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll()
+    public IActionResult GetAll()
     {
         var categories = _unitOfWork.GenericRepository<Category>().GetAll();
         if (categories is null)
@@ -109,7 +109,7 @@ public class CategoriesController : AppControllerBase
         var categoriesReponse = new List<CategoryWithFileResponse>();
         foreach (var c in categories)
         {
-            var categoryResponse = new CategoryWithFileResponse(c.Id, c.Name, c.ParentId, await FileToLink(c.FileId ?? 1), c.IsActive);
+            var categoryResponse = new CategoryWithFileResponse(c.Id, c.Name, c.ParentId, FileToLink(c.FileId ?? 1), c.IsActive);
             categoriesReponse.Add(categoryResponse);
         }
         var result = new Response<List<CategoryWithFileResponse>>()
@@ -123,7 +123,7 @@ public class CategoriesController : AppControllerBase
     }
 
     [HttpGet("GetByParentId/{id?}")]
-    public async Task<IActionResult> GetByParentId([FromRoute] int? id = null)
+    public IActionResult GetByParentId([FromRoute] int? id = null)
     {
 
         var categories = _unitOfWork.GenericRepository<Category>().GetAll(c => c.ParentId == id, include: c => c.Include(s => s.SubCategories));
@@ -133,7 +133,7 @@ public class CategoriesController : AppControllerBase
         var response = new List<CategoryHasChildResponse>();
         foreach (var c in hasChildCategories)
         {
-            var r = new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, await FileToLink(c.c.FileId ?? 1), c.hasChild, c.c.IsActive);
+            var r = new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, FileToLink(c.c.FileId ?? 1), c.hasChild, c.c.IsActive);
         }
         var result = new Response<List<CategoryHasChildResponse>>()
         {
@@ -146,7 +146,7 @@ public class CategoriesController : AppControllerBase
         return NewResult(result);
     }
     [HttpGet("GetAvailableEmployees/{categoryId?}")]
-    public async Task<IActionResult> GetAvailableEmployees([FromRoute] int? categoryId = null)
+    public IActionResult GetAvailableEmployees([FromRoute] int? categoryId = null)
     {
 
         var categories = _unitOfWork.GenericRepository<Category>().GetAll(c => c.ParentId == categoryId, include: c => c.Include(s => s.SubCategories));
@@ -156,7 +156,7 @@ public class CategoriesController : AppControllerBase
         var response = new List<CategoryHasChildResponse>();
         foreach (var c in hasChildCategories)
         {
-            var r = new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, await FileToLink(c.c.FileId ?? 1), c.hasChild, c.c.IsActive);
+            var r = new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, FileToLink(c.c.FileId ?? 1), c.hasChild, c.c.IsActive);
         }
         var result = new Response<List<CategoryHasChildResponse>>()
         {
@@ -168,7 +168,7 @@ public class CategoriesController : AppControllerBase
         return NewResult(result);
     }
     [HttpGet("GetServices/{categoryId?}")]
-    public async Task<IActionResult> GetServices([FromRoute] int id)
+    public IActionResult GetServices([FromRoute] int id)
     {
 
         var categories = _unitOfWork.GenericRepository<Category>().GetAll(c => c.ParentId == id, include: c => c.Include(s => s.SubCategories));
@@ -178,7 +178,7 @@ public class CategoriesController : AppControllerBase
         var response = new List<CategoryHasChildResponse>();
         foreach (var c in hasChildCategories)
         {
-            var r = new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, await FileToLink(c.c.FileId ?? 1), c.hasChild, c.c.IsActive);
+            var r = new CategoryHasChildResponse(c.c.Id, c.c.Name, c.c.ParentId, FileToLink(c.c.FileId ?? 1), c.hasChild, c.c.IsActive);
         }
         var result = new Response<List<CategoryHasChildResponse>>()
         {

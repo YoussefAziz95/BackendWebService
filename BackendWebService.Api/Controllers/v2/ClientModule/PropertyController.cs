@@ -1,12 +1,8 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Features;
-using Domain;
-using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers.v2;
 
@@ -29,7 +25,7 @@ public class PropertyController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-property/{id}")]
-    public async Task<IActionResult> GetProperty([FromRoute] int id)
+    public IActionResult GetProperty([FromRoute] int id)
     {
         var response = mediator.HandleById<PropertyResponse>(id);
         return NewResult(response);

@@ -88,7 +88,7 @@ public class ServiceController : AppControllerBase
     }
 
     [HttpPost("GetAll")]
-    public async Task<IActionResult> GetAll()
+    public IActionResult GetAll()
     {
         //var services = _unitOfWork.GenericRepository<Service>().GetAll(include: s => s.Include(c => c.Category));
         //var response = new PaginatedResponse<ServiceResponse>()

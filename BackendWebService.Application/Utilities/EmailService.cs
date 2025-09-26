@@ -23,7 +23,7 @@ namespace Application.Utilities
         /// </summary>
         /// <param name="emailDto">EmailDto details including sender, recipients, subject, and body.</param>
         /// <returns>True if the email was sent successfully; otherwise, false.</returns>
-        private async Task<bool> SendEmail(EmailDto emailDto)
+        private bool SendEmail(EmailDto emailDto)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(EmailConfiguration.CompanyName, EmailConfiguration.From));
@@ -64,16 +64,16 @@ namespace Application.Utilities
                 return true;
             }
         }
-        private async Task<int> AddAsync(EmailLog request)
+        private int Add(EmailLog request)
         {
-            await _unitOfWork.GenericRepository<EmailLog>().AddAsync(request);
-            var result = await _unitOfWork.SaveAsync();
+            _unitOfWork.GenericRepository<EmailLog>().Add(request);
+            var result = _unitOfWork.Save();
             return result;
         }
 
-        public async Task<int> Send(EmailDto emailDto)
+        public int Send(EmailDto emailDto)
         {
-            var reuslt = await SendEmail(emailDto);
+            var reuslt = SendEmail(emailDto);
 
             if (reuslt)
             {
@@ -84,7 +84,7 @@ namespace Application.Utilities
                     SentAt = DateTime.Now,
                     SenderId = 1 // company.BaseCompanyId ?? 1,
                 };
-                return await AddAsync(emailRequest);
+                return Add(emailRequest);
             }
             return -1;
         }

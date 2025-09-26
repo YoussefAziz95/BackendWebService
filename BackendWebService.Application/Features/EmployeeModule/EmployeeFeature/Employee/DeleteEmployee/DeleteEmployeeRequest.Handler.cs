@@ -3,7 +3,6 @@
 using Application.Contracts.Features;
 using Application.Contracts.Persistence;
 using Application.Wrappers;
-using Domain;
 using Domain.Enums;
 
 namespace Application.Features;

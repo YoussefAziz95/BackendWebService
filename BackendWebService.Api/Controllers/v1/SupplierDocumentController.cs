@@ -46,9 +46,9 @@ public class SupplierDocumentController : AppControllerBase
 
     [HttpPost("GetAll/{id}")]
 
-    public async Task<IActionResult> GetAll([FromRoute] int id, [FromBody] SupplierDocumentAllRequest request)
+    public IActionResult GetAll([FromRoute] int id, [FromBody] SupplierDocumentAllRequest request)
     {
-        var result = await _supplierdocumentService.GetPaginated(request);
+        var result = _supplierdocumentService.GetPaginated(request);
         return Ok(result);
     }
 }

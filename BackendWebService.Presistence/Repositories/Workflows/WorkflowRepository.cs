@@ -22,7 +22,7 @@ namespace Persistence.Repositories.Workflows
 
         }
 
-        public async Task<int> AddWorkflowAsync(Workflow workflow, ActionObject actionObject, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors)
+        public int AddWorkflowAsync(Workflow workflow, ActionObject actionObject, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors)
         {
             var result = -1;
             using (var transaction = _context.Database.BeginTransaction())
@@ -83,7 +83,7 @@ namespace Persistence.Repositories.Workflows
             return workflow.Id;
         }
 
-        public async Task<int> UpdateWorkflow(Workflow updatedWorkflow, ActionObject updatedWorkflowReview, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors)
+        public int UpdateWorkflow(Workflow updatedWorkflow, ActionObject updatedWorkflowReview, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors)
         {
             var result = -1;
             using (var transaction = _context.Database.BeginTransaction())

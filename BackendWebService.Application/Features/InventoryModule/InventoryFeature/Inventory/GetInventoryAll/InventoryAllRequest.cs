@@ -2,7 +2,7 @@
 using FluentValidation;
 using SharedKernel.ValidationBase;
 
-namespace Application.Features; 
+namespace Application.Features;
 public record InventoryAllRequest(
 string Name,
 int? CategoryId,

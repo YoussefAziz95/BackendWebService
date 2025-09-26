@@ -39,7 +39,7 @@ public class ZoneController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetZone([FromRoute] int id)
+    public IActionResult GetZone([FromRoute] int id)
     {
         //var zone = await _unitOfWork.GenericRepository<Zone>().GetByIdAsync(id);
         //if (zone == null)

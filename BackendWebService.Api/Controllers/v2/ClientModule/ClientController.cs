@@ -1,12 +1,8 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Features;
-using Domain;
-using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers.v2;
 
@@ -29,7 +25,7 @@ public class ClientController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-client/{id}")]
-    public async Task<IActionResult> GetClient([FromRoute] int id)
+    public IActionResult GetClient([FromRoute] int id)
     {
         var response = mediator.HandleById<ClientResponse>(id);
         return NewResult(response);
@@ -68,7 +64,7 @@ public class ClientController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-client-account/{id}")]
-    public async Task<IActionResult> GetClientAccount([FromRoute] int id)
+    public IActionResult GetClientAccount([FromRoute] int id)
     {
         var response = mediator.HandleById<ClientAccountResponse>(id);
         return NewResult(response);
@@ -107,7 +103,7 @@ public class ClientController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-client-property/{id}")]
-    public async Task<IActionResult> GetClientProperty([FromRoute] int id)
+    public IActionResult GetClientProperty([FromRoute] int id)
     {
         var response = mediator.HandleById<ClientPropertyResponse>(id);
         return NewResult(response);
@@ -146,7 +142,7 @@ public class ClientController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-client-service/{id}")]
-    public async Task<IActionResult> GetClientService([FromRoute] int id)
+    public IActionResult GetClientService([FromRoute] int id)
     {
         var response = mediator.HandleById<ClientServiceResponse>(id);
         return NewResult(response);

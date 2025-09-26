@@ -50,7 +50,7 @@ public class ProductController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetProduct([FromRoute] int id)
+    public IActionResult GetProduct([FromRoute] int id)
     {
         //var product = await _unitOfWork.GenericRepository<Product>().GetByIdAsync(id);
         //if (product == null)

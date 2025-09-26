@@ -8,7 +8,7 @@ namespace Contracts.Services;
 
 public interface IJwtService
 {
-    Task<IEnumerable<UserPagesResponse>> GetUserPages(int id);
+    IEnumerable<UserPagesResponse> GetUserPages(int id);
     Task<AccessToken> GenerateAsync(User user);
     Task<ClaimsPrincipal> GetPrincipalFromExpiredToken(string token);
     Task<AccessToken> GenerateByPhoneNumberAsync(string phoneNumber);

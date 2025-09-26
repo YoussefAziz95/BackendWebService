@@ -1,7 +1,5 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
-using Application.Contracts.Services;
 using Application.Features;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +25,7 @@ public class ProductController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-part/{id}")]
-    public async Task<IActionResult> GetPart([FromRoute] int id)
+    public IActionResult GetPart([FromRoute] int id)
     {
         var response = mediator.HandleById<PartResponse>(id);
         return NewResult(response);
@@ -66,7 +64,7 @@ public class ProductController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-product/{id}")]
-    public async Task<IActionResult> GetProduct([FromRoute] int id)
+    public IActionResult GetProduct([FromRoute] int id)
     {
         var response = mediator.HandleById<ProductResponse>(id);
         return NewResult(response);
@@ -105,7 +103,7 @@ public class ProductController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-spare/{id}")]
-    public async Task<IActionResult> GetSpare([FromRoute] int id)
+    public IActionResult GetSpare([FromRoute] int id)
     {
         var response = mediator.HandleById<SpareResponse>(id);
         return NewResult(response);
@@ -144,7 +142,7 @@ public class ProductController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-spare-part/{id}")]
-    public async Task<IActionResult> GetSparePart([FromRoute] int id)
+    public IActionResult GetSparePart([FromRoute] int id)
     {
         var response = mediator.HandleById<SparePartResponse>(id);
         return NewResult(response);

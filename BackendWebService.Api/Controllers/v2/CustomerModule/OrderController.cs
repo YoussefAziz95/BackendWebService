@@ -1,12 +1,8 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Features;
-using Domain;
-using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers.v2;
 
@@ -29,7 +25,7 @@ public class OrderController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-order/{id}")]
-    public async Task<IActionResult> GetOrder([FromRoute] int id)
+    public IActionResult GetOrder([FromRoute] int id)
     {
         var response = mediator.HandleById<OrderResponse>(id);
         return NewResult(response);
@@ -68,7 +64,7 @@ public class OrderController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-order-item/{id}")]
-    public async Task<IActionResult> GetOrderItem([FromRoute] int id)
+    public IActionResult GetOrderItem([FromRoute] int id)
     {
         var response = mediator.HandleById<OrderItemResponse>(id);
         return NewResult(response);
@@ -107,7 +103,7 @@ public class OrderController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-receipt/{id}")]
-    public async Task<IActionResult> GetReceipt([FromRoute] int id)
+    public IActionResult GetReceipt([FromRoute] int id)
     {
         var response = mediator.HandleById<ReceiptResponse>(id);
         return NewResult(response);

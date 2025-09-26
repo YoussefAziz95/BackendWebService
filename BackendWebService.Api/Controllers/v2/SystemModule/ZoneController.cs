@@ -1,5 +1,5 @@
 ﻿using Api.Base;
-using Application.Contracts.Persistence;
+using Application.Contracts.Features;
 using Application.Features;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,98 +11,44 @@ namespace Api.Controllers.v2;
 [AllowAnonymous]
 [ApiVersion("2.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
-public class ZoneController : AppControllerBase
+public class ZoneController(IMediator mediator) : AppControllerBase
 {
-    private readonly IUnitOfWork _unitOfWork;
-
-    public ZoneController(IUnitOfWork unitOfWork)
-    {
-        _unitOfWork = unitOfWork;
-    }
-
-    [HttpPost]
+    //-------------------------------
+    #region Zone APIs
+    //-------------------------------
+    [HttpPost("add-zone")]
     public async Task<IActionResult> AddZone([FromBody] AddZoneRequest request)
     {
-        //var zone = new Zone
-        //{
-        //    Name = request.Name,
-        //    Description = request.Description,
-        //    ParentZoneId = request.ParentId
-        //};
-
-        //_unitOfWork.GenericRepository<Zone>().Add(zone);
-        //var result = _unitOfWork.Save();
-
-        //return Ok(zone.Id);
-
-        throw new NotImplementedException();
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("get-zone/{id}")]
     public async Task<IActionResult> GetZone([FromRoute] int id)
     {
-        //var zone = await _unitOfWork.GenericRepository<Zone>().GetByIdAsync(id);
-        //if (zone == null)
-        //    return NotFound("Zone not found");
-
-        //var result = new Response<ZoneResponse>()
-        //{
-        //    Data = new ZoneResponse(zone.Id, zone.Name, zone.Description, zone.ParentZoneId, zone.IsActive),
-        //    StatusCode = ApiResultStatusCode.Success,
-        //    Succeeded = true,
-        //    Message = "Zone found"
-        //};
-
-        //return NewResult(result);
-
-        throw new NotImplementedException();
+        var response = mediator.HandleById<ZoneResponse>(id);
+        return NewResult(response);
     }
 
-    [HttpPut]
+    [HttpPut("update-zone")]
     public async Task<IActionResult> UpdateZone([FromBody] UpdateZoneRequest request)
     {
-        //var zone = await _unitOfWork.GenericRepository<Zone>().GetByIdAsync(request.Id);
-        //if (zone == null)
-        //    return NotFound("Zone not found");
-
-        //zone.Name = request.Name;
-        //zone.Description = request.Description;
-        //zone.ParentZoneId = request.ParentId;
-
-        //_unitOfWork.GenericRepository<Zone>().Update(zone);
-        //var result = _unitOfWork.Save();
-
-        //var response = new Response<ZoneResponse>()
-        //{
-        //    StatusCode = ApiResultStatusCode.Success,
-        //    Succeeded = true,
-        //    Message = "Zone updated successfully",
-        //    Data = new ZoneResponse(zone.Id, zone.Name, zone.Description, zone.ParentZoneId, zone.IsActive)
-        //};
-
-        //return NewResult(response);
-
-        throw new NotImplementedException();
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
     }
 
-    [HttpGet("GetAll")]
-    public IActionResult GetAll()
+    [HttpPost("get-all-zone")]
+    public IActionResult GetAll(ZoneAllRequest request)
     {
-
-        throw new NotImplementedException();
-        //var zones = _unitOfWork.GenericRepository<Zone>().GetAll();
-        //if (zones == null || !zones.Any())
-        //    return NotFound("Zones not found");
-
-        //var result = new Response<List<ZoneResponse>>()
-        //{
-        //    StatusCode = ApiResultStatusCode.Success,
-        //    Succeeded = true,
-        //    Message = "Zones found",
-        //    Data = zones.Select(z =>
-        //        new ZoneResponse(z.Id, z.Name, z.Description, z.ParentZoneId, z.IsActive)).ToList()
-        //};
-
-        //return NewResult(result);
+        var response = mediator.Handle(request);
+        return NewResult(response);
     }
+
+    [HttpPost("delete-zone")]
+    public async Task<IActionResult> DeleteZone([FromBody] DeleteZoneRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
+    #endregion
 }

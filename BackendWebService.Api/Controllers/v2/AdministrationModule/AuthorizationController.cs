@@ -85,9 +85,9 @@ public class AuthorizationController(IMediator mediator, IJwtService jwtService)
     }
 
     [HttpGet("GetUserPages/{id}")]
-    public async Task<IActionResult> GetUserPages(int id)
+    public IActionResult GetUserPages(int id)
     {
-        var result = await jwtService.GetUserPages(id);
+        var result = jwtService.GetUserPages(id);
         return Ok(result);
     }
 }

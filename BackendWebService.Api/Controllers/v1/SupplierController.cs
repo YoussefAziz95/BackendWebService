@@ -56,17 +56,17 @@ public class SupplierController : AppControllerBase
 
     [HttpPost("GetAll")]
 
-    public async Task<IActionResult> GetAll([FromBody] SupplierAllRequest request)
+    public IActionResult GetAll([FromBody] SupplierAllRequest request)
     {
-        var result = await _supplierService.GetPaginated(request);
+        var result = _supplierService.GetPaginated(request);
         return Ok(result);
     }
 
     [HttpPost("GetRegisterSuppliers")]
 
-    public async Task<IActionResult> GetRegisterSuppliers([FromBody] SupplierAllRequest request)
+    public IActionResult GetRegisterSuppliers([FromBody] SupplierAllRequest request)
     {
-        var result = await _supplierService.GetRegisterSuppliers(request);
+        var result = _supplierService.GetRegisterSuppliers(request);
         return Ok(result);
     }
 

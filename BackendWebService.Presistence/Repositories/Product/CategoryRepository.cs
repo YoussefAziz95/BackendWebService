@@ -28,7 +28,7 @@ namespace Persistence.Repositories.Product
             return category is null ? "" : category.Name;
         }
 
-        public async Task<int> UpdateCategory(Category updatedEntity)
+        public int UpdateCategory(Category updatedEntity)
         {
             var result = -1;
             using (var transaction = _context.Database.BeginTransaction())

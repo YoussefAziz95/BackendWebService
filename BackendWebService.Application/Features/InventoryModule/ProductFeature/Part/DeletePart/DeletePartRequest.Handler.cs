@@ -1,11 +1,10 @@
 ﻿using Application.Contracts.Features;
 using Application.Contracts.Persistence;
-using Application.Features;
 using Application.Wrappers;
 using Domain;
 using Domain.Enums;
 
-namespace Application.Features; 
+namespace Application.Features;
 internal class DeletePartRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeletePartRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeletePartRequest request)

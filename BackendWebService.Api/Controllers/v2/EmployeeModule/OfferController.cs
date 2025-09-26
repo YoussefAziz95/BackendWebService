@@ -25,7 +25,7 @@ public class OfferController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-criteria/{id}")]
-    public async Task<IActionResult> GetCriteria([FromRoute] int id)
+    public IActionResult GetCriteria([FromRoute] int id)
     {
         var response = mediator.HandleById<CriteriaResponse>(id);
         return NewResult(response);
@@ -64,7 +64,7 @@ public class OfferController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-offer/{id}")]
-    public async Task<IActionResult> GetOffer([FromRoute] int id)
+    public IActionResult GetOffer([FromRoute] int id)
     {
         var response = mediator.HandleById<OfferResponse>(id);
         return NewResult(response);
@@ -103,7 +103,7 @@ public class OfferController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-offer-item/{id}")]
-    public async Task<IActionResult> GetOfferItem([FromRoute] int id)
+    public IActionResult GetOfferItem([FromRoute] int id)
     {
         var response = mediator.HandleById<OfferItemResponse>(id);
         return NewResult(response);
@@ -142,7 +142,7 @@ public class OfferController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-offer-object/{id}")]
-    public async Task<IActionResult> GetOfferObject([FromRoute] int id)
+    public IActionResult GetOfferObject([FromRoute] int id)
     {
         var response = mediator.HandleById<OfferObjectResponse>(id);
         return NewResult(response);

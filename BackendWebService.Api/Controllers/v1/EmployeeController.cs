@@ -97,7 +97,7 @@ public class EmployeeController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetEmployee([FromRoute] int id)
+    public IActionResult GetEmployee([FromRoute] int id)
     {
         //var employee = _unitOfWork.GenericRepository<Employee>().Get(c => c.Id == id);
         //if (employee == null)
@@ -192,7 +192,7 @@ public class EmployeeController : AppControllerBase
 
     [HttpGet("GetAll")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetAll()
+    public IActionResult GetAll()
     {
         //var customers = _unitOfWork.GenericRepository<Employee>().GetAll();
         //if (customers == null || !customers.Any())

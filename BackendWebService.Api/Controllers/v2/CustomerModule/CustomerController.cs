@@ -1,10 +1,7 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Features;
-using Domain;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.v2;
@@ -28,7 +25,7 @@ public class CustomerController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-customer/{id}")]
-    public async Task<IActionResult> GetCustomer([FromRoute] int id)
+    public IActionResult GetCustomer([FromRoute] int id)
     {
         var response = mediator.HandleById<CustomerResponse>(id);
         return NewResult(response);
@@ -68,7 +65,7 @@ public class CustomerController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-customer-payment-method/{id}")]
-    public async Task<IActionResult> GetCustomerPaymentMethod([FromRoute] int id)
+    public IActionResult GetCustomerPaymentMethod([FromRoute] int id)
     {
         var response = mediator.HandleById<CustomerPaymentMethodResponse>(id);
         return NewResult(response);
@@ -107,7 +104,7 @@ public class CustomerController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-customer-service/{id}")]
-    public async Task<IActionResult> GetCustomerService([FromRoute] int id)
+    public IActionResult GetCustomerService([FromRoute] int id)
     {
         var response = mediator.HandleById<CustomerServiceResponse>(id);
         return NewResult(response);

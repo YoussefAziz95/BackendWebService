@@ -137,7 +137,7 @@ public class JwtService : IJwtService
     /// </summary>
     /// <param name="id">The ID of the user.</param>
     /// <returns>A response containing the pages accessible to the user.</returns>
-    public async Task<IEnumerable<UserPagesResponse>> GetUserPages(int id)
+    public IEnumerable<UserPagesResponse> GetUserPages(int id)
     {
         // Get all roles with their claims for the user
         var userRoles = _unitOfWork.GenericRepository<UserRole>()

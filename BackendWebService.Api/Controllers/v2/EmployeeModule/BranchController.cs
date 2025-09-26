@@ -1,12 +1,8 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Features;
-using Domain;
-using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers.v2;
 
@@ -28,7 +24,7 @@ public class BranchController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-branch/{id}")]
-    public async Task<IActionResult> GetBranch([FromRoute] int id)
+    public IActionResult GetBranch([FromRoute] int id)
     {
         var response = mediator.HandleById<BranchResponse>(id);
         return NewResult(response);
@@ -67,7 +63,7 @@ public class BranchController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-branch-contact/{id}")]
-    public async Task<IActionResult> GetBranchContact([FromRoute] int id)
+    public IActionResult GetBranchContact([FromRoute] int id)
     {
         var response = mediator.HandleById<BranchContactResponse>(id);
         return NewResult(response);
@@ -107,7 +103,7 @@ public class BranchController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-branch-employee/{id}")]
-    public async Task<IActionResult> GetBranchEmployee([FromRoute] int id)
+    public IActionResult GetBranchEmployee([FromRoute] int id)
     {
         var response = mediator.HandleById<BranchEmployeeResponse>(id);
         return NewResult(response);
@@ -146,7 +142,7 @@ public class BranchController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-branch-location/{id}")]
-    public async Task<IActionResult> GetBranchLocation([FromRoute] int id)
+    public IActionResult GetBranchLocation([FromRoute] int id)
     {
         var response = mediator.HandleById<BranchLocationResponse>(id);
         return NewResult(response);
@@ -185,7 +181,7 @@ public class BranchController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-branch-service/{id}")]
-    public async Task<IActionResult> GetBranchService([FromRoute] int id)
+    public IActionResult GetBranchService([FromRoute] int id)
     {
         var response = mediator.HandleById<BranchServiceResponse>(id);
         return NewResult(response);
@@ -224,7 +220,7 @@ public class BranchController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-branch-working-hour/{id}")]
-    public async Task<IActionResult> GetBranchWorkingHour([FromRoute] int id)
+    public IActionResult GetBranchWorkingHour([FromRoute] int id)
     {
         var response = mediator.HandleById<BranchWorkingHourResponse>(id);
         return NewResult(response);

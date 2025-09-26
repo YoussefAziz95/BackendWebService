@@ -167,14 +167,14 @@ public class AuthorizationController : AppControllerBase
         return NewResult(response);
     }
     [HttpPost("logout")]
-    public async Task<IActionResult> Logout()
+    public IActionResult Logout()
     {
         // Logic to revoke token or clear session if implemented
         return Ok(new { message = "Logged out successfully." });
     }
 
     [HttpPost("refresh-token")]
-    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
+    public IActionResult RefreshToken([FromBody] RefreshTokenRequest request)
     {
         //var result = await _jwtService.RefreshTokenAsync(request.Token);
         //if (result == null)
@@ -297,9 +297,9 @@ public class AuthorizationController : AppControllerBase
         });
     }
     [HttpGet("GetUserPages/{id}")]
-    public async Task<IActionResult> GetUserPages(int id)
+    public IActionResult GetUserPages(int id)
     {
-        var result = await _jwtService.GetUserPages(id);
+        var result = _jwtService.GetUserPages(id);
         return Ok(result);
     }
 

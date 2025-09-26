@@ -18,9 +18,9 @@ public class OrganizationController : AppControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetOrgName([FromRoute] int id)
+    public IActionResult GetOrgName([FromRoute] int id)
     {
-        var result = await _organizationService.OrganizationNameById(id);
+        var result = _organizationService.OrganizationNameById(id);
         return Ok(result);
     }
 }

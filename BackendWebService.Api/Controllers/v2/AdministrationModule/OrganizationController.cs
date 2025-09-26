@@ -1,6 +1,5 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Services;
 using Application.Features;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +22,7 @@ public class OrganizationController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-organization/{id}")]
-    public async Task<IActionResult> GetOrganization([FromRoute] int id)
+    public IActionResult GetOrganization([FromRoute] int id)
     {
         var response = mediator.HandleById<OrganizationResponse>(id);
         return NewResult(response);
@@ -63,7 +62,7 @@ public class OrganizationController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-address/{id}")]
-    public async Task<IActionResult> GetAddress([FromRoute] int id)
+    public IActionResult GetAddress([FromRoute] int id)
     {
         var response = mediator.HandleById<AddressResponse>(id);
         return NewResult(response);
@@ -102,7 +101,7 @@ public class OrganizationController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-administrator/{id}")]
-    public async Task<IActionResult> GetAdministrator([FromRoute] int id)
+    public IActionResult GetAdministrator([FromRoute] int id)
     {
         var response = mediator.HandleById<AdministratorResponse>(id);
         return NewResult(response);
@@ -141,7 +140,7 @@ public class OrganizationController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-contact/{id}")]
-    public async Task<IActionResult> GetContact([FromRoute] int id)
+    public IActionResult GetContact([FromRoute] int id)
     {
         var response = mediator.HandleById<ContactResponse>(id);
         return NewResult(response);
@@ -180,7 +179,7 @@ public class OrganizationController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-department/{id}")]
-    public async Task<IActionResult> GetDepartment([FromRoute] int id)
+    public IActionResult GetDepartment([FromRoute] int id)
     {
         var response = mediator.HandleById<DepartmentResponse>(id);
         return NewResult(response);
@@ -219,7 +218,7 @@ public class OrganizationController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-google-config/{id}")]
-    public async Task<IActionResult> GetGoogleConfig([FromRoute] int id)
+    public IActionResult GetGoogleConfig([FromRoute] int id)
     {
         var response = mediator.HandleById<GoogleConfigResponse>(id);
         return NewResult(response);
@@ -258,7 +257,7 @@ public class OrganizationController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-ldap-config/{id}")]
-    public async Task<IActionResult> GetLDAPConfig([FromRoute] int id)
+    public IActionResult GetLDAPConfig([FromRoute] int id)
     {
         var response = mediator.HandleById<LDAPConfigResponse>(id);
         return NewResult(response);
@@ -297,7 +296,7 @@ public class OrganizationController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-microsoft-config/{id}")]
-    public async Task<IActionResult> GetMicrosoftConfig([FromRoute] int id)
+    public IActionResult GetMicrosoftConfig([FromRoute] int id)
     {
         var response = mediator.HandleById<MicrosoftConfigResponse>(id);
         return NewResult(response);

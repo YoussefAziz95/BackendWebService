@@ -3,10 +3,10 @@ namespace Application.Contracts;
 
 public interface IWorkflowRepository
 {
-    Task<int> UpdateWorkflow(Workflow updatedEntity, ActionObject actionObject, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors);
+    int UpdateWorkflow(Workflow updatedEntity, ActionObject actionObject, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors);
 
 
-    Task<int> AddWorkflowAsync(Workflow fullEntity, ActionObject actionObject, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors);
+    int AddWorkflowAsync(Workflow fullEntity, ActionObject actionObject, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors);
 
     Workflow GetById(int id);
 

@@ -25,7 +25,7 @@ public class JobController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-job/{id}")]
-    public async Task<IActionResult> GetJob([FromRoute] int id)
+    public IActionResult GetJob([FromRoute] int id)
     {
         var response = mediator.HandleById<JobResponse>(id);
         return NewResult(response);
@@ -64,7 +64,7 @@ public class JobController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-job-verification/{id}")]
-    public async Task<IActionResult> GetJobVerification([FromRoute] int id)
+    public IActionResult GetJobVerification([FromRoute] int id)
     {
         var response = mediator.HandleById<JobVerificationResponse>(id);
         return NewResult(response);

@@ -1,6 +1,5 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Features;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +25,7 @@ public class ConsumerController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-consumer/{id}")]
-    public async Task<IActionResult> GetConsumer([FromRoute] int id)
+    public IActionResult GetConsumer([FromRoute] int id)
     {
         var response = mediator.HandleById<ConsumerResponse>(id);
         return NewResult(response);
@@ -65,7 +64,7 @@ public class ConsumerController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-consumer-account/{id}")]
-    public async Task<IActionResult> GetConsumerAccount([FromRoute] int id)
+    public IActionResult GetConsumerAccount([FromRoute] int id)
     {
         var response = mediator.HandleById<ConsumerAccountResponse>(id);
         return NewResult(response);
@@ -104,7 +103,7 @@ public class ConsumerController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-consumer-customer/{id}")]
-    public async Task<IActionResult> GetConsumerCustomer([FromRoute] int id)
+    public IActionResult GetConsumerCustomer([FromRoute] int id)
     {
         var response = mediator.HandleById<ConsumerCustomerResponse>(id);
         return NewResult(response);
@@ -143,7 +142,7 @@ public class ConsumerController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-consumer-document/{id}")]
-    public async Task<IActionResult> GetConsumerDocument([FromRoute] int id)
+    public IActionResult GetConsumerDocument([FromRoute] int id)
     {
         var response = mediator.HandleById<ConsumerDocumentResponse>(id);
         return NewResult(response);

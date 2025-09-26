@@ -3,6 +3,6 @@ using Application.Features;
 namespace Application.Contracts.Services;
 public interface IDropdownService
 {
-    Task<IResponse<DropDownResponse>> GetDropdownOptions(string tableName, string[] columnNames);
+    IResponse<DropDownResponse> GetDropdownOptions(string tableName, string[] columnNames);
 }
 

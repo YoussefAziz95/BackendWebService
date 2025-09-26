@@ -9,7 +9,7 @@ namespace Persistence.Repositories.Notifications
         {
             _context = context;
         }
-        public async Task<int> AddAsync(NotificationDetail fullEntity)
+        public int AddAsync(NotificationDetail fullEntity)
         {
             var result = -1;
             using (var transaction = _context.Database.BeginTransaction())

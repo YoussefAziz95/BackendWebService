@@ -7,6 +7,21 @@ public class UpdateEmployeeCertificationRequestHandler(IUnitOfWork unitOfWork) :
 {
     public IResponse<int> Handle(UpdateEmployeeCertificationRequest request)
     {
-        throw new NotImplementedException();
+        unitOfWork.BeginTransactionAsync();
+        var entity = request.ToEntity();
+        try
+        {
+            unitOfWork.GenericRepository<EmployeeCertification>().Update(entity);
+            var result = unitOfWork.Save();
+        }
+        catch (Exception ex)
+        {
+            unitOfWork.RollbackAsync();
+            return BadRequest<int>(message: ex.Message);
+
+        }
+
+        unitOfWork.CommitAsync();
+        return Success(entity.Id);
     }
 }

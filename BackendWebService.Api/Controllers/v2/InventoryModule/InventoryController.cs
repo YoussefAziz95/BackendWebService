@@ -1,12 +1,8 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Features;
-using Domain;
-using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers.v2;
 
@@ -27,7 +23,7 @@ public class InventoryController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-inventory/{id}")]
-    public async Task<IActionResult> GetInventory([FromRoute] int id)
+    public IActionResult GetInventory([FromRoute] int id)
     {
         var response = mediator.HandleById<InventoryResponse>(id);
         return NewResult(response);
@@ -66,7 +62,7 @@ public class InventoryController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-storage-unit/{id}")]
-    public async Task<IActionResult> GetStorageUnit([FromRoute] int id)
+    public IActionResult GetStorageUnit([FromRoute] int id)
     {
         var response = mediator.HandleById<StorageUnitResponse>(id);
         return NewResult(response);

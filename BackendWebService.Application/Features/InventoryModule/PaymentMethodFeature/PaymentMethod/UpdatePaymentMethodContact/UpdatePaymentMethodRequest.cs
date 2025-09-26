@@ -3,7 +3,7 @@ using Application.Profiles;
 using Domain;
 using Domain.Enums;
 
-namespace Application.Features; 
+namespace Application.Features;
 public record UpdatePaymentMethodRequest(
 int UserId,
 string MethodType,

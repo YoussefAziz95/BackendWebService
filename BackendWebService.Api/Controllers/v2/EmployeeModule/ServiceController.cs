@@ -1,6 +1,5 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Features;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +25,7 @@ public class ServiceController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-service/{id}")]
-    public async Task<IActionResult> GetService([FromRoute] int id)
+    public IActionResult GetService([FromRoute] int id)
     {
         var response = mediator.HandleById<ServiceResponse>(id);
         return NewResult(response);
@@ -65,7 +64,7 @@ public class ServiceController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-employee-service/{id}")]
-    public async Task<IActionResult> GetEmployeeService([FromRoute] int id)
+    public IActionResult GetEmployeeService([FromRoute] int id)
     {
         var response = mediator.HandleById<EmployeeServiceResponse>(id);
         return NewResult(response);
@@ -104,7 +103,7 @@ public class ServiceController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-time-slot/{id}")]
-    public async Task<IActionResult> GetTimeSlot([FromRoute] int id)
+    public IActionResult GetTimeSlot([FromRoute] int id)
     {
         var response = mediator.HandleById<TimeSlotResponse>(id);
         return NewResult(response);

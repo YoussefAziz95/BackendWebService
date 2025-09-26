@@ -63,7 +63,7 @@ public class FileSystemController : AppControllerBase
                             fileLog.FileName,
                             fileLog.FullPath,
                             fileLog.Extention,
-                            await FileToLink(fileLog.Id));
+                            FileToLink(fileLog.Id));
 
         return NewResult(response);
     }
@@ -92,7 +92,7 @@ public class FileSystemController : AppControllerBase
         return File(fileStream, GetMimeTypeFromExtension(file.Extention), file.FileName);
     }
     [HttpGet("get-latest/")]
-    public async Task<IActionResult> GetAll()
+    public IActionResult GetAll()
     {
         var fileLogs = _unitOfWork.GenericRepository<FileLog>().GetAll();
         if (fileLogs is null) return NotFound();
@@ -104,7 +104,7 @@ public class FileSystemController : AppControllerBase
                                     fileLog.FileName,
                                     fileLog.FullPath,
                                     fileLog.Extention,
-                                    await FileToLink(fileLog.Id));
+                                    FileToLink(fileLog.Id));
             fileResponses.Add(fileResponse);
         }
 

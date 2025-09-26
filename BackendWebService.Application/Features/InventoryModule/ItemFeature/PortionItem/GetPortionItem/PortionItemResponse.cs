@@ -1,7 +1,7 @@
 ﻿using Application.Profiles;
 using Domain;
 
-namespace Application.Features; 
+namespace Application.Features;
 public record PortionItemResponse(
 int PortionId,
  int ItemId,

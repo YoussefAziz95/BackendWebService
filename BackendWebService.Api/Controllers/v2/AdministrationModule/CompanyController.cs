@@ -23,7 +23,7 @@ public class CompanyController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-company/{id}")]
-    public async Task<IActionResult> GetCompany([FromRoute] int id)
+    public IActionResult GetCompany([FromRoute] int id)
     {
         var response = mediator.HandleById<CompanyResponse>(id);
         return NewResult(response);
@@ -62,7 +62,7 @@ public class CompanyController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-manager/{id}")]
-    public async Task<IActionResult> GetManager([FromRoute] int id)
+    public IActionResult GetManager([FromRoute] int id)
     {
         var response = mediator.HandleById<ManagerResponse>(id);
         return NewResult(response);
@@ -101,7 +101,7 @@ public class CompanyController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-company-category/{id}")]
-    public async Task<IActionResult> GetCompanyCategory([FromRoute] int id)
+    public IActionResult GetCompanyCategory([FromRoute] int id)
     {
         var response = mediator.HandleById<CompanyCategoryResponse>(id);
         return NewResult(response);

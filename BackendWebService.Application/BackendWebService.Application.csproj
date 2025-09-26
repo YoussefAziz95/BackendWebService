@@ -93,7 +93,6 @@
     <Compile Include="Contracts\Services\ICompanyService.cs" />
     <Compile Include="Contracts\Services\IJwtProvider.cs" />
     <Compile Include="Contracts\Services\IOrganizationService.cs" />
-    <Compile Include="Contracts\Services\IPermissionService.cs" />
     <Compile Include="Contracts\Services\IPreDocumentService.cs" />
     <Compile Include="Contracts\Services\IServiceImplementation.cs" />
     <Compile Include="Contracts\Services\ISupplierDocumentService.cs" />

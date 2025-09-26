@@ -1,12 +1,8 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
-using Application.Contracts.Persistence;
 using Application.Features;
-using Domain;
-using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers.v2;
 
@@ -28,7 +24,7 @@ public class DealController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-deal/{id}")]
-    public async Task<IActionResult> GetDeal([FromRoute] int id)
+    public IActionResult GetDeal([FromRoute] int id)
     {
         var response = mediator.HandleById<DealResponse>(id);
         return NewResult(response);
@@ -67,7 +63,7 @@ public class DealController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-deal-details/{id}")]
-    public async Task<IActionResult> GetDealDetails([FromRoute] int id)
+    public IActionResult GetDealDetails([FromRoute] int id)
     {
         var response = mediator.HandleById<DealDetailsResponse>(id);
         return NewResult(response);
@@ -106,7 +102,7 @@ public class DealController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-deal-document/{id}")]
-    public async Task<IActionResult> GetDealDocument([FromRoute] int id)
+    public IActionResult GetDealDocument([FromRoute] int id)
     {
         var response = mediator.HandleById<DealDocumentResponse>(id);
         return NewResult(response);

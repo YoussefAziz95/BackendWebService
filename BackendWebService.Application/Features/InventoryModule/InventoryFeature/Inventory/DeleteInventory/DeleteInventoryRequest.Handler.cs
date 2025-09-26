@@ -1,10 +1,9 @@
 ﻿using Application.Contracts.Features;
 using Application.Contracts.Persistence;
-using Application.Features;
 using Application.Wrappers;
 using Domain.Enums;
 
-namespace Application.Features; 
+namespace Application.Features;
 internal class DeleteInventoryRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteInventoryRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteInventoryRequest request)

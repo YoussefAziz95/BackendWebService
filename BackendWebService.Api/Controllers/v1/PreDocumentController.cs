@@ -54,17 +54,17 @@ public class PreDocumentController : AppControllerBase
 
     [HttpPost("GetAll")]
 
-    public async Task<IActionResult> GetAll([FromBody] PreDocumentAllRequest request)
+    public IActionResult GetAll([FromBody] PreDocumentAllRequest request)
     {
-        var result = await _preDocumentService.GetPaginated(request);
+        var result = _preDocumentService.GetPaginated(request);
         return Ok(result);
     }
 
     [HttpGet]
 
-    public async Task<IActionResult> GetAll()
+    public IActionResult GetAll()
     {
-        var result = await _preDocumentService.GetAllAsync();
+        var result = _preDocumentService.GetAllAsync();
         return Ok(result);
     }
 }

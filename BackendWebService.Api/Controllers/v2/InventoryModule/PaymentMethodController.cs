@@ -25,7 +25,7 @@ public class PaymentMethodController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-payment-method/{id}")]
-    public async Task<IActionResult> GetPaymentMethod([FromRoute] int id)
+    public IActionResult GetPaymentMethod([FromRoute] int id)
     {
         var response = mediator.HandleById<PaymentMethodResponse>(id);
         return NewResult(response);
@@ -64,7 +64,7 @@ public class PaymentMethodController(IMediator mediator) : AppControllerBase
     }
 
     [HttpGet("get-transaction/{id}")]
-    public async Task<IActionResult> GetTransaction([FromRoute] int id)
+    public IActionResult GetTransaction([FromRoute] int id)
     {
         var response = mediator.HandleById<TransactionResponse>(id);
         return NewResult(response);
