@@ -13,6 +13,9 @@ RUN dotnet tool install -g dotnet-reportgenerator-globaltool
 # Copy only the necessary project files for dependency restoration
 COPY BackendWebService.Domain/BackendWebService.Domain.csproj ./BackendWebService.Domain/
 COPY BackendWebService.Domain.UnitTests/BackendWebService.Domain.UnitTests.csproj ./BackendWebService.Domain.UnitTests/
+COPY BackendWebService.Application/BackendWebService.Application.csproj ./BackendWebService.Application/
+COPY BackendWebService.Application.UnitTests/BackendWebService.Application.UnitTests.csproj ./BackendWebService.Application.UnitTests/
+COPY BackendWebService.SharedKernal/BackendWebService.SharedKernal.csproj ./BackendWebService.SharedKernal/
 
 # Create a minimal solution file for testing
 RUN echo 'Microsoft Visual Studio Solution File, Format Version 12.00' > BackendWebService.Tests.sln && \
@@ -22,6 +25,12 @@ RUN echo 'Microsoft Visual Studio Solution File, Format Version 12.00' > Backend
     echo 'Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.Domain", "BackendWebService.Domain\BackendWebService.Domain.csproj", "{350B40EA-320A-411C-9577-E0BBC200E577}"' >> BackendWebService.Tests.sln && \
     echo 'EndProject' >> BackendWebService.Tests.sln && \
     echo 'Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.Domain.UnitTests", "BackendWebService.Domain.UnitTests\BackendWebService.Domain.UnitTests.csproj", "{B1C2D3E4-F5G6-H7I8-J9K0-L1M2N3O4P5Q6}"' >> BackendWebService.Tests.sln && \
+    echo 'EndProject' >> BackendWebService.Tests.sln && \
+    echo 'Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.SharedKernal", "BackendWebService.SharedKernal\BackendWebService.SharedKernal.csproj", "{AEB1AD1B-A950-47F9-B78F-508E559303E2}"' >> BackendWebService.Tests.sln && \
+    echo 'EndProject' >> BackendWebService.Tests.sln && \
+    echo 'Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.Application", "BackendWebService.Application\BackendWebService.Application.csproj", "{864B15D5-E68A-4BE0-B7F2-413917CF3E45}"' >> BackendWebService.Tests.sln && \
+    echo 'EndProject' >> BackendWebService.Tests.sln && \
+    echo 'Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.Application.UnitTests", "BackendWebService.Application.UnitTests\BackendWebService.Application.UnitTests.csproj", "{C1D2E3F4-G5H6-I7J8-K9L0-M1N2O3P4Q5R6}"' >> BackendWebService.Tests.sln && \
     echo 'EndProject' >> BackendWebService.Tests.sln && \
     echo 'Global' >> BackendWebService.Tests.sln && \
     echo '	GlobalSection(SolutionConfigurationPlatforms) = preSolution' >> BackendWebService.Tests.sln && \
@@ -37,6 +46,18 @@ RUN echo 'Microsoft Visual Studio Solution File, Format Version 12.00' > Backend
     echo '		{B1C2D3E4-F5G6-H7I8-J9K0-L1M2N3O4P5Q6}.Debug|Any CPU.Build.0 = Debug|Any CPU' >> BackendWebService.Tests.sln && \
     echo '		{B1C2D3E4-F5G6-H7I8-J9K0-L1M2N3O4P5Q6}.Release|Any CPU.ActiveCfg = Release|Any CPU' >> BackendWebService.Tests.sln && \
     echo '		{B1C2D3E4-F5G6-H7I8-J9K0-L1M2N3O4P5Q6}.Release|Any CPU.Build.0 = Release|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{AEB1AD1B-A950-47F9-B78F-508E559303E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{AEB1AD1B-A950-47F9-B78F-508E559303E2}.Debug|Any CPU.Build.0 = Debug|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{AEB1AD1B-A950-47F9-B78F-508E559303E2}.Release|Any CPU.ActiveCfg = Release|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{AEB1AD1B-A950-47F9-B78F-508E559303E2}.Release|Any CPU.Build.0 = Release|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{864B15D5-E68A-4BE0-B7F2-413917CF3E45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{864B15D5-E68A-4BE0-B7F2-413917CF3E45}.Debug|Any CPU.Build.0 = Debug|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{864B15D5-E68A-4BE0-B7F2-413917CF3E45}.Release|Any CPU.ActiveCfg = Release|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{864B15D5-E68A-4BE0-B7F2-413917CF3E45}.Release|Any CPU.Build.0 = Release|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{C1D2E3F4-G5H6-I7J8-K9L0-M1N2O3P4Q5R6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{C1D2E3F4-G5H6-I7J8-K9L0-M1N2O3P4Q5R6}.Debug|Any CPU.Build.0 = Debug|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{C1D2E3F4-G5H6-I7J8-K9L0-M1N2O3P4Q5R6}.Release|Any CPU.ActiveCfg = Release|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{C1D2E3F4-G5H6-I7J8-K9L0-M1N2O3P4Q5R6}.Release|Any CPU.Build.0 = Release|Any CPU' >> BackendWebService.Tests.sln && \
     echo '	EndGlobalSection' >> BackendWebService.Tests.sln && \
     echo '	GlobalSection(SolutionProperties) = preSolution' >> BackendWebService.Tests.sln && \
     echo '		HideSolutionNode = FALSE' >> BackendWebService.Tests.sln && \
@@ -52,6 +73,9 @@ RUN dotnet restore BackendWebService.Tests.sln
 # Copy the rest of the source code
 COPY BackendWebService.Domain/ ./BackendWebService.Domain/
 COPY BackendWebService.Domain.UnitTests/ ./BackendWebService.Domain.UnitTests/
+COPY BackendWebService.SharedKernal/ ./BackendWebService.SharedKernal/
+COPY BackendWebService.Application/ ./BackendWebService.Application/
+COPY BackendWebService.Application.UnitTests/ ./BackendWebService.Application.UnitTests/
 COPY coverlet.runsettings ./
 
 # Build the solution in Release mode
@@ -66,18 +90,29 @@ RUN dotnet test BackendWebService.Domain.UnitTests/BackendWebService.Domain.Unit
     --no-restore \
     --collect:"XPlat Code Coverage" \
     --results-directory "/src/test-results" \
-    --logger "trx;LogFileName=test-results.trx" \
+    --logger "trx;LogFileName=domain-test-results.trx" \
     --verbosity normal \
     --configuration Release \
     --settings:coverlet.runsettings
 
-    # Find the latest coverage file and generate HTML report
-    RUN find /src/test-results -name "coverage.cobertura.xml" -type f | head -1 | xargs -I {} dotnet reportgenerator \
-        -reports:"{}" \
-        -targetdir:"/src/test-results/coverage-report" \
-        -reporttypes:"Html" \
-        -title:"BackendWebService Domain Code Coverage Report" \
-        -verbosity:"Info"
+# Run Application layer unit tests
+RUN dotnet test BackendWebService.Application.UnitTests/BackendWebService.Application.UnitTests.csproj \
+    --no-build \
+    --no-restore \
+    --collect:"XPlat Code Coverage" \
+    --results-directory "/src/test-results" \
+    --logger "trx;LogFileName=application-test-results.trx" \
+    --verbosity normal \
+    --configuration Release \
+    --settings:coverlet.runsettings
+
+# Find all coverage files and generate unified HTML report
+RUN find /src/test-results -name "coverage.cobertura.xml" -type f | xargs -I {} dotnet reportgenerator \
+    -reports:"{}" \
+    -targetdir:"/src/test-results/coverage-report" \
+    -reporttypes:"Html" \
+    -title:"BackendWebService Unit Tests Coverage Report" \
+    -verbosity:"Info"
 
 # Stage 2: Results extraction
 FROM alpine:latest AS results
