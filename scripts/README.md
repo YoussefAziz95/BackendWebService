@@ -4,28 +4,62 @@ This directory contains scripts for running code coverage analysis on the Backen
 
 ## Available Scripts
 
-### PowerShell Scripts
+### Local Testing Scripts
 
+#### PowerShell Scripts
 - **`run-tests-with-coverage.ps1`** - Runs tests with code coverage collection
 - **`generate-coverage-report.ps1`** - Generates HTML coverage report from collected data
 - **`run-full-coverage.ps1`** - Runs both tests and generates report (recommended)
 
-### Batch Scripts
-
+#### Batch Scripts
 - **`run-tests-with-coverage.bat`** - Windows batch version for test execution
 - **`generate-coverage-report.bat`** - Windows batch version for report generation
 - **`run-full-coverage.bat`** - Windows batch version for complete workflow
 
+### Docker Testing Scripts
+
+#### PowerShell Scripts
+- **`run-tests-docker.ps1`** - Runs unit tests in Docker container
+- **`check-docker.ps1`** - Checks Docker installation and status
+- **`validate-docker-setup.ps1`** - Validates Docker setup files
+
+#### Batch Scripts
+- **`run-tests-docker.bat`** - Windows batch version for Docker testing
+
 ## Quick Start
 
-### PowerShell (Recommended)
+### Local Testing
+
+#### PowerShell (Recommended)
 ```powershell
 .\scripts\run-full-coverage.ps1
 ```
 
-### Command Prompt
+#### Command Prompt
 ```cmd
 scripts\run-full-coverage.bat
+```
+
+### Docker Testing
+
+#### PowerShell (Recommended)
+```powershell
+# Check Docker setup first
+.\scripts\check-docker.ps1
+
+# Run tests in Docker
+.\scripts\run-tests-docker.ps1
+```
+
+#### Command Prompt
+```cmd
+# Run tests in Docker
+scripts\run-tests-docker.bat
+```
+
+#### Docker Compose
+```bash
+docker-compose -f docker-compose.tests.yml up --build
 ```
 
 ## Output
