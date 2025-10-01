@@ -71,13 +71,13 @@ RUN dotnet test BackendWebService.Domain.UnitTests/BackendWebService.Domain.Unit
     --configuration Release \
     --settings:coverlet.runsettings
 
-# Find the latest coverage file and generate HTML report
-RUN find /src/test-results -name "coverage.cobertura.xml" -type f | head -1 | xargs -I {} reportgenerator \
-    -reports:"{}" \
-    -targetdir:"/src/test-results/coverage-report" \
-    -reporttypes:"Html" \
-    -title:"BackendWebService Domain Code Coverage Report" \
-    -verbosity:"Info"
+    # Find the latest coverage file and generate HTML report
+    RUN find /src/test-results -name "coverage.cobertura.xml" -type f | head -1 | xargs -I {} dotnet reportgenerator \
+        -reports:"{}" \
+        -targetdir:"/src/test-results/coverage-report" \
+        -reporttypes:"Html" \
+        -title:"BackendWebService Domain Code Coverage Report" \
+        -verbosity:"Info"
 
 # Stage 2: Results extraction
 FROM alpine:latest AS results
