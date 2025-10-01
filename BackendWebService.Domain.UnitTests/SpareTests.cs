@@ -49,11 +49,11 @@ public class SpareTests
         // Arrange & Act
         var spare = new Spare
         {
-            IsAvailable = null,
-            RequiredAmount = null,
-            AvailableAmount = null,
-            ProductId = null,
-            Product = null
+            IsAvailable = null!,
+            RequiredAmount = null!,
+            AvailableAmount = null!,
+            ProductId = null!,
+            Product = null!
         };
 
         // Assert
@@ -178,7 +178,7 @@ public class SpareTests
     [Theory]
     [InlineData(true, 10, 5)]
     [InlineData(false, 0, 0)]
-    [InlineData(null, 100, 50)]
+    [InlineData(null!, 100, 50)]
     public void Spare_WithVariousValues_ShouldBeCreatable(bool? isAvailable, int? requiredAmount, int? availableAmount)
     {
         // Arrange & Act

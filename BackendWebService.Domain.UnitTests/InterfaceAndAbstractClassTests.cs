@@ -18,7 +18,7 @@ public class InterfaceAndAbstractClassTests
 
         // Act & Assert
         idProperty.Should().NotBeNull("IEntity<TKey> should have Id property");
-        idProperty.PropertyType.Should().Be(typeof(int), "Id should be of type int for IEntity<int>");
+        idProperty!.PropertyType.Should().Be(typeof(int), "Id should be of type int for IEntity<int>");
         idProperty.CanRead.Should().BeTrue("Id should be readable");
         idProperty.CanWrite.Should().BeTrue("Id should be writable");
     }
@@ -53,16 +53,16 @@ public class InterfaceAndAbstractClassTests
 
         // Act & Assert
         organizationIdProperty.Should().NotBeNull("IEntity should have OrganizationId property");
-        organizationIdProperty.PropertyType.Should().Be(typeof(int?), "OrganizationId should be nullable int");
+        organizationIdProperty!.PropertyType.Should().Be(typeof(int?), "OrganizationId should be nullable int");
 
         isActiveProperty.Should().NotBeNull("IEntity should have IsActive property");
-        isActiveProperty.PropertyType.Should().Be(typeof(bool?), "IsActive should be nullable bool");
+        isActiveProperty!.PropertyType.Should().Be(typeof(bool?), "IsActive should be nullable bool");
 
         isDeletedProperty.Should().NotBeNull("IEntity should have IsDeleted property");
-        isDeletedProperty.PropertyType.Should().Be(typeof(bool?), "IsDeleted should be nullable bool");
+        isDeletedProperty!.PropertyType.Should().Be(typeof(bool?), "IsDeleted should be nullable bool");
 
         isSystemProperty.Should().NotBeNull("IEntity should have IsSystem property");
-        isSystemProperty.PropertyType.Should().Be(typeof(bool?), "IsSystem should be nullable bool");
+        isSystemProperty!.PropertyType.Should().Be(typeof(bool?), "IsSystem should be nullable bool");
     }
 
     [Fact]
@@ -100,16 +100,16 @@ public class InterfaceAndAbstractClassTests
 
         // Act & Assert
         createdDateProperty.Should().NotBeNull("ITimeModification should have CreatedDate property");
-        createdDateProperty.PropertyType.Should().Be(typeof(DateTime?), "CreatedDate should be nullable DateTime");
+        createdDateProperty!.PropertyType.Should().Be(typeof(DateTime?), "CreatedDate should be nullable DateTime");
 
         createdByProperty.Should().NotBeNull("ITimeModification should have CreatedBy property");
-        createdByProperty.PropertyType.Should().Be(typeof(string), "CreatedBy should be string");
+        createdByProperty!.PropertyType.Should().Be(typeof(string), "CreatedBy should be string");
 
         updatedDateProperty.Should().NotBeNull("ITimeModification should have UpdatedDate property");
-        updatedDateProperty.PropertyType.Should().Be(typeof(DateTime?), "UpdatedDate should be nullable DateTime");
+        updatedDateProperty!.PropertyType.Should().Be(typeof(DateTime?), "UpdatedDate should be nullable DateTime");
 
         updatedByProperty.Should().NotBeNull("ITimeModification should have UpdatedBy property");
-        updatedByProperty.PropertyType.Should().Be(typeof(string), "UpdatedBy should be string");
+        updatedByProperty!.PropertyType.Should().Be(typeof(string), "UpdatedBy should be string");
     }
 
     [Fact]
@@ -174,7 +174,7 @@ public class InterfaceAndAbstractClassTests
         intEntity1.Equals(intEntity2).Should().BeTrue("Entities with same Id should be equal");
         intEntity1.Equals(intEntity3).Should().BeFalse("Entities with different Id should not be equal");
         intEntity1.Equals(stringEntity).Should().BeFalse("Entities with different types should not be equal");
-        intEntity1.Equals(null).Should().BeFalse("Entity should not equal null");
+        intEntity1.Equals(null!).Should().BeFalse("Entity should not equal null");
     }
 
     [Fact]
@@ -270,7 +270,7 @@ public class InterfaceAndAbstractClassTests
 
         // Act & Assert
         organizationIdProperty.Should().NotBeNull("OrganizationId property should exist");
-        organizationIdProperty.PropertyType.Should().Be(typeof(int?), "OrganizationId should be nullable int");
+        organizationIdProperty!.PropertyType.Should().Be(typeof(int?), "OrganizationId should be nullable int");
     }
 
     #endregion

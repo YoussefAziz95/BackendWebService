@@ -33,7 +33,7 @@ public class BaseEntityTests
         var entity2 = new TestEntity { Id = 1 };
 
         // Act & Assert
-        entity1.Equals(entity2).Should().BeTrue();
+        entity1.Equals(entity2!).Should().BeTrue();
         (entity1 == entity2).Should().BeTrue();
         (entity1 != entity2).Should().BeFalse();
     }
@@ -46,7 +46,7 @@ public class BaseEntityTests
         var entity2 = new TestEntity { Id = 2 };
 
         // Act & Assert
-        entity1.Equals(entity2).Should().BeFalse();
+        entity1.Equals(entity2!).Should().BeFalse();
         (entity1 == entity2).Should().BeFalse();
         (entity1 != entity2).Should().BeTrue();
     }
@@ -58,9 +58,12 @@ public class BaseEntityTests
         var entity = new TestEntity { Id = 1 };
 
         // Act & Assert
-        entity.Equals(null).Should().BeFalse();
-        (entity == null).Should().BeFalse();
-        (entity != null).Should().BeTrue();
+        entity.Equals(null!).Should().BeFalse();
+        BaseEntity<int>? nullEntity = null;
+#pragma warning disable CS8604 // Possible null reference argument for parameter
+        (entity == nullEntity).Should().BeFalse();
+        (entity != nullEntity).Should().BeTrue();
+#pragma warning restore CS8604
     }
 
     [Fact]
@@ -71,7 +74,7 @@ public class BaseEntityTests
         var entity2 = new AnotherTestEntity { Id = 1 };
 
         // Act & Assert
-        entity1.Equals(entity2).Should().BeFalse();
+        entity1.Equals(entity2!).Should().BeFalse();
     }
 
     [Fact]
@@ -82,7 +85,9 @@ public class BaseEntityTests
 
         // Act & Assert
         entity.Equals(entity).Should().BeTrue();
-        (entity == entity).Should().BeTrue();
+#pragma warning disable CS1718 // Comparison made to same variable; did you mean to compare something else?
+        (entity == entity).Should().BeTrue(); // Same instance comparison - testing operator overload behavior (intentional for testing purposes)
+#pragma warning restore CS1718
     }
 
     [Fact]
@@ -150,9 +155,9 @@ public class BaseEntityTests
         // Arrange & Act
         var entity = new TestEntity
         {
-            OrganizationId = null,
-            CreatedBy = null,
-            UpdatedDate = null,
+            OrganizationId = null!,
+            CreatedBy = null!,
+            UpdatedDate = null!,
             UpdatedBy = null
         };
 

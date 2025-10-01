@@ -236,7 +236,7 @@ public class EmployeeTests
         var employee = new Employee
         {
             UserId = 1,
-            User = null
+            User = null!
         };
 
         // Assert
@@ -251,7 +251,7 @@ public class EmployeeTests
         var employee = new Employee
         {
             UserId = 1,
-            Assignments = null,
+            Assignments = null!,
             Jobs = null
         };
 

@@ -48,10 +48,10 @@ public class BranchTests
         // Arrange & Act
         var branch = new Branch
         {
-            FranchiseName = null,
-            FranchiseSlogan = null,
-            LogoUrl = null,
-            PhoneNumber = null,
+            FranchiseName = null!,
+            FranchiseSlogan = null!,
+            LogoUrl = null!,
+            PhoneNumber = null!,
             WebsiteUrl = null
         };
 

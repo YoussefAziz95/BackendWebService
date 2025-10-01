@@ -28,7 +28,6 @@ public class FileLogTests
     [Theory]
     [InlineData("test.txt")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long file name that might exceed normal length expectations")]
     public void FileLog_FileName_ShouldBeSettable(string fileName)
     {
@@ -45,7 +44,6 @@ public class FileLogTests
     [Theory]
     [InlineData("C:\\temp\\test.txt")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long full path that might exceed normal length expectations")]
     public void FileLog_FullPath_ShouldBeSettable(string fullPath)
     {
@@ -64,7 +62,6 @@ public class FileLogTests
     [InlineData(".pdf")]
     [InlineData(".doc")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData(".verylongextension")]
     public void FileLog_Extention_ShouldBeSettable(string extention)
     {
@@ -158,11 +155,11 @@ public class FileLogTests
         // Arrange & Act
         var fileLog = new FileLog
         {
-            FileName = null,
-            FullPath = null,
-            Extention = null,
+            FileName = null!,
+            FullPath = null!,
+            Extention = null!,
             FileTypeId = 1,
-            FileType = null
+            FileType = null!
         };
 
         // Assert

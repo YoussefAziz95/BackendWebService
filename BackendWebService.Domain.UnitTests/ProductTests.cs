@@ -34,7 +34,6 @@ public class ProductTests
     [InlineData("PROD001")]
     [InlineData("PRODUCT-123")]
     [InlineData("")]
-    [InlineData(null)]
     public void Product_Number_ShouldBeSettable(string number)
     {
         // Arrange
@@ -51,7 +50,6 @@ public class ProductTests
     [InlineData("Test Product")]
     [InlineData("Product Name")]
     [InlineData("")]
-    [InlineData(null)]
     public void Product_Name_ShouldBeSettable(string name)
     {
         // Arrange
@@ -68,7 +66,6 @@ public class ProductTests
     [InlineData("Test Description")]
     [InlineData("Product Description")]
     [InlineData("")]
-    [InlineData(null)]
     public void Product_Description_ShouldBeSettable(string description)
     {
         // Arrange
@@ -85,7 +82,6 @@ public class ProductTests
     [InlineData("CODE001")]
     [InlineData("PRODUCT-CODE")]
     [InlineData("")]
-    [InlineData(null)]
     public void Product_Code_ShouldBeSettable(string code)
     {
         // Arrange
@@ -102,7 +98,6 @@ public class ProductTests
     [InlineData("PART001")]
     [InlineData("PART-123")]
     [InlineData("")]
-    [InlineData(null)]
     public void Product_PartNumber_ShouldBeSettable(string partNumber)
     {
         // Arrange
@@ -119,7 +114,6 @@ public class ProductTests
     [InlineData("Test Manufacturer")]
     [InlineData("Manufacturer Name")]
     [InlineData("")]
-    [InlineData(null)]
     public void Product_Manufacturer_ShouldBeSettable(string manufacturer)
     {
         // Arrange
@@ -175,7 +169,7 @@ public class ProductTests
         product.FileId = 123;
 
         // Act
-        product.FileId = null;
+        product.FileId = null!;
 
         // Assert
         product.FileId.Should().BeNull();

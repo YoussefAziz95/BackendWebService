@@ -46,10 +46,10 @@ public class PortionTypeTests
         // Arrange & Act
         var portionType = new PortionType
         {
-            Name = null,
-            Description = null,
-            UnitOfMeasure = null,
-            Portions = null
+            Name = null!,
+            Description = null!,
+            UnitOfMeasure = null!,
+            Portions = null!
         };
 
         // Assert

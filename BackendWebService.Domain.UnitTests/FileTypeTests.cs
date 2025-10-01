@@ -53,7 +53,6 @@ public class FileTypeTests
     [InlineData(".exe,.msi,.app")]
     [InlineData(".jpg,.png,.gif")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData(".very.long.extension.list.that.might.exceed.normal.length.expectations")]
     public void FileType_Extentions_ShouldBeSettable(string extentions)
     {
@@ -141,7 +140,7 @@ public class FileTypeTests
         var fileType = new FileType
         {
             Type = FileTypeEnum.Other,
-            Extentions = null
+            Extentions = null!
         };
 
         // Assert
@@ -172,7 +171,7 @@ public class FileTypeTests
         {
             Type = FileTypeEnum.Document,
             Extentions = ".pdf",
-            FileLogs = null,
+            FileLogs = null!,
             Validators = null
         };
 

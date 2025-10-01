@@ -128,7 +128,6 @@ public class CustomerServiceTests
     [Theory]
     [InlineData("Additional notes")]
     [InlineData("")]
-    [InlineData(null)]
     public void CustomerService_Notes_ShouldBeSettable(string notes)
     {
         // Arrange

@@ -5,7 +5,7 @@
       <DataCollector friendlyName="XPlat code coverage">
         <Configuration>
           <Format>cobertura,opencover</Format>
-          <Threshold>0</Threshold>
+          <Threshold>80</Threshold>
           <ThresholdType>line,branch,method</ThresholdType>
           <ExcludeByFile>**/Migrations/**,**/bin/**,**/obj/**</ExcludeByFile>
           <ExcludeByAttribute>Obsolete,GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>

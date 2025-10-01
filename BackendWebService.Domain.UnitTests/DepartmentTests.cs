@@ -70,15 +70,15 @@ public class DepartmentTests
         // Arrange & Act
         var department = new Department
         {
-            Name = null,
-            Description = null,
-            ParentDepartmentId = null,
-            ParentDepartment = null,
-            SubDepartments = null,
-            OrganizationId = null,
-            Organization = null,
-            BranchId = null,
-            Branch = null,
+            Name = null!,
+            Description = null!,
+            ParentDepartmentId = null!,
+            ParentDepartment = null!,
+            SubDepartments = null!,
+            OrganizationId = null!,
+            Organization = null!,
+            BranchId = null!,
+            Branch = null!,
             Code = null
         };
 
@@ -285,7 +285,7 @@ public class DepartmentTests
     [Theory]
     [InlineData("Sales", "Handles sales operations", 1, true)]
     [InlineData("Marketing", "Handles marketing operations", 2, false)]
-    [InlineData("", "", null, true)]
+    [InlineData("", "", null!, true)]
     public void Department_WithVariousValues_ShouldBeCreatable(string name, string description, int? organizationId, bool isActive)
     {
         // Arrange & Act

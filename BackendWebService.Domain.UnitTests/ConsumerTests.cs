@@ -58,11 +58,11 @@ public class ConsumerTests
         // Arrange & Act
         var consumer = new Consumer
         {
-            Organization = null,
-            Rating = null,
-            BankAccount = null,
-            ConsumerCustomers = null,
-            ConsumerAccounts = null
+            Organization = null!,
+            Rating = null!,
+            BankAccount = null!,
+            ConsumerCustomers = null!,
+            ConsumerAccounts = null!
         };
 
         // Assert

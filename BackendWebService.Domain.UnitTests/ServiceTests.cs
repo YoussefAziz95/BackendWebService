@@ -49,10 +49,10 @@ public class ServiceTests
         // Arrange & Act
         var service = new Service
         {
-            Name = null,
-            Description = null,
-            Code = null,
-            Category = null
+            Name = null!,
+            Description = null!,
+            Code = null!,
+            Category = null!
         };
 
         // Assert

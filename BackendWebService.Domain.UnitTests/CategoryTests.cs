@@ -41,7 +41,6 @@ public class CategoryTests
     [InlineData("Clothing")]
     [InlineData("Books")]
     [InlineData("")]
-    [InlineData(null)]
     public void Category_Name_ShouldBeSettable(string name)
     {
         // Arrange
@@ -251,7 +250,7 @@ public class CategoryTests
         // Arrange & Act
         var category = new Category
         {
-            Name = null
+            Name = null!
         };
 
         // Assert

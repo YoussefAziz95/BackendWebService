@@ -18,7 +18,7 @@ public class CollectionAndNavigationTests
         var user = new User();
 
         // Assert
-        user.UserRoles.Should().BeNull("UserRoles collection should be null by default");
+        user.UserRoles.Should().BeNull("UserRoles collection should be null! by default");
     }
 
     [Fact]
@@ -132,7 +132,7 @@ public class CollectionAndNavigationTests
         var user = new User();
 
         // Assert
-        user.Organization.Should().BeNull("Organization navigation should be null by default");
+        user.Organization.Should().BeNull("Organization navigation should be null! by default");
     }
 
     [Fact]
@@ -159,7 +159,7 @@ public class CollectionAndNavigationTests
         user.Organization = organization;
 
         // Act
-        user.Organization = null;
+        user.Organization = null!;
 
         // Assert
         user.Organization.Should().BeNull();
@@ -191,7 +191,7 @@ public class CollectionAndNavigationTests
         var organization = new Organization();
 
         // Assert
-        organization.Addresses.Should().BeNull("Addresses collection should be null by default");
+        organization.Addresses.Should().BeNull("Addresses collection should be null! by default");
     }
 
     [Fact]
@@ -231,7 +231,7 @@ public class CollectionAndNavigationTests
         var organization = new Organization();
 
         // Assert
-        organization.Contacts.Should().BeNull("Contacts collection should be null by default");
+        organization.Contacts.Should().BeNull("Contacts collection should be null! by default");
     }
 
     [Fact]
@@ -255,7 +255,7 @@ public class CollectionAndNavigationTests
         var department = new Department();
 
         // Assert
-        department.ParentDepartment.Should().BeNull("ParentDepartment navigation should be null by default");
+        department.ParentDepartment.Should().BeNull("ParentDepartment navigation should be null! by default");
     }
 
     [Fact]
@@ -279,7 +279,7 @@ public class CollectionAndNavigationTests
         var department = new Department();
 
         // Assert
-        department.SubDepartments.Should().BeNull("SubDepartments collection should be null by default");
+        department.SubDepartments.Should().BeNull("SubDepartments collection should be null! by default");
     }
 
     [Fact]
@@ -307,7 +307,7 @@ public class CollectionAndNavigationTests
         var inventory = new Inventory();
 
         // Assert
-        inventory.StorageUnits.Should().BeNull("StorageUnits collection should be null by default");
+        inventory.StorageUnits.Should().BeNull("StorageUnits collection should be null! by default");
     }
 
     [Fact]
@@ -331,7 +331,7 @@ public class CollectionAndNavigationTests
         var inventory = new Inventory();
 
         // Assert
-        inventory.Items.Should().BeNull("Items collection should be null by default");
+        inventory.Items.Should().BeNull("Items collection should be null! by default");
     }
 
     [Fact]
@@ -391,7 +391,7 @@ public class CollectionAndNavigationTests
         var client = new Client();
 
         // Assert
-        client.ClientProperties.Should().BeNull("ClientProperties collection should be null by default");
+        client.ClientProperties.Should().BeNull("ClientProperties collection should be null! by default");
     }
 
     [Fact]
@@ -476,7 +476,7 @@ public class CollectionAndNavigationTests
         var supplier = new Supplier();
 
         // Assert
-        supplier.SupplierCategories.Should().BeNull("SupplierCategories collection should be null by default");
+        supplier.SupplierCategories.Should().BeNull("SupplierCategories collection should be null! by default");
     }
 
     [Fact]
@@ -520,7 +520,7 @@ public class CollectionAndNavigationTests
         var consumer = new Consumer();
 
         // Assert
-        consumer.ConsumerCustomers.Should().BeNull("ConsumerCustomers collection should be null by default");
+        consumer.ConsumerCustomers.Should().BeNull("ConsumerCustomers collection should be null! by default");
     }
 
     [Fact]
@@ -560,7 +560,7 @@ public class CollectionAndNavigationTests
         var consumer = new Consumer();
 
         // Assert
-        consumer.ConsumerAccounts.Should().BeNull("ConsumerAccounts collection should be null by default");
+        consumer.ConsumerAccounts.Should().BeNull("ConsumerAccounts collection should be null! by default");
     }
 
     [Fact]

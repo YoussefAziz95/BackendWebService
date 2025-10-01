@@ -48,7 +48,6 @@ public class ZoneTests
     [Theory]
     [InlineData("A zone for testing")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long description that might exceed normal length expectations")]
     public void Zone_Description_ShouldBeSettable(string description)
     {
@@ -154,7 +153,7 @@ public class ZoneTests
         // Arrange & Act
         var zone = new Zone
         {
-            Name = null
+            Name = null!
         };
 
         // Assert

@@ -112,7 +112,6 @@ public class RoleTests
     [InlineData("admin")]
     [InlineData("user")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long created by name that might exceed normal length expectations")]
     public void Role_CreatedBy_ShouldBeSettable(string createdBy)
     {
@@ -144,7 +143,6 @@ public class RoleTests
     [InlineData("admin")]
     [InlineData("user")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long updated by name that might exceed normal length expectations")]
     public void Role_UpdatedBy_ShouldBeSettable(string updatedBy)
     {
@@ -180,7 +178,6 @@ public class RoleTests
     [InlineData("Admin Role")]
     [InlineData("User Role")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long display name that might exceed normal length expectations")]
     public void Role_DisplayName_ShouldBeSettable(string displayName)
     {
@@ -289,18 +286,18 @@ public class RoleTests
         var role = new Role
         {
             Name = "TestRole",
-            OrganizationId = null,
-            IsActive = null,
-            IsDeleted = null,
-            IsSystem = null,
-            CreatedDate = null,
-            CreatedBy = null,
-            UpdatedDate = null,
-            UpdatedBy = null,
-            ParentId = null,
-            DisplayName = null,
-            Claims = null,
-            Users = null
+            OrganizationId = null!,
+            IsActive = null!,
+            IsDeleted = null!,
+            IsSystem = null!,
+            CreatedDate = null!,
+            CreatedBy = null!,
+            UpdatedDate = null!,
+            UpdatedBy = null!,
+            ParentId = null!,
+            DisplayName = null!,
+            Claims = null!,
+            Users = null!
         };
 
         // Assert

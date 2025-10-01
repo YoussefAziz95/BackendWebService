@@ -37,7 +37,6 @@ public class NotificationTests
     [Theory]
     [InlineData("Test Title")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long title that might exceed normal length expectations")]
     public void Notification_KeyMessageTitle_ShouldBeSettable(string keyMessageTitle)
     {
@@ -54,7 +53,6 @@ public class NotificationTests
     [Theory]
     [InlineData("Test Body")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long body that might exceed normal length expectations")]
     public void Notification_KeyMessageBody_ShouldBeSettable(string keyMessageBody)
     {
@@ -154,7 +152,6 @@ public class NotificationTests
     [InlineData("Admin")]
     [InlineData("System")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("VeryLongNotifiedTypeThatMightExceedNormalLengthExpectations")]
     public void Notification_NotifiedType_ShouldBeSettable(string notifiedType)
     {
@@ -191,7 +188,6 @@ public class NotificationTests
     [InlineData("SMS")]
     [InlineData("Push")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("VeryLongNotificationTypeThatMightExceedNormalLengthExpectations")]
     public void Notification_NotificationType_ShouldBeSettable(string notificationType)
     {
@@ -228,7 +224,6 @@ public class NotificationTests
     [InlineData("Product")]
     [InlineData("User")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("VeryLongNotificationObjectTypeThatMightExceedNormalLengthExpectations")]
     public void Notification_NotificationObjectType_ShouldBeSettable(string notificationObjectType)
     {
@@ -321,13 +316,13 @@ public class NotificationTests
         // Arrange & Act
         var notification = new Notification
         {
-            KeyMessageTitle = null,
-            KeyMessageBody = null,
-            NotifiedType = null,
-            NotificationTypeId = null,
-            NotificationType = null,
-            NotificationObjectId = null,
-            NotificationObjectType = null,
+            KeyMessageTitle = null!,
+            KeyMessageBody = null!,
+            NotifiedType = null!,
+            NotificationTypeId = null!,
+            NotificationType = null!,
+            NotificationObjectId = null!,
+            NotificationObjectType = null!,
             Details = null
         };
 

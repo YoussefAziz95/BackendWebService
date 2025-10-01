@@ -51,11 +51,11 @@ public class InventoryTests
         // Arrange & Act
         var inventory = new Inventory
         {
-            Name = null,
-            CategoryId = null,
-            Category = null,
-            StorageUnits = null,
-            Items = null
+            Name = null!,
+            CategoryId = null!,
+            Category = null!,
+            StorageUnits = null!,
+            Items = null!
         };
 
         // Assert

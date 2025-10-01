@@ -54,8 +54,8 @@ public class StorageUnitTests
         // Arrange & Act
         var storageUnit = new StorageUnit
         {
-            Inventory = null,
-            PortionTypeId = null,
+            Inventory = null!,
+            PortionTypeId = null!,
             PortionType = null
         };
 

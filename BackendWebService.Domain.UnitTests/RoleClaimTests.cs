@@ -94,7 +94,7 @@ public class RoleClaimTests
         // Arrange
         var roleClaim = new RoleClaim
         {
-            ClaimType = null,
+            ClaimType = null!,
             ClaimValue = null
         };
 
@@ -126,7 +126,7 @@ public class RoleClaimTests
         var roleClaim = new RoleClaim();
 
         // Act
-        roleClaim.InitializeFromClaim(null);
+        roleClaim.InitializeFromClaim(null!);
 
         // Assert
         roleClaim.ClaimType.Should().BeNull();

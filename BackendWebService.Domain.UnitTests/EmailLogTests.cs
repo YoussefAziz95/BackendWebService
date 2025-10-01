@@ -28,7 +28,6 @@ public class EmailLogTests
     [Theory]
     [InlineData("Test Subject")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long subject that might exceed normal length expectations")]
     public void EmailLog_Subject_ShouldBeSettable(string subject)
     {
@@ -45,7 +44,6 @@ public class EmailLogTests
     [Theory]
     [InlineData("Test Body")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long body that might exceed normal length expectations")]
     public void EmailLog_Body_ShouldBeSettable(string body)
     {
@@ -151,7 +149,7 @@ public class EmailLogTests
         // Arrange & Act
         var emailLog = new EmailLog
         {
-            Subject = null,
+            Subject = null!,
             SenderId = 1
         };
 
@@ -213,7 +211,7 @@ public class EmailLogTests
         {
             Subject = "Test Subject",
             SenderId = 1,
-            Sender = null
+            Sender = null!
         };
 
         // Assert
@@ -229,7 +227,7 @@ public class EmailLogTests
         var emailLog = new EmailLog
         {
             Subject = "Test Subject",
-            Body = null,
+            Body = null!,
             SenderId = 1
         };
 

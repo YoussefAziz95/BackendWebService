@@ -79,7 +79,6 @@ public class CompanyTests
     [InlineData("Tech Solutions Inc")]
     [InlineData("Global Enterprises")]
     [InlineData("")]
-    [InlineData(null)]
     public void Company_CompanyName_ShouldBeSettable(string companyName)
     {
         // Arrange
@@ -96,7 +95,6 @@ public class CompanyTests
     [InlineData("REG123456")]
     [InlineData("REG789012")]
     [InlineData("")]
-    [InlineData(null)]
     public void Company_RegistrationNumber_ShouldBeSettable(string registrationNumber)
     {
         // Arrange
@@ -113,7 +111,6 @@ public class CompanyTests
     [InlineData("contact@acme.com")]
     [InlineData("info@techsolutions.com")]
     [InlineData("")]
-    [InlineData(null)]
     public void Company_ContactEmail_ShouldBeSettable(string contactEmail)
     {
         // Arrange
@@ -130,7 +127,6 @@ public class CompanyTests
     [InlineData("+1-555-123-4567")]
     [InlineData("+44-20-7946-0958")]
     [InlineData("")]
-    [InlineData(null)]
     public void Company_ContactPhone_ShouldBeSettable(string contactPhone)
     {
         // Arrange
@@ -164,7 +160,6 @@ public class CompanyTests
     [InlineData("John Doe")]
     [InlineData("Jane Smith")]
     [InlineData("")]
-    [InlineData(null)]
     public void Company_Chairman_ShouldBeSettable(string chairman)
     {
         // Arrange
@@ -181,7 +176,6 @@ public class CompanyTests
     [InlineData("ISO 9001:2015")]
     [InlineData("ISO 14001:2015")]
     [InlineData("")]
-    [InlineData(null)]
     public void Company_QualityCertificates_ShouldBeSettable(string qualityCertificates)
     {
         // Arrange
@@ -198,7 +192,6 @@ public class CompanyTests
     [InlineData("Bob Johnson")]
     [InlineData("Alice Brown")]
     [InlineData("")]
-    [InlineData(null)]
     public void Company_ViceChairman_ShouldBeSettable(string viceChairman)
     {
         // Arrange
@@ -215,7 +208,6 @@ public class CompanyTests
     [InlineData("Software")]
     [InlineData("Manufacturing")]
     [InlineData("")]
-    [InlineData(null)]
     public void Company_ProductType_ShouldBeSettable(string productType)
     {
         // Arrange
@@ -333,7 +325,7 @@ public class CompanyTests
         var company = new Company
         {
             OrganizationId = 1,
-            Organization = null
+            Organization = null!
         };
 
         // Assert

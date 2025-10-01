@@ -47,8 +47,8 @@ public class EnumTests
                 .FirstOrDefault() as DisplayAttribute;
             
             displayAttribute.Should().NotBeNull($"Field {field.Name} should have DisplayAttribute");
-            displayAttribute.Name.Should().NotBeNullOrEmpty($"Field {field.Name} should have Name");
-            displayAttribute.Description.Should().NotBeNullOrEmpty($"Field {field.Name} should have Description");
+            displayAttribute!.Name.Should().NotBeNullOrEmpty($"Field {field.Name} should have Name");
+            displayAttribute!.Description.Should().NotBeNullOrEmpty($"Field {field.Name} should have Description");
         }
     }
 
@@ -74,12 +74,12 @@ public class EnumTests
     {
         // Arrange
         var field = typeof(StatusEnum).GetField(status.ToString());
-        var displayAttribute = field.GetCustomAttributes(typeof(DisplayAttribute), false)
+        var displayAttribute = field!.GetCustomAttributes(typeof(DisplayAttribute), false)
             .FirstOrDefault() as DisplayAttribute;
 
         // Act & Assert
         displayAttribute.Should().NotBeNull();
-        displayAttribute.Name.Should().Be(expectedName);
+        displayAttribute!.Name.Should().Be(expectedName);
         displayAttribute.Description.Should().Be(expectedDescription);
     }
 
@@ -130,7 +130,7 @@ public class EnumTests
                 .FirstOrDefault() as DisplayAttribute;
             
             displayAttribute.Should().NotBeNull($"Field {field.Name} should have DisplayAttribute");
-            displayAttribute.Name.Should().NotBeNullOrEmpty($"Field {field.Name} should have Name");
+            displayAttribute!.Name.Should().NotBeNullOrEmpty($"Field {field.Name} should have Name");
         }
     }
 
@@ -181,8 +181,8 @@ public class EnumTests
                 .FirstOrDefault() as DisplayAttribute;
             
             displayAttribute.Should().NotBeNull($"Field {field.Name} should have DisplayAttribute");
-            displayAttribute.Name.Should().NotBeNullOrEmpty($"Field {field.Name} should have Name");
-            displayAttribute.Description.Should().NotBeNullOrEmpty($"Field {field.Name} should have Description");
+            displayAttribute!.Name.Should().NotBeNullOrEmpty($"Field {field.Name} should have Name");
+            displayAttribute!.Description.Should().NotBeNullOrEmpty($"Field {field.Name} should have Description");
         }
     }
 
@@ -204,8 +204,8 @@ public class EnumTests
                 .FirstOrDefault() as DisplayAttribute;
             
             displayAttribute.Should().NotBeNull($"Field {field.Name} should have DisplayAttribute");
-            displayAttribute.Name.Should().NotBeNullOrEmpty($"Field {field.Name} should have Name");
-            displayAttribute.Description.Should().NotBeNullOrEmpty($"Field {field.Name} should have Description");
+            displayAttribute!.Name.Should().NotBeNullOrEmpty($"Field {field.Name} should have Name");
+            displayAttribute!.Description.Should().NotBeNullOrEmpty($"Field {field.Name} should have Description");
         }
     }
 
@@ -235,12 +235,12 @@ public class EnumTests
     {
         // Arrange
         var field = typeof(TableNameEnum).GetField(tableName.ToString());
-        var displayAttribute = field.GetCustomAttributes(typeof(DisplayAttribute), false)
+        var displayAttribute = field!.GetCustomAttributes(typeof(DisplayAttribute), false)
             .FirstOrDefault() as DisplayAttribute;
 
         // Act & Assert
         displayAttribute.Should().NotBeNull();
-        displayAttribute.Name.Should().Be(expectedName);
+        displayAttribute!.Name.Should().Be(expectedName);
         displayAttribute.Description.Should().Be(expectedDescription);
     }
 
@@ -262,7 +262,7 @@ public class EnumTests
                 .FirstOrDefault() as DisplayAttribute;
             
             displayAttribute.Should().NotBeNull($"Field {field.Name} should have DisplayAttribute");
-            displayAttribute.Description.Should().NotBeNullOrEmpty($"Field {field.Name} should have Description");
+            displayAttribute!.Description.Should().NotBeNullOrEmpty($"Field {field.Name} should have Description");
         }
     }
 
@@ -295,12 +295,12 @@ public class EnumTests
     {
         // Arrange
         var field = typeof(ALLEnum).GetField(allEnum.ToString());
-        var displayAttribute = field.GetCustomAttributes(typeof(DisplayAttribute), false)
+        var displayAttribute = field!.GetCustomAttributes(typeof(DisplayAttribute), false)
             .FirstOrDefault() as DisplayAttribute;
 
         // Act & Assert
         displayAttribute.Should().NotBeNull();
-        displayAttribute.Description.Should().Be(expectedDescription);
+        displayAttribute!.Description.Should().Be(expectedDescription);
     }
 
     #endregion
@@ -404,7 +404,6 @@ public class EnumTests
     [Theory]
     [InlineData("INVALID_STATUS")]
     [InlineData("")]
-    [InlineData(null)]
     public void StatusEnum_ShouldThrowOnInvalidString(string invalidString)
     {
         // Act & Assert

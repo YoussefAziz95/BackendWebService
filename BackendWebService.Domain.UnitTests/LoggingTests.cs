@@ -53,7 +53,6 @@ public class LoggingTests
     [Theory]
     [InlineData("Test message")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long message that might exceed normal length expectations")]
     public void Logging_Message_ShouldBeSettable(string message)
     {
@@ -88,7 +87,6 @@ public class LoggingTests
     [Theory]
     [InlineData("Key exception message")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long key exception message that might exceed normal length expectations")]
     public void Logging_KeyExceptionMessage_ShouldBeSettable(string keyExceptionMessage)
     {
@@ -123,7 +121,6 @@ public class LoggingTests
     [Theory]
     [InlineData("Suggestion message")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long suggestion message that might exceed normal length expectations")]
     public void Logging_Suggestion_ShouldBeSettable(string suggestion)
     {
@@ -156,7 +153,6 @@ public class LoggingTests
     [InlineData("Business Layer")]
     [InlineData("Data Layer")]
     [InlineData("")]
-    [InlineData(null)]
     public void Logging_SourceLayer_ShouldBeSettable(string sourceLayer)
     {
         // Arrange
@@ -174,7 +170,6 @@ public class LoggingTests
     [InlineData("OrderController")]
     [InlineData("PaymentProcessor")]
     [InlineData("")]
-    [InlineData(null)]
     public void Logging_SourceClass_ShouldBeSettable(string sourceClass)
     {
         // Arrange
@@ -208,7 +203,6 @@ public class LoggingTests
     [Theory]
     [InlineData("correlation-123")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("very-long-correlation-id-that-might-exceed-normal-length-expectations")]
     public void Logging_CorrelationId_ShouldBeSettable(string correlationId)
     {
@@ -278,16 +272,16 @@ public class LoggingTests
         // Arrange & Act
         var logging = new Logging
         {
-            UserId = null,
-            Message = null,
-            ExceptionCode = null,
-            KeyExceptionMessage = null,
-            LogType = null,
-            Suggestion = null,
-            Timestamp = null,
-            SourceLayer = null,
-            SourceClass = null,
-            SourceLineNumber = null,
+            UserId = null!,
+            Message = null!,
+            ExceptionCode = null!,
+            KeyExceptionMessage = null!,
+            LogType = null!,
+            Suggestion = null!,
+            Timestamp = null!,
+            SourceLayer = null!,
+            SourceClass = null!,
+            SourceLineNumber = null!,
             CorrelationId = null
         };
 

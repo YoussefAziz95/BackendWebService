@@ -435,7 +435,7 @@ public class ConstructorAndPropertyTests
         user.Organization = organization;
 
         // Act
-        user.Organization = null;
+        user.Organization = null!;
 
         // Assert
         user.Organization.Should().BeNull();

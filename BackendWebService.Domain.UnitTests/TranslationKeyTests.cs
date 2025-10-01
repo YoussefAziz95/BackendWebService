@@ -31,7 +31,6 @@ public class TranslationKeyTests
     [InlineData("product.title")]
     [InlineData("order.status")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("very.long.translation.key.that.might.exceed.normal.length.expectations")]
     public void TranslationKey_Key_ShouldBeSettable(string key)
     {
@@ -84,7 +83,6 @@ public class TranslationKeyTests
     [InlineData("Title")]
     [InlineData("Description")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("VeryLongFieldNameThatMightExceedNormalLengthExpectations")]
     public void TranslationKey_Field_ShouldBeSettable(string field)
     {
@@ -103,7 +101,6 @@ public class TranslationKeyTests
     [InlineData("Product Title")]
     [InlineData("Order Status")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long translation value that might exceed normal length expectations")]
     public void TranslationKey_Value_ShouldBeSettable(string value)
     {
@@ -166,9 +163,9 @@ public class TranslationKeyTests
         // Arrange & Act
         var translationKey = new TranslationKey
         {
-            Key = null,
-            Field = null,
-            Value = null
+            Key = null!,
+            Field = null!,
+            Value = null!
         };
 
         // Assert

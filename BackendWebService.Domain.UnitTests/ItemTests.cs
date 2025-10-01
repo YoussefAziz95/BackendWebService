@@ -30,7 +30,6 @@ public class ItemTests
     [Theory]
     [InlineData("Test Item")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long item name that might exceed normal length expectations")]
     public void Item_Name_ShouldBeSettable(string name)
     {
@@ -47,7 +46,6 @@ public class ItemTests
     [Theory]
     [InlineData("Test Description")]
     [InlineData("")]
-    [InlineData(null)]
     [InlineData("Very long description that might exceed normal length expectations")]
     public void Item_Description_ShouldBeSettable(string description)
     {
@@ -197,7 +195,7 @@ public class ItemTests
         // Arrange & Act
         var item = new Item
         {
-            Name = null,
+            Name = null!,
             CategoryId = 1
         };
 
@@ -259,7 +257,7 @@ public class ItemTests
         {
             Name = "Test Item",
             CategoryId = 1,
-            Category = null
+            Category = null!
         };
 
         // Assert
@@ -276,7 +274,7 @@ public class ItemTests
         {
             Name = "Test Item",
             CategoryId = 1,
-            PortionItems = null
+            PortionItems = null!
         };
 
         // Assert

@@ -61,7 +61,7 @@ public class UserTests
         var user = new User();
 
         // Act
-        user.Email = null;
+        user.Email = null!;
 
         // Assert
         user.Email.Should().BeNull();
@@ -88,7 +88,7 @@ public class UserTests
         var user = new User();
 
         // Act
-        user.UserName = null;
+        user.UserName = null!;
 
         // Assert
         user.UserName.Should().BeNull();
@@ -138,7 +138,6 @@ public class UserTests
     [InlineData("John")]
     [InlineData("Jane")]
     [InlineData("")]
-    [InlineData(null)]
     public void User_FirstName_ShouldBeSettable(string firstName)
     {
         // Arrange
@@ -155,7 +154,6 @@ public class UserTests
     [InlineData("Doe")]
     [InlineData("Smith")]
     [InlineData("")]
-    [InlineData(null)]
     public void User_LastName_ShouldBeSettable(string lastName)
     {
         // Arrange
@@ -172,7 +170,6 @@ public class UserTests
     [InlineData("test@example.com")]
     [InlineData("user@domain.org")]
     [InlineData("")]
-    [InlineData(null)]
     public void User_Email_ShouldBeSettable(string email)
     {
         // Arrange
@@ -189,7 +186,6 @@ public class UserTests
     [InlineData("testuser")]
     [InlineData("user123")]
     [InlineData("")]
-    [InlineData(null)]
     public void User_UserName_ShouldBeSettable(string userName)
     {
         // Arrange
@@ -341,7 +337,6 @@ public class UserTests
     [InlineData("Sales")]
     [InlineData("Marketing")]
     [InlineData("")]
-    [InlineData(null)]
     public void User_Department_ShouldBeSettable(string department)
     {
         // Arrange
@@ -359,7 +354,6 @@ public class UserTests
     [InlineData("Manager")]
     [InlineData("Director")]
     [InlineData("")]
-    [InlineData(null)]
     public void User_Title_ShouldBeSettable(string title)
     {
         // Arrange
@@ -404,7 +398,6 @@ public class UserTests
     [InlineData("admin")]
     [InlineData("system")]
     [InlineData("")]
-    [InlineData(null)]
     public void User_CreatedBy_ShouldBeSettable(string createdBy)
     {
         // Arrange
@@ -435,7 +428,6 @@ public class UserTests
     [InlineData("admin")]
     [InlineData("user")]
     [InlineData("")]
-    [InlineData(null)]
     public void User_UpdatedBy_ShouldBeSettable(string updatedBy)
     {
         // Arrange

@@ -54,10 +54,10 @@ public class SupplierTests
         // Arrange & Act
         var supplier = new Supplier
         {
-            Organization = null,
-            Rating = null,
-            BankAccount = null,
-            SupplierCategories = null
+            Organization = null!,
+            Rating = null!,
+            BankAccount = null!,
+            SupplierCategories = null!
         };
 
         // Assert

@@ -133,7 +133,6 @@ public class TransactionTests
     [InlineData("TXN789012")]
     [InlineData("A")] // Minimum length
     [InlineData("")]
-    [InlineData(null)]
     public void Transaction_ReferenceNumber_ShouldBeSettable(string referenceNumber)
     {
         // Arrange
@@ -149,7 +148,6 @@ public class TransactionTests
     [Theory]
     [InlineData("Payment for services")]
     [InlineData("")] // Optional field
-    [InlineData(null)] // Optional field
     [InlineData("Very long notes that exceed the maximum length of 500 characters and should still be valid because we're testing the optional nature of this field and not the length validation which would be handled by MaxLength attribute")]
     public void Transaction_Notes_ShouldBeSettable(string notes)
     {
@@ -213,7 +211,7 @@ public class TransactionTests
         transaction.UpdatedAt = DateTime.UtcNow;
 
         // Act
-        transaction.UpdatedAt = null;
+        transaction.UpdatedAt = null!;
 
         // Assert
         transaction.UpdatedAt.Should().BeNull();

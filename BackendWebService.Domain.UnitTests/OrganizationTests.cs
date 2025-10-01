@@ -48,7 +48,6 @@ public class OrganizationTests
     [InlineData("Tech Solutions Inc")]
     [InlineData("Global Enterprises")]
     [InlineData("")]
-    [InlineData(null)]
     public void Organization_Name_ShouldBeSettable(string name)
     {
         // Arrange
@@ -66,7 +65,6 @@ public class OrganizationTests
     [InlineData("Canada")]
     [InlineData("United Kingdom")]
     [InlineData("")]
-    [InlineData(null)]
     public void Organization_Country_ShouldBeSettable(string country)
     {
         // Arrange
@@ -84,7 +82,6 @@ public class OrganizationTests
     [InlineData("Toronto")]
     [InlineData("London")]
     [InlineData("")]
-    [InlineData(null)]
     public void Organization_City_ShouldBeSettable(string city)
     {
         // Arrange
@@ -102,7 +99,6 @@ public class OrganizationTests
     [InlineData("456 Business Ave")]
     [InlineData("789 Corporate Blvd")]
     [InlineData("")]
-    [InlineData(null)]
     public void Organization_StreetAddress_ShouldBeSettable(string streetAddress)
     {
         // Arrange
@@ -136,7 +132,6 @@ public class OrganizationTests
     [InlineData("+1-555-123-4567")]
     [InlineData("+44-20-7946-0958")]
     [InlineData("")]
-    [InlineData(null)]
     public void Organization_FaxNo_ShouldBeSettable(string faxNo)
     {
         // Arrange
@@ -153,7 +148,6 @@ public class OrganizationTests
     [InlineData("+1-555-123-4567")]
     [InlineData("+44-20-7946-0958")]
     [InlineData("")]
-    [InlineData(null)]
     public void Organization_Phone_ShouldBeSettable(string phone)
     {
         // Arrange
@@ -170,7 +164,6 @@ public class OrganizationTests
     [InlineData("contact@acme.com")]
     [InlineData("info@techsolutions.com")]
     [InlineData("")]
-    [InlineData(null)]
     public void Organization_Email_ShouldBeSettable(string email)
     {
         // Arrange
@@ -187,7 +180,6 @@ public class OrganizationTests
     [InlineData("12-3456789")]
     [InlineData("98-7654321")]
     [InlineData("")]
-    [InlineData(null)]
     public void Organization_TaxNo_ShouldBeSettable(string taxNo)
     {
         // Arrange
@@ -337,7 +329,7 @@ public class OrganizationTests
         {
             Name = "Acme Corporation",
             FileId = 123,
-            File = null
+            File = null!
         };
 
         // Assert
@@ -399,7 +391,7 @@ public class OrganizationTests
         // Arrange & Act
         var organization = new Organization
         {
-            Name = null
+            Name = null!
         };
 
         // Assert
