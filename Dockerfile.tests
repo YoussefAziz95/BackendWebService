@@ -15,6 +15,8 @@ COPY BackendWebService.Domain/BackendWebService.Domain.csproj ./BackendWebServic
 COPY BackendWebService.Domain.UnitTests/BackendWebService.Domain.UnitTests.csproj ./BackendWebService.Domain.UnitTests/
 COPY BackendWebService.Application/BackendWebService.Application.csproj ./BackendWebService.Application/
 COPY BackendWebService.Application.UnitTests/BackendWebService.Application.UnitTests.csproj ./BackendWebService.Application.UnitTests/
+COPY BackendWebService.Presistence/BackendWebService.Persistence.csproj ./BackendWebService.Presistence/
+COPY BackendWebService.Persistence.UnitTests/BackendWebService.Persistence.UnitTests.csproj ./BackendWebService.Persistence.UnitTests/
 COPY BackendWebService.SharedKernal/BackendWebService.SharedKernal.csproj ./BackendWebService.SharedKernal/
 
 # Create a minimal solution file for testing
@@ -31,6 +33,10 @@ RUN echo 'Microsoft Visual Studio Solution File, Format Version 12.00' > Backend
     echo 'Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.Application", "BackendWebService.Application\BackendWebService.Application.csproj", "{864B15D5-E68A-4BE0-B7F2-413917CF3E45}"' >> BackendWebService.Tests.sln && \
     echo 'EndProject' >> BackendWebService.Tests.sln && \
     echo 'Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.Application.UnitTests", "BackendWebService.Application.UnitTests\BackendWebService.Application.UnitTests.csproj", "{C1D2E3F4-G5H6-I7J8-K9L0-M1N2O3P4Q5R6}"' >> BackendWebService.Tests.sln && \
+    echo 'EndProject' >> BackendWebService.Tests.sln && \
+    echo 'Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.Persistence", "BackendWebService.Presistence\BackendWebService.Persistence.csproj", "{95A49471-DEA9-4F70-863C-A9E8F2456774}"' >> BackendWebService.Tests.sln && \
+    echo 'EndProject' >> BackendWebService.Tests.sln && \
+    echo 'Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendWebService.Persistence.UnitTests", "BackendWebService.Persistence.UnitTests\BackendWebService.Persistence.UnitTests.csproj", "{7D74FD15-E461-4A9C-8B72-68567F08EF29}"' >> BackendWebService.Tests.sln && \
     echo 'EndProject' >> BackendWebService.Tests.sln && \
     echo 'Global' >> BackendWebService.Tests.sln && \
     echo '	GlobalSection(SolutionConfigurationPlatforms) = preSolution' >> BackendWebService.Tests.sln && \
@@ -58,6 +64,14 @@ RUN echo 'Microsoft Visual Studio Solution File, Format Version 12.00' > Backend
     echo '		{C1D2E3F4-G5H6-I7J8-K9L0-M1N2O3P4Q5R6}.Debug|Any CPU.Build.0 = Debug|Any CPU' >> BackendWebService.Tests.sln && \
     echo '		{C1D2E3F4-G5H6-I7J8-K9L0-M1N2O3P4Q5R6}.Release|Any CPU.ActiveCfg = Release|Any CPU' >> BackendWebService.Tests.sln && \
     echo '		{C1D2E3F4-G5H6-I7J8-K9L0-M1N2O3P4Q5R6}.Release|Any CPU.Build.0 = Release|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{95A49471-DEA9-4F70-863C-A9E8F2456774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{95A49471-DEA9-4F70-863C-A9E8F2456774}.Debug|Any CPU.Build.0 = Debug|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{95A49471-DEA9-4F70-863C-A9E8F2456774}.Release|Any CPU.ActiveCfg = Release|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{95A49471-DEA9-4F70-863C-A9E8F2456774}.Release|Any CPU.Build.0 = Release|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{7D74FD15-E461-4A9C-8B72-68567F08EF29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{7D74FD15-E461-4A9C-8B72-68567F08EF29}.Debug|Any CPU.Build.0 = Debug|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{7D74FD15-E461-4A9C-8B72-68567F08EF29}.Release|Any CPU.ActiveCfg = Release|Any CPU' >> BackendWebService.Tests.sln && \
+    echo '		{7D74FD15-E461-4A9C-8B72-68567F08EF29}.Release|Any CPU.Build.0 = Release|Any CPU' >> BackendWebService.Tests.sln && \
     echo '	EndGlobalSection' >> BackendWebService.Tests.sln && \
     echo '	GlobalSection(SolutionProperties) = preSolution' >> BackendWebService.Tests.sln && \
     echo '		HideSolutionNode = FALSE' >> BackendWebService.Tests.sln && \
@@ -76,6 +90,8 @@ COPY BackendWebService.Domain.UnitTests/ ./BackendWebService.Domain.UnitTests/
 COPY BackendWebService.SharedKernal/ ./BackendWebService.SharedKernal/
 COPY BackendWebService.Application/ ./BackendWebService.Application/
 COPY BackendWebService.Application.UnitTests/ ./BackendWebService.Application.UnitTests/
+COPY BackendWebService.Presistence/ ./BackendWebService.Presistence/
+COPY BackendWebService.Persistence.UnitTests/ ./BackendWebService.Persistence.UnitTests/
 COPY coverlet.runsettings ./
 
 # Build the solution in Release mode
@@ -102,6 +118,17 @@ RUN dotnet test BackendWebService.Application.UnitTests/BackendWebService.Applic
     --collect:"XPlat Code Coverage" \
     --results-directory "/src/test-results" \
     --logger "trx;LogFileName=application-test-results.trx" \
+    --verbosity normal \
+    --configuration Release \
+    --settings:coverlet.runsettings
+
+# Run Persistence layer unit tests
+RUN dotnet test BackendWebService.Persistence.UnitTests/BackendWebService.Persistence.UnitTests.csproj \
+    --no-build \
+    --no-restore \
+    --collect:"XPlat Code Coverage" \
+    --results-directory "/src/test-results" \
+    --logger "trx;LogFileName=persistence-test-results.trx" \
     --verbosity normal \
     --configuration Release \
     --settings:coverlet.runsettings
