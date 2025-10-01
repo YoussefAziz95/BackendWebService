@@ -38,6 +38,100 @@ public class UserTests
 
     #endregion
 
+    #region Business Logic Tests
+
+    [Fact]
+    public void User_EmailSetter_ShouldTrimAndLowercase()
+    {
+        // Arrange
+        var user = new User();
+        var testEmail = "  TEST@EXAMPLE.COM  ";
+
+        // Act
+        user.Email = testEmail;
+
+        // Assert
+        user.Email.Should().Be("test@example.com");
+    }
+
+    [Fact]
+    public void User_EmailSetter_ShouldHandleNull()
+    {
+        // Arrange
+        var user = new User();
+
+        // Act
+        user.Email = null;
+
+        // Assert
+        user.Email.Should().BeNull();
+    }
+
+    [Fact]
+    public void User_UserNameSetter_ShouldTrim()
+    {
+        // Arrange
+        var user = new User();
+        var testUserName = "  testuser  ";
+
+        // Act
+        user.UserName = testUserName;
+
+        // Assert
+        user.UserName.Should().Be("testuser");
+    }
+
+    [Fact]
+    public void User_UserNameSetter_ShouldHandleNull()
+    {
+        // Arrange
+        var user = new User();
+
+        // Act
+        user.UserName = null;
+
+        // Assert
+        user.UserName.Should().BeNull();
+    }
+
+    [Fact]
+    public void User_PhoneNumberSetter_ShouldPreserveValue()
+    {
+        // Arrange
+        var user = new User();
+        var testPhone = "+1234567890";
+
+        // Act
+        user.PhoneNumber = testPhone;
+
+        // Assert
+        user.PhoneNumber.Should().Be(testPhone);
+    }
+
+    [Fact]
+    public void User_GeneratedCode_ShouldBeValidGuidSubstring()
+    {
+        // Arrange & Act
+        var user = new User();
+
+        // Assert
+        user.GeneratedCode.Should().MatchRegex("^[a-fA-F0-9]{8}$");
+    }
+
+    [Fact]
+    public void User_GeneratedCode_ShouldBeConsistent()
+    {
+        // Arrange & Act
+        var user = new User();
+        var code1 = user.GeneratedCode;
+        var code2 = user.GeneratedCode;
+
+        // Assert
+        code1.Should().Be(code2);
+    }
+
+    #endregion
+
     #region Property Setting Tests
 
     [Theory]

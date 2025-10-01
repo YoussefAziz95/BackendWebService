@@ -176,6 +176,7 @@ public class BaseEntityTests
         result.Should().Contain("TestEntity");
     }
 
+
     // Test entity classes for testing BaseEntity
     private class TestEntity : BaseEntity
     {
