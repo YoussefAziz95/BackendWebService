@@ -4,6 +4,7 @@ using Persistence.Data;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 using Moq;
+using Microsoft.EntityFrameworkCore.InMemory;
 
 namespace BackendWebService.Persistence.UnitTests.TestUtilities;
 
