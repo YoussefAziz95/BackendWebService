@@ -32,6 +32,7 @@ public static class TestDataBuilder
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
                 NormalizedEmail = (email ?? "test@example.com").ToUpperInvariant(),
                 NormalizedUserName = (userName ?? "testuser").ToUpperInvariant(),
+                OrganizationId = 1,
                 CreatedDate = DateTime.UtcNow,
                 CreatedBy = "Test",
                 IsActive = true,
@@ -198,12 +199,14 @@ public static class TestDataBuilder
             var users = new List<User>();
             for (int i = 1; i <= count; i++)
             {
-                users.Add(Entities.CreateUser(
+                var user = Entities.CreateUser(
                     $"user{i}@example.com", 
                     $"user{i}", 
                     $"User{i}", 
                     $"LastName{i}",
-                    i));
+                    i);
+                user.OrganizationId = 1; // Ensure all users have the same organization ID
+                users.Add(user);
             }
             return users;
         }
