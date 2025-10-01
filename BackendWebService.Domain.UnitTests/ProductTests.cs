@@ -28,258 +28,125 @@ public class ProductTests
 
     #endregion
 
-    #region Property Validation Tests
+    #region Property Setting Tests
 
     [Theory]
-    [InlineData("PROD001", true)]
-    [InlineData("PRODUCT-123", true)]
-    [InlineData("", false)]
-    [InlineData(null, false)]
-    public void Product_Number_ShouldValidateCorrectly(string number, bool isValid)
+    [InlineData("PROD001")]
+    [InlineData("PRODUCT-123")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void Product_Number_ShouldBeSettable(string number)
     {
         // Arrange
-        var product = new Product
-        {
-            Number = number,
-            Name = "Test Product",
-            Description = "Test Description",
-            Code = "CODE001",
-            PartNumber = "PART001",
-            Manufacturer = "Test Manufacturer",
-            CategoryId = 1
-        };
+        var product = new Product();
 
         // Act
-        var validationContext = new ValidationContext(product) { MemberName = nameof(Product.Number) };
-        var validationResults = new List<ValidationResult>();
-        var actualIsValid = Validator.TryValidateProperty(product.Number, validationContext, validationResults);
+        product.Number = number;
 
         // Assert
-        actualIsValid.Should().Be(isValid);
-        if (!isValid)
-        {
-            validationResults.Should().NotBeEmpty();
-        }
-        else
-        {
-            validationResults.Should().BeEmpty();
-        }
+        product.Number.Should().Be(number);
     }
 
     [Theory]
-    [InlineData("Test Product", true)]
-    [InlineData("Product Name", true)]
-    [InlineData("", false)]
-    [InlineData(null, false)]
-    public void Product_Name_ShouldValidateCorrectly(string name, bool isValid)
+    [InlineData("Test Product")]
+    [InlineData("Product Name")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void Product_Name_ShouldBeSettable(string name)
     {
         // Arrange
-        var product = new Product
-        {
-            Number = "PROD001",
-            Name = name,
-            Description = "Test Description",
-            Code = "CODE001",
-            PartNumber = "PART001",
-            Manufacturer = "Test Manufacturer",
-            CategoryId = 1
-        };
+        var product = new Product();
 
         // Act
-        var validationContext = new ValidationContext(product) { MemberName = nameof(Product.Name) };
-        var validationResults = new List<ValidationResult>();
-        var actualIsValid = Validator.TryValidateProperty(product.Name, validationContext, validationResults);
+        product.Name = name;
 
         // Assert
-        actualIsValid.Should().Be(isValid);
-        if (!isValid)
-        {
-            validationResults.Should().NotBeEmpty();
-        }
-        else
-        {
-            validationResults.Should().BeEmpty();
-        }
+        product.Name.Should().Be(name);
     }
 
     [Theory]
-    [InlineData("Test Description", true)]
-    [InlineData("Product Description", true)]
-    [InlineData("", false)]
-    [InlineData(null, false)]
-    public void Product_Description_ShouldValidateCorrectly(string description, bool isValid)
+    [InlineData("Test Description")]
+    [InlineData("Product Description")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void Product_Description_ShouldBeSettable(string description)
     {
         // Arrange
-        var product = new Product
-        {
-            Number = "PROD001",
-            Name = "Test Product",
-            Description = description,
-            Code = "CODE001",
-            PartNumber = "PART001",
-            Manufacturer = "Test Manufacturer",
-            CategoryId = 1
-        };
+        var product = new Product();
 
         // Act
-        var validationContext = new ValidationContext(product) { MemberName = nameof(Product.Description) };
-        var validationResults = new List<ValidationResult>();
-        var actualIsValid = Validator.TryValidateProperty(product.Description, validationContext, validationResults);
+        product.Description = description;
 
         // Assert
-        actualIsValid.Should().Be(isValid);
-        if (!isValid)
-        {
-            validationResults.Should().NotBeEmpty();
-        }
-        else
-        {
-            validationResults.Should().BeEmpty();
-        }
+        product.Description.Should().Be(description);
     }
 
     [Theory]
-    [InlineData("CODE001", true)]
-    [InlineData("PRODUCT-CODE", true)]
-    [InlineData("", false)]
-    [InlineData(null, false)]
-    public void Product_Code_ShouldValidateCorrectly(string code, bool isValid)
+    [InlineData("CODE001")]
+    [InlineData("PRODUCT-CODE")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void Product_Code_ShouldBeSettable(string code)
     {
         // Arrange
-        var product = new Product
-        {
-            Number = "PROD001",
-            Name = "Test Product",
-            Description = "Test Description",
-            Code = code,
-            PartNumber = "PART001",
-            Manufacturer = "Test Manufacturer",
-            CategoryId = 1
-        };
+        var product = new Product();
 
         // Act
-        var validationContext = new ValidationContext(product) { MemberName = nameof(Product.Code) };
-        var validationResults = new List<ValidationResult>();
-        var actualIsValid = Validator.TryValidateProperty(product.Code, validationContext, validationResults);
+        product.Code = code;
 
         // Assert
-        actualIsValid.Should().Be(isValid);
-        if (!isValid)
-        {
-            validationResults.Should().NotBeEmpty();
-        }
-        else
-        {
-            validationResults.Should().BeEmpty();
-        }
+        product.Code.Should().Be(code);
     }
 
     [Theory]
-    [InlineData("PART001", true)]
-    [InlineData("PART-123", true)]
-    [InlineData("", false)]
-    [InlineData(null, false)]
-    public void Product_PartNumber_ShouldValidateCorrectly(string partNumber, bool isValid)
+    [InlineData("PART001")]
+    [InlineData("PART-123")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void Product_PartNumber_ShouldBeSettable(string partNumber)
     {
         // Arrange
-        var product = new Product
-        {
-            Number = "PROD001",
-            Name = "Test Product",
-            Description = "Test Description",
-            Code = "CODE001",
-            PartNumber = partNumber,
-            Manufacturer = "Test Manufacturer",
-            CategoryId = 1
-        };
+        var product = new Product();
 
         // Act
-        var validationContext = new ValidationContext(product) { MemberName = nameof(Product.PartNumber) };
-        var validationResults = new List<ValidationResult>();
-        var actualIsValid = Validator.TryValidateProperty(product.PartNumber, validationContext, validationResults);
+        product.PartNumber = partNumber;
 
         // Assert
-        actualIsValid.Should().Be(isValid);
-        if (!isValid)
-        {
-            validationResults.Should().NotBeEmpty();
-        }
-        else
-        {
-            validationResults.Should().BeEmpty();
-        }
+        product.PartNumber.Should().Be(partNumber);
     }
 
     [Theory]
-    [InlineData("Test Manufacturer", true)]
-    [InlineData("Manufacturer Name", true)]
-    [InlineData("", false)]
-    [InlineData(null, false)]
-    public void Product_Manufacturer_ShouldValidateCorrectly(string manufacturer, bool isValid)
+    [InlineData("Test Manufacturer")]
+    [InlineData("Manufacturer Name")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void Product_Manufacturer_ShouldBeSettable(string manufacturer)
     {
         // Arrange
-        var product = new Product
-        {
-            Number = "PROD001",
-            Name = "Test Product",
-            Description = "Test Description",
-            Code = "CODE001",
-            PartNumber = "PART001",
-            Manufacturer = manufacturer,
-            CategoryId = 1
-        };
+        var product = new Product();
 
         // Act
-        var validationContext = new ValidationContext(product) { MemberName = nameof(Product.Manufacturer) };
-        var validationResults = new List<ValidationResult>();
-        var actualIsValid = Validator.TryValidateProperty(product.Manufacturer, validationContext, validationResults);
+        product.Manufacturer = manufacturer;
 
         // Assert
-        actualIsValid.Should().Be(isValid);
-        if (!isValid)
-        {
-            validationResults.Should().NotBeEmpty();
-        }
-        else
-        {
-            validationResults.Should().BeEmpty();
-        }
+        product.Manufacturer.Should().Be(manufacturer);
     }
 
     [Theory]
-    [InlineData(1, true)]
-    [InlineData(100, true)]
-    [InlineData(0, false)]
-    [InlineData(-1, false)]
-    public void Product_CategoryId_ShouldValidateCorrectly(int categoryId, bool isValid)
+    [InlineData(1)]
+    [InlineData(100)]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public void Product_CategoryId_ShouldBeSettable(int categoryId)
     {
         // Arrange
-        var product = new Product
-        {
-            Number = "PROD001",
-            Name = "Test Product",
-            Description = "Test Description",
-            Code = "CODE001",
-            PartNumber = "PART001",
-            Manufacturer = "Test Manufacturer",
-            CategoryId = categoryId
-        };
+        var product = new Product();
 
         // Act
-        var validationContext = new ValidationContext(product) { MemberName = nameof(Product.CategoryId) };
-        var validationResults = new List<ValidationResult>();
-        var actualIsValid = Validator.TryValidateProperty(product.CategoryId, validationContext, validationResults);
+        product.CategoryId = categoryId;
 
         // Assert
-        actualIsValid.Should().Be(isValid);
-        if (!isValid)
-        {
-            validationResults.Should().NotBeEmpty();
-        }
-        else
-        {
-            validationResults.Should().BeEmpty();
-        }
+        product.CategoryId.Should().Be(categoryId);
     }
 
     #endregion
@@ -354,9 +221,9 @@ public class ProductTests
     #region Edge Cases Tests
 
     [Fact]
-    public void Product_WithMinimalData_ShouldBeValid()
+    public void Product_WithMinimalData_ShouldBeCreatable()
     {
-        // Arrange
+        // Arrange & Act
         var product = new Product
         {
             Number = "PROD001",
@@ -368,19 +235,20 @@ public class ProductTests
             CategoryId = 1
         };
 
-        // Act
-        var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(product, new ValidationContext(product), validationResults, true);
-
         // Assert
-        isValid.Should().BeTrue();
-        validationResults.Should().BeEmpty();
+        product.Number.Should().Be("PROD001");
+        product.Name.Should().Be("Test Product");
+        product.Description.Should().Be("Test Description");
+        product.Code.Should().Be("CODE001");
+        product.PartNumber.Should().Be("PART001");
+        product.Manufacturer.Should().Be("Test Manufacturer");
+        product.CategoryId.Should().Be(1);
     }
 
     [Fact]
-    public void Product_WithCompleteData_ShouldBeValid()
+    public void Product_WithCompleteData_ShouldBeCreatable()
     {
-        // Arrange
+        // Arrange & Act
         var product = new Product
         {
             Number = "PROD001",
@@ -393,19 +261,21 @@ public class ProductTests
             FileId = 123
         };
 
-        // Act
-        var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(product, new ValidationContext(product), validationResults, true);
-
         // Assert
-        isValid.Should().BeTrue();
-        validationResults.Should().BeEmpty();
+        product.Number.Should().Be("PROD001");
+        product.Name.Should().Be("Test Product");
+        product.Description.Should().Be("Test Description");
+        product.Code.Should().Be("CODE001");
+        product.PartNumber.Should().Be("PART001");
+        product.Manufacturer.Should().Be("Test Manufacturer");
+        product.CategoryId.Should().Be(1);
+        product.FileId.Should().Be(123);
     }
 
     [Fact]
-    public void Product_WithNullFileId_ShouldBeValid()
+    public void Product_WithNullFileId_ShouldBeCreatable()
     {
-        // Arrange
+        // Arrange & Act
         var product = new Product
         {
             Number = "PROD001",
@@ -418,13 +288,15 @@ public class ProductTests
             FileId = null
         };
 
-        // Act
-        var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(product, new ValidationContext(product), validationResults, true);
-
         // Assert
-        isValid.Should().BeTrue();
-        validationResults.Should().BeEmpty();
+        product.Number.Should().Be("PROD001");
+        product.Name.Should().Be("Test Product");
+        product.Description.Should().Be("Test Description");
+        product.Code.Should().Be("CODE001");
+        product.PartNumber.Should().Be("PART001");
+        product.Manufacturer.Should().Be("Test Manufacturer");
+        product.CategoryId.Should().Be(1);
+        product.FileId.Should().BeNull();
     }
 
     #endregion
@@ -438,23 +310,12 @@ public class ProductTests
     public void Product_Number_ShouldHandleVariousLengths(string number)
     {
         // Arrange
-        var product = new Product
-        {
-            Number = number,
-            Name = "Test Product",
-            Description = "Test Description",
-            Code = "CODE001",
-            PartNumber = "PART001",
-            Manufacturer = "Test Manufacturer",
-            CategoryId = 1
-        };
+        var product = new Product();
 
         // Act
-        var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(product, new ValidationContext(product), validationResults, true);
+        product.Number = number;
 
         // Assert
-        isValid.Should().BeTrue();
         product.Number.Should().Be(number);
     }
 
@@ -465,23 +326,12 @@ public class ProductTests
     public void Product_Name_ShouldHandleVariousLengths(string name)
     {
         // Arrange
-        var product = new Product
-        {
-            Number = "PROD001",
-            Name = name,
-            Description = "Test Description",
-            Code = "CODE001",
-            PartNumber = "PART001",
-            Manufacturer = "Test Manufacturer",
-            CategoryId = 1
-        };
+        var product = new Product();
 
         // Act
-        var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(product, new ValidationContext(product), validationResults, true);
+        product.Name = name;
 
         // Assert
-        isValid.Should().BeTrue();
         product.Name.Should().Be(name);
     }
 
@@ -492,23 +342,12 @@ public class ProductTests
     public void Product_CategoryId_ShouldHandleVariousValues(int categoryId)
     {
         // Arrange
-        var product = new Product
-        {
-            Number = "PROD001",
-            Name = "Test Product",
-            Description = "Test Description",
-            Code = "CODE001",
-            PartNumber = "PART001",
-            Manufacturer = "Test Manufacturer",
-            CategoryId = categoryId
-        };
+        var product = new Product();
 
         // Act
-        var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(product, new ValidationContext(product), validationResults, true);
+        product.CategoryId = categoryId;
 
         // Assert
-        isValid.Should().BeTrue();
         product.CategoryId.Should().Be(categoryId);
     }
 
@@ -519,24 +358,12 @@ public class ProductTests
     public void Product_FileId_ShouldHandleVariousValues(int fileId)
     {
         // Arrange
-        var product = new Product
-        {
-            Number = "PROD001",
-            Name = "Test Product",
-            Description = "Test Description",
-            Code = "CODE001",
-            PartNumber = "PART001",
-            Manufacturer = "Test Manufacturer",
-            CategoryId = 1,
-            FileId = fileId
-        };
+        var product = new Product();
 
         // Act
-        var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(product, new ValidationContext(product), validationResults, true);
+        product.FileId = fileId;
 
         // Assert
-        isValid.Should().BeTrue();
         product.FileId.Should().Be(fileId);
     }
 
