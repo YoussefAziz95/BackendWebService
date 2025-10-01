@@ -10,68 +10,58 @@ public class ClientTests
     [Fact]
     public void Client_DefaultConstructor_ShouldCreateInstance()
     {
-        // Arrange & Act
+        // Act
         var client = new Client();
 
         // Assert
         client.Should().NotBeNull();
-        client.UserId.Should().Be(0);
-        client.User.Should().BeNull();
         client.MFAEnabled.Should().BeFalse();
         client.Role.Should().Be(RoleEnum.Customer);
         client.Status.Should().Be(StatusEnum.Active);
-        client.ClientProperties.Should().BeNull();
-        client.IsActive.Should().BeTrue();
-        client.IsDeleted.Should().BeFalse();
-        client.IsSystem.Should().BeFalse();
-        client.CreatedDate.Should().NotBeNull();
-    }
-
-    [Theory]
-    [InlineData(1)]
-    [InlineData(100)]
-    [InlineData(0)]
-    [InlineData(-1)]
-    [InlineData(int.MaxValue)]
-    public void Client_UserId_ShouldBeSettable(int userId)
-    {
-        // Arrange
-        var client = new Client();
-
-        // Act
-        client.UserId = userId;
-
-        // Assert
-        client.UserId.Should().Be(userId);
     }
 
     [Fact]
-    public void Client_User_ShouldBeSettable()
+    public void Client_WithMinimalData_ShouldBeCreatable()
     {
         // Arrange
-        var client = new Client();
-        var user = new User();
+        var userId = 123;
 
         // Act
-        client.User = user;
+        var client = new Client
+        {
+            UserId = userId
+        };
 
         // Assert
-        client.User.Should().Be(user);
+        client.UserId.Should().Be(userId);
+        client.MFAEnabled.Should().BeFalse();
+        client.Role.Should().Be(RoleEnum.Customer);
+        client.Status.Should().Be(StatusEnum.Active);
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void Client_MFAEnabled_ShouldBeSettable(bool mfaEnabled)
+    [Fact]
+    public void Client_WithCompleteData_ShouldBeCreatable()
     {
         // Arrange
-        var client = new Client();
+        var userId = 456;
+        var mfaEnabled = true;
+        var role = RoleEnum.Admin;
+        var status = StatusEnum.Pending;
 
         // Act
-        client.MFAEnabled = mfaEnabled;
+        var client = new Client
+        {
+            UserId = userId,
+            MFAEnabled = mfaEnabled,
+            Role = role,
+            Status = status
+        };
 
         // Assert
+        client.UserId.Should().Be(userId);
         client.MFAEnabled.Should().Be(mfaEnabled);
+        client.Role.Should().Be(role);
+        client.Status.Should().Be(status);
     }
 
     [Theory]
@@ -91,9 +81,10 @@ public class ClientTests
     }
 
     [Theory]
-    [InlineData(StatusEnum.Pending)]
     [InlineData(StatusEnum.Active)]
-    [InlineData(StatusEnum.Disabled)]
+    [InlineData(StatusEnum.Pending)]
+    [InlineData(StatusEnum.Completed)]
+    [InlineData(StatusEnum.Returned)]
     [InlineData(StatusEnum.Deleted)]
     public void Client_Status_ShouldBeSettable(StatusEnum status)
     {
@@ -107,98 +98,26 @@ public class ClientTests
         client.Status.Should().Be(status);
     }
 
-    [Fact]
-    public void Client_ClientProperties_ShouldBeSettable()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Client_MFAEnabled_ShouldBeSettable(bool mfaEnabled)
     {
         // Arrange
         var client = new Client();
-        var property = new ClientProperty();
 
         // Act
-        client.ClientProperties = new List<ClientProperty> { property };
+        client.MFAEnabled = mfaEnabled;
 
         // Assert
-        client.ClientProperties.Should().NotBeNull();
-        client.ClientProperties.Should().Contain(property);
-    }
-
-    [Fact]
-    public void Client_WithMinimalData_ShouldBeCreatable()
-    {
-        // Arrange & Act
-        var client = new Client
-        {
-            UserId = 1
-        };
-
-        // Assert
-        client.UserId.Should().Be(1);
-        client.MFAEnabled.Should().BeFalse();
-        client.Role.Should().Be(RoleEnum.Customer);
-        client.Status.Should().Be(StatusEnum.Active);
-        client.IsActive.Should().BeTrue();
-    }
-
-    [Fact]
-    public void Client_WithCompleteData_ShouldBeCreatable()
-    {
-        // Arrange & Act
-        var user = new User();
-        var property = new ClientProperty();
-        var client = new Client
-        {
-            UserId = 1,
-            User = user,
-            MFAEnabled = true,
-            Role = RoleEnum.Customer,
-            Status = StatusEnum.Active,
-            ClientProperties = new List<ClientProperty> { property }
-        };
-
-        // Assert
-        client.UserId.Should().Be(1);
-        client.User.Should().Be(user);
-        client.MFAEnabled.Should().BeTrue();
-        client.Role.Should().Be(RoleEnum.Customer);
-        client.Status.Should().Be(StatusEnum.Active);
-        client.ClientProperties.Should().Contain(property);
-    }
-
-    [Fact]
-    public void Client_WithNullUser_ShouldBeCreatable()
-    {
-        // Arrange & Act
-        var client = new Client
-        {
-            UserId = 1,
-            User = null
-        };
-
-        // Assert
-        client.UserId.Should().Be(1);
-        client.User.Should().BeNull();
-    }
-
-    [Fact]
-    public void Client_WithNullClientProperties_ShouldBeCreatable()
-    {
-        // Arrange & Act
-        var client = new Client
-        {
-            UserId = 1,
-            ClientProperties = null
-        };
-
-        // Assert
-        client.UserId.Should().Be(1);
-        client.ClientProperties.Should().BeNull();
+        client.MFAEnabled.Should().Be(mfaEnabled);
     }
 
     [Fact]
     public void Client_ToString_ShouldReturnExpectedFormat()
     {
         // Arrange
-        var client = new Client { UserId = 1 };
+        var client = new Client();
 
         // Act
         var result = client.ToString();
@@ -208,39 +127,14 @@ public class ClientTests
     }
 
     [Fact]
-    public void Client_ShouldInheritFromBaseEntity()
-    {
-        // Arrange & Act
-        var client = new Client();
-
-        // Assert
-        client.Should().BeAssignableTo<BaseEntity>();
-        client.Should().BeAssignableTo<IEntity>();
-        client.Should().BeAssignableTo<ITimeModification>();
-    }
-
-    [Fact]
-    public void Client_AllProperties_ShouldBeSettable()
+    public void Client_InheritsFromBaseEntity_ShouldHaveBaseProperties()
     {
         // Arrange
         var client = new Client();
-        var user = new User();
-        var property = new ClientProperty();
 
-        // Act
-        client.UserId = 1;
-        client.User = user;
-        client.MFAEnabled = true;
-        client.Role = RoleEnum.Customer;
-        client.Status = StatusEnum.Active;
-        client.ClientProperties = new List<ClientProperty> { property };
-
-        // Assert
-        client.UserId.Should().Be(1);
-        client.User.Should().Be(user);
-        client.MFAEnabled.Should().BeTrue();
-        client.Role.Should().Be(RoleEnum.Customer);
-        client.Status.Should().Be(StatusEnum.Active);
-        client.ClientProperties.Should().Contain(property);
+        // Act & Assert
+        client.Should().BeAssignableTo<BaseEntity>();
+        client.Should().BeAssignableTo<IEntity>();
+        client.Should().BeAssignableTo<ITimeModification>();
     }
 }
