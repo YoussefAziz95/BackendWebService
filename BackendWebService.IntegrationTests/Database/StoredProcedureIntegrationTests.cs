@@ -67,13 +67,13 @@ public class StoredProcedureIntegrationTests : BaseIntegrationTest
         // Act - Execute stored procedure that returns multiple result sets
         var parameters = new DynamicParameters();
         parameters.Add("@OrganizationId", 1);
-        var results = _spCall.List<dynamic, dynamic, dynamic>("GetOrganizationSummary", parameters);
+        // Note: ISP_Call.List only supports 2 type arguments, so we test with 2 result sets
+        var results = _spCall.List<dynamic, dynamic>("GetOrganizationSummary", parameters);
         
         // Assert
         results.Should().NotBeNull();
         results.Item1.Should().NotBeNull(); // Organization info
         results.Item2.Should().NotBeNull(); // User count
-        results.Item3.Should().NotBeNull(); // Company count
     }
 
     [Fact] // PERMANENT FIX: Now using real SQL Server - stored procedures work!
