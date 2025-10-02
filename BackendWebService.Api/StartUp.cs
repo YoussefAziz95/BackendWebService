@@ -26,16 +26,36 @@ public static class Startup
     public static IServiceCollection ConfigureCQRS(this IServiceCollection services)
     {
         services.AddScoped<IMediator, Mediator>();
-        services.AddScoped<IRequestHandlerAsync<LoginPhoneRequest, LoginResponse>, LoginPhoneRequestHandler>();
-        services.AddScoped<IRequestHandlerAsync<LoginEmailRequest, LoginResponse>, LoginEmailRequestHandler>();
-        services.AddScoped<IRequestHandlerAsync<SignUpRequest, LoginResponse>, SignUpRequestHandler>();
-        services.AddScoped<IRequestHandlerAsync<RefreshTokenRequest, RefreshTokenResponse>, RefreshTokenRequestHandler>();
-        services.AddScoped<IRequestHandlerAsync<ResetPasswordRequest, LoginResponse>, ResetPasswordRequestHandler>();
-        services.AddScoped<IRequestHandlerAsync<ConfirmResetPasswordRequest, LoginResponse>, ConfirmResetPasswordRequestHandler>();
-        //services.AddScoped<IRequestHandlerAsync<ConfirmPhoneNumberRequest, LoginResponse>, ConfirmPhoneNumberHandler>();
-        //services.AddScoped<IRequestHandlerAsync<PhoneNumberRequest, LoginResponse>, SendOtpHandler>();
-        //services.AddScoped<IRequestHandlerAsync<OtpVerifyRequest, LoginResponse>, OtpVerifyHandler>();
-
+        
+        // AUTO-REGISTER ALL HANDLERS using reflection
+        var assembly = typeof(LoginPhoneRequestHandler).Assembly; // Application assembly
+        
+        // Register all IRequestHandlerAsync<,> implementations
+        var asyncHandlerTypes = assembly.GetTypes()
+            .Where(t => t.IsClass && !t.IsAbstract)
+            .SelectMany(t => t.GetInterfaces()
+                .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequestHandlerAsync<,>))
+                .Select(i => new { Interface = i, Implementation = t }))
+            .ToList();
+        
+        foreach (var handler in asyncHandlerTypes)
+        {
+            services.AddScoped(handler.Interface, handler.Implementation);
+        }
+        
+        // Register all IRequestHandler<,> implementations (sync handlers)
+        var syncHandlerTypes = assembly.GetTypes()
+            .Where(t => t.IsClass && !t.IsAbstract)
+            .SelectMany(t => t.GetInterfaces()
+                .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>))
+                .Select(i => new { Interface = i, Implementation = t }))
+            .ToList();
+        
+        foreach (var handler in syncHandlerTypes)
+        {
+            services.AddScoped(handler.Interface, handler.Implementation);
+        }
+        
         return services;
     }
     public static void ConfigureGrpcPipeline(this WebApplication app)
