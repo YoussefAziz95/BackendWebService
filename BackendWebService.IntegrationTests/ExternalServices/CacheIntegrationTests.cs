@@ -64,11 +64,12 @@ public class CacheIntegrationTests : BaseIntegrationTest
         // Act
         await _distributedCache.SetStringAsync(key, jsonValue);
         var retrievedJson = await _distributedCache.GetStringAsync(key);
-        var deserializedObject = JsonSerializer.Deserialize<dynamic>(retrievedJson!);
+        var deserializedObject = JsonSerializer.Deserialize<Dictionary<string, object>>(retrievedJson!);
 
         // Assert
         retrievedJson.Should().Be(jsonValue, "JSON value should be stored and retrieved correctly");
         deserializedObject.Should().NotBeNull("JSON should be deserializable");
+        deserializedObject.Should().ContainKey("Name", "Deserialized object should have Name property");
     }
 
     [Fact]
@@ -219,12 +220,9 @@ public class CacheIntegrationTests : BaseIntegrationTest
         // Arrange
         var key = "test-null-key";
 
-        // Act
-        await _distributedCache.SetStringAsync(key, null!);
-        var retrievedValue = await _distributedCache.GetStringAsync(key);
-
-        // Assert
-        retrievedValue.Should().BeNull("Null values should be handled correctly");
+        // Act & Assert - SetStringAsync doesn't accept null values, which is expected behavior
+        var action = async () => await _distributedCache.SetStringAsync(key, null!);
+        await action.Should().ThrowAsync<ArgumentNullException>("SetStringAsync should throw ArgumentNullException for null values");
     }
 
     [Fact]
@@ -293,10 +291,12 @@ public class CacheIntegrationTests : BaseIntegrationTest
         // Act
         await _distributedCache.SetStringAsync(key, jsonValue);
         var retrievedJson = await _distributedCache.GetStringAsync(key);
-        var deserializedObject = JsonSerializer.Deserialize<dynamic>(retrievedJson!);
+        var deserializedObject = JsonSerializer.Deserialize<Dictionary<string, object>>(retrievedJson!);
 
         // Assert
         retrievedJson.Should().Be(jsonValue, "Complex objects should be stored and retrieved correctly");
         deserializedObject.Should().NotBeNull("Complex objects should be deserializable");
+        deserializedObject.Should().ContainKey("Name", "Complex object should have Name property");
+        deserializedObject.Should().ContainKey("NestedObject", "Complex object should have NestedObject property");
     }
 }

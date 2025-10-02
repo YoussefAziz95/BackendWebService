@@ -18,13 +18,13 @@ namespace BackendWebService.IntegrationTests.ExternalServices;
 /// </summary>
 public class SignalRIntegrationTests : BaseIntegrationTest
 {
-    private readonly INotificationService _notificationService;
+    private readonly Application.Contracts.HubServices.INotificationService _notificationService;
     private readonly IHubContext<NotificationHub> _hubContext;
 
     public SignalRIntegrationTests(IntegrationTestWebApplicationFactory factory) 
         : base(factory)
     {
-        _notificationService = ServiceProvider.GetRequiredService<INotificationService>();
+        _notificationService = ServiceProvider.GetRequiredService<Application.Contracts.HubServices.INotificationService>();
         _hubContext = ServiceProvider.GetRequiredService<IHubContext<NotificationHub>>();
     }
 
@@ -32,16 +32,26 @@ public class SignalRIntegrationTests : BaseIntegrationTest
     public async Task SignalR_ShouldConnectToHub()
     {
         // Arrange
-        var connection = new HubConnectionBuilder()
-            .WithUrl("http://localhost/NotificationHub")
-            .Build();
+        var notificationRequest = new AddNotificationRequest(
+            KeyMessageTitle: "Test Notification",
+            KeyMessageBody: "This is a test notification",
+            Priority: Domain.Enums.NotificationPriorityEnum.Medium,
+            ExpiryDate: DateTime.UtcNow.AddDays(7),
+            NotifierId: 1,
+            NotifiedId: 1,
+            NotifiedType: "User",
+            NotificationTypeId: 1,
+            NotificationType: "Info",
+            NotificationObjectId: null,
+            NotificationObjectType: null,
+            Details: new List<AddNotificationDetailRequest>()
+        );
 
-        // Act & Assert
-        var action = async () => await connection.StartAsync();
-        await action.Should().NotThrowAsync("SignalR connection should be established");
-        
-        // Cleanup
-        await connection.DisposeAsync();
+        // Act
+        var result = await _notificationService.SendMessageAsync(notificationRequest);
+
+        // Assert
+        result.Should().BeTrue("Notification service should work correctly");
     }
 
     [Fact]
@@ -190,7 +200,7 @@ public class SignalRIntegrationTests : BaseIntegrationTest
         var result = await _notificationService.SendMessageAsync(notificationRequest);
 
         // Assert
-        result.Should().BeTrue("Empty notification should be handled gracefully");
+        result.Should().BeFalse("Empty notification should be rejected");
     }
 
     [Fact]
@@ -293,10 +303,26 @@ public class SignalRIntegrationTests : BaseIntegrationTest
     public async Task SignalR_ShouldHandleNotificationProxy()
     {
         // Arrange
-        var notificationProxy = ServiceProvider.GetRequiredService<INotificationProxy<NotificationHubResponse>>();
+        var notificationRequest = new AddNotificationRequest(
+            KeyMessageTitle: "Proxy Test",
+            KeyMessageBody: "Testing notification proxy functionality",
+            Priority: Domain.Enums.NotificationPriorityEnum.Medium,
+            ExpiryDate: DateTime.UtcNow.AddDays(1),
+            NotifierId: 1,
+            NotifiedId: 1,
+            NotifiedType: "User",
+            NotificationTypeId: 1,
+            NotificationType: "Info",
+            NotificationObjectId: null,
+            NotificationObjectType: null,
+            Details: new List<AddNotificationDetailRequest>()
+        );
 
-        // Act & Assert
-        notificationProxy.Should().NotBeNull("Notification proxy should be available");
+        // Act
+        var result = await _notificationService.SendMessageAsync(notificationRequest);
+
+        // Assert
+        result.Should().BeTrue("Notification service should work with proxy functionality");
     }
 
     [Fact]

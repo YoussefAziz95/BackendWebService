@@ -122,7 +122,20 @@ public class JwtService : IJwtService
     private async Task<IEnumerable<Claim>> _getClaimsAsync(User user)
     {
         var result = await _claimsPrincipal.CreateAsync(user);
-        return result.Claims;
+        var claims = result.Claims.ToList();
+        
+        // Add JWT-specific claims that tests expect
+        claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()));
+        claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+        claims.Add(new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64));
+        
+        // Add OrganizationId claim if user has an organization
+        if (user.OrganizationId.HasValue)
+        {
+            claims.Add(new Claim("OrganizationId", user.OrganizationId.Value.ToString()));
+        }
+        
+        return claims;
     }
     public async Task<AccessToken> RefreshTokenAsync(string token)
     {

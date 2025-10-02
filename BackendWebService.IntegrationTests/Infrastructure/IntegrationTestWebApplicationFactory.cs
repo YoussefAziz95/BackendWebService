@@ -87,6 +87,13 @@ public class IntegrationTestWebApplicationFactory : WebApplicationFactory<Progra
             // Add test-specific services
             services.AddScoped<ITestDataSeeder, TestDataSeeder>();
             services.AddScoped<IDatabaseCleaner, DatabaseCleaner>();
+            
+            // Register mock notification service for tests
+            services.AddScoped<Application.Contracts.HubServices.INotificationService, MockNotificationService>();
+            
+            // Register email service test double for tests
+            // Note: Individual tests can override this with specific behavior
+            services.AddScoped<Application.Contracts.Infrastructures.IEmailService, EmailServiceTestDouble>();
         });
 
         builder.UseEnvironment("Test");

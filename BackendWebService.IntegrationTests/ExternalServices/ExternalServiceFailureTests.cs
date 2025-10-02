@@ -28,7 +28,7 @@ public class ExternalServiceFailureTests : BaseIntegrationTest
         : base(factory)
     {
         _emailService = ServiceProvider.GetRequiredService<IEmailService>();
-        _notificationService = ServiceProvider.GetRequiredService<INotificationService>();
+        _notificationService = ServiceProvider.GetRequiredService<Application.Contracts.HubServices.INotificationService>();
         _wireMockServer = factory.GetEmailServiceMock() ?? WireMockServer.Start();
     }
 
@@ -46,15 +46,11 @@ public class ExternalServiceFailureTests : BaseIntegrationTest
             senderId: 1
         );
 
-        // Mock SMTP server unavailable
-        _wireMockServer
-            .Given(Request.Create()
-                .WithPath("/api/email/send")
-                .UsingPost())
-            .RespondWith(Response.Create()
-                .WithStatusCode(503)
-                .WithHeader("Content-Type", "application/json")
-                .WithBody("{\"error\": \"Service Unavailable\", \"message\": \"SMTP server is down\"}"));
+        // Configure EmailServiceTestDouble to simulate SMTP server unavailable
+        if (_emailService is EmailServiceTestDouble testDouble)
+        {
+            testDouble.SimulateFailure(EmailServiceBehavior.SmtpUnavailable);
+        }
 
         // Act
         var result = _emailService.Send(emailDto);
@@ -77,15 +73,11 @@ public class ExternalServiceFailureTests : BaseIntegrationTest
             senderId: 1
         );
 
-        // Mock authentication failure
-        _wireMockServer
-            .Given(Request.Create()
-                .WithPath("/api/email/send")
-                .UsingPost())
-            .RespondWith(Response.Create()
-                .WithStatusCode(401)
-                .WithHeader("Content-Type", "application/json")
-                .WithBody("{\"error\": \"Unauthorized\", \"message\": \"Invalid credentials\"}"));
+        // Configure EmailServiceTestDouble to simulate authentication failure
+        if (_emailService is EmailServiceTestDouble testDouble)
+        {
+            testDouble.SimulateFailure(EmailServiceBehavior.AuthenticationFailure);
+        }
 
         // Act
         var result = _emailService.Send(emailDto);
@@ -129,15 +121,11 @@ public class ExternalServiceFailureTests : BaseIntegrationTest
             senderId: 1
         );
 
-        // Mock network timeout
-        _wireMockServer
-            .Given(Request.Create()
-                .WithPath("/api/email/send")
-                .UsingPost())
-            .RespondWith(Response.Create()
-                .WithStatusCode(408)
-                .WithHeader("Content-Type", "application/json")
-                .WithBody("{\"error\": \"Request Timeout\", \"message\": \"The request timed out\"}"));
+        // Configure EmailServiceTestDouble to simulate network timeout
+        if (_emailService is EmailServiceTestDouble testDouble)
+        {
+            testDouble.SimulateFailure(EmailServiceBehavior.NetworkTimeout);
+        }
 
         // Act
         var result = _emailService.Send(emailDto);
@@ -160,15 +148,11 @@ public class ExternalServiceFailureTests : BaseIntegrationTest
             senderId: 1
         );
 
-        // Mock rate limiting
-        _wireMockServer
-            .Given(Request.Create()
-                .WithPath("/api/email/send")
-                .UsingPost())
-            .RespondWith(Response.Create()
-                .WithStatusCode(429)
-                .WithHeader("Content-Type", "application/json")
-                .WithBody("{\"error\": \"Rate Limited\", \"message\": \"Too many requests\"}"));
+        // Configure EmailServiceTestDouble to simulate rate limiting
+        if (_emailService is EmailServiceTestDouble testDouble)
+        {
+            testDouble.SimulateFailure(EmailServiceBehavior.RateLimited);
+        }
 
         // Act
         var result = _emailService.Send(emailDto);
@@ -196,15 +180,11 @@ public class ExternalServiceFailureTests : BaseIntegrationTest
             Details: new List<AddNotificationDetailRequest>()
         );
 
-        // Mock notification service unavailable
-        _wireMockServer
-            .Given(Request.Create()
-                .WithPath("/api/notifications/send")
-                .UsingPost())
-            .RespondWith(Response.Create()
-                .WithStatusCode(503)
-                .WithHeader("Content-Type", "application/json")
-                .WithBody("{\"error\": \"Service Unavailable\", \"message\": \"Notification service is down\"}"));
+        // Configure mock service to simulate failure
+        if (_notificationService is MockNotificationService mockService)
+        {
+            mockService.SimulateFailure(true);
+        }
 
         // Act
         var result = await _notificationService.SendMessageAsync(notificationRequest);
@@ -246,15 +226,11 @@ public class ExternalServiceFailureTests : BaseIntegrationTest
         var notificationTasks = new List<Task<bool>>();
         var notificationCount = 5;
 
-        // Mock service unavailable for all requests
-        _wireMockServer
-            .Given(Request.Create()
-                .WithPath("/api/notifications/send")
-                .UsingPost())
-            .RespondWith(Response.Create()
-                .WithStatusCode(503)
-                .WithHeader("Content-Type", "application/json")
-                .WithBody("{\"error\": \"Service Unavailable\"}"));
+        // Configure mock service to simulate failure
+        if (_notificationService is MockNotificationService mockService)
+        {
+            mockService.SimulateFailure(true);
+        }
 
         for (int i = 0; i < notificationCount; i++)
         {

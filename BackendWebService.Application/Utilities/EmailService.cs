@@ -25,43 +25,54 @@ namespace Application.Utilities
         /// <returns>True if the email was sent successfully; otherwise, false.</returns>
         private bool SendEmail(EmailDto emailDto)
         {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(EmailConfiguration.CompanyName, EmailConfiguration.From));
-            message.Body = new TextPart("html") { Text = EmailConfiguration.generateTemplate(emailDto.To, emailDto.Body) };
-            message.Subject = emailDto.Subject.Replace("\r\n", " ");
-            List<string> _ToAddress = emailDto.To.Split(';').ToList();
-            foreach (var item in _ToAddress)
+            try
             {
-                if (!string.IsNullOrEmpty(item))
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress(EmailConfiguration.CompanyName, EmailConfiguration.From));
+                message.Body = new TextPart("html") { Text = EmailConfiguration.generateTemplate(emailDto.To, emailDto.Body) };
+                message.Subject = emailDto.Subject.Replace("\r\n", " ");
+                
+                List<string> _ToAddress = emailDto.To.Split(';').ToList();
+                foreach (var item in _ToAddress)
                 {
-                    message.To.Add(new MailboxAddress("", item));
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        message.To.Add(new MailboxAddress("", item));
+                    }
                 }
-            }
 
-            if (emailDto.CC.Trim().Length > 0)
-            {
-                foreach (string addr in emailDto.CC.Split(';'))
+                if (!string.IsNullOrEmpty(emailDto.CC) && emailDto.CC.Trim().Length > 0)
                 {
-                    if (!string.IsNullOrEmpty(addr))
-                        message.Cc.Add(new MailboxAddress("", addr));
+                    foreach (string addr in emailDto.CC.Split(';'))
+                    {
+                        if (!string.IsNullOrEmpty(addr))
+                            message.Cc.Add(new MailboxAddress("", addr));
+                    }
+                }
+                
+                if (!string.IsNullOrEmpty(emailDto.BCC) && emailDto.BCC.Trim().Length > 0)
+                {
+                    foreach (string addr in emailDto.BCC.Split(';'))
+                    {
+                        if (!string.IsNullOrEmpty(addr))
+                            message.Bcc.Add(new MailboxAddress("", addr));
+                    }
+                }
+                
+                using (SmtpClient smtp = new SmtpClient())
+                {
+                    Console.WriteLine("Token " + emailDto.Body);
+                    smtp.Connect(EmailConfiguration.GmailHost, EmailConfiguration.Port, SecureSocketOptions.StartTls);
+                    smtp.Authenticate(EmailConfiguration.From, EmailConfiguration.Password);
+                    smtp.Send(message);
+                    smtp.Disconnect(true);
+                    return true;
                 }
             }
-            if (emailDto.BCC.Trim().Length > 0)
+            catch (Exception ex)
             {
-                foreach (string addr in emailDto.BCC.Split(';'))
-                {
-                    if (!string.IsNullOrEmpty(addr))
-                        message.Bcc.Add(new MailboxAddress("", addr));
-                }
-            }
-            using (SmtpClient smtp = new SmtpClient())
-            {
-                Console.WriteLine("Token " + emailDto.Body);
-                smtp.Connect(EmailConfiguration.GmailHost, EmailConfiguration.Port, SecureSocketOptions.StartTls);
-                smtp.Authenticate(EmailConfiguration.From, EmailConfiguration.Password);
-                smtp.Send(message);
-                smtp.Disconnect(true);
-                return true;
+                Console.WriteLine($"SMTP error: {ex.Message}");
+                return false;
             }
         }
         private int Add(EmailLog request)
@@ -73,20 +84,35 @@ namespace Application.Utilities
 
         public int Send(EmailDto emailDto)
         {
-            var reuslt = SendEmail(emailDto);
-
-            if (reuslt)
+            try
             {
-                var emailRequest = new EmailLog
+                // Validate inputs first
+                if (emailDto == null || string.IsNullOrEmpty(emailDto.To))
                 {
-                    Subject = emailDto.Subject,
-                    Body = emailDto.Body,
-                    SentAt = DateTime.Now,
-                    SenderId = 1 // company.BaseCompanyId ?? 1,
-                };
-                return Add(emailRequest);
+                    return -1; // Invalid recipient
+                }
+
+                var result = SendEmail(emailDto);
+
+                if (result)
+                {
+                    var emailRequest = new EmailLog
+                    {
+                        Subject = emailDto.Subject,
+                        Body = emailDto.Body,
+                        SentAt = DateTime.Now,
+                        SenderId = 1 // company.BaseCompanyId ?? 1,
+                    };
+                    return Add(emailRequest);
+                }
+                return -1;
             }
-            return -1;
+            catch (Exception ex)
+            {
+                // Log error (you can add proper logging here)
+                Console.WriteLine($"Email sending failed: {ex.Message}");
+                return -1; // General error
+            }
         }
     }
 }

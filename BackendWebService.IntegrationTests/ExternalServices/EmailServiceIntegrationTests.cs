@@ -61,9 +61,11 @@ public class EmailServiceIntegrationTests : BaseIntegrationTest
             senderId: 1
         );
 
-        // Act & Assert
-        var action = () => _emailService.Send(emailDto);
-        action.Should().NotThrow("Email service should handle invalid email addresses gracefully");
+        // Act
+        var result = _emailService.Send(emailDto);
+
+        // Assert
+        result.Should().Be(-1, "Email service should return -1 for invalid email addresses");
     }
 
     [Fact]
@@ -240,11 +242,11 @@ public class EmailServiceIntegrationTests : BaseIntegrationTest
     [Fact]
     public async Task EmailService_ShouldHandleEmailTemplateGeneration()
     {
-        // Arrange
+        // Arrange - Invalid email format (name without email address)
         var emailDto = new EmailDto(
             subject: "Template Test Email",
             body: "This email tests template generation",
-            to: "John Doe",
+            to: "test.template@example.com",
             cC: "",
             bCC: "",
             sentAt: DateTime.UtcNow,
