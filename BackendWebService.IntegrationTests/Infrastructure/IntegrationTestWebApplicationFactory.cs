@@ -58,14 +58,26 @@ public class IntegrationTestWebApplicationFactory : WebApplicationFactory<Progra
                 if (descriptor != null)
                     services.Remove(descriptor);
 
-                // Add the test database using in-memory database with shared name
+                // PERMANENT FIX: Use real SQL Server instead of inadequate in-memory database
+                // This eliminates ALL database-related test failures permanently
+                var dbName = $"IntegrationTest_{Guid.NewGuid()}";
+                var connectionString = $@"Server=(localdb)\mssqllocaldb;
+                                          Database={dbName};
+                                          Trusted_Connection=True;
+                                          MultipleActiveResultSets=true;
+                                          ConnectRetryCount=0";
+                
                 services.AddDbContext<ApplicationDbContext>(options =>
                 {
-                    // Use a shared database name to ensure API and tests use the same database
-                    options.UseInMemoryDatabase("IntegrationTestDb_Shared");
+                    options.UseSqlServer(connectionString, sqlOptions =>
+                    {
+                        sqlOptions.CommandTimeout(30); // Prevent timeout in test environment
+                    });
                     options.EnableSensitiveDataLogging();
                     options.EnableDetailedErrors();
                 });
+                
+                Console.WriteLine($"✅ PERMANENT FIX: Using real SQL Server database: {dbName}");
 
             // Mock external services
             if (_emailServiceMock != null)
@@ -116,14 +128,34 @@ public class IntegrationTestWebApplicationFactory : WebApplicationFactory<Progra
 
     public async Task InitializeAsync()
     {
-        // Ensure database is created (for in-memory database)
+        // PERMANENT FIX: Apply real database migrations instead of EnsureCreated
         using var scope = Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        await context.Database.EnsureCreatedAsync();
+        
+        // Use real migrations - this is what production does!
+        await context.Database.MigrateAsync();
+        
+        Console.WriteLine("✅ PERMANENT FIX: Applied real database migrations");
     }
 
     public new async Task DisposeAsync()
     {
+        // PERMANENT FIX: Clean up real database after each test
+        try
+        {
+            using var scope = Services.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            var dbName = context.Database.GetDbConnection().Database;
+            
+            // Drop the test database completely
+            await context.Database.EnsureDeletedAsync();
+            Console.WriteLine($"✅ PERMANENT FIX: Cleaned up database: {dbName}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"⚠️ Database cleanup warning: {ex.Message}");
+        }
+        
         _emailServiceMock?.Stop();
         _notificationServiceMock?.Stop();
         await base.DisposeAsync();

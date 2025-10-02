@@ -26,7 +26,7 @@ public class TransactionIntegrationTests : BaseIntegrationTest
         _unitOfWork = ServiceProvider.GetRequiredService<IUnitOfWork>();
     }
 
-    [Fact(Skip = "Skipped for in-memory database - transactions not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - transactions work!
     public async Task Transaction_ShouldCommitSuccessfully()
     {
         // Arrange
@@ -71,7 +71,7 @@ public class TransactionIntegrationTests : BaseIntegrationTest
         finalCategoryCount.Should().Be(initialCategoryCount + 1, "Category should be added");
     }
 
-    [Fact(Skip = "Skipped for in-memory database - transactions not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - transactions work!
     public async Task Transaction_ShouldRollbackOnError()
     {
         // Arrange
@@ -175,7 +175,7 @@ public class TransactionIntegrationTests : BaseIntegrationTest
         finalCategoryCount.Should().Be(initialCategoryCount + 1, "Category should be saved");
     }
 
-    [Fact(Skip = "Skipped for in-memory database - transactions not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - transactions work!
     public async Task Transaction_ShouldHandleConcurrentTransactions()
     {
         // Arrange
@@ -221,7 +221,7 @@ public class TransactionIntegrationTests : BaseIntegrationTest
         finalCompanyCount.Should().Be(initialCompanyCount + 3, "All concurrent transactions should succeed");
     }
 
-    [Fact(Skip = "Skipped for in-memory database - transactions not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - transactions work!
     public async Task Transaction_ShouldHandleNestedTransactions()
     {
         // Arrange
@@ -279,7 +279,7 @@ public class TransactionIntegrationTests : BaseIntegrationTest
         finalCategoryCount.Should().BeGreaterThan(0, "Category should be saved");
     }
 
-    [Fact(Skip = "Skipped for in-memory database - transactions not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - transactions work!
     public async Task Transaction_ShouldHandleTimeout()
     {
         // Arrange
@@ -312,7 +312,7 @@ public class TransactionIntegrationTests : BaseIntegrationTest
         finalCompanyCount.Should().Be(initialCompanyCount + 1, "Company should be saved despite timeout test");
     }
 
-    [Fact(Skip = "Skipped for in-memory database - transactions not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - transactions work!
     public async Task Transaction_ShouldHandleDeadlock()
     {
         // Arrange

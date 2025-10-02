@@ -146,7 +146,7 @@ public class ComplexQueryIntegrationTests : BaseIntegrationTest
         usersWithCompanies.Should().OnlyContain(u => u.CompanyCount > 0, "All users should have companies in their organization");
     }
 
-    [Fact(Skip = "Skipped for in-memory database - raw SQL not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - raw SQL works!
     public async Task ComplexQuery_ShouldHandleRawSql()
     {
         // Arrange

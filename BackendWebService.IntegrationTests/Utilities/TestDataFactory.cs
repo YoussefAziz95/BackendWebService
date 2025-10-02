@@ -16,7 +16,8 @@ public static class TestDataFactory
         string? userName = null,
         string? firstName = null,
         string? lastName = null,
-        int? organizationId = null)
+        int? organizationId = null,
+        string? phoneNumber = null)
     {
         return new User
         {
@@ -25,7 +26,7 @@ public static class TestDataFactory
             UserName = userName ?? "testuser",
             FirstName = firstName ?? "Test",
             LastName = lastName ?? "User",
-            PhoneNumber = "123-456-7890",
+            PhoneNumber = phoneNumber ?? "123-456-7890",
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
             TwoFactorEnabled = false,

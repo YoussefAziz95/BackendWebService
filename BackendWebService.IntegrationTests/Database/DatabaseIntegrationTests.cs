@@ -30,7 +30,7 @@ public class DatabaseIntegrationTests : BaseIntegrationTest
         canConnect.Should().BeTrue("Database should be created and accessible");
     }
 
-    [Fact(Skip = "Skipped for in-memory database - relational methods not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - relational methods work!
     public async Task Database_ShouldHaveAllRequiredTables()
     {
         // Act
@@ -64,7 +64,7 @@ public class DatabaseIntegrationTests : BaseIntegrationTest
         }
     }
 
-    [Fact(Skip = "Skipped for in-memory database - migrations not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - migrations work!
     public async Task Database_ShouldApplyMigrationsSuccessfully()
     {
         // Act

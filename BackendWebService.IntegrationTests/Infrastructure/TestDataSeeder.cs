@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Persistence.Data;
 using Domain;
+using Domain.Enums;
 using BackendWebService.IntegrationTests.Utilities;
 
 namespace BackendWebService.IntegrationTests.Infrastructure;
@@ -24,12 +25,33 @@ public class TestDataSeeder : ITestDataSeeder
 
     public async Task SeedAllAsync()
     {
+        Console.WriteLine("🌱 Starting data seeding...");
+        
+        // CRITICAL ORDER: Dependencies first!
+        // 1. FileType and FileLog (no dependencies, required by Organization)
+        await SeedFileTypesAndFileLogsAsync();
+        Console.WriteLine("✅ Step 1: FileTypes and FileLogs seeded");
+        
+        // 2. Organizations (depends on FileLog)
         await SeedOrganizationsAsync();
+        Console.WriteLine("✅ Step 2: Organizations seeded");
+        
+        // 3. Roles (no dependencies)
         await SeedRolesAsync();
+        Console.WriteLine("✅ Step 3: Roles seeded");
+        
+        // 4. Users (depends on Organizations and Roles)
         await SeedUsersAsync();
+        Console.WriteLine("✅ Step 4: Users seeded");
+        
+        // 5. Business entities (depend on Organizations)
         await SeedCompaniesAsync();
         await SeedCategoriesAsync();
+        Console.WriteLine("✅ Step 5: Companies and Categories seeded");
+        
         // await SeedActionActorsAsync(); // Commented out for now
+        
+        Console.WriteLine("✅ Data seeding complete!");
     }
 
     public async Task SeedUsersAsync()
@@ -53,19 +75,22 @@ public class TestDataSeeder : ITestDataSeeder
                 userName: "admin",
                 firstName: "Admin",
                 lastName: "User",
-                organizationId: 1),
+                organizationId: 1,
+                phoneNumber: "123-456-7890"), // Add phone number for authentication
             TestDataFactory.CreateUser(
                 email: "user@example.com",
                 userName: "user",
                 firstName: "Regular",
                 lastName: "User",
-                organizationId: 1),
+                organizationId: 1,
+                phoneNumber: "123-456-7891"), // Add phone number for authentication
             TestDataFactory.CreateUser(
                 email: "testuser1@example.com",
                 userName: "testuser1",
                 firstName: "Test",
                 lastName: "User1",
-                organizationId: 1)
+                organizationId: 1,
+                phoneNumber: "123-456-7892") // Add phone number for authentication
         };
 
         foreach (var user in users)
@@ -211,9 +236,13 @@ public class TestDataSeeder : ITestDataSeeder
         _context.ChangeTracker.Clear();
         
         if (await _context.Categories.AnyAsync())
+        {
+            Console.WriteLine("✅ Categories already exist, skipping...");
             return;
+        }
 
-        var categories = new List<Category>
+        // PERMANENT FIX: Insert parent categories first to avoid FK constraint issues
+        var parentCategories = new List<Category>
         {
             TestDataFactory.CreateCategory(
                 name: "Electronics",
@@ -223,19 +252,64 @@ public class TestDataSeeder : ITestDataSeeder
                 organizationId: 1),
             TestDataFactory.CreateCategory(
                 name: "Clothing",
-                organizationId: 1),
+                organizationId: 1)
+        };
+
+        _context.Categories.AddRange(parentCategories);
+        await _context.SaveChangesAsync();
+        Console.WriteLine($"✅ Seeded {parentCategories.Count} parent categories");
+        
+        // Get the IDs of the parent categories
+        var electronics = await _context.Categories.FirstOrDefaultAsync(c => c.Name == "Electronics");
+        var books = await _context.Categories.FirstOrDefaultAsync(c => c.Name == "Books");
+        
+        // Now insert child categories with valid parent IDs
+        var childCategories = new List<Category>
+        {
             TestDataFactory.CreateCategory(
                 name: "Laptops",
                 organizationId: 1,
-                parentId: 1), // Electronics subcategory
+                parentId: electronics?.Id), // Electronics subcategory
             TestDataFactory.CreateCategory(
                 name: "Fiction",
                 organizationId: 1,
-                parentId: 2) // Books subcategory
+                parentId: books?.Id) // Books subcategory
         };
 
-        _context.Categories.AddRange(categories);
+        _context.Categories.AddRange(childCategories);
         await _context.SaveChangesAsync();
+        Console.WriteLine($"✅ Seeded {childCategories.Count} child categories");
+        
+        // Clear ChangeTracker after seeding
+        _context.ChangeTracker.Clear();
+    }
+
+    public async Task SeedFileTypesAndFileLogsAsync()
+    {
+        // Clear ChangeTracker before seeding
+        _context.ChangeTracker.Clear();
+        
+        if (await _context.FileLogs.AnyAsync())
+        {
+            Console.WriteLine("✅ FileLogs already exist, skipping...");
+            return;
+        }
+
+        // PERMANENT FIX: Seed FileType and FileLog with explicit IDs
+        // Note: FileLog.OrganizationId set to NULL initially to break circular dependency
+        await _context.Database.ExecuteSqlRawAsync(@"
+            SET IDENTITY_INSERT [FileType] ON;
+            INSERT INTO [FileType] ([Id], [Type], [Extentions], [CreatedDate], [CreatedBy], [IsActive], [IsDeleted], [IsSystem])
+            VALUES (1, 0, '.pdf,.doc,.docx', GETUTCDATE(), 'System', 1, 0, 1);
+            SET IDENTITY_INSERT [FileType] OFF;
+            
+            SET IDENTITY_INSERT [FileLog] ON;
+            INSERT INTO [FileLog] ([Id], [FileName], [FullPath], [Extention], [FileTypeId], [OrganizationId], [CreatedDate], [CreatedBy], [IsActive], [IsDeleted], [IsSystem])
+            VALUES (1, 'test-file.pdf', '/test/path/test-file.pdf', '.pdf', 1, NULL, GETUTCDATE(), 'System', 1, 0, 1);
+            SET IDENTITY_INSERT [FileLog] OFF;
+        ");
+        
+        Console.WriteLine($"✅ Seeded FileType and FileLog with ID=1");
         
         // Clear ChangeTracker after seeding
         _context.ChangeTracker.Clear();
@@ -247,20 +321,24 @@ public class TestDataSeeder : ITestDataSeeder
         _context.ChangeTracker.Clear();
         
         if (await _context.Organizations.AnyAsync())
-            return;
-
-        var organizations = new List<Organization>
         {
-            TestDataFactory.CreateOrganization(
-                name: "Test Organization 1",
-                country: "Test Country 1"),
-            TestDataFactory.CreateOrganization(
-                name: "Test Organization 2",
-                country: "Test Country 2")
-        };
+            Console.WriteLine("✅ Organizations already exist, skipping...");
+            return;
+        }
 
-        _context.Organizations.AddRange(organizations);
-        await _context.SaveChangesAsync();
+        // PERMANENT FIX: Use raw SQL to insert with explicit ID=1 for FK references
+        await _context.Database.ExecuteSqlRawAsync(@"
+            SET IDENTITY_INSERT [Organization] ON;
+            
+            INSERT INTO [Organization] 
+                ([Id], [Name], [Country], [City], [StreetAddress], [Type], [Phone], [FaxNo], [Email], [TaxNo], [FileId], [CreatedDate], [CreatedBy], [IsActive], [IsDeleted], [IsSystem])
+            VALUES 
+                (1, 'Test Organization', 'USA', 'Test City', '123 Test St', 0, '123-456-7890', '123-456-7891', 'test@testorg.com', 'TAX123456', 1, GETUTCDATE(), 'System', 1, 0, 1);
+            
+            SET IDENTITY_INSERT [Organization] OFF;
+        ");
+        
+        Console.WriteLine($"✅ Seeded organization with ID=1");
         
         // Clear ChangeTracker after seeding
         _context.ChangeTracker.Clear();

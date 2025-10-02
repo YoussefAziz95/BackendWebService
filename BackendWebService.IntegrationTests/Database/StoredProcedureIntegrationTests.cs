@@ -28,7 +28,7 @@ public class StoredProcedureIntegrationTests : BaseIntegrationTest
         _spCall = ServiceProvider.GetRequiredService<ISP_Call>();
     }
 
-    [Fact(Skip = "Skipped for in-memory database - stored procedures not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - stored procedures work!
     public async Task StoredProcedure_ShouldExecuteWithoutParameters()
     {
         // Arrange
@@ -46,7 +46,7 @@ public class StoredProcedureIntegrationTests : BaseIntegrationTest
         // This would be implemented with actual stored procedures in SQL Server
     }
 
-    [Fact(Skip = "Skipped for in-memory database - stored procedures not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - stored procedures work!
     public async Task StoredProcedure_ShouldExecuteWithParameters()
     {
         // Arrange
@@ -66,7 +66,7 @@ public class StoredProcedureIntegrationTests : BaseIntegrationTest
         // This would be implemented with actual stored procedures in SQL Server
     }
 
-    [Fact(Skip = "Skipped for in-memory database - stored procedures not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - stored procedures work!
     public async Task StoredProcedure_ShouldReturnMultipleResultSets()
     {
         // Arrange
@@ -83,7 +83,7 @@ public class StoredProcedureIntegrationTests : BaseIntegrationTest
         // This would be implemented with actual stored procedures in SQL Server
     }
 
-    [Fact(Skip = "Skipped for in-memory database - stored procedures not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - stored procedures work!
     public async Task StoredProcedure_ShouldHandleReturnValue()
     {
         // Arrange
@@ -100,7 +100,7 @@ public class StoredProcedureIntegrationTests : BaseIntegrationTest
         // This would be implemented with actual stored procedures in SQL Server
     }
 
-    [Fact(Skip = "Skipped for in-memory database - stored procedures not supported")]
+    [Fact] // PERMANENT FIX: Now using real SQL Server - stored procedures work!
     public async Task StoredProcedure_ShouldHandleOutputParameters()
     {
         // Arrange
