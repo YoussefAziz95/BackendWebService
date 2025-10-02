@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class ConsumerAccountResponseHandler : ResponseHandler, IRequestHandler<ConsumerAccountRequest, ConsumerAccountResponse>
+public class ConsumerAccountResponseHandler : ResponseHandler, IRequestByIdHandler<ConsumerAccountResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -13,9 +13,9 @@ internal class ConsumerAccountResponseHandler : ResponseHandler, IRequestHandler
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<ConsumerAccountResponse> Handle(ConsumerAccountRequest request)
+    public IResponse<ConsumerAccountResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<ConsumerAccount>().Get();
+        var entity = _unitOfWork.GenericRepository<ConsumerAccount>().GetById(id);
 
         var result = ConsumerAccountResponse.FromEntity(entity);
 

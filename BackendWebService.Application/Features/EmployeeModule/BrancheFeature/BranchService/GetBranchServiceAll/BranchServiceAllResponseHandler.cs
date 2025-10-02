@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class BranchServiceAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<BranchServiceAllRequest, List<BranchServiceAllResponse>>
+public class BranchServiceAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<BranchServiceAllRequest, List<BranchServiceAllResponse>>
 {
     public IResponse<List<BranchServiceAllResponse>> Handle(BranchServiceAllRequest request)
     {

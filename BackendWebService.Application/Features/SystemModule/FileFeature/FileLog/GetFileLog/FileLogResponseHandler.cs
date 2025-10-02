@@ -3,12 +3,12 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class FileLogResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<FileLogRequest, FileLogResponse>
+public class FileLogResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<FileLogResponse>
 {
 
-    public IResponse<FileLogResponse> Handle(FileLogRequest request)
+    public IResponse<FileLogResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<FileLog>().Get();
+        var entity = unitOfWork.GenericRepository<FileLog>().GetById(id);
 
         var result = FileLogResponse.FromEntity(entity);
 

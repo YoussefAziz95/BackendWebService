@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 
 namespace Application.Features;
 public record WorkflowAllResponse(

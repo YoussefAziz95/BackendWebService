@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class RoleResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<RoleRequest, RoleResponse>
+public class RoleResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<RoleResponse>
 {
 
-    public IResponse<RoleResponse> Handle(RoleRequest request)
+    public IResponse<RoleResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Role>().Get();
+        var entity = unitOfWork.GenericRepository<Role>().GetById(id);
 
         var result = RoleResponse.FromEntity(entity);
 

@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class ConsumerDocumentResponseHandler : ResponseHandler, IRequestHandler<ConsumerDocumentRequest, ConsumerDocumentResponse>
+public class ConsumerDocumentResponseHandler : ResponseHandler, IRequestByIdHandler<ConsumerDocumentResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -12,9 +12,9 @@ internal class ConsumerDocumentResponseHandler : ResponseHandler, IRequestHandle
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<ConsumerDocumentResponse> Handle(ConsumerDocumentRequest request)
-    {
-        var entity = _unitOfWork.GenericRepository<ConsumerDocument>().Get();
+    public IResponse<ConsumerDocumentResponse> Handle(int id)
+    { 
+        var entity = _unitOfWork.GenericRepository<ConsumerDocument>().GetById(id);
 
         var result = ConsumerDocumentResponse.FromEntity(entity);
 

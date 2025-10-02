@@ -4,7 +4,7 @@ using FluentValidation;
 using SharedKernel.ValidationBase;
 
 namespace Application.Features;
-public record TranslationKeyllRequest(
+public record TranslationKeyAllRequest(
 string Key,
 LanguageEnum Language,
 TableNameEnum TableName,
@@ -15,7 +15,7 @@ int PageSize = 100,
 string FilterBy = "none",
 string? SortBy = "asc") : IRequest<List<TranslationKeyAllResponse>>
 {
-    public IValidator<TranslationKeyllRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<TranslationKeyllRequest> validator)
+    public IValidator<TranslationKeyAllRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<TranslationKeyAllRequest> validator)
     {
         throw new NotImplementedException();
     }

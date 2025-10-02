@@ -17,7 +17,7 @@ int AccessFailedCount,
 string AccountStatus,
 string? AccountStatusReason,
 DateTime CreatedDate,
-DateTime? UpdatedDate) : IConvertibleFromEntity<ClientAccount, ClientAccountResponse>, IRequest<int>
+DateTime? UpdatedDate) : IConvertibleFromEntity<ClientAccount, ClientAccountResponse>
 {
     public static ClientAccountResponse FromEntity(ClientAccount ClientAccount) =>
     new ClientAccountResponse(

@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class UserGroupResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<UserGroupRequest, UserGroupResponse>
+public class UserGroupResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<UserGroupResponse>
 {
 
-    public IResponse<UserGroupResponse> Handle(UserGroupRequest request)
+    public IResponse<UserGroupResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<UserGroup>().Get();
+        var entity = unitOfWork.GenericRepository<UserGroup>().GetById(id);
 
         var result = UserGroupResponse.FromEntity(entity);
 

@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class TimeSlotResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<TimeSlotRequest, TimeSlotResponse>
+public class TimeSlotResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<TimeSlotResponse>
 {
 
-    public IResponse<TimeSlotResponse> Handle(TimeSlotRequest request)
+    public IResponse<TimeSlotResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<TimeSlot>().Get();
+        var entity = unitOfWork.GenericRepository<TimeSlot>().GetById(id);
 
         var result = TimeSlotResponse.FromEntity(entity);
 

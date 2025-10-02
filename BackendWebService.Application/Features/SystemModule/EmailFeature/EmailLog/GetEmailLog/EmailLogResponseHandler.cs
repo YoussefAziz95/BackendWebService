@@ -3,12 +3,12 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class EmailLogResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<EmailLogRequest, EmailLogResponse>
+public class EmailLogResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<EmailLogResponse>
 {
 
-    public IResponse<EmailLogResponse> Handle(EmailLogRequest request)
+    public IResponse<EmailLogResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<EmailLog>().Get();
+        var entity = unitOfWork.GenericRepository<EmailLog>().GetById(id);
 
         var result = EmailLogResponse.FromEntity(entity);
 

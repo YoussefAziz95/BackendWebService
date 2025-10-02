@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class PortionTypeAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<PortionTypeAllRequest, List<PortionTypeAllResponse>>
+public class PortionTypeAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<PortionTypeAllRequest, List<PortionTypeAllResponse>>
 {
     public IResponse<List<PortionTypeAllResponse>> Handle(PortionTypeAllRequest request)
     {

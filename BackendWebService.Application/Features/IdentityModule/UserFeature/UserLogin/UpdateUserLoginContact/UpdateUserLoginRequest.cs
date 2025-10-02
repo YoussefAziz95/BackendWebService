@@ -3,8 +3,6 @@ using Application.Profiles;
 using Domain;
 namespace Application.Features;
 public record UpdateUserLoginRequest(
-UpdateUserLoginRequest UserLogin,
-UpdateUserRequest User,
 int? OrganizationId,
 DateTime LoggedOn,
 bool? IsActive,
@@ -17,7 +15,6 @@ string? UpdatedBy) : IConvertibleToEntity<UserLogin>, IRequest<int>
 {
     public UserLogin ToEntity() => new UserLogin
     {
-        User = User.ToEntity(),
         OrganizationId = OrganizationId,
         LoggedOn = LoggedOn,
         IsActive = IsActive,

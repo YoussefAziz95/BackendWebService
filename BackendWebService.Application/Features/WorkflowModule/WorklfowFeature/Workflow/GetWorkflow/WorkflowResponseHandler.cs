@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class WorkflowResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<WorkflowResponse>
+public class WorkflowResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<WorkflowResponse>
 {
 
     public IResponse<WorkflowResponse> Handle(int id)

@@ -5,12 +5,12 @@ using Domain;
 
 namespace Application.Features;
 
-internal class PaymentMethodResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<PaymentMethodRequest, PaymentMethodResponse>
+public class PaymentMethodResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<PaymentMethodResponse>
 {
 
-    public IResponse<PaymentMethodResponse> Handle(PaymentMethodRequest request)
+    public IResponse<PaymentMethodResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<PaymentMethod>().Get();
+        var entity = unitOfWork.GenericRepository<PaymentMethod>().GetById(id);
 
         var result = PaymentMethodResponse.FromEntity(entity);
 

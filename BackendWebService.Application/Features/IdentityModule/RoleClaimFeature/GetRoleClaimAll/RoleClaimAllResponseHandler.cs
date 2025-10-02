@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class RoleClaimAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<RoleClaimAllRequest, List<RoleClaimAllResponse>>
+public class RoleClaimAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<RoleClaimAllRequest, List<RoleClaimAllResponse>>
 {
     public IResponse<List<RoleClaimAllResponse>> Handle(RoleClaimAllRequest request)
     {

@@ -5,7 +5,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteZoneRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteZoneRequest, string>
+public class DeleteZoneRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteZoneRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteZoneRequest request)
     {

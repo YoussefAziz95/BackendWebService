@@ -7,7 +7,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteJobVerificationRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteJobVerificationRequest, string>
+public class DeleteJobVerificationRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteJobVerificationRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteJobVerificationRequest request)
     {

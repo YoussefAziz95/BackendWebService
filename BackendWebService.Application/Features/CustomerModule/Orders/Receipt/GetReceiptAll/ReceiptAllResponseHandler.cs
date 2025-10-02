@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class ReceiptAllResponseHandler : ResponseHandler, IRequestHandler<ReceiptAllRequest, List<ReceiptAllResponse>>
+public class ReceiptAllResponseHandler : ResponseHandler, IRequestHandler<ReceiptAllRequest, List<ReceiptAllResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

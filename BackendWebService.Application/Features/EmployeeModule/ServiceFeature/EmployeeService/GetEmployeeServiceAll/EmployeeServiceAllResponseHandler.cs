@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class EmployeeServiceAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<EmployeeServiceAllRequest, List<EmployeeServiceAllResponse>>
+public class EmployeeServiceAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<EmployeeServiceAllRequest, List<EmployeeServiceAllResponse>>
 {
     public IResponse<List<EmployeeServiceAllResponse>> Handle(EmployeeServiceAllRequest request)
     {

@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteInventoryRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteInventoryRequest, string>
+public class DeleteInventoryRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteInventoryRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteInventoryRequest request)
     {

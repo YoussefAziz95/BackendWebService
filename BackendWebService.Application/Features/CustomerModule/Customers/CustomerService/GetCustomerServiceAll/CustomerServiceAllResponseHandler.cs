@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class CustomerServiceAllResponseHandler : ResponseHandler, IRequestHandler<CustomerServiceAllRequest, List<CustomerServiceAllResponse>>
+public class CustomerServiceAllResponseHandler : ResponseHandler, IRequestHandler<CustomerServiceAllRequest, List<CustomerServiceAllResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

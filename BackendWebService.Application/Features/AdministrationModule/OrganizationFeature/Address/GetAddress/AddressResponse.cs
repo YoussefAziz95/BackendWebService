@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 
 namespace Application.Features;
@@ -9,7 +10,7 @@ string? FullAddress,
 string Street,
 string Zone,
 string State,
-string City) : IConvertibleFromEntity<Address, AddressResponse>
+string City) : IConvertibleFromEntity<Address, AddressResponse>, IRequest<int>
 {
     public static AddressResponse FromEntity(Address Address) =>
         new AddressResponse(

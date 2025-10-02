@@ -7,7 +7,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteBranchServiceRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteBranchServiceRequest, string>
+public class DeleteBranchServiceRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteBranchServiceRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteBranchServiceRequest request)
     {

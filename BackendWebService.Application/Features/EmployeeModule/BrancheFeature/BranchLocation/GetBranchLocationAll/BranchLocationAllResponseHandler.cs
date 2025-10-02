@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class BranchLocationAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<BranchLocationAllRequest, List<BranchLocationAllResponse>>
+public class BranchLocationAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<BranchLocationAllRequest, List<BranchLocationAllResponse>>
 {
     public IResponse<List<BranchLocationAllResponse>> Handle(BranchLocationAllRequest request)
     {

@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteConsumerDocumentRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteConsumerDocumentRequest, string>
+public class DeleteConsumerDocumentRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteConsumerDocumentRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteConsumerDocumentRequest request)
     {

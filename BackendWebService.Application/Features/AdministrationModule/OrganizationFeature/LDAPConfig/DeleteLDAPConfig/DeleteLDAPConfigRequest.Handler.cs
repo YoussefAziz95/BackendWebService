@@ -7,7 +7,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteLDAPConfigRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteLDAPConfigRequest, string>
+public class DeleteLDAPConfigRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteLDAPConfigRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteLDAPConfigRequest request)
     {

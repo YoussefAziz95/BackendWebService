@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class GetUserOrdersQueryHandler : ResponseHandler, IRequestHandler<GetUserOrdersQuery, List<GetUserOrdersQueryResult>>
+public class GetUserOrdersQueryHandler : ResponseHandler, IRequestHandler<GetUserOrdersQuery, List<GetUserOrdersQueryResult>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

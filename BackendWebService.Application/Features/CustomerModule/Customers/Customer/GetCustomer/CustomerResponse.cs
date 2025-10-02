@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain.Enums;
 
 namespace Application.Features;
@@ -8,7 +9,7 @@ RoleEnum Role,
 StatusEnum Status,
 List<CustomerServiceResponse> CustomerServices,
 List<CustomerPaymentMethodResponse> CustomerPaymentMethods,
-bool? MFAEnabled = false) : IConvertibleFromEntity<Customer, CustomerResponse>
+bool? MFAEnabled = false) : IConvertibleFromEntity<Customer, CustomerResponse>, IRequest<int>
 {
     public static CustomerResponse FromEntity(Customer Customer) =>
     new CustomerResponse(

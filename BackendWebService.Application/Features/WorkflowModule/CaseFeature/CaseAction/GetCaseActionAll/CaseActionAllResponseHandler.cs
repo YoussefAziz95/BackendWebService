@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class CaseActionAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<CaseActionAllRequest, List<CaseActionAllResponse>>
+public class CaseActionAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<CaseActionAllRequest, List<CaseActionAllResponse>>
 {
     public IResponse<List<CaseActionAllResponse>> Handle(CaseActionAllRequest request)
     {

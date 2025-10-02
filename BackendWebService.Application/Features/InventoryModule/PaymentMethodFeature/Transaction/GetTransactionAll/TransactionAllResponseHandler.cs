@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class TransactionAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<TransactionAllRequest, List<TransactionAllResponse>>
+public class TransactionAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<TransactionAllRequest, List<TransactionAllResponse>>
 {
     public IResponse<List<TransactionAllResponse>> Handle(TransactionAllRequest request)
     {

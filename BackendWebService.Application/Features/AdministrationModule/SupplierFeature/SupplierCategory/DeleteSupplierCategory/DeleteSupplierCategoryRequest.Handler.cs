@@ -6,7 +6,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteSupplierCategoryRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteSupplierCategoryRequest, string>
+public class DeleteSupplierCategoryRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteSupplierCategoryRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteSupplierCategoryRequest request)
     {

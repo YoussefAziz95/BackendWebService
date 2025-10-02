@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class PortionTypeResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<PortionTypeRequest, PortionTypeResponse>
+public class PortionTypeResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<PortionTypeResponse>
 {
 
-    public IResponse<PortionTypeResponse> Handle(PortionTypeRequest request)
+    public IResponse<PortionTypeResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<PortionType>().Get();
+        var entity = unitOfWork.GenericRepository<PortionType>().GetById(id);
 
         var result = PortionTypeResponse.FromEntity(entity);
 

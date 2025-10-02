@@ -5,7 +5,7 @@ using Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features;
-internal class GetAllOrdersQueryHandler : ResponseHandler, IRequestHandler<GetAllOrdersQuery, List<GetAllOrdersQueryResult>>
+public class GetAllOrdersQueryHandler : ResponseHandler, IRequestHandler<GetAllOrdersQuery, List<GetAllOrdersQueryResult>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

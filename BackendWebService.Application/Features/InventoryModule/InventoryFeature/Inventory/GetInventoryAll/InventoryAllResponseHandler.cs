@@ -4,7 +4,7 @@ using Application.Wrappers;
 
 namespace Application.Features;
 
-internal class InventoryAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<InventoryAllRequest, List<InventoryAllResponse>>
+public class InventoryAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<InventoryAllRequest, List<InventoryAllResponse>>
 {
     public IResponse<List<InventoryAllResponse>> Handle(InventoryAllRequest request)
     {

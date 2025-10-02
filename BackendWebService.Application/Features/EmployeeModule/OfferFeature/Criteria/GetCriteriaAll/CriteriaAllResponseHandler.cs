@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class CriteriaAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<CriteriaAllRequest, List<CriteriaAllResponse>>
+public class CriteriaAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<CriteriaAllRequest, List<CriteriaAllResponse>>
 {
     public IResponse<List<CriteriaAllResponse>> Handle(CriteriaAllRequest request)
     {

@@ -6,7 +6,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteClientPropertyRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteClientPropertyRequest, string>
+public class DeleteClientPropertyRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteClientPropertyRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteClientPropertyRequest request)
     {

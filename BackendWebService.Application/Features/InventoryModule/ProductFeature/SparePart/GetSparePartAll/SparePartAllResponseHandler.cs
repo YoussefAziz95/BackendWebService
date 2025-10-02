@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class SparePartAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<SparePartAllRequest, List<SparePartAllResponse>>
+public class SparePartAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<SparePartAllRequest, List<SparePartAllResponse>>
 {
     public IResponse<List<SparePartAllResponse>> Handle(SparePartAllRequest request)
     {

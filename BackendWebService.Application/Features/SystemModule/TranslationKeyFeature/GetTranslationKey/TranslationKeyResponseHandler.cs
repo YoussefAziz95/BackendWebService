@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class TranslationKeyResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<TranslationKeyRequest, TranslationKeyResponse>
+public class TranslationKeyResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<TranslationKeyResponse>
 {
 
-    public IResponse<TranslationKeyResponse> Handle(TranslationKeyRequest request)
+    public IResponse<TranslationKeyResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<TranslationKey>().Get();
+        var entity = unitOfWork.GenericRepository<TranslationKey>().GetById(id);
 
         var result = TranslationKeyResponse.FromEntity(entity);
 

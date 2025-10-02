@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 using Domain.Enums;
 
@@ -7,7 +8,7 @@ public record BranchContactResponse(
     int BranchId,
     string Type,
      string Value,
-   ContactEnum? ContactType) : IConvertibleFromEntity<BranchContact, BranchContactResponse>
+   ContactEnum? ContactType) : IConvertibleFromEntity<BranchContact, BranchContactResponse>, IRequest<int>
 {
     public static BranchContactResponse FromEntity(BranchContact BranchContact) =>
     new BranchContactResponse(

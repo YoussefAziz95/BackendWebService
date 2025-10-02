@@ -5,7 +5,7 @@ using Domain;
 
 namespace Application.Features;
 
-internal class ItemAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<ItemAllRequest, List<ItemAllResponse>>
+public class ItemAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<ItemAllRequest, List<ItemAllResponse>>
 {
     public IResponse<List<ItemAllResponse>> Handle(ItemAllRequest request)
     {

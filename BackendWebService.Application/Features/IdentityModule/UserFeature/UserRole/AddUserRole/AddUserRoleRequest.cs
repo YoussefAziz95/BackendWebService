@@ -5,7 +5,6 @@ using Domain;
 namespace Application.Features;
 
 public record AddUserRoleRequest(
-AddUserRequest User,
 AddRoleRequest Role,
 int? OrganizationId,
 bool? IsActive,
@@ -18,7 +17,6 @@ string? UpdatedBy) : IConvertibleToEntity<UserRole>, IRequest<int>
 {
     public UserRole ToEntity() => new UserRole
     {
-        User = User.ToEntity(),
         Role = Role.ToEntity(),
         OrganizationId = OrganizationId,
         IsActive = IsActive,

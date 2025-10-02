@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 
 namespace Application.Features;
@@ -9,7 +10,7 @@ DateTime StartDate,
 DateTime EndDate,
 DateTime? ExpirationTime,
 bool IsVerified,
-List<EmployeeAssignmentResponse> EmployeeAssignments) : IConvertibleFromEntity<Job, JobResponse>
+List<EmployeeAssignmentResponse> EmployeeAssignments) : IConvertibleFromEntity<Job, JobResponse>, IRequest<int>
 {
     public static JobResponse FromEntity(Job Job) =>
     new JobResponse(

@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class ConsumerAllResponseHandler : ResponseHandler, IRequestHandler<ConsumerAllRequest, List<ConsumerAllResponse>>
+public class ConsumerAllResponseHandler : ResponseHandler, IRequestHandler<ConsumerAllRequest, List<ConsumerAllResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

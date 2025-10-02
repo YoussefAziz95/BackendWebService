@@ -5,7 +5,7 @@ using Domain;
 
 namespace Application.Features;
 
-internal class JobVerificationAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<JobVerificationAllRequest, List<JobVerificationAllResponse>>
+public class JobVerificationAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<JobVerificationAllRequest, List<JobVerificationAllResponse>>
 {
     public IResponse<List<JobVerificationAllResponse>> Handle(JobVerificationAllRequest request)
     {

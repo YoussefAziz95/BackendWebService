@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class EmployeeAssignmentAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<EmployeeAssignmentAllRequest, List<EmployeeAssignmentAllResponse>>
+public class EmployeeAssignmentAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<EmployeeAssignmentAllRequest, List<EmployeeAssignmentAllResponse>>
 {
     public IResponse<List<EmployeeAssignmentAllResponse>> Handle(EmployeeAssignmentAllRequest request)
     {

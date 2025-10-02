@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class OrganizationResponseHandler : ResponseHandler, IRequestHandler<OrganizationRequest, OrganizationResponse>
+public class OrganizationResponseHandler : ResponseHandler, IRequestByIdHandler<OrganizationResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -12,9 +12,9 @@ internal class OrganizationResponseHandler : ResponseHandler, IRequestHandler<Or
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<OrganizationResponse> Handle(OrganizationRequest request)
+    public IResponse<OrganizationResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<Organization>().Get();
+        var entity = _unitOfWork.GenericRepository<Organization>().GetById(id);
 
         var result = OrganizationResponse.FromEntity(entity);
 

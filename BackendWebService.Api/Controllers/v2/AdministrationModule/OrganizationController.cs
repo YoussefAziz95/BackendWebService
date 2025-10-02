@@ -1,6 +1,8 @@
 ﻿using Api.Base;
 using Application.Contracts.Features;
 using Application.Features;
+using Domain.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.v2;
@@ -9,6 +11,7 @@ namespace Api.Controllers.v2;
 [ApiController]
 [ApiVersion("2.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
+[AllowAnonymous]
 public class OrganizationController(IMediator mediator) : AppControllerBase
 {
     //-------------------------------

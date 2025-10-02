@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class SpareResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<SpareRequest, SpareResponse>
+public class SpareResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<SpareResponse>
 {
 
-    public IResponse<SpareResponse> Handle(SpareRequest request)
+    public IResponse<SpareResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Spare>().Get();
+        var entity = unitOfWork.GenericRepository<Spare>().GetById(id);
 
         var result = SpareResponse.FromEntity(entity);
 

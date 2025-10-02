@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class GoogleConfigAllResponseHandler : ResponseHandler, IRequestHandler<GoogleConfigAllRequest, List<GoogleConfigAllResponse>>
+public class GoogleConfigAllResponseHandler : ResponseHandler, IRequestHandler<GoogleConfigAllRequest, List<GoogleConfigAllResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

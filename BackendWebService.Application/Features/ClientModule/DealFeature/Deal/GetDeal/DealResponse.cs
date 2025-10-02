@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 
 namespace Application.Features;
@@ -14,7 +15,7 @@ int? StatusId,
 decimal? TotalPrice,
 decimal? FinalPrice,
 List<DealDocumentResponse>? DealDocuments,
-List<DealDetailsResponse>? DealDetails) : IConvertibleFromEntity<Deal, DealResponse>
+List<DealDetailsResponse>? DealDetails) : IConvertibleFromEntity<Deal, DealResponse>, IRequest<int>
 {
     public static DealResponse FromEntity(Deal Deal) =>
     new DealResponse(

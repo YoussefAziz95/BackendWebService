@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class ContactResponseHandler : ResponseHandler, IRequestHandler<ContactRequest, ContactResponse>
+public class ContactResponseHandler : ResponseHandler, IRequestByIdHandler<ContactResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -13,9 +13,9 @@ internal class ContactResponseHandler : ResponseHandler, IRequestHandler<Contact
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<ContactResponse> Handle(ContactRequest request)
+    public IResponse<ContactResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<Contact>().Get();
+        var entity = _unitOfWork.GenericRepository<Contact>().GetById(id);
 
         var result = ContactResponse.FromEntity(entity);
 

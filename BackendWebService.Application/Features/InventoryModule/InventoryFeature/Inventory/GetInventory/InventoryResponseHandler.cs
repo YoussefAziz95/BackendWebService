@@ -4,12 +4,12 @@ using Application.Wrappers;
 
 namespace Application.Features;
 
-internal class InventoryResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<InventoryRequest, InventoryResponse>
+public class InventoryResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<InventoryResponse>
 {
 
-    public IResponse<InventoryResponse> Handle(InventoryRequest request)
+    public IResponse<InventoryResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Inventory>().Get();
+        var entity = unitOfWork.GenericRepository<Inventory>().GetById(id);
 
         var result = InventoryResponse.FromEntity(entity);
 

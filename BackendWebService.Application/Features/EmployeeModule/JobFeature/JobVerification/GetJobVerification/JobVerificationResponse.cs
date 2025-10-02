@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 using Domain.Enums;
 
@@ -8,7 +9,7 @@ int EmployeeId,
 VerificationEnum Verification,
 string VerificationCode,
 DateTime ExpirationTime,
-bool IsVerified) : IConvertibleFromEntity<JobVerification, JobVerificationResponse>
+bool IsVerified) : IConvertibleFromEntity<JobVerification, JobVerificationResponse>, IRequest<int>
 {
     public static JobVerificationResponse FromEntity(JobVerification JobVerification) =>
     new JobVerificationResponse(

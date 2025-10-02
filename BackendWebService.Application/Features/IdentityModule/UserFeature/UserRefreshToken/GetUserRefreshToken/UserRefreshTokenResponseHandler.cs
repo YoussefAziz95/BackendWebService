@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class UserRefreshTokenResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<UserRefreshTokenRequest, UserRefreshTokenResponse>
+public class UserRefreshTokenResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<UserRefreshTokenResponse>
 {
 
-    public IResponse<UserRefreshTokenResponse> Handle(UserRefreshTokenRequest request)
+    public IResponse<UserRefreshTokenResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<UserRefreshToken>().Get();
+        var entity = unitOfWork.GenericRepository<UserRefreshToken>().GetById(id);
 
         var result = UserRefreshTokenResponse.FromEntity(entity);
 

@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class LoggingResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<LoggingRequest, LoggingResponse>
+public class LoggingResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<LoggingResponse>
 {
 
-    public IResponse<LoggingResponse> Handle(LoggingRequest request)
+    public IResponse<LoggingResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Logging>().Get();
+        var entity = unitOfWork.GenericRepository<Logging>().GetById(id);
 
         var result = LoggingResponse.FromEntity(entity);
 

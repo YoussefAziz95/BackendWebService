@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class FileTypeAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<FileTypeAllRequest, List<FileTypeAllResponse>>
+public class FileTypeAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<FileTypeAllRequest, List<FileTypeAllResponse>>
 {
     public IResponse<List<FileTypeAllResponse>> Handle(FileTypeAllRequest request)
     {

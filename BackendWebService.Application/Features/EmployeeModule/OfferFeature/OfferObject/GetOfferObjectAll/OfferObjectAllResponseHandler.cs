@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class OfferObjectAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<OfferObjectAllRequest, List<OfferObjectAllResponse>>
+public class OfferObjectAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<OfferObjectAllRequest, List<OfferObjectAllResponse>>
 {
     public IResponse<List<OfferObjectAllResponse>> Handle(OfferObjectAllRequest request)
     {

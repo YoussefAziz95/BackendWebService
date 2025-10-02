@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class SupplierCategoryAllResponseHandler : ResponseHandler, IRequestHandler<SupplierCategoryAllRequest, List<SupplierCategoryAllResponse>>
+public class SupplierCategoryAllResponseHandler : ResponseHandler, IRequestHandler<SupplierCategoryAllRequest, List<SupplierCategoryAllResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

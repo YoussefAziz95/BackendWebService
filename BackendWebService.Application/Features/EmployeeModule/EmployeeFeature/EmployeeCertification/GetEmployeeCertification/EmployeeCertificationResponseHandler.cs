@@ -3,12 +3,12 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class EmployeeCertificationResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<EmployeeCertificationRequest, EmployeeCertificationResponse>
+public class EmployeeCertificationResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<EmployeeCertificationResponse>
 {
 
-    public IResponse<EmployeeCertificationResponse> Handle(EmployeeCertificationRequest request)
+    public IResponse<EmployeeCertificationResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<EmployeeCertification>().Get();
+        var entity = unitOfWork.GenericRepository<EmployeeCertification>().GetById(id);
 
         var result = EmployeeCertificationResponse.FromEntity(entity);
 

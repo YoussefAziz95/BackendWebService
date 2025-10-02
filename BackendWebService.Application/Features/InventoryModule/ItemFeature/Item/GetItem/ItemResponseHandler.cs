@@ -5,12 +5,12 @@ using Domain;
 
 namespace Application.Features;
 
-internal class ItemResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<ItemRequest, ItemResponse>
+public class ItemResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<ItemResponse>
 {
 
-    public IResponse<ItemResponse> Handle(ItemRequest request)
+    public IResponse<ItemResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Item>().Get();
+        var entity = unitOfWork.GenericRepository<Item>().GetById(id);
 
         var result = ItemResponse.FromEntity(entity);
 

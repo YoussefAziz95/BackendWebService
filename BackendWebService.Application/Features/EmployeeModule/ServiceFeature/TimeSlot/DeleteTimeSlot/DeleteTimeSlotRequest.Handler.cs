@@ -7,7 +7,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteTimeSlotRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteTimeSlotRequest, string>
+public class DeleteTimeSlotRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteTimeSlotRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteTimeSlotRequest request)
     {

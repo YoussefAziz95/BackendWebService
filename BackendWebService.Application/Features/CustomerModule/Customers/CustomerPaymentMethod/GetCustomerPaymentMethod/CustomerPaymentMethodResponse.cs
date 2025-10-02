@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 using Domain.Enums;
 
@@ -16,7 +17,7 @@ string Description,
 DateTime RequestedDate,
 DateTime? ScheduledDate,
 DateTime? CompletedDate,
-int? UpdatedByUserId) : IConvertibleFromEntity<CustomerPaymentMethod, CustomerPaymentMethodResponse>
+int? UpdatedByUserId) : IConvertibleFromEntity<CustomerPaymentMethod, CustomerPaymentMethodResponse>, IRequest<int>
 {
     public static CustomerPaymentMethodResponse FromEntity(CustomerPaymentMethod CustomerPaymentMethod) =>
     new CustomerPaymentMethodResponse(

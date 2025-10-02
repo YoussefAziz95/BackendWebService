@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class TransactionResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<TransactionRequest, TransactionResponse>
+public class TransactionResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<TransactionResponse>
 {
 
-    public IResponse<TransactionResponse> Handle(TransactionRequest request)
+    public IResponse<TransactionResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Transaction>().Get();
+        var entity = unitOfWork.GenericRepository<Transaction>().GetById(id);
 
         var result = TransactionResponse.FromEntity(entity);
 

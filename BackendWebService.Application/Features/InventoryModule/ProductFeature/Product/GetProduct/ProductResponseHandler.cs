@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class ProductResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<ProductRequest, ProductResponse>
+public class ProductResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<ProductResponse>
 {
 
-    public IResponse<ProductResponse> Handle(ProductRequest request)
+    public IResponse<ProductResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Product>().Get();
+        var entity = unitOfWork.GenericRepository<Product>().GetById(id);
 
         var result = ProductResponse.FromEntity(entity);
 

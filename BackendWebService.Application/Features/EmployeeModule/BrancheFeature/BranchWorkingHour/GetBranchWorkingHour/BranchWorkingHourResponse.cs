@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 
 namespace Application.Features;
@@ -7,7 +8,7 @@ int BranchId,
 DayOfWeek DayOfWeek,
 TimeSpan OpenTime,
 TimeSpan CloseTime,
-bool IsClosed) : IConvertibleFromEntity<BranchWorkingHour, BranchWorkingHourResponse>
+bool IsClosed) : IConvertibleFromEntity<BranchWorkingHour, BranchWorkingHourResponse>, IRequest<int>
 {
     public static BranchWorkingHourResponse FromEntity(BranchWorkingHour BranchWorkingHour) =>
     new BranchWorkingHourResponse(

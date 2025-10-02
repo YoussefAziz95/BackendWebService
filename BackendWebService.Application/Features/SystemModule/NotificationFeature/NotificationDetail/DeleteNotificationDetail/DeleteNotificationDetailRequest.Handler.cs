@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteNotificationDetailRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteNotificationDetailRequest, string>
+public class DeleteNotificationDetailRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteNotificationDetailRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteNotificationDetailRequest request)
     {

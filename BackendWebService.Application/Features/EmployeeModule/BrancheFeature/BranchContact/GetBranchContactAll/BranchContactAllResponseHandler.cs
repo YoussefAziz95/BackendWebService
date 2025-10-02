@@ -4,18 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class BranchContactAllResponseHandler : ResponseHandler, IRequestHandler<BranchContactAllRequest, List<BranchContactAllResponse>>
+public class BranchContactAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<BranchContactAllRequest, List<BranchContactAllResponse>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
-    public BranchContactAllResponseHandler(IUnitOfWork unitOfWork)
-    {
-        _unitOfWork = unitOfWork;
-    }
 
     public IResponse<List<BranchContactAllResponse>> Handle(BranchContactAllRequest request)
     {
-        var entity = _unitOfWork.GenericRepository<BranchContact>().GetAll();
+        var entity = unitOfWork.GenericRepository<BranchContact>().GetAll();
 
         var result = entity.Select(BranchContactAllResponse.FromEntity).ToList();
 

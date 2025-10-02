@@ -3,12 +3,12 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class AttachmentResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<AttachmentRequest, AttachmentResponse>
+public class AttachmentResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<AttachmentResponse>
 {
 
-    public IResponse<AttachmentResponse> Handle(AttachmentRequest request)
+    public IResponse<AttachmentResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Attachment>().Get();
+        var entity = unitOfWork.GenericRepository<Attachment>().GetById(id);
 
         var result = AttachmentResponse.FromEntity(entity);
 

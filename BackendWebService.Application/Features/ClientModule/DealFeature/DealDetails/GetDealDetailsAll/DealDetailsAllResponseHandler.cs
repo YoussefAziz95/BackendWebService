@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class DealDetailsAllResponseHandler : ResponseHandler, IRequestHandler<DealDetailsAllRequest, List<DealDetailsAllResponse>>
+public class DealDetailsAllResponseHandler : ResponseHandler, IRequestHandler<DealDetailsAllRequest, List<DealDetailsAllResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

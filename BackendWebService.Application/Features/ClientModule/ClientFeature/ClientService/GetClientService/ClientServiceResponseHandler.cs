@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class ClientServiceResponseHandler : ResponseHandler, IRequestHandler<ClientServiceRequest, ClientServiceResponse>
+public class ClientServiceResponseHandler : ResponseHandler, IRequestByIdHandler<ClientServiceResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -12,9 +12,9 @@ internal class ClientServiceResponseHandler : ResponseHandler, IRequestHandler<C
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<ClientServiceResponse> Handle(ClientServiceRequest request)
+    public IResponse<ClientServiceResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<ClientService>().Get();
+        var entity = _unitOfWork.GenericRepository<ClientService>().GetById(id);
 
         var result = ClientServiceResponse.FromEntity(entity);
 

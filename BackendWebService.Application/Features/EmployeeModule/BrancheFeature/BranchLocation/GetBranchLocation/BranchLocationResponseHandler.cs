@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class BranchLocationResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<BranchLocationRequest, BranchLocationResponse>
+public class BranchLocationResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<BranchLocationResponse>
 {
 
-    public IResponse<BranchLocationResponse> Handle(BranchLocationRequest request)
+    public IResponse<BranchLocationResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<BranchLocation>().Get();
+        var entity = unitOfWork.GenericRepository<BranchLocation>().GetById(id);
 
         var result = BranchLocationResponse.FromEntity(entity);
 

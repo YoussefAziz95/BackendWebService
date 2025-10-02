@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class BranchWorkingHourResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<BranchWorkingHourRequest, BranchWorkingHourResponse>
+public class BranchWorkingHourResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<BranchWorkingHourResponse>
 {
 
-    public IResponse<BranchWorkingHourResponse> Handle(BranchWorkingHourRequest request)
+    public IResponse<BranchWorkingHourResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<BranchWorkingHour>().Get();
+        var entity = unitOfWork.GenericRepository<BranchWorkingHour>().GetById(id);
 
         var result = BranchWorkingHourResponse.FromEntity(entity);
 

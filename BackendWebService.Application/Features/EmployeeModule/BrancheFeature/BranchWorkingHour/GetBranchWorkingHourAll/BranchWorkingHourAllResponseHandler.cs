@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class BranchWorkingHourAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<BranchWorkingHourAllRequest, List<BranchWorkingHourAllResponse>>
+public class BranchWorkingHourAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<BranchWorkingHourAllRequest, List<BranchWorkingHourAllResponse>>
 {
     public IResponse<List<BranchWorkingHourAllResponse>> Handle(BranchWorkingHourAllRequest request)
     {

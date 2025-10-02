@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteWorkflowRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteWorkflowRequest, string>
+public class DeleteWorkflowRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteWorkflowRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteWorkflowRequest request)
     {

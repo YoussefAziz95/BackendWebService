@@ -3,12 +3,12 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class CaseResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<CaseRequest, CaseResponse>
+public class CaseResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<CaseResponse>
 {
 
-    public IResponse<CaseResponse> Handle(CaseRequest request)
+    public IResponse<CaseResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Case>().Get();
+        var entity = unitOfWork.GenericRepository<Case>().GetById(id);
 
         var result = CaseResponse.FromEntity(entity);
 

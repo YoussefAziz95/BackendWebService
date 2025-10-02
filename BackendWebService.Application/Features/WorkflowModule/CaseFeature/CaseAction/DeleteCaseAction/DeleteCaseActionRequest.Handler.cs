@@ -5,7 +5,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteCaseActionRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteCaseActionRequest, string>
+public class DeleteCaseActionRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteCaseActionRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteCaseActionRequest request)
     {

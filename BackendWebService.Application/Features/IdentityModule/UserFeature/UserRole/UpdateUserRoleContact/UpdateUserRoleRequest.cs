@@ -3,7 +3,6 @@ using Application.Profiles;
 using Domain;
 namespace Application.Features;
 public record UpdateUserRoleRequest(
-UpdateUserRequest User,
 UpdateRoleRequest Role,
 int? OrganizationId,
 bool? IsActive,
@@ -16,7 +15,6 @@ string? UpdatedBy) : IConvertibleToEntity<UserRole>, IRequest<int>
 {
     public UserRole ToEntity() => new UserRole
     {
-        User = User.ToEntity(),
         Role = Role.ToEntity(),
         OrganizationId = OrganizationId,
         IsActive = IsActive,

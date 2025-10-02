@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain.Enums;
 
 namespace Application.Features;
@@ -9,7 +10,7 @@ string IssuingAuthority,
 DateTime IssuedDate,
 DateTime? ExpirationDate,
 StatusEnum Status,
-string? VerificationNotes) : IConvertibleFromEntity<EmployeeCertification, EmployeeCertificationResponse>
+string? VerificationNotes) : IConvertibleFromEntity<EmployeeCertification, EmployeeCertificationResponse>, IRequest<int>
 {
     public static EmployeeCertificationResponse FromEntity(EmployeeCertification EmployeeCertification) =>
     new EmployeeCertificationResponse(
