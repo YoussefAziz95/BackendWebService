@@ -35,15 +35,10 @@ public class StoredProcedureIntegrationTests : BaseIntegrationTest
         await SeedTestDataAsync();
 
         // Act - Execute stored procedure without parameters
-        // Note: This test is skipped for in-memory database as it doesn't support stored procedures
-        // In a real SQL Server environment, you would test actual stored procedures here
-        
-        // Example of how to test stored procedures in real environment:
-        // _spCall.Execute("sp_GetAllUsers");
+        var result = _spCall.Single<int>("GetActiveUsersCount");
         
         // Assert
-        // Verify the stored procedure executed successfully
-        // This would be implemented with actual stored procedures in SQL Server
+        result.Should().BeGreaterThanOrEqualTo(0);
     }
 
     [Fact] // PERMANENT FIX: Now using real SQL Server - stored procedures work!
@@ -54,16 +49,13 @@ public class StoredProcedureIntegrationTests : BaseIntegrationTest
         var organizationId = 1;
 
         // Act - Execute stored procedure with parameters
-        // Note: This test is skipped for in-memory database as it doesn't support stored procedures
-        
-        // Example of how to test stored procedures with parameters:
-        // var parameters = new DynamicParameters();
-        // parameters.Add("@OrganizationId", organizationId);
-        // var results = _spCall.List<User>("sp_GetUsersByOrganization", parameters);
+        var parameters = new DynamicParameters();
+        parameters.Add("@OrganizationId", organizationId);
+        var results = _spCall.List<dynamic>("GetUsersByOrganization", parameters);
         
         // Assert
-        // Verify the stored procedure returned correct results
-        // This would be implemented with actual stored procedures in SQL Server
+        results.Should().NotBeNull();
+        results.Should().BeAssignableTo<IEnumerable<dynamic>>();
     }
 
     [Fact] // PERMANENT FIX: Now using real SQL Server - stored procedures work!
@@ -73,14 +65,15 @@ public class StoredProcedureIntegrationTests : BaseIntegrationTest
         await SeedTestDataAsync();
 
         // Act - Execute stored procedure that returns multiple result sets
-        // Note: This test is skipped for in-memory database as it doesn't support stored procedures
-        
-        // Example of how to test multiple result sets:
-        // var (users, companies, categories) = _spCall.List<User, Company, Category>("sp_GetAllData");
+        var parameters = new DynamicParameters();
+        parameters.Add("@OrganizationId", 1);
+        var results = _spCall.List<dynamic, dynamic, dynamic>("GetOrganizationSummary", parameters);
         
         // Assert
-        // Verify all result sets are returned correctly
-        // This would be implemented with actual stored procedures in SQL Server
+        results.Should().NotBeNull();
+        results.Item1.Should().NotBeNull(); // Organization info
+        results.Item2.Should().NotBeNull(); // User count
+        results.Item3.Should().NotBeNull(); // Company count
     }
 
     [Fact] // PERMANENT FIX: Now using real SQL Server - stored procedures work!
@@ -224,12 +217,19 @@ public class StoredProcedureIntegrationTests : BaseIntegrationTest
         await SeedTestDataAsync();
 
         // Act & Assert - Test error handling scenarios
-        // In a real environment, this would test stored procedure error handling
         var connectionString = _context.Database.GetConnectionString();
         connectionString.Should().NotBeNullOrEmpty("Connection string should be valid");
 
         // Test that SP_Call service is properly configured
         _spCall.Should().NotBeNull("SP_Call service should be available");
+        
+        // Test error scenario - stored procedure that throws error
+        var parameters = new DynamicParameters();
+        parameters.Add("@ShouldError", true);
+        
+        // This should throw an exception
+        var action = () => _spCall.Execute("TestErrorProcedure", parameters);
+        action.Should().Throw<Exception>("Stored procedure should throw error when @ShouldError = true");
     }
 
     private async Task SeedTestDataAsync()

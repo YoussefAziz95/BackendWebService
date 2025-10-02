@@ -90,12 +90,14 @@ public class ApiEndToEndTests : BaseIntegrationTest
         // Arrange
         var registrationRequest = new
         {
-            UserName = "newuser@example.com",
-            Email = "newuser@example.com",
-            Password = "NewPassword123!",
             FirstName = "New",
             LastName = "User",
-            OrganizationId = 1
+            Email = "newuser@example.com",
+            Password = "NewPassword123!",
+            PhoneNumber = "555-123-4567",
+            MainRole = "User",
+            Department = "IT",
+            Title = "Developer"
         };
 
         // Act - Use the correct anonymous endpoint
@@ -202,11 +204,16 @@ public class ApiEndToEndTests : BaseIntegrationTest
         var authenticatedClient = await CreateAuthenticatedClientAsync();
         var newUser = new
         {
-            UserName = "createuser@example.com",
-            Email = "createuser@example.com",
             FirstName = "Create",
             LastName = "User",
-            OrganizationId = 1
+            UserName = "createuser",
+            Email = "createuser@example.com",
+            PhoneNumber = "555-987-6543",
+            Department = "IT",
+            Title = "Developer",
+            MainRole = 0, // RoleEnum.User
+            OrganizationId = 1,
+            CreatedBy = "TestUser"
         };
 
         // Act - Use the correct v2 endpoint
@@ -226,9 +233,16 @@ public class ApiEndToEndTests : BaseIntegrationTest
         var authenticatedClient = await CreateAuthenticatedClientAsync();
         var updateRequest = new
         {
-            Id = 1,
             FirstName = "Updated",
-            LastName = "Name"
+            LastName = "User",
+            UserName = "updateduser",
+            Email = "updated@example.com",
+            PhoneNumber = "555-111-2222",
+            Department = "Updated IT",
+            Title = "Senior Developer",
+            MainRole = 0, // RoleEnum.User
+            OrganizationId = 1,
+            CreatedBy = "TestUser"
         };
 
         // Act - Use the correct v2 endpoint
@@ -245,7 +259,8 @@ public class ApiEndToEndTests : BaseIntegrationTest
         var authenticatedClient = await CreateAuthenticatedClientAsync();
         var deleteRequest = new
         {
-            Id = 2 // Use a different user ID to avoid deleting the test user
+            Id = 2, // Use a different user ID to avoid deleting the test user
+            Password = "TestPassword123!" // Optional password for deletion
         };
 
         // Act - Use the correct v2 endpoint
@@ -277,8 +292,16 @@ public class ApiEndToEndTests : BaseIntegrationTest
         // Arrange
         var newCompany = new
         {
+            OrganizationId = 1,
             CompanyName = "New Test Company",
-            OrganizationId = 1
+            RegistrationNumber = "REG123456",
+            ContactEmail = "test@company.com",
+            ContactPhone = "123-456-7890",
+            Chairman = "Test Chairman",
+            QualityCertificates = "ISO9001",
+            ViceChairman = "Test Vice Chairman",
+            ProductType = "Software",
+            Status = 0 // StatusEnum.Active
         };
 
         // Act - Use the correct v2 endpoint (no auth required)
@@ -292,7 +315,14 @@ public class ApiEndToEndTests : BaseIntegrationTest
     public async Task GetCategories_ShouldReturnCategoryList()
     {
         // Arrange
-        var request = new { }; // Empty request for get-all
+        var request = new 
+        {
+            Name = "",
+            ParentId = (int?)null,
+            FileId = (int?)null,
+            PageNumber = 1,
+            PageSize = 100
+        };
 
         // Act - Use the correct v2 endpoint with POST method (no auth required)
         var response = await Client.PostAsJsonAsync("/api/v2/category/get-all-category", request);
