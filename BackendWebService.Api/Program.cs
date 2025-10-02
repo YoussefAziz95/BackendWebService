@@ -88,11 +88,14 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-// Apply migrations at startup
-using (var scope = app.Services.CreateScope())
+// Apply migrations at startup (skip for test environment)
+if (!app.Environment.IsEnvironment("Test"))
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    dbContext.Database.Migrate(); // Applies pending migrations
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        dbContext.Database.Migrate(); // Applies pending migrations
+    }
 }
 
 app.UseStaticFiles();
@@ -164,3 +167,6 @@ app.MapControllers();
 
 
 app.Run();
+
+// Make Program class accessible for testing
+public partial class Program { }
