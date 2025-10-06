@@ -18,7 +18,7 @@ public class DeleteAddressRequestHandler(IUnitOfWork unitOfWork) : ResponseHandl
         try
         {
             unitOfWork.GenericRepository<Address>().Delete(entity);
-            unitOfWork.CommitAsync();
+            await unitOfWork.CommitAsync();
             await unitOfWork.SaveAsync();
         }
         catch (Exception ex)

@@ -4,7 +4,8 @@ using Domain;
 
 namespace Application.Features;
 public record AddressResponse(
- int OrganizationId,
+int id,
+int OrganizationId,
 bool? IsAdministration,
 string? FullAddress,
 string Street,
@@ -14,6 +15,7 @@ string City) : IConvertibleFromEntity<Address, AddressResponse>, IRequest<int>
 {
     public static AddressResponse FromEntity(Address Address) =>
         new AddressResponse(
+        Address.Id,
         Address.OrganizationId,
         Address.IsAdministration,
         Address.FullAddress,
