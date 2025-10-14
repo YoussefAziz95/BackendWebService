@@ -4,6 +4,8 @@ using SharedKernel.ValidationBase;
 
 namespace Application.Features;
 public record RoleClaimAllRequest(
+int? Id,
+int? RoleId,
 string? ClaimType,
 string? ClaimValue,
 DateTime? CreatedDate,

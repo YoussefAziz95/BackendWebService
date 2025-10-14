@@ -6,6 +6,10 @@ namespace Domain;
 [Table("UserClaim")]
 public class UserClaim : IdentityUserClaim<int>, IEntity, ITimeModification
 {
+
+    public override string? ClaimType { get; set; }
+    public override string? ClaimValue { get; set; }
+    public override int UserId { get; set; }
     public User User { get; set; }
     public int? OrganizationId { get; set; }
     public bool? IsActive { get; set; }

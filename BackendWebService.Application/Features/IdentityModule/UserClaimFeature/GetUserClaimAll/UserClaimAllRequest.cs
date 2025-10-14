@@ -4,6 +4,9 @@ using SharedKernel.ValidationBase;
 
 namespace Application.Features;
 public record UserClaimAllRequest(
+string? ClaimType,
+string? ClaimValue,
+int UserId,
 int? OrganizationId,
 bool? IsActive,
 bool? IsDeleted,
