@@ -3,14 +3,14 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class WorkflowCycleResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<WorkflowResponse>
+public class WorkflowCycleResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<WorkflowCycleResponse>
 {
 
-    public IResponse<WorkflowResponse> Handle(int id)
+    public IResponse<WorkflowCycleResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Workflow>().Get();
+        var entity = unitOfWork.GenericRepository<WorkflowCycle>().GetById(id);
 
-        var result = WorkflowResponse.FromEntity(entity);
+        var result = WorkflowCycleResponse.FromEntity(entity);
 
         return Success(result);
     }

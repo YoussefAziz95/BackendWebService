@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class SupplierResponseHandler : ResponseHandler, IRequestHandler<SupplierRequest, SupplierResponse>
+public class SupplierResponseHandler : ResponseHandler, IRequestByIdHandler<SupplierResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -13,9 +13,9 @@ internal class SupplierResponseHandler : ResponseHandler, IRequestHandler<Suppli
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<SupplierResponse> Handle(SupplierRequest request)
+    public IResponse<SupplierResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<Supplier>().Get();
+        var entity = _unitOfWork.GenericRepository<Supplier>().GetById(id);
 
         var result = SupplierResponse.FromEntity(entity);
 

@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class OrderItemAllResponseHandler : ResponseHandler, IRequestHandler<OrderItemAllRequest, List<OrderItemAllResponse>>
+public class OrderItemAllResponseHandler : ResponseHandler, IRequestHandler<OrderItemAllRequest, List<OrderItemAllResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

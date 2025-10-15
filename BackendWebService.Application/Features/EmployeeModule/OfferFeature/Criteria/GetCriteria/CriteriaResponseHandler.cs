@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class CriteriaResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<CriteriaRequest, CriteriaResponse>
+public class CriteriaResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<CriteriaResponse>
 {
 
-    public IResponse<CriteriaResponse> Handle(CriteriaRequest request)
+    public IResponse<CriteriaResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Criteria>().Get();
+        var entity = unitOfWork.GenericRepository<Criteria>().GetById(id);
 
         var result = CriteriaResponse.FromEntity(entity);
 

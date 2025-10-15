@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class UserRefreshTokenAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<UserRefreshTokenAllRequest, List<UserRefreshTokenAllResponse>>
+public class UserRefreshTokenAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<UserRefreshTokenAllRequest, List<UserRefreshTokenAllResponse>>
 {
     public IResponse<List<UserRefreshTokenAllResponse>> Handle(UserRefreshTokenAllRequest request)
     {

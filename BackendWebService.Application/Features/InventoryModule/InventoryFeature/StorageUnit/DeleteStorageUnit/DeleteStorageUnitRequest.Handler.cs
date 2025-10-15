@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteStorageUnitRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteStorageUnitRequest, string>
+public class DeleteStorageUnitRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteStorageUnitRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteStorageUnitRequest request)
     {

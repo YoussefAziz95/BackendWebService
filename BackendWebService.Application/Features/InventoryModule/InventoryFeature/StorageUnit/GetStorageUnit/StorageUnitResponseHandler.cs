@@ -3,12 +3,12 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class StorageUnitResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<StorageUnitRequest, StorageUnitResponse>
+public class StorageUnitResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<StorageUnitResponse>
 {
 
-    public IResponse<StorageUnitResponse> Handle(StorageUnitRequest request)
+    public IResponse<StorageUnitResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<StorageUnit>().Get();
+        var entity = unitOfWork.GenericRepository<StorageUnit>().GetById(id);
 
         var result = StorageUnitResponse.FromEntity(entity);
 

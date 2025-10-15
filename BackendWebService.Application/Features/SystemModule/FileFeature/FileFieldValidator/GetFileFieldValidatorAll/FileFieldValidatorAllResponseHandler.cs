@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class FileFieldValidatorAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<FileFieldValidatorAllRequest, List<FileFieldValidatorAllResponse>>
+public class FileFieldValidatorAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<FileFieldValidatorAllRequest, List<FileFieldValidatorAllResponse>>
 {
     public IResponse<List<FileFieldValidatorAllResponse>> Handle(FileFieldValidatorAllRequest request)
     {

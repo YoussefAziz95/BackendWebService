@@ -3,9 +3,9 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-public class OtpVerifyRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<OtpVerifyRequest, int>
+public class OtpVerifyRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<OtpVerifyRequest, LoginResponse>
 {
-    public IResponse<int> Handle(OtpVerifyRequest request)
+    public IResponse<LoginResponse> Handle(OtpVerifyRequest request)
     {
         throw new NotImplementedException();
     }

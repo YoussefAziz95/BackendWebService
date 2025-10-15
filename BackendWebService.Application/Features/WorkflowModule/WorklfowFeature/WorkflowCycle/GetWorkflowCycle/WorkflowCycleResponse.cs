@@ -9,7 +9,7 @@ bool Mandatory,
 int WorkflowId,
 WorkflowResponse Workflow,
 int? WorkflowReviewerId,
-UserResponse? WorkflowReviewer) : IConvertibleFromEntity<WorkflowCycle, WorkflowCycleResponse>, IRequest<int>
+UserResponse? WorkflowReviewer) : IConvertibleFromEntity<WorkflowCycle, WorkflowCycleResponse>
 {
     public static WorkflowCycleResponse FromEntity(WorkflowCycle WorkflowCycle) =>
     new WorkflowCycleResponse(

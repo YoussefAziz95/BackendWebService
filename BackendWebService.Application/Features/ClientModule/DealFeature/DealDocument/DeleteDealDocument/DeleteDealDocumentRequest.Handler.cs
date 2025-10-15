@@ -7,7 +7,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteDealDocumentRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteDealDocumentRequest, string>
+public class DeleteDealDocumentRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteDealDocumentRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteDealDocumentRequest request)
     {

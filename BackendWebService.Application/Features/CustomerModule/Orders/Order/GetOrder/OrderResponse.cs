@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 
 namespace Application.Features;
@@ -11,7 +12,7 @@ decimal Service,
 DateTime CreatedAt,
 int UserId,
 string OrderName,
-List<OrderItemResponse> OrderItemsResponse) : IConvertibleFromEntity<Order, OrderResponse>
+List<OrderItemResponse> OrderItemsResponse) : IConvertibleFromEntity<Order, OrderResponse>, IRequest<int>
 {
     public static OrderResponse FromEntity(Order Order) =>
     new OrderResponse(

@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class CaseActionResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<CaseActionRequest, CaseActionResponse>
+public class CaseActionResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<CaseActionResponse>
 {
 
-    public IResponse<CaseActionResponse> Handle(CaseActionRequest request)
+    public IResponse<CaseActionResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<CaseAction>().Get();
+        var entity = unitOfWork.GenericRepository<CaseAction>().GetById(id);
 
         var result = CaseActionResponse.FromEntity(entity);
 

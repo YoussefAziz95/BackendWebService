@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class BranchEmployeeResponseHandler : ResponseHandler, IRequestHandler<BranchEmployeeRequest, BranchEmployeeResponse>
+public class BranchEmployeeResponseHandler : ResponseHandler, IRequestByIdHandler<BranchEmployeeResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -13,9 +13,9 @@ internal class BranchEmployeeResponseHandler : ResponseHandler, IRequestHandler<
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<BranchEmployeeResponse> Handle(BranchEmployeeRequest request)
+    public IResponse<BranchEmployeeResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<BranchEmployee>().Get();
+        var entity = _unitOfWork.GenericRepository<BranchEmployee>().GetById(id);
 
         var result = BranchEmployeeResponse.FromEntity(entity);
 

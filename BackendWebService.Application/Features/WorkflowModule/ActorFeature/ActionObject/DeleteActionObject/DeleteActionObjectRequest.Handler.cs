@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteActionObjectRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteActionObjectRequest, string>
+public class DeleteActionObjectRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteActionObjectRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteActionObjectRequest request)
     {

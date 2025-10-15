@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class DealAllResponseHandler : ResponseHandler, IRequestHandler<DealAllRequest, List<DealAllResponse>>
+public class DealAllResponseHandler : ResponseHandler, IRequestHandler<DealAllRequest, List<DealAllResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteEmailLogRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteEmailLogRequest, string>
+public class DeleteEmailLogRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteEmailLogRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteEmailLogRequest request)
     {

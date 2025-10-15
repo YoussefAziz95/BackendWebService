@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class JobAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<JobAllRequest, List<JobAllResponse>>
+public class JobAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<JobAllRequest, List<JobAllResponse>>
 {
     public IResponse<List<JobAllResponse>> Handle(JobAllRequest request)
     {

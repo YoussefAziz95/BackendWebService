@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class NotificationAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<NotificationAllRequest, List<NotificationAllResponse>>
+public class NotificationAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<NotificationAllRequest, List<NotificationAllResponse>>
 {
     public IResponse<List<NotificationAllResponse>> Handle(NotificationAllRequest request)
     {

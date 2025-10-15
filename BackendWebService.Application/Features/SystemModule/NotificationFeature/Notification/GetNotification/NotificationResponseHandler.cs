@@ -3,12 +3,12 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class NotificationResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<NotificationRequest, NotificationResponse>
+public class NotificationResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<NotificationResponse>
 {
 
-    public IResponse<NotificationResponse> Handle(NotificationRequest request)
+    public IResponse<NotificationResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Notification>().Get();
+        var entity = unitOfWork.GenericRepository<Notification>().GetById(id);
 
         var result = NotificationResponse.FromEntity(entity);
 

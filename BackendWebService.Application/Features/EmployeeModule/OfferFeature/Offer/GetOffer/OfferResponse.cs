@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 using Domain.Enums;
 
@@ -22,7 +23,7 @@ int SpecificationsFileId,
 string? RichText,
 List<CriteriaResponse> Criterias,
 List<OfferItemResponse> OfferItems,
-List<OfferObjectResponse> OfferObjects) : IConvertibleFromEntity<Offer, OfferResponse>
+List<OfferObjectResponse> OfferObjects) : IConvertibleFromEntity<Offer, OfferResponse>, IRequest<int>
 {
     public static OfferResponse FromEntity(Offer Offer) =>
     new OfferResponse(

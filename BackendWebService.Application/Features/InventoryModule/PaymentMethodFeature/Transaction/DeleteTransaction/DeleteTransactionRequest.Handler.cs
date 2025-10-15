@@ -5,7 +5,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteTransactionRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteTransactionRequest, string>
+public class DeleteTransactionRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteTransactionRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteTransactionRequest request)
     {

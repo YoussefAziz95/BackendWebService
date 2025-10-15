@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class PreDocumentAllResponseHandler : ResponseHandler, IRequestHandler<PreDocumentAllRequest, List<PreDocumentAllResponse>>
+public class PreDocumentAllResponseHandler : ResponseHandler, IRequestHandler<PreDocumentAllRequest, List<PreDocumentAllResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

@@ -7,7 +7,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteOfferItemRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteOfferItemRequest, string>
+public class DeleteOfferItemRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteOfferItemRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteOfferItemRequest request)
     {

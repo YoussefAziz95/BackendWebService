@@ -3,6 +3,8 @@ using Domain;
 
 namespace Application.Features;
 public record RoleClaimResponse(
+int? Id,
+int? RoleId,
 string? ClaimType,
 string? ClaimValue,
 DateTime? CreatedDate,
@@ -16,6 +18,8 @@ string? UpdatedBy) : IConvertibleFromEntity<RoleClaim, RoleClaimResponse>
 {
     public static RoleClaimResponse FromEntity(RoleClaim RoleClaim) =>
     new RoleClaimResponse(
+    RoleClaim.Id,
+    RoleClaim.RoleId,
     RoleClaim.ClaimType,
     RoleClaim.ClaimValue,
     RoleClaim.CreatedDate,

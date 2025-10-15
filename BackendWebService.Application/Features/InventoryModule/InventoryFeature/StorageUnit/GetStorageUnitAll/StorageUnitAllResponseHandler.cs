@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class StorageUnitAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<StorageUnitAllRequest, List<StorageUnitAllResponse>>
+public class StorageUnitAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<StorageUnitAllRequest, List<StorageUnitAllResponse>>
 {
     public IResponse<List<StorageUnitAllResponse>> Handle(StorageUnitAllRequest request)
     {

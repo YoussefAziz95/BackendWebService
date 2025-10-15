@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class OfferObjectResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<OfferObjectRequest, OfferObjectResponse>
+public class OfferObjectResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<OfferObjectResponse>
 {
 
-    public IResponse<OfferObjectResponse> Handle(OfferObjectRequest request)
+    public IResponse<OfferObjectResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<OfferObject>().Get();
+        var entity = unitOfWork.GenericRepository<OfferObject>().GetById(id);
 
         var result = OfferObjectResponse.FromEntity(entity);
 

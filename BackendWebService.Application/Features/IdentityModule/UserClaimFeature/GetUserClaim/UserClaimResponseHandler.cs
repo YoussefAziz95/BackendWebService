@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class UserClaimResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<UserClaimRequest, UserClaimResponse>
+public class UserClaimResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<UserClaimResponse>
 {
 
-    public IResponse<UserClaimResponse> Handle(UserClaimRequest request)
+    public IResponse<UserClaimResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<UserClaim>().Get();
+        var entity = unitOfWork.GenericRepository<UserClaim>().GetById(id);
 
         var result = UserClaimResponse.FromEntity(entity);
 

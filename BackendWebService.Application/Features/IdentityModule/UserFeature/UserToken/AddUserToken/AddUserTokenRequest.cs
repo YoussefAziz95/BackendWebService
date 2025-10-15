@@ -5,7 +5,6 @@ using Domain;
 namespace Application.Features;
 
 public record AddUserTokenRequest(
-AddUserRequest User,
 DateTime GeneratedTime,
 int Id,
 int? OrganizationId,
@@ -19,7 +18,6 @@ string? UpdatedBy) : IConvertibleToEntity<UserToken>, IRequest<int>
 {
     public UserToken ToEntity() => new UserToken
     {
-        User = User.ToEntity(),
         GeneratedTime = GeneratedTime,
         Id = Id,
         OrganizationId = OrganizationId,

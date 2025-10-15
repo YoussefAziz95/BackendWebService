@@ -6,7 +6,6 @@ namespace Application.Features;
 
 public record AddUserRefreshTokenRequest(
 int UserId,
-AddUserRequest User,
 DateTime CreatedAt,
 bool IsValid,
 int? OrganizationId,
@@ -21,7 +20,6 @@ string? UpdatedBy) : IConvertibleToEntity<UserRefreshToken>, IRequest<Guid>
     public UserRefreshToken ToEntity() => new UserRefreshToken
     {
         UserId = UserId,
-        User = User.ToEntity(),
         CreatedAt = CreatedAt,
         IsValid = IsValid,
         OrganizationId = OrganizationId,

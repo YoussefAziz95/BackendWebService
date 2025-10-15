@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteFileLogRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteFileLogRequest, string>
+public class DeleteFileLogRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteFileLogRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteFileLogRequest request)
     {

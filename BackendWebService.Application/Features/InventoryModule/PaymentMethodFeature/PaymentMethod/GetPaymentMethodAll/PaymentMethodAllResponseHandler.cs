@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class PaymentMethodAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<PaymentMethodAllRequest, List<PaymentMethodAllResponse>>
+public class PaymentMethodAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<PaymentMethodAllRequest, List<PaymentMethodAllResponse>>
 {
     public IResponse<List<PaymentMethodAllResponse>> Handle(PaymentMethodAllRequest request)
     {

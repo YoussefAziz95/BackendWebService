@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class JobResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<JobRequest, JobResponse>
+public class JobResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<JobResponse>
 {
 
-    public IResponse<JobResponse> Handle(JobRequest request)
+    public IResponse<JobResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Job>().Get();
+        var entity = unitOfWork.GenericRepository<Job>().GetById(id);
 
         var result = JobResponse.FromEntity(entity);
 

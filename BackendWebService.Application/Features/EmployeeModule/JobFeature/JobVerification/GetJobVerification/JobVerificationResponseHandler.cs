@@ -5,12 +5,12 @@ using Domain;
 
 namespace Application.Features;
 
-internal class JobVerificationResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<JobVerificationRequest, JobVerificationResponse>
+public class JobVerificationResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<JobVerificationResponse>
 {
 
-    public IResponse<JobVerificationResponse> Handle(JobVerificationRequest request)
+    public IResponse<JobVerificationResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<JobVerification>().Get();
+        var entity = unitOfWork.GenericRepository<JobVerification>().GetById(id);
 
         var result = JobVerificationResponse.FromEntity(entity);
 

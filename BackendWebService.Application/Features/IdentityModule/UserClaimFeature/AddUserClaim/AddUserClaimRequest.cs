@@ -5,8 +5,10 @@ using Domain;
 namespace Application.Features;
 
 public record AddUserClaimRequest(
+string? ClaimType,
+string? ClaimValue,
+int UserId,
 int? OrganizationId,
-AddUserRequest User,
 bool? IsActive,
 bool? IsDeleted,
 bool? IsSystem,
@@ -17,8 +19,10 @@ string? UpdatedBy) : IConvertibleToEntity<UserClaim>, IRequest<int>
 {
     public UserClaim ToEntity() => new UserClaim
     {
+        ClaimType = ClaimType,
+        ClaimValue = ClaimValue,
+        UserId = UserId,
         OrganizationId = OrganizationId,
-        User = User.ToEntity(),
         IsActive = IsActive,
         IsDeleted = IsDeleted,
         IsSystem = IsSystem,

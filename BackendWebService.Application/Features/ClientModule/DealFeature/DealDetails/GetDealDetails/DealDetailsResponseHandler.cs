@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class DealDetailsResponseHandler : ResponseHandler, IRequestHandler<DealDetailsRequest, DealDetailsResponse>
+public class DealDetailsResponseHandler : ResponseHandler, IRequestByIdHandler<DealDetailsResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -13,9 +13,9 @@ internal class DealDetailsResponseHandler : ResponseHandler, IRequestHandler<Dea
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<DealDetailsResponse> Handle(DealDetailsRequest request)
+    public IResponse<DealDetailsResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<DealDetails>().Get();
+        var entity = _unitOfWork.GenericRepository<DealDetails>().GetById(id);
 
         var result = DealDetailsResponse.FromEntity(entity);
 

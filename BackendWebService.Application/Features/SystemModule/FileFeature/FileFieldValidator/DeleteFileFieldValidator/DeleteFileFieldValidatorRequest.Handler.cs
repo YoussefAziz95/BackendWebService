@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteFileFieldValidatorRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteFileFieldValidatorRequest, string>
+public class DeleteFileFieldValidatorRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteFileFieldValidatorRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteFileFieldValidatorRequest request)
     {

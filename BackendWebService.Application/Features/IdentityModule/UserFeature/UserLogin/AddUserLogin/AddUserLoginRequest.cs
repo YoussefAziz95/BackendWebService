@@ -5,8 +5,6 @@ using Domain;
 namespace Application.Features;
 
 public record AddUserLoginRequest(
-AddUserLoginRequest UserLogin,
-AddUserRequest User,
 int? OrganizationId,
 DateTime LoggedOn,
 bool? IsActive,
@@ -19,7 +17,6 @@ string? UpdatedBy) : IConvertibleToEntity<UserLogin>, IRequest<int>
 {
     public UserLogin ToEntity() => new UserLogin
     {
-        User = User.ToEntity(),
         OrganizationId = OrganizationId,
         LoggedOn = LoggedOn,
         IsActive = IsActive,

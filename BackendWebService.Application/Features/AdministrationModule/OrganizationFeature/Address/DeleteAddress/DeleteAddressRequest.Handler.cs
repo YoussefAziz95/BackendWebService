@@ -7,7 +7,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteAddressRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteAddressRequest, string>
+public class DeleteAddressRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteAddressRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteAddressRequest request)
     {
@@ -18,7 +18,7 @@ internal class DeleteAddressRequestHandler(IUnitOfWork unitOfWork) : ResponseHan
         try
         {
             unitOfWork.GenericRepository<Address>().Delete(entity);
-            unitOfWork.CommitAsync();
+            await unitOfWork.CommitAsync();
             await unitOfWork.SaveAsync();
         }
         catch (Exception ex)

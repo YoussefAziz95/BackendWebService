@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 using Domain.Enums;
 
@@ -15,7 +16,7 @@ string Description,
 DateTime RequestedDate,
 DateTime? ScheduledDate,
 DateTime? CompletedDate,
-int? HandledByUserId) : IConvertibleFromEntity<CustomerService, CustomerServiceResponse>
+int? HandledByUserId) : IConvertibleFromEntity<CustomerService, CustomerServiceResponse>, IRequest<int>
 {
     public static CustomerServiceResponse FromEntity(CustomerService CustomerService) =>
     new CustomerServiceResponse(

@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class PartAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<PartAllRequest, List<PartAllResponse>>
+public class PartAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<PartAllRequest, List<PartAllResponse>>
 {
     public IResponse<List<PartAllResponse>> Handle(PartAllRequest request)
     {

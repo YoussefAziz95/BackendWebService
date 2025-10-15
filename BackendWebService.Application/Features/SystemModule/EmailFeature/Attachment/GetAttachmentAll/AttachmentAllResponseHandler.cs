@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class AttachmentAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<AttachmentAllRequest, List<AttachmentAllResponse>>
+public class AttachmentAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<AttachmentAllRequest, List<AttachmentAllResponse>>
 {
     public IResponse<List<AttachmentAllResponse>> Handle(AttachmentAllRequest request)
     {

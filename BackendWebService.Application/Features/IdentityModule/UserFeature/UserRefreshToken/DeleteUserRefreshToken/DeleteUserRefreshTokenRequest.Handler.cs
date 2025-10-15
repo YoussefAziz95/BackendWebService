@@ -5,7 +5,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteUserRefreshTokenRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteUserRefreshTokenRequest, string>
+public class DeleteUserRefreshTokenRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteUserRefreshTokenRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteUserRefreshTokenRequest request)
     {

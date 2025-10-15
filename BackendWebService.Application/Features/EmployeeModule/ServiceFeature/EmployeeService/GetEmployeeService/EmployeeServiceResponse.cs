@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 
 namespace Application.Features;
@@ -9,7 +10,7 @@ string? Notes,
 int? VoiceNoteId,
 int? FilesId,
 string Description,
-string? AdditionalPhoneNumber) : IConvertibleFromEntity<EmployeeService, EmployeeServiceResponse>
+string? AdditionalPhoneNumber) : IConvertibleFromEntity<EmployeeService, EmployeeServiceResponse>, IRequest<int>
 {
     public static EmployeeServiceResponse FromEntity(EmployeeService EmployeeService) =>
     new EmployeeServiceResponse(

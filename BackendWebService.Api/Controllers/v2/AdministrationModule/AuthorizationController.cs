@@ -71,14 +71,14 @@ public class AuthorizationController(IMediator mediator, IJwtService jwtService)
     }
 
     [HttpPost("otp/send")]
-    public async Task<IActionResult> SendOtp([FromBody] PhoneNumberRequest request)
+    public async Task<IActionResult> SendOtp([FromBody] MfaRequest request)
     {
         var response = await mediator.HandleAsync(request);
         return NewResult(response);
     }
 
     [HttpPost("otp/verify")]
-    public async Task<IActionResult> VerifyOtp([FromBody] OtpVerifyRequest request)
+    public async Task<IActionResult> VerifyOtp([FromBody] MfaVerifyRequest request)
     {
         var response = await mediator.HandleAsync(request);
         return NewResult(response);

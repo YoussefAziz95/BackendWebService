@@ -3,12 +3,12 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class FileFieldValidatorResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<FileFieldValidatorRequest, FileFieldValidatorResponse>
+public class FileFieldValidatorResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<FileFieldValidatorResponse>
 {
 
-    public IResponse<FileFieldValidatorResponse> Handle(FileFieldValidatorRequest request)
+    public IResponse<FileFieldValidatorResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<FileFieldValidator>().Get();
+        var entity = unitOfWork.GenericRepository<FileFieldValidator>().GetById(id);
 
         var result = FileFieldValidatorResponse.FromEntity(entity);
 

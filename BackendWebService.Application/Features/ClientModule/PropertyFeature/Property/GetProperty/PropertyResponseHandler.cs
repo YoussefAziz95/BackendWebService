@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class PropertyResponseHandler : ResponseHandler, IRequestHandler<PropertyRequest, PropertyResponse>
+public class PropertyResponseHandler : ResponseHandler, IRequestByIdHandler<PropertyResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -13,9 +13,9 @@ internal class PropertyResponseHandler : ResponseHandler, IRequestHandler<Proper
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<PropertyResponse> Handle(PropertyRequest request)
+    public IResponse<PropertyResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<Property>().Get();
+        var entity = _unitOfWork.GenericRepository<Property>().GetById(id);
 
         var result = PropertyResponse.FromEntity(entity);
 

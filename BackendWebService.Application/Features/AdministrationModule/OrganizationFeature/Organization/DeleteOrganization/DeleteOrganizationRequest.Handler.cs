@@ -6,7 +6,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteOrganizationRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteOrganizationRequest, string>
+public class DeleteOrganizationRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteOrganizationRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteOrganizationRequest request)
     {

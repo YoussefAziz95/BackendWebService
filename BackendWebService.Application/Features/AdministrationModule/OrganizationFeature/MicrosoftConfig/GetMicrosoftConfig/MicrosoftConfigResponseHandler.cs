@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class MicrosoftConfigResponseHandler : ResponseHandler, IRequestHandler<MicrosoftConfigRequest, MicrosoftConfigResponse>
+public class MicrosoftConfigResponseHandler : ResponseHandler, IRequestByIdHandler<MicrosoftConfigResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -13,9 +13,9 @@ internal class MicrosoftConfigResponseHandler : ResponseHandler, IRequestHandler
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<MicrosoftConfigResponse> Handle(MicrosoftConfigRequest request)
+    public IResponse<MicrosoftConfigResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<MicrosoftConfig>().Get();
+        var entity = _unitOfWork.GenericRepository<MicrosoftConfig>().GetById(id);
 
         var result = MicrosoftConfigResponse.FromEntity(entity);
 

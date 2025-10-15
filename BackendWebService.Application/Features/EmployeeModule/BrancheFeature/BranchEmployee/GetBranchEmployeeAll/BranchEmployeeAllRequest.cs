@@ -12,7 +12,7 @@ DateTime AssignedAt,
 int PageNumber = 1,
 int PageSize = 100,
 string FilterBy = "none",
-string? SortBy = "asc") : IRequest<List<BranchLocationAllResponse>>
+string? SortBy = "asc") : IRequest<List<BranchEmployeeAllResponse>>
 {
     public IValidator<BranchEmployeeAllRequest> ValidateApplicationModel(ApplicationBaseValidationModelProvider<BranchEmployeeAllRequest> validator)
     {

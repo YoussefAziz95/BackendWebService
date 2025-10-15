@@ -6,7 +6,7 @@ using Application.Wrappers;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteGoogleConfigRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteGoogleConfigRequest, string>
+public class DeleteGoogleConfigRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteGoogleConfigRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteGoogleConfigRequest request)
     {

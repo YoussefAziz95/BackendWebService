@@ -7,7 +7,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteCriteriaRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteCriteriaRequest, string>
+public class DeleteCriteriaRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteCriteriaRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteCriteriaRequest request)
     {

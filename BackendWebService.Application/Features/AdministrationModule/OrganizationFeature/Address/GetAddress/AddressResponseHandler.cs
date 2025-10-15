@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class AddressResponseHandler : ResponseHandler, IRequestHandler<AddressRequest, AddressResponse>
+public class AddressResponseHandler : ResponseHandler, IRequestByIdHandler<AddressResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -13,9 +13,9 @@ internal class AddressResponseHandler : ResponseHandler, IRequestHandler<Address
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<AddressResponse> Handle(AddressRequest request)
+    public IResponse<AddressResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<Address>().Get();
+        var entity = _unitOfWork.GenericRepository<Address>().GetById(id);
 
         var result = AddressResponse.FromEntity(entity);
 

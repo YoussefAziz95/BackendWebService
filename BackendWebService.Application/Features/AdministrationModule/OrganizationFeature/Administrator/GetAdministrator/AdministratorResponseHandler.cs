@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class AdministratorResponseHandler : ResponseHandler, IRequestHandler<AdministratorRequest, AdministratorResponse>
+public class AdministratorResponseHandler : ResponseHandler, IRequestByIdHandler<AdministratorResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -13,9 +13,9 @@ internal class AdministratorResponseHandler : ResponseHandler, IRequestHandler<A
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<AdministratorResponse> Handle(AdministratorRequest request)
+    public IResponse<AdministratorResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<Administrator>().Get();
+        var entity = _unitOfWork.GenericRepository<Administrator>().GetById(id);
 
         var result = AdministratorResponse.FromEntity(entity);
 

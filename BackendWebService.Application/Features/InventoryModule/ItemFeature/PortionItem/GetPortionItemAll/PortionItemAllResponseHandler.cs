@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class PortionItemAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<PortionItemAllRequest, List<PortionItemAllResponse>>
+public class PortionItemAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<PortionItemAllRequest, List<PortionItemAllResponse>>
 {
     public IResponse<List<PortionItemAllResponse>> Handle(PortionItemAllRequest request)
     {

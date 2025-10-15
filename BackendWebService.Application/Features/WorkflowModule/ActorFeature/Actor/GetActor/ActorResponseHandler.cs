@@ -3,12 +3,12 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class ActorResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<ActorRequest, ActorResponse>
+public class ActorResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<ActorResponse>
 {
 
-    public IResponse<ActorResponse> Handle(ActorRequest request)
+    public IResponse<ActorResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Actor>().Get();
+        var entity = unitOfWork.GenericRepository<Actor>().GetById(id);
 
         var result = ActorResponse.FromEntity(entity);
 

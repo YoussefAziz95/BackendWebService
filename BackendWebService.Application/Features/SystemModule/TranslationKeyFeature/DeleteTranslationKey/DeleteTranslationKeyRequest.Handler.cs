@@ -5,7 +5,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteTranslationKeyRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteTranslationKeyRequest, string>
+public class DeleteTranslationKeyRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteTranslationKeyRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteTranslationKeyRequest request)
     {

@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 using Domain;
 
 namespace Application.Features;
@@ -13,7 +14,7 @@ double Latitude,
 double Longitude,
 DateTimeOffset CreatedAt,
 DateTimeOffset? DeletedAt,
-bool IsDeleted) : IConvertibleFromEntity<Property, PropertyResponse>
+bool IsDeleted) : IConvertibleFromEntity<Property, PropertyResponse>, IRequest<int>
 {
     public static PropertyResponse FromEntity(Property Property) =>
     new PropertyResponse(

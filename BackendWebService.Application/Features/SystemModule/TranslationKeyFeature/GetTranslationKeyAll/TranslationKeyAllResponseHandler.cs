@@ -4,13 +4,13 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class TranslationKeyAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<ItemAllRequest, List<ItemAllResponse>>
+public class TranslationKeyAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<TranslationKeyAllRequest, List<TranslationKeyAllResponse>>
 {
-    public IResponse<List<ItemAllResponse>> Handle(ItemAllRequest request)
+    public IResponse<List<TranslationKeyAllResponse>> Handle(TranslationKeyAllRequest request)
     {
-        var entity = unitOfWork.GenericRepository<Item>().GetAll();
+        var entity = unitOfWork.GenericRepository<TranslationKey>().GetAll();
 
-        var result = entity.Select(ItemAllResponse.FromEntity).ToList();
+        var result = entity.Select(TranslationKeyAllResponse.FromEntity).ToList();
 
         return Success(result);
     }

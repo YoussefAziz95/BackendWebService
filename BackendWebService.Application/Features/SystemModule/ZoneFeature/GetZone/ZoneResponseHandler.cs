@@ -4,12 +4,12 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class ZoneResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<ZoneRequest, ZoneResponse>
+public class ZoneResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestByIdHandler<ZoneResponse>
 {
 
-    public IResponse<ZoneResponse> Handle(ZoneRequest request)
+    public IResponse<ZoneResponse> Handle(int id)
     {
-        var entity = unitOfWork.GenericRepository<Zone>().Get();
+        var entity = unitOfWork.GenericRepository<Zone>().GetById(id);
 
         var result = ZoneResponse.FromEntity(entity);
 

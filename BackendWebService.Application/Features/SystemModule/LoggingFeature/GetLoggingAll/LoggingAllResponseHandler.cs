@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class LoggingAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<LoggingAllRequest, List<LoggingAllResponse>>
+public class LoggingAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<LoggingAllRequest, List<LoggingAllResponse>>
 {
     public IResponse<List<LoggingAllResponse>> Handle(LoggingAllRequest request)
     {

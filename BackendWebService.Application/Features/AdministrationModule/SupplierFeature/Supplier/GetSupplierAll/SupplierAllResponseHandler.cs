@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class SupplierAllResponseHandler : ResponseHandler, IRequestHandler<SupplierAllRequest, List<SupplierAllResponse>>
+public class SupplierAllResponseHandler : ResponseHandler, IRequestHandler<SupplierAllRequest, List<SupplierAllResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

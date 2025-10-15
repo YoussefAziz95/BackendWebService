@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class ActionObjectAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<ActionObjectAllRequest, List<ActionObjectAllResponse>>
+public class ActionObjectAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<ActionObjectAllRequest, List<ActionObjectAllResponse>>
 {
     public IResponse<List<ActionObjectAllResponse>> Handle(ActionObjectAllRequest request)
     {

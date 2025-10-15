@@ -5,7 +5,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteSparePartRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteSparePartRequest, string>
+public class DeleteSparePartRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteSparePartRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteSparePartRequest request)
     {

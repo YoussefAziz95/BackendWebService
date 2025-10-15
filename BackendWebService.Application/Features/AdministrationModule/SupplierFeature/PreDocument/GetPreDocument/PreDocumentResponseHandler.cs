@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class PreDocumentResponseHandler : ResponseHandler, IRequestHandler<PreDocumentRequest, PreDocumentResponse>
+public class PreDocumentResponseHandler : ResponseHandler, IRequestByIdHandler<PreDocumentResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -13,9 +13,9 @@ internal class PreDocumentResponseHandler : ResponseHandler, IRequestHandler<Pre
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<PreDocumentResponse> Handle(PreDocumentRequest request)
+    public IResponse<PreDocumentResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<PreDocument>().Get();
+        var entity = _unitOfWork.GenericRepository<PreDocument>().GetById(id);
 
         var result = PreDocumentResponse.FromEntity(entity);
 

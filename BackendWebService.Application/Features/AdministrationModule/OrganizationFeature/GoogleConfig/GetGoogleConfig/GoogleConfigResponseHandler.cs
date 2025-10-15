@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class GoogleConfigResponseHandler : ResponseHandler, IRequestHandler<GoogleConfigRequest, GoogleConfigResponse>
+public class GoogleConfigResponseHandler : ResponseHandler, IRequestByIdHandler<GoogleConfigResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -12,9 +12,9 @@ internal class GoogleConfigResponseHandler : ResponseHandler, IRequestHandler<Go
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<GoogleConfigResponse> Handle(GoogleConfigRequest request)
+    public IResponse<GoogleConfigResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<GoogleConfig>().Get();
+        var entity = _unitOfWork.GenericRepository<GoogleConfig>().GetById(id);
 
         var result = GoogleConfigResponse.FromEntity(entity);
 

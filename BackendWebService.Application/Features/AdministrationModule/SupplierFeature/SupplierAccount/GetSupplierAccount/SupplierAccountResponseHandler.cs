@@ -3,7 +3,7 @@ using Application.Contracts.Persistence;
 using Application.Wrappers;
 
 namespace Application.Features;
-internal class SupplierAccountResponseHandler : ResponseHandler, IRequestHandler<SupplierAccountRequest, SupplierAccountResponse>
+public class SupplierAccountResponseHandler : ResponseHandler, IRequestByIdHandler<SupplierAccountResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -12,9 +12,9 @@ internal class SupplierAccountResponseHandler : ResponseHandler, IRequestHandler
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<SupplierAccountResponse> Handle(SupplierAccountRequest request)
+    public IResponse<SupplierAccountResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<SupplierAccount>().Get();
+        var entity = _unitOfWork.GenericRepository<SupplierAccount>().GetById(id);
 
         var result = SupplierAccountResponse.FromEntity(entity);
 

@@ -7,7 +7,7 @@ using Domain;
 using Domain.Enums;
 
 namespace Application.Features;
-internal class DeleteMicrosoftConfigRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteMicrosoftConfigRequest, string>
+public class DeleteMicrosoftConfigRequestHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandlerAsync<DeleteMicrosoftConfigRequest, string>
 {
     public async Task<IResponse<string>> HandleAsync(DeleteMicrosoftConfigRequest request)
     {

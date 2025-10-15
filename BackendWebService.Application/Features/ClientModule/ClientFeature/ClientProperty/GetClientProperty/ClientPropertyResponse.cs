@@ -17,7 +17,7 @@ string? Country,
 bool IsActive,
 DateTime CreatedAt,
 DateTime? UpdatedAt,
-DateTime? DeletedAt) : IConvertibleFromEntity<ClientProperty, ClientPropertyResponse>, IRequest<int>
+DateTime? DeletedAt) : IConvertibleFromEntity<ClientProperty, ClientPropertyResponse>
 {
     public static ClientPropertyResponse FromEntity(ClientProperty ClientProperty) =>
     new ClientPropertyResponse(

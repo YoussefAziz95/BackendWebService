@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class CategoryAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<CategoryAllRequest, List<CategoryAllResponse>>
+public class CategoryAllResponseHandler(IUnitOfWork unitOfWork) : ResponseHandler, IRequestHandler<CategoryAllRequest, List<CategoryAllResponse>>
 {
     public IResponse<List<CategoryAllResponse>> Handle(CategoryAllRequest request)
     {

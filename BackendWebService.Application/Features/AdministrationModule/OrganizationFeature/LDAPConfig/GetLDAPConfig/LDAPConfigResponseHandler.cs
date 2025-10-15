@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class LDAPConfigResponseHandler : ResponseHandler, IRequestHandler<LDAPConfigRequest, LDAPConfigResponse>
+public class LDAPConfigResponseHandler : ResponseHandler, IRequestByIdHandler<LDAPConfigResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -13,9 +13,9 @@ internal class LDAPConfigResponseHandler : ResponseHandler, IRequestHandler<LDAP
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<LDAPConfigResponse> Handle(LDAPConfigRequest request)
+    public IResponse<LDAPConfigResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<LDAPConfig>().Get();
+        var entity = _unitOfWork.GenericRepository<LDAPConfig>().GetById(id);
 
         var result = LDAPConfigResponse.FromEntity(entity);
 

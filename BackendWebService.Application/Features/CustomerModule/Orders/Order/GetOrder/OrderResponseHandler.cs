@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class OrderResponseHandler : ResponseHandler, IRequestHandler<OrderRequest, OrderResponse>
+public class OrderResponseHandler : ResponseHandler, IRequestByIdHandler<OrderResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -13,9 +13,9 @@ internal class OrderResponseHandler : ResponseHandler, IRequestHandler<OrderRequ
         _unitOfWork = unitOfWork;
     }
 
-    public IResponse<OrderResponse> Handle(OrderRequest request)
+    public IResponse<OrderResponse> Handle(int id)
     {
-        var entity = _unitOfWork.GenericRepository<Order>().Get();
+        var entity = _unitOfWork.GenericRepository<Order>().GetById(id);
 
         var result = OrderResponse.FromEntity(entity);
 

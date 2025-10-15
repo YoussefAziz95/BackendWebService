@@ -1,4 +1,5 @@
-﻿using Application.Profiles;
+﻿using Application.Contracts.Features;
+using Application.Profiles;
 
 namespace Application.Features;
 public record CaseResponse(
@@ -10,7 +11,7 @@ int? CompanySupplierId,
 ConsumerAccountResponse? CompanySupplier,
 int? UserId,
 UserResponse? User,
-List<CaseActionResponse> CaseActions) : IConvertibleFromEntity<Case, CaseResponse>
+List<CaseActionResponse> CaseActions) : IConvertibleFromEntity<Case, CaseResponse>, IRequest<int>
 {
     public static CaseResponse FromEntity(Case Case) =>
     new CaseResponse(

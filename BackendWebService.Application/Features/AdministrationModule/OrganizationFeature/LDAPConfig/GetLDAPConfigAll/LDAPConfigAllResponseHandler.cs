@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class LDAPConfigAllResponseHandler : ResponseHandler, IRequestHandler<LDAPConfigAllRequest, List<LDAPConfigAllResponse>>
+public class LDAPConfigAllResponseHandler : ResponseHandler, IRequestHandler<LDAPConfigAllRequest, List<LDAPConfigAllResponse>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
