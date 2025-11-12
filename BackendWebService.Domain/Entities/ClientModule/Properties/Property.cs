@@ -13,7 +13,7 @@ public class Property : BaseEntity, IEntity, ITimeModification
     public virtual User User { get; set; }
 
     [Required, MaxLength(100)]
-    public string Name => string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     [MaxLength(100)]
     public string? ContactName { get; set; }
