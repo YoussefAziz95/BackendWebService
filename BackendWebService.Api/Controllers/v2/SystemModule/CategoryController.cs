@@ -97,4 +97,11 @@ public class CategoryController(IMediator mediator, IUnitOfWork unitOfWork) : Ap
         };
         return NewResult(result);
     }
+
+    [HttpPost("delete-category")]
+    public async Task<IActionResult> DeleteCategory([FromBody] DeleteCategoryRequest request)
+    {
+        var response = await mediator.HandleAsync(request);
+        return NewResult(response);
+    }
 }
