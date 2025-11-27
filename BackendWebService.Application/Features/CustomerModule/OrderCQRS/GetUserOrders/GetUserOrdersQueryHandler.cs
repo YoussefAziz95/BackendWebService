@@ -4,7 +4,7 @@ using Application.Wrappers;
 using Domain;
 
 namespace Application.Features;
-internal class GetUserOrdersQueryHandler : ResponseHandler, IRequestHandler<GetUserOrdersQuery, List<GetUserOrdersQueryResult>>
+public class GetUserOrdersQueryHandler : ResponseHandler, IRequestHandler<GetUserOrdersQuery, List<GetUserOrdersQueryResult>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -15,12 +15,12 @@ internal class GetUserOrdersQueryHandler : ResponseHandler, IRequestHandler<GetU
 
     public IResponse<List<GetUserOrdersQueryResult>> Handle(GetUserOrdersQuery request)
     {
-        var orders = _unitOfWork.GenericRepository<Order>().GetAll(o => o.UserId == request.UserId);
+        var entity = _unitOfWork.GenericRepository<Order>().GetAll(o => o.UserId == request.UserId);
 
-        if (!orders.Any())
+        if (entity.Any())
             return NotFound<List<GetUserOrdersQueryResult>>("You Don't Have Any Orders");
 
-        var result = orders.Select(c => new GetUserOrdersQueryResult(c.Id, c.OrderName));
+        var result = entity.Select(c => new GetUserOrdersQueryResult(c.Id, c.OrderName));
 
         return Success(result.ToList());
     }

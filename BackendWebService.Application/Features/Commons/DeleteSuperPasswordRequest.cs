@@ -1,1 +1,2 @@
-﻿namespace Application.Features; public record DeleteSuperPasswordRequest(string SuperPassword);
+﻿namespace Application.Features; 
+public record DeleteSuperPasswordRequest(string SuperPassword);

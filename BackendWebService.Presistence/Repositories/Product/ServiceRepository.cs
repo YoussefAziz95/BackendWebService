@@ -16,7 +16,7 @@ namespace Persistence.Repositories.Product
             return material is null ? "" : material.Name;
         }
 
-        public async Task<int> UpdateService(Service updatedEntity)
+        public int UpdateService(Service updatedEntity)
         {
             var result = -1;
             using (var transaction = _context.Database.BeginTransaction())

@@ -109,21 +109,28 @@ namespace Persistence.Repositories.Organizations
             var query = from cv in _context.SupplierAccounts where cv.SupplierId == supplierId select cv.Id;
             return query.Any();
         }
-        public IQueryable<SupplierDocumentsResponse> GetPaginated(int supplierId)
+        public IQueryable<SupplierDocumentResponse> GetPaginated(int supplierId)
         {
-            var query = from v in _context.Suppliers
-                        join cv in _context.SupplierAccounts on v.Id equals cv.SupplierId
-                        join c in _context.Companies on cv.CompanyId equals c.Id
-                        join p in _context.PreDocuments on c.OrganizationId equals p.OrganizationId
-                        join vd in _context.SupplierDocuments
-                            on new { PreDocumentId = p.Id, SupplierAccountId = cv.Id }
-                            equals new { vd.PreDocumentId, vd.SupplierAccountId } into vds
-                        from vd in vds.DefaultIfEmpty()
-                        where v.Id == supplierId
-                        select new SupplierDocumentsResponse(vd.Id, p.Name, vd.IsApproved, vd.FileId, p.Id);
 
-            var s = query.ToList();
-            return query;
+            throw new NotImplementedException();
+            //var query = from v in _context.Suppliers
+            //            join cv in _context.SupplierAccounts on v.Id equals cv.SupplierId
+            //            join c in _context.Companies on cv.CompanyId equals c.Id
+            //            join p in _context.PreDocuments on c.OrganizationId equals p.OrganizationId
+            //            join vd in _context.SupplierDocuments
+            //                on new { PreDocumentId = p.Id, SupplierAccountId = cv.Id }
+            //                equals new { vd.PreDocumentId, vd.SupplierAccountId } into vds
+            //            from vd in vds.DefaultIfEmpty()
+            //            where v.Id == supplierId
+            //            select new SupplierDocumentResponse(vd.Id, p.Name, vd.IsApproved, vd.FileId, p.Id);
+
+            //var s = query.ToList();
+            //return query;
+        }
+
+        IQueryable<SupplierDocumentAllResponse> ISupplierDocumentRepository.GetPaginated(int CompanyId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

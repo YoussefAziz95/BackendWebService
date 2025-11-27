@@ -2,7 +2,7 @@
 
 public interface INotificationRepository
 {
-    Task<int> AddAsync(Notification fullEntity);
+    int AddAsync(Notification fullEntity);
 
     int AddDetailsAsync(string username, int notificationId);
 }

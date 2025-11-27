@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.Persistence;
+using Application.Features;
 using Application.Model.Jwt;
 using Application.Models.Jwt;
 using Contracts.Services;
@@ -63,9 +64,9 @@ public class JwtService : IJwtService
 
         var token = new UserRefreshToken { IsValid = true, UserId = user.Id };
         await _unitOfWork.GenericRepository<UserRefreshToken>().AddAsync(token);
-        var refreshToken = await _unitOfWork.SaveAsync();
-
-        return new AccessToken(securityToken, refreshToken.ToString());
+        await _unitOfWork.CommitAsync();
+        var result = await _unitOfWork.SaveAsync();
+        return new AccessToken(securityToken, token.Id.ToString());
     }
 
     public Task<ClaimsPrincipal> GetPrincipalFromExpiredToken(string token)
@@ -97,7 +98,7 @@ public class JwtService : IJwtService
         return result;
     }
 
-    public async Task<AccessToken> RefreshToken(int refreshTokenId)
+    public async Task<AccessToken> RefreshToken(Guid refreshTokenId)
     {
         var refreshToken = await _userRefreshTokenRepository.GetTokenWithInvalidation(refreshTokenId);
 
@@ -121,14 +122,55 @@ public class JwtService : IJwtService
     private async Task<IEnumerable<Claim>> _getClaimsAsync(User user)
     {
         var result = await _claimsPrincipal.CreateAsync(user);
-        return result.Claims;
+        var claims = result.Claims.ToList();
+        
+        // Add JWT-specific claims that tests expect
+        claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()));
+        claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+        claims.Add(new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64));
+        
+        // Add OrganizationId claim if user has an organization
+        if (user.OrganizationId.HasValue)
+        {
+            claims.Add(new Claim("OrganizationId", user.OrganizationId.Value.ToString()));
+        }
+        
+        return claims;
     }
     public async Task<AccessToken> RefreshTokenAsync(string token)
     {
         // Try parsing refreshToken ID (assuming it's an int like in your original implementation)
-        if (!int.TryParse(token, out var refreshTokenId))
+        if (!Guid.TryParse(token, out var refreshTokenId))
             return null;
 
         return await RefreshToken(refreshTokenId);
     }
+    /// <summary>
+    /// Retrieves the pages accessible to a user.
+    /// </summary>
+    /// <param name="id">The ID of the user.</param>
+    /// <returns>A response containing the pages accessible to the user.</returns>
+    public IEnumerable<UserPagesResponse> GetUserPages(int id)
+    {
+        // Get all roles with their claims for the user
+        var userRoles = _unitOfWork.GenericRepository<UserRole>()
+            .GetAll(ur => ur.UserId == id, include: ur => ur.Include(ur => ur.Role).ThenInclude(r => r.Claims))
+            .First();
+
+
+        var claims = userRoles.Role.Claims
+            .Select(parts => new UserPagesResponse
+            (
+                parts.Id,
+                parts.ClaimType?.Split('.')[0],
+                parts.ClaimType?.Split('.')[1],
+                parts.ClaimType?.Split('.')[2],
+                parts.ClaimType?.Split('.')[3],
+                parts.ClaimType
+            ))
+            .ToList();
+
+        return claims;
+    }
+
 }

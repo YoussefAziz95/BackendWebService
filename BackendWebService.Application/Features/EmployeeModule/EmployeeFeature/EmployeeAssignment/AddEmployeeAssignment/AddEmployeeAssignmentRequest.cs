@@ -1,0 +1,24 @@
+﻿using Application.Contracts.Features;
+using Application.Profiles;
+using Domain.Enums;
+
+namespace Application.Features;
+
+public record AddEmployeeAssignmentRequest(
+int EmployeeId,
+int JobId,
+DateTime AssignedDate,
+StatusEnum Status,
+DateTime? EmployeeResponseDate,
+string? AdminNotes) : IConvertibleToEntity<EmployeeAssignment>, IRequest<int>
+{
+    public EmployeeAssignment ToEntity() => new EmployeeAssignment
+    {
+        EmployeeId = EmployeeId,
+        JobId = JobId,
+        AssignedDate = AssignedDate,
+        Status = Status,
+        EmployeeResponseDate = EmployeeResponseDate,
+        AdminNotes = AdminNotes
+    };
+}

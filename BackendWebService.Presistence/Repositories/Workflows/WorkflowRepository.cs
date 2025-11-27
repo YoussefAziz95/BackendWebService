@@ -6,7 +6,6 @@ using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Persistence.Repositories.Common;
-using Persistence.Repositories.WorkflowReviewRepositories;
 
 namespace Persistence.Repositories.Workflows
 {
@@ -23,7 +22,7 @@ namespace Persistence.Repositories.Workflows
 
         }
 
-        public async Task<int> AddWorkflowAsync(Workflow workflow, ActionObject actionObject, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors)
+        public int AddWorkflowAsync(Workflow workflow, ActionObject actionObject, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors)
         {
             var result = -1;
             using (var transaction = _context.Database.BeginTransaction())
@@ -84,7 +83,7 @@ namespace Persistence.Repositories.Workflows
             return workflow.Id;
         }
 
-        public async Task<int> UpdateWorkflow(Workflow updatedWorkflow, ActionObject updatedWorkflowReview, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors)
+        public int UpdateWorkflow(Workflow updatedWorkflow, ActionObject updatedWorkflowReview, List<ActionObject> workflowActorObjects, List<Actor> workflowCycleActors)
         {
             var result = -1;
             using (var transaction = _context.Database.BeginTransaction())
@@ -165,30 +164,32 @@ namespace Persistence.Repositories.Workflows
             return updatedWorkflow.Id;
         }
 
-        public List<WorkflowAllResponse> GetPaginated(GetPaginatedRequest request)
+        public List<WorkflowAllResponse> GetPaginated(WorkflowAllRequest request)
         {
             var workflowResponses = new List<WorkflowAllResponse>();
-            var workflows = _context.Set<Workflow>()
-                .Select(w => new { w.Id, w.Name, w.Description });
-            foreach (var workflow in workflows)
-            {
 
-                var actionObject = _context.Set<ActionObject>().First(r => r.ActionId == workflow.Id && r.ActionType == WORKFLOW);
-                _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory<Case, WorkflowCycle>(_context, actionObject.ObjectType);
+            throw new NotImplementedException();
+            //var workflows = _context.Set<Workflow>()
+            //    .Select(w => new { w.Id, w.Name, w.Description });
+            //foreach (var workflow in workflows)
+            //{
 
-                var workflowResponse = new WorkflowAllResponse(
-                    Id: workflow.Id,
-                    Name: workflow.Name,
-                    Description: workflow.Name,
-                    WorkflowType: actionObject.ObjectType,
-                    ObjectType: _actionObjectRepositoryFactory.GetObjectType(actionObject.ObjectId)
+            //    var actionObject = _context.Set<ActionObject>().First(r => r.ActionId == workflow.Id && r.ActionType == WORKFLOW);
+            //    _actionObjectRepositoryFactory = new WorkflowReviewRepositoryFactory<Case, WorkflowCycle>(_context, actionObject.ObjectType);
 
-                );
-                workflowResponses.Add(workflowResponse);
+            //    var workflowResponse = new WorkflowAllResponse(
+            //        Id: workflow.Id,
+            //        Name: workflow.Name,
+            //        Description: workflow.Name,
+            //        WorkflowType: actionObject.ObjectType,
+            //        ObjectType: _actionObjectRepositoryFactory.GetObjectType(actionObject.ObjectId)
 
-            }
+            //    );
+            //    workflowResponses.Add(workflowResponse);
 
-            return workflowResponses;
+            //}
+
+            //return workflowResponses;
         }
 
         public Workflow GetById(int id)
@@ -205,30 +206,33 @@ namespace Persistence.Repositories.Workflows
             var workflow = Get(w => w.Id == id, include: wc => wc.Include(c => c.WorkflowCycles ?? new List<WorkflowCycle>()));
 
             var actionObject = _context.Set<ActionObject>().First(r => r.ActionId == workflow.Id && r.ActionType == WORKFLOW);
-            var workflowResponse = new WorkflowResponse(
-                Id: workflow.Id,
-                Name: workflow.Name,
-                Description: workflow.Description,
-                UserId: workflow.UserId,
-                CompanyId: workflow.CompanyId,
-                ObjectType: actionObject.ObjectType,
-                ObjectId: actionObject.ObjectId,
-                WorkflowCycles: workflow.WorkflowCycles.Select(c => new WorkflowCycleResponse(
-                    Id: c.Id,
-                    Mandatory: c.Mandatory,
-                    WorkflowId: c.WorkflowId,
-                    ActionOrder: c.ActionOrder,
-                    ObjectType: _context.Set<ActionObject>().First(r => r.ActionId == c.Id && r.ActionType == WORKFLOW_CYCLE).ObjectType,
-                    ObjectId: _context.Set<ActionObject>().First(r => r.ActionId == c.Id && r.ActionType == WORKFLOW_CYCLE).ObjectId,
-                    ActorType: _context.Set<Actor>().First(a => a.OwnerId == c.Id && a.OwnerType == WORKFLOW_CYCLE).ActorType,
-                    ActorId: _context.Set<Actor>().First(a => a.OwnerId == c.Id && a.OwnerType == WORKFLOW_CYCLE).ActorId,
-                    ActionType: c.ActionType
-                )).ToList()
 
-            );
+            throw new NotImplementedException();
+            //var workflowResponse = new WorkflowResponse(
+            //    Id: workflow.Id,
+            //    Name: workflow.Name,
+            //    Description: workflow.Description,
+            //    UserId: workflow.UserId,
+            //    CompanyId: workflow.CompanyId,
+            //    ObjectType: actionObject.ObjectType,
+            //    ObjectId: actionObject.ObjectId,
+            //    WorkflowCycles: workflow.WorkflowCycles.Select(c => new WorkflowCycleResponse(
+            //        Id: c.Id,
+            //        Mandatory: c.Mandatory,
+            //        WorkflowId: c.WorkflowId,
+            //        ActionOrder: c.ActionOrder,
+            //        ObjectType: _context.Set<ActionObject>().First(r => r.ActionId == c.Id && r.ActionType == WORKFLOW_CYCLE).ObjectType,
+            //        ObjectId: _context.Set<ActionObject>().First(r => r.ActionId == c.Id && r.ActionType == WORKFLOW_CYCLE).ObjectId,
+            //        ActorType: _context.Set<Actor>().First(a => a.OwnerId == c.Id && a.OwnerType == WORKFLOW_CYCLE).ActorType,
+            //        ActorId: _context.Set<Actor>().First(a => a.OwnerId == c.Id && a.OwnerType == WORKFLOW_CYCLE).ActorId,
+            //        ActionType: c.ActionType
+            //    )).ToList()
 
-            return workflowResponse;
+            //);
+
+            //return workflowResponse;
         }
+
 
     }
 }

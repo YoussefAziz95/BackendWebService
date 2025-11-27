@@ -5,8 +5,8 @@ using Application.Middleware;
 using Application.Model.Jwt;
 using Application.ServiceConfiguration;
 using CrossCuttingConcerns;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using nfrastructure.Persistence.ServiceConfiguration;
 using Persistence.Data;
@@ -29,31 +29,29 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(option =>
+builder.Services.AddSwaggerGen(options =>
 {
-    try
-    {
-        option.SwaggerDoc("v1", new OpenApiInfo { Title = "Rest App", Version = "v1" });
-        option.AddSecurityDefinition("token", new OpenApiSecurityScheme
-        {
-            Type = SecuritySchemeType.Http,
-            In = ParameterLocation.Header,
-            Name = HeaderNames.Authorization,
-            Scheme = "Bearer"
-        });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Rest App API", Version = "v1" });
+    options.SwaggerDoc("v2", new OpenApiInfo { Title = "Rest App API", Version = "v2" });
 
-        option.OperationFilter<SecureEndpointAuthRequirementFilter>();
-    }
-    catch (Exception ex)
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Console.WriteLine($"Swagger setup error: {ex.Message}");
-    }
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization header using the Bearer scheme."
+    });
 
+    options.OperationFilter<SecureEndpointAuthRequirementFilter>();
 });
 
 builder.Services.AddApplicationServices()
                 .AddPersistenceServices(configuration)
-                .AddCrossCuttingConcernsServices();
+                .AddCrossCuttingConcernsServices()
+                .ConfigureGrpcPluginServices()
+                .ConfigureCQRS();
 builder.Services.AddSignalR();
 
 builder.Services.AddCors(options =>
@@ -90,11 +88,14 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-// Apply migrations at startup
-using (var scope = app.Services.CreateScope())
+// Apply migrations at startup (skip for test environment)
+if (!app.Environment.IsEnvironment("Test"))
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    dbContext.Database.Migrate(); // Applies pending migrations
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        dbContext.Database.Migrate(); // Applies pending migrations
+    }
 }
 
 app.UseStaticFiles();
@@ -117,10 +118,19 @@ using (var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
+    app.UseSwaggerUI(options =>
     {
-        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None); // Collapse everything
+        foreach (var description in provider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint(
+                $"/swagger/{description.GroupName}/swagger.json",
+                description.GroupName.ToUpperInvariant());
+        }
+
+        options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
     });
 }
 
@@ -157,3 +167,6 @@ app.MapControllers();
 
 
 app.Run();
+
+// Make Program class accessible for testing
+public partial class Program { }

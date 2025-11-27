@@ -4,5 +4,5 @@ namespace Application.Contracts.Infrastructures;
 
 public interface IEmailService
 {
-    Task<int> Send(EmailDto emailDto);
+    int Send(EmailDto emailDto);
 }

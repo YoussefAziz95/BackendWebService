@@ -26,7 +26,7 @@ public class NotificationService : ResponseHandler, INotificationService
     {
         var notification = _mapper.Map<AddNotificationRequest, Notification>(request);
 
-        var result = await _notificationRepository.AddAsync(notification);
+        var result = _notificationRepository.AddAsync(notification);
 
         string[] userNames = [];
         if (request.NotifiedType == "Customer")

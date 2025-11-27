@@ -1,14 +1,12 @@
 ﻿using Application.Contracts.AppManager;
 using Application.Contracts.Persistence;
 using Application.Features;
-using Dapper;
 using Domain;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Data;
 namespace Application.AppManager;
 
 public class AppUserManager : UserManager<User>, IAppUserManager
@@ -26,7 +24,7 @@ public class AppUserManager : UserManager<User>, IAppUserManager
         _sp_call = sP_Call;
     }
 
-    public Task<IdentityResult> CreateAsync(CreateUserWithPasswordRequest request)
+    public Task<IdentityResult> CreateAsync(SignUpRequest request)
     {
         var user = new User
         {
@@ -53,13 +51,8 @@ public class AppUserManager : UserManager<User>, IAppUserManager
         user.PhoneNumberConfirmed = true;
         return await UpdateAsync(user);
     }
-    public async Task<IEnumerable<UserPagesResponse>> GetUserPages(int id)
-    {
-        var dbParams = new DynamicParameters();
-        dbParams.Add("@UserId ", id, DbType.Int32);
-        var responses = _sp_call.List<UserPagesResponse>("dbo.sp_GetUserPages", dbParams);
-        return responses.AsEnumerable();
-    }
+
+
 
 
 }

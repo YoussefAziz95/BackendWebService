@@ -1,7 +1,6 @@
 ﻿using Application.Contracts.Persistence;
 using Application.Features;
 using Domain;
-using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 
@@ -78,28 +77,30 @@ namespace Persistence.Repositories.Organizations
 
         public CompanyResponse GetResponse(int id)
         {
-            var companyResponse = from c in _context.Companies
-                                  join o in _context.Organizations on c.OrganizationId equals o.Id
-                                  select new CompanyResponse(
-                                            c.Id,
-                                            c.Organization.Name,
-                                            c.Organization.Country,
-                                            c.Organization.City,
-                                            c.Organization.StreetAddress,
-                                            c.Organization.Email,
-                                            c.Organization.TaxNo,
-                                            c.Organization.Phone,
-                                            c.Organization.FileId!,
-                                            null,
-                                            c.Organization.FaxNo,
-                                            Enum.GetName(typeof(RoleEnum),
-                                            c.Organization.Type) ?? "Unknown",
-                                            c.IsActive ?? false,
-                                            c.CreatedDate ?? DateTime.UnixEpoch,
-                                            c.UpdatedDate,
-                                            c.Organization.Addresses.Select(a => new AddressResponse(a.Id, a.IsAdministration, a.FullAddress, a.Street, a.Zone, a.Street, a.City)).ToList(),
-                                            c.Organization.Contacts.Select(c => new ContactResponse(c.Id, c.Type, c.Value)).ToList());
-            return companyResponse.FirstOrDefault();
+
+            throw new NotImplementedException();
+            //var companyResponse = from c in _context.Companies
+            //                      join o in _context.Organizations on c.OrganizationId equals o.Id
+            //                      select new CompanyResponse(
+            //                                c.Id,
+            //                                c.Organization.Name,
+            //                                c.Organization.Country,
+            //                                c.Organization.City,
+            //                                c.Organization.StreetAddress,
+            //                                c.Organization.Email,
+            //                                c.Organization.TaxNo,
+            //                                c.Organization.Phone,
+            //                                c.Organization.FileId!,
+            //                                null,
+            //                                c.Organization.FaxNo,
+            //                                Enum.GetName(typeof(RoleEnum),
+            //                                c.Organization.Type) ?? "Unknown",
+            //                                c.IsActive ?? false,
+            //                                c.CreatedDate ?? DateTime.UnixEpoch,
+            //                                c.UpdatedDate,
+            //                                c.Organization.Addresses.Select(a => new AddressResponse(a.Id, a.IsAdministration, a.FullAddress, a.Street, a.Zone, a.Street, a.City)).ToList(),
+            //                                c.Organization.Contacts.Select(c => new ContactResponse(c.Id, c.Type, c.Value)).ToList());
+            //return companyResponse.FirstOrDefault();
         }
 
         public int Update(Company entity)

@@ -19,7 +19,7 @@ namespace Application.Implementations.Common
             _userInfo = IClientRepository._userInfo;
         }
 
-        public async Task<IResponse<DropDownResponse>> GetDropdownOptions(string tableName, string[] columnNames)
+        public IResponse<DropDownResponse> GetDropdownOptions(string tableName, string[] columnNames)
         {
             try
             {

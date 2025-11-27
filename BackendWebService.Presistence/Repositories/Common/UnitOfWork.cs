@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.Persistence;
-using Application.Model.Notifications;
 using Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -23,25 +22,9 @@ namespace Persistence.Repositories.Common
         /// </summary>
         /// <param name="context">The application database context.</param>
         /// <param name="httpContextAccessor">The HTTP context accessor.</param>
-        public UnitOfWork(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+        public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
-            _httpContextAccessor = httpContextAccessor;
-            if (httpContextAccessor is not null)
-            {
-                if (httpContextAccessor?.HttpContext?.User.Claims.Count() > 0)
-                    if (httpContextAccessor.HttpContext?.User?.Claims.Any(c => c.Type == "name") ?? false)
-                    {
-                        var username = _httpContextAccessor.HttpContext?.User?.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
-                        var user = _context.Users.FirstOrDefault(u => u.UserName == username);
-
-                        _context.userInfo.UserId = user.Id;
-                        _context.userInfo.OrganizationId = user.OrganizationId ?? 0;
-                        _context.userInfo.RoleParentId = (int)user.MainRole;
-
-                        Access = AccessEnum.Private;
-                    }
-            }
 
         }
         /// <summary>
@@ -135,9 +118,5 @@ namespace Persistence.Repositories.Common
             }
         }
 
-        public UserInfo GetUserInfo()
-        {
-            return _context.userInfo;
-        }
     }
 }

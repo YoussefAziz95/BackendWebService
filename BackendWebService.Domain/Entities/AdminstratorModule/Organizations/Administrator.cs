@@ -9,7 +9,7 @@ public class Administrator : BaseEntity, IEntity, ITimeModification
     public required int UserId { get; set; }
 
     [ForeignKey(nameof(UserId))]
-    public required User User { get; set; }
+    public virtual User? User { get; set; }
 
     public RoleEnum MainRole => RoleEnum.SuperAdmin;
 

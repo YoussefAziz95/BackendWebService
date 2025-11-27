@@ -1,2 +1,0 @@
-﻿namespace Application.Features;
-public record CaseActionResponse(int Id, int CaseId, int AssignedOn, DateTime AssignedAt, DateTime? ActionAt, string Status, string? Comment, int? DelegateId, bool IsActive, DateTime CreatedDate, DateTime? UpdateDate);

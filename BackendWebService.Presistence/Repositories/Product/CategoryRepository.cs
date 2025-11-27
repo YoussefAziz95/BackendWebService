@@ -11,13 +11,15 @@ namespace Persistence.Repositories.Product
         public CategoryRepository(ApplicationDbContext context) : base(context) { }
         public List<CategoryResponse> GetAll(int CompanyId)
         {
-            var query = from c in _context.Categories
-                        join cf in _context.FileLogs on c.FileId equals cf.Id
-                        where c.OrganizationId == _context.userInfo.OrganizationId
-                        select new CategoryResponse(c.Id, c.Name, c.ParentId, null,
-                                c.IsActive);
 
-            return query.Any() ? query.ToList() : null;
+            throw new NotImplementedException();
+            //var query = from c in _context.Categories
+            //            join cf in _context.FileLogs on c.FileId equals cf.Id
+            //            where c.OrganizationId == _context.userInfo.OrganizationId
+            //            select new CategoryResponse(c.Id, c.Name, c.ParentId, null,
+            //                    c.IsActive);
+
+            //return query.Any() ? query.ToList() : null;
         }
 
         public string GetObjectType(int id)
@@ -26,7 +28,7 @@ namespace Persistence.Repositories.Product
             return category is null ? "" : category.Name;
         }
 
-        public async Task<int> UpdateCategory(Category updatedEntity)
+        public int UpdateCategory(Category updatedEntity)
         {
             var result = -1;
             using (var transaction = _context.Database.BeginTransaction())

@@ -2,7 +2,7 @@
 
 namespace Application.Contracts.Features;
 
-public interface IResponse<T>
+public interface IResponse<TResponse>
 {
     ApiResultStatusCode StatusCode { get; set; }
 
@@ -12,6 +12,6 @@ public interface IResponse<T>
 
     List<string>? Errors { get; set; }
 
-    T? Data { get; set; }
+    TResponse? Data { get; set; }
 
 }

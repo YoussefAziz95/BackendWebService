@@ -20,14 +20,14 @@ internal class UserRefreshTokenRepository : IUserRefreshTokenRepository
         return token.Id;
     }
 
-    public async Task<UserRefreshToken> GetTokenWithInvalidation(int id)
+    public async Task<UserRefreshToken> GetTokenWithInvalidation(Guid id)
     {
         var token = await _context.UserRefreshTokens.Where(t => t.IsValid && t.Id.Equals(id)).FirstOrDefaultAsync();
 
         return token;
     }
 
-    public async Task<User> GetUserByRefreshToken(int tokenId)
+    public async Task<User> GetUserByRefreshToken(Guid tokenId)
     {
         var userId = await _context.UserRefreshTokens.AsNoTracking().Where(c => c.Id.Equals(tokenId))
             .Select(c => c.UserId).FirstOrDefaultAsync();

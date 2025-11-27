@@ -125,21 +125,22 @@ namespace Persistence.Repositories.Organizations
             throw new NotImplementedException();
         }
 
-        public List<GetPaginatedSupplier> GetPaginated()
+        public List<SupplierAllResponse> GetPaginated()
         {
 
-            //var company = _context.Companies.Where(c => c.Id == CompanyId).First();
-            //if (company is null)
-            //    return new List<GetPaginatedSupplier>();
+            throw new NotImplementedException();
+            ////var company = _context.Companies.Where(c => c.Id == CompanyId).First();
+            ////if (company is null)
+            ////    return new List<GetPaginatedSupplier>();
 
-            var result = from v in _context.Suppliers
-                         join cv in _context.SupplierAccounts on v.Id equals cv.SupplierId into cvs
-                         from cv in cvs.DefaultIfEmpty()
-                         join o in _context.Organizations on v.OrganizationId equals o.Id
-                         //where cv.CompanyId == company.Id || cv.CompanyId == null
-                         select new GetPaginatedSupplier(v.Id, cv.Id, o.Name, o.Country, o.City, o.StreetAddress, o.Email, o.TaxNo);
+            //var result = from v in _context.Suppliers
+            //             join cv in _context.SupplierAccounts on v.Id equals cv.SupplierId into cvs
+            //             from cv in cvs.DefaultIfEmpty()
+            //             join o in _context.Organizations on v.OrganizationId equals o.Id
+            //             //where cv.CompanyId == company.Id || cv.CompanyId == null
+            //             select new GetPaginatedSupplier(v.Id, cv.Id, o.Name, o.Country, o.City, o.StreetAddress, o.Email, o.TaxNo);
 
-            return result?.ToList() ?? new List<GetPaginatedSupplier>();
+            //return result?.ToList() ?? new List<GetPaginatedSupplier>();
         }
 
         public int Update(Supplier entity)
@@ -199,7 +200,7 @@ namespace Persistence.Repositories.Organizations
             return supplier.Id;
         }
 
-        public List<GetPaginatedSupplier> GetRegisteredSupplier()
+        public List<SupplierAllResponse> GetRegisteredSupplier()
         {
             throw new NotImplementedException();
         }

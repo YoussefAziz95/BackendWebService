@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace CrossCuttingConcerns.ServiceConfiguration;
 
@@ -14,8 +13,8 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
-    public static async Task ApplyMigrationsAsync(this WebApplication app)
-    {
+    //public static async Task ApplyMigrationsAsync(this WebApplication app)
+    //{
 
-    }
+    //}
 }

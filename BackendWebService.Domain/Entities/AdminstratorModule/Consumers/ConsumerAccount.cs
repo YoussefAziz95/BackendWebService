@@ -6,16 +6,16 @@ namespace Domain;
 public class ConsumerAccount : BaseEntity, IEntity, ITimeModification
 {
     public int CompanyId { get; set; }
-    public int SupplierId { get; set; }
+    public int ConsumerId { get; set; }
 
     [ForeignKey(nameof(CompanyId))]
     public Company Company { get; set; }
 
-    [ForeignKey(nameof(SupplierId))]
-    public Consumer Supplier { get; set; }
+    [ForeignKey(nameof(ConsumerId))]
+    public Consumer Consumer { get; set; }
 
     public DateTime? ApprovedDate { get; set; }
     public bool IsApproved { get; set; }
 
-    public ICollection<SupplierDocument> SupplierDocuments { get; set; } // Assuming shared with SupplierAccount
+    public ICollection<ConsumerDocument> ConsumerDocuments { get; set; } // Assuming shared with ConsumerAccount
 }

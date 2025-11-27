@@ -7,7 +7,7 @@ public interface IPreDocumentService
     Task<IResponse<PreDocumentResponse>> GetAsync(int id);
     Task<IResponse<string>> DeleteAsync(int id);
     Task<IResponse<PreDocumentResponse>> UpdateAsync(int id, UpdatePreDocumentRequest request);
-    Task<PaginatedResponse<PreDocumentResponse>> GetPaginated(GetPaginatedRequest request);
+    Task<PaginatedResponse<PreDocumentResponse>> GetPaginated(PreDocumentAllRequest request);
     Task<IResponse<IEnumerable<PreDocumentResponse>>> GetAllAsync();
     bool CheckIdExists(int id);
 }

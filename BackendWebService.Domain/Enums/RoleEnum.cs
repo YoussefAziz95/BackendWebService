@@ -16,51 +16,60 @@ public enum RoleEnum
     [Display(Name = "Customer", Description = "عميل خارجي")]
     Customer = 4,
 
+    [Display(Name = "System", Description = "نظام أساسي")]
+    System = 5,
+
+    [Display(Name = "Inventory", Description = "إدارة المخزون")]
+    Inventory = 6,
+
+    [Display(Name = "Identity", Description = "إدارة الهوية")]
+    Identity = 7,
+
     [Display(Name = "Freelance", Description = "موظف مستقل")]
-    Freelance = 5,
+    Freelance = 8,
 
     [Display(Name = "OutsourcedEmployee", Description = "موظف خارجي")]
-    OutsourcedEmployee = 6,
+    OutsourcedEmployee = 9,
 
-    [Display(Name = "المدير العام")]
-    General,
+    [Display(Name = "General", Description = "المدير العام")]
+    General = 10,
 
-    [Display(Name = "مدير المبيعات")]
-    Sales,
+    [Display(Name = "Sales", Description = "مدير المبيعات")]
+    Sales = 11,
 
-    [Display(Name = "مدير المصنع")]
-    Factory,
+    [Display(Name = "Factory", Description = "مدير المصنع")]
+    Factory = 12,
 
-    [Display(Name = "المدير التنفيذي")]
-    Executive,
+    [Display(Name = "Executive", Description = "المدير التنفيذي")]
+    Executive = 13,
 
-    [Display(Name = "مدير العمليات")]
-    Operations,
+    [Display(Name = "Operations", Description = "مدير العمليات")]
+    Operations = 14,
 
-    [Display(Name = "المدير الإداري")]
-    AdminManager,
+    [Display(Name = "AdminManager", Description = "المدير الإداري")]
+    AdminManager = 15,
 
-    [Display(Name = "مدير التسويق")]
-    Marketing,
+    [Display(Name = "Marketing", Description = "مدير التسويق")]
+    Marketing = 16,
 
-    [Display(Name = "المدير المالى")]
-    Financial,
+    [Display(Name = "Financial", Description = "المدير المالى")]
+    Financial = 17,
 
-    [Display(Name = "مدير التصدير")]
-    Export,
+    [Display(Name = "Export", Description = "مدير التصدير")]
+    Export = 18,
 
-    [Display(Name = "المدير التجارى")]
-    Commercial,
+    [Display(Name = "Commercial", Description = "المدير التجارى")]
+    Commercial = 19,
 
-    [Display(Name = "مدير المهمات")]
-    Missions,
+    [Display(Name = "Missions", Description = "مدير المهمات")]
+    Missions = 20,
 
-    [Display(Name = "مدير البحوث والتطوير")]
-    RAndD,
+    [Display(Name = "RAndD", Description = "مدير البحوث والتطوير")]
+    RAndD = 21,
 
-    [Display(Name = "مدير المشتريات")]
-    Procurement,
+    [Display(Name = "Procurement", Description = "مدير المشتريات")]
+    Procurement = 22,
 
-    [Display(Name = "مدير الإنتاج")]
-    Production
+    [Display(Name = "Production", Description = "مدير الإنتاج")]
+    Production = 23
 }
